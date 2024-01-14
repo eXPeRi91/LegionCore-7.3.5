@@ -791,11 +791,9 @@ bool StartDB()
     ClearOnlineAccounts();
 
     // Insert version info into DB
-    //WorldDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", GitRevision::GetFullVersion(), _HASH);        // One-time query
-    LoginDatabase.PExecute("UPDATE version SET core_version = '%s'", GitRevision::GetFullVersion());
-    CharacterDatabase.PExecute("UPDATE version SET core_version = '%s'", GitRevision::GetFullVersion());
-    //HotfixDatabase.PExecute("UPDATE version SET core_version = '%s'", GitRevision::GetFullVersion());
-    WorldDatabase.PExecute("UPDATE version SET core_version = '%s'", GitRevision::GetFullVersion());        // One-time query
+    LoginDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", GitRevision::GetFullVersion(), GitRevision::GetHash());      // One-time query
+    CharacterDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", GitRevision::GetFullVersion(), GitRevision::GetHash());  // One-time query
+    WorldDatabase.PExecute("UPDATE version SET core_version = '%s', core_revision = '%s'", GitRevision::GetFullVersion(), GitRevision::GetHash());      // One-time query
     
     sWorld->LoadDBVersion();
 
