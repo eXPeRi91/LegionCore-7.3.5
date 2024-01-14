@@ -210,6 +210,30 @@ LFGDungeonData const* LFGMgr::GetLFGDungeon(uint32 id, uint32 team)
     return nullptr;
 }
 
+LFGDungeonData const* LFGMgr::GetLFGDungeon(uint32 mapId, Difficulty diff)
+{
+    static auto const skipDifficultyCheck = diff == DIFFICULTY_MYTHIC_DUNGEON || diff == DIFFICULTY_MYTHIC_KEYSTONE;
+
+    for (uint32 i = 0; i < sLfgDungeonsStore.GetNumRows(); i++)
+    {
+        LFGDungeonData* dungeon = LfgDungeonVStore[i];
+        if (!dungeon)
+            continue;
+
+        LFGDungeonsEntry const* dungeonEntry = dungeon->dbc;
+        if (dungeonEntry->MapID == mapId)
+        {
+            if (!skipDifficultyCheck && dungeonEntry->DifficultyID == diff)
+                return dungeon;
+            return dungeon;
+        }
+
+        ///< WTF?
+    }
+
+    return nullptr;
+}
+
 LFGDungeonData const* LFGMgr::GetLFGDungeon(uint32 mapId, Difficulty diff, uint32 team)
 {
     static auto const skipDifficultyCheck = diff == DIFFICULTY_MYTHIC_DUNGEON || diff == DIFFICULTY_MYTHIC_KEYSTONE;

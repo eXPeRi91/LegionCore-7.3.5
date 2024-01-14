@@ -456,8 +456,8 @@ void ThreatManager::doAddThreat(Unit* victim, float threat, SpellSchoolMask scho
             if (victim->IsPlayer() && !iOwner->GetThreatTarget(victim->GetGUID()))
             {
                 iOwner->AddThreatTarget(victim->GetGUID());
-                if (creature->IsPersonal())
-                    iOwner->UpdateMaxHealth();
+                /*if (creature->IsPersonal())
+                    iOwner->UpdateMaxHealth();*/
             }
         }
     }

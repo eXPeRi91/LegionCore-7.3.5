@@ -360,6 +360,20 @@ enum UnitModifierType
     MODIFIER_TYPE_END = 5
 };
 
+enum UnitModifierFlatType
+{
+    FLAT_BASE_VALUE = 0,
+    FLAT_TOTAL_VALUE = 1,
+    FLAT_MODIFIER_TYPE_FLAT_END = 2
+};
+
+enum UnitModifierPctType
+{
+    TYPE_BASE_PCT = 0,
+    TYPE_TOTAL_PCT = 1,
+    TYPE_MODIFIER_TYPE_PCT_END = 2
+};
+
 enum WeaponDamageRange
 {
     MINDAMAGE,
@@ -2460,6 +2474,20 @@ class Unit : public WorldObject
         uint32 _eventCount;
         uint32 _functionCount;
 
+        // start stat system
+        void HandleStatFlatModifier(UnitMods unitMod, UnitModifierFlatType modifierType, float amount, bool apply);
+        void ApplyStatPctModifier(UnitMods unitMod, UnitModifierPctType modifierType, float amount);
+
+        void SetStatFlatModifier(UnitMods unitMod, UnitModifierFlatType modifierType, float val);
+        void SetStatPctModifier(UnitMods unitMod, UnitModifierPctType modifierType, float val);
+
+        float GetFlatModifierValue(UnitMods unitMod, UnitModifierFlatType modifierType) const;
+        float GetPctModifierValue(UnitMods unitMod, UnitModifierPctType modifierType) const;
+
+        void UpdateUnitMod(UnitMods unitMod);
+
+        // end stat system
+
     protected:
         explicit Unit (bool isWorldObject);
         UnitAI* i_AI, *i_disabledAI;
@@ -2530,6 +2558,8 @@ class Unit : public WorldObject
         std::recursive_mutex i_proc_lock;
 
         float m_auraModifiersGroup[UNIT_MOD_END][MODIFIER_TYPE_END];
+        float m_auraFlatModifiersGroup[UNIT_MOD_END][FLAT_MODIFIER_TYPE_FLAT_END];
+        float m_auraPctModifiersGroup[UNIT_MOD_END][TYPE_MODIFIER_TYPE_PCT_END];
         float m_weaponDamage[MAX_ATTACK][2];
         bool m_canModifyStats;
 

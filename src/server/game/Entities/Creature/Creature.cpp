@@ -682,7 +682,6 @@ bool Creature::InitEntry(uint32 entry, uint32 /*team*/, const CreatureData* data
     else
         SetObjectScale(cinfo->scale);
 
-
     // checked at loading
     m_defaultMovementType = MovementGeneratorType(cinfo->MovementType);
     if (!m_respawnradius && m_defaultMovementType == RANDOM_MOTION_TYPE)
@@ -881,6 +880,8 @@ void Creature::UpdateStat()
 
     if (m_zoneScript)
         m_zoneScript->OnCreatureUpdateDifficulty(this);
+
+    sScriptMgr->Creature_SelectLevel(cInfo, this);
 }
 
 void Creature::Update(uint32 diff)
@@ -1075,12 +1076,14 @@ void Creature::Update(uint32 diff)
             if (GetMap()->Instanceable() && !isPet())
             {
                 if (GetMap()->GetSpawnMode() != GetSpawnMode())
-                    UpdateStat();
+                {
+                    //UpdateStat();
+                }
                 else if (GetMap()->IsNeedRecalc() && GetMap()->GetPlayersCountExceptGMs() > GetMap()->GetMinPlayer() && GetMap()->GetPlayersCountExceptGMs() != GetPlayerCount()) //For dynamic stats
                 {
                     m_playerCount = GetMap()->GetPlayersCountExceptGMs();
-                    UpdateMaxHealth();
-                    UpdateAttackPowerAndDamage();
+                    //UpdateMaxHealth();
+                    //UpdateAttackPowerAndDamage();
                 }
             }
 
@@ -1119,6 +1122,9 @@ void Creature::Update(uint32 diff)
                 m_respawnChallenge = GetMap()->m_respawnChallenge;
                 Respawn(true);
             }
+
+
+    sScriptMgr->OnCreatureUpdate(this, diff);
 
     m_isUpdate = false;
 }
@@ -2498,13 +2504,13 @@ void Creature::setDeathState(DeathState s)
 
         if (sWorld->getBoolConfig(CONFIG_RESPAWN_FROM_PLAYER_ENABLED))
         {
-            if (_respawnDelay <= 600 && !GetMap()->Instanceable()) // квестовые мобы и прочий шлак
+            if (_respawnDelay <= 600 && !GetMap()->Instanceable()) // quest mobs and other trash
             {
                 uint32 targetCount = GetPlayerFromArea(m_areaId);
                 if (targetCount)
                 {
                     if (targetCount >= sWorld->getIntConfig(CONFIG_RESPAWN_FROM_PLAYER_COUNT))
-                        _respawnDelay /= targetCount; // грубый рассчет, конечно, но лучше уж..
+                        _respawnDelay /= targetCount; // a rough calculation, of course, but better...
 
                     if (_respawnDelay < 10)
                         _respawnDelay = urand(10, 15);

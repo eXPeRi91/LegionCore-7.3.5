@@ -277,6 +277,11 @@ playerDamageTaken_(), npcDamageTaken_()
         m_auraModifiersGroup[i][BASE_PCT] = 1.0f;
         m_auraModifiersGroup[i][TOTAL_VALUE] = 0.0f;
         m_auraModifiersGroup[i][TOTAL_PCT] = 1.0f;
+
+        m_auraFlatModifiersGroup[i][FLAT_BASE_VALUE] = 0.0f;
+        m_auraFlatModifiersGroup[i][FLAT_TOTAL_VALUE] = 0.0f;
+        m_auraPctModifiersGroup[i][TYPE_BASE_PCT] = 1.0f;
+        m_auraPctModifiersGroup[i][TYPE_TOTAL_PCT] = 1.0f;
     }
 
     // implement 50% base damage from offhand
@@ -2052,6 +2057,9 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, float dama
 
     SpellSchoolMask damageSchoolMask = SpellSchoolMask(damageInfo->schoolMask);
 
+    // Script Hook For CalculateSpellDamageTaken -- Allow scripts to change the Damage post class mitigation calculations
+    sScriptMgr->ModifySpellDamageTaken(damageInfo->target, damageInfo->attacker, damage);
+
     if (IsDamageReducedByArmor(damageSchoolMask, spellInfo, effectMask))
         damage = CalcArmorReducedDamage(damageInfo->attacker, victim, damage, spellInfo);
 
@@ -2222,6 +2230,9 @@ void Unit::CalculateMeleeDamage(Unit* victim, uint32 damage, CalcDamageInfo* dam
     damage = MeleeDamageBonusDone(damageInfo->target, damage, damageInfo->attackType);
     damageInfo->damageBeforeHit = damage;
     damage = damageInfo->target->MeleeDamageBonusTaken(this, damage, damageInfo->attackType);
+
+    // Script Hook For CalculateMeleeDamage -- Allow scripts to change the Damage pre class mitigation calculations
+    sScriptMgr->ModifyMeleeDamage(damageInfo->target, damageInfo->attacker, damage);
 
     // Calculate armor reduction
     if (IsDamageReducedByArmor(static_cast<SpellSchoolMask>(damageInfo->damageSchoolMask)))
@@ -12521,6 +12532,9 @@ int32 Unit::HealBySpell(Unit* victim, SpellInfo const* spellInfo, uint32 addHeal
 {
     uint32 absorb = 0;
     int32 gain = 0;
+
+    sScriptMgr->ModifyHealReceived(this, victim, addHealth);
+
     // calculate heal absorb and reduce healing
     CalcHealAbsorb(victim, spellInfo, addHealth, absorb);
 
@@ -25821,6 +25835,141 @@ bool Unit::IsInDisallowedMountForm() const
             return true;
 
     return false;
+}
+
+/*#######################################
+########                         ########
+########       STAT SYSTEM       ########
+########                         ########
+#######################################*/
+
+void Unit::HandleStatFlatModifier(UnitMods unitMod, UnitModifierFlatType modifierType, float amount, bool apply)
+{
+    if (unitMod >= UNIT_MOD_END || modifierType >= FLAT_MODIFIER_TYPE_FLAT_END)
+    {
+        TC_LOG_ERROR(LOG_FILTER_UNITS, "ERROR in HandleStatFlatModifier(): non-existing UnitMods or wrong UnitModifierType!");
+        return;
+    }
+
+    if (!amount)
+        return;
+
+    switch (modifierType)
+    {
+    case BASE_VALUE:
+    case TOTAL_VALUE:
+        m_auraFlatModifiersGroup[unitMod][modifierType] += apply ? amount : -amount;
+        break;
+    default:
+        break;
+    }
+
+    UpdateUnitMod(unitMod);
+}
+
+void Unit::ApplyStatPctModifier(UnitMods unitMod, UnitModifierPctType modifierType, float pct)
+{
+    if (unitMod >= UNIT_MOD_END || modifierType >= TYPE_MODIFIER_TYPE_PCT_END)
+    {
+        TC_LOG_ERROR(LOG_FILTER_UNITS, "ERROR in ApplyStatPctModifier(): non-existing UnitMods or wrong UnitModifierType!");
+        return;
+    }
+
+    if (!pct)
+        return;
+
+    switch (modifierType)
+    {
+    case BASE_PCT:
+    case TOTAL_PCT:
+        AddPct(m_auraPctModifiersGroup[unitMod][modifierType], pct);
+        break;
+    default:
+        break;
+    }
+
+    UpdateUnitMod(unitMod);
+}
+
+void Unit::SetStatFlatModifier(UnitMods unitMod, UnitModifierFlatType modifierType, float val)
+{
+    if (m_auraFlatModifiersGroup[unitMod][modifierType] == val)
+        return;
+
+    m_auraFlatModifiersGroup[unitMod][modifierType] = val;
+    UpdateUnitMod(unitMod);
+}
+
+void Unit::SetStatPctModifier(UnitMods unitMod, UnitModifierPctType modifierType, float val)
+{
+    if (m_auraPctModifiersGroup[unitMod][modifierType] == val)
+        return;
+
+    m_auraPctModifiersGroup[unitMod][modifierType] = val;
+    UpdateUnitMod(unitMod);
+}
+
+float Unit::GetFlatModifierValue(UnitMods unitMod, UnitModifierFlatType modifierType) const
+{
+    if (unitMod >= UNIT_MOD_END || modifierType >= FLAT_MODIFIER_TYPE_FLAT_END)
+    {
+        TC_LOG_ERROR(LOG_FILTER_UNITS, "attempt to access non-existing modifier value from UnitMods!");
+        return 0.0f;
+    }
+
+    return m_auraFlatModifiersGroup[unitMod][modifierType];
+}
+
+float Unit::GetPctModifierValue(UnitMods unitMod, UnitModifierPctType modifierType) const
+{
+    if (unitMod >= UNIT_MOD_END || modifierType >= TYPE_MODIFIER_TYPE_PCT_END)
+    {
+        TC_LOG_ERROR(LOG_FILTER_UNITS, "attempt to access non-existing modifier value from UnitMods!");
+        return 0.0f;
+    }
+
+    return m_auraPctModifiersGroup[unitMod][modifierType];
+}
+
+void Unit::UpdateUnitMod(UnitMods unitMod)
+{
+    if (!CanModifyStats())
+        return;
+
+    switch (unitMod)
+    {
+    case UNIT_MOD_STAT_STRENGTH:
+    case UNIT_MOD_STAT_AGILITY:
+    case UNIT_MOD_STAT_STAMINA:
+    case UNIT_MOD_STAT_INTELLECT:      UpdateStats(GetStatByAuraGroup(unitMod));  break;
+
+    case UNIT_MOD_ARMOR:               UpdateArmor();           break;
+    case UNIT_MOD_HEALTH:              UpdateMaxHealth();       break;
+
+    case UNIT_MOD_MANA:
+    case UNIT_MOD_RAGE:
+    case UNIT_MOD_FOCUS:
+    case UNIT_MOD_ENERGY:
+    case UNIT_MOD_RUNE:
+    case UNIT_MOD_RUNIC_POWER:          UpdateMaxPower(GetPowerTypeByAuraGroup(unitMod));          break;
+
+    case UNIT_MOD_RESISTANCE_HOLY:
+    case UNIT_MOD_RESISTANCE_FIRE:
+    case UNIT_MOD_RESISTANCE_NATURE:
+    case UNIT_MOD_RESISTANCE_FROST:
+    case UNIT_MOD_RESISTANCE_SHADOW:
+    case UNIT_MOD_RESISTANCE_ARCANE:   UpdateResistances(GetSpellSchoolByAuraGroup(unitMod));      break;
+
+    case UNIT_MOD_ATTACK_POWER:        UpdateAttackPowerAndDamage();         break;
+    case UNIT_MOD_ATTACK_POWER_RANGED: UpdateAttackPowerAndDamage(true);     break;
+
+    case UNIT_MOD_DAMAGE_MAINHAND:     UpdateDamagePhysical(BASE_ATTACK);    break;
+    case UNIT_MOD_DAMAGE_OFFHAND:      UpdateDamagePhysical(OFF_ATTACK);     break;
+    case UNIT_MOD_DAMAGE_RANGED:       UpdateDamagePhysical(RANGED_ATTACK);  break;
+
+    default:
+        break;
+    }
 }
 
 void DelayCastEvent::Execute(Unit *caster)

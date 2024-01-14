@@ -1905,8 +1905,8 @@ void Creature::UpdateMaxHealth()
             mod += _GetHealthModPersonal(count) * count;
             value *= mod;
 
-            SetMaxHealth(static_cast<uint64>(value));
-            SetHealth(CalculatePct(GetMaxHealth(), percHealth));
+            //SetMaxHealth(static_cast<uint64>(value));
+            //SetHealth(CalculatePct(GetMaxHealth(), percHealth));
         }
         return;
     }

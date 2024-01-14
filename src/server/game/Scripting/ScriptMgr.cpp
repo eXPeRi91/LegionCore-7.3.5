@@ -305,12 +305,15 @@ void ScriptMgr::Unload()
     // Clear scripts for every script type.
     SCR_CLEAR(SpellScriptLoader);
     SCR_CLEAR(WorldScript);
+    SCR_CLEAR(AllMapScript);
     SCR_CLEAR(FormulaScript);
     SCR_CLEAR(WorldMapScript);
     SCR_CLEAR(InstanceMapScript);
     SCR_CLEAR(BattlegroundMapScript);
     SCR_CLEAR(ItemScript);
+    SCR_CLEAR(UnitScript);
     SCR_CLEAR(CreatureScript);
+    SCR_CLEAR(AllCreatureScript);
     SCR_CLEAR(GameObjectScript);
     SCR_CLEAR(AreaTriggerScript);
     SCR_CLEAR(SceneTriggerScript);
@@ -500,6 +503,11 @@ void ScriptMgr::OnShutdownCancel()
     FOREACH_SCRIPT(WorldScript)->OnShutdownCancel();
 }
 
+void ScriptMgr::SetInitialWorldSettings()
+{
+    FOREACH_SCRIPT(WorldScript)->SetInitialWorldSettings();
+}
+
 void ScriptMgr::OnHonorCalculation(float& honor, uint8 level, float multiplier)
 {
     FOREACH_SCRIPT(FormulaScript)->OnHonorCalculation(honor, level, multiplier);
@@ -630,6 +638,8 @@ void ScriptMgr::OnPlayerEnterMap(Map* map, Player* player)
     ASSERT(map);
     ASSERT(player);
 
+    FOREACH_SCRIPT(AllMapScript)->OnPlayerEnterAll(map, player);
+
     FOREACH_SCRIPT(PlayerScript)->OnMapChanged(player);
 
     SCR_MAP_BGN(WorldMapScript, map, itr, end, entry, IsWorldMap);
@@ -649,6 +659,8 @@ void ScriptMgr::OnPlayerLeaveMap(Map* map, Player* player)
 {
     ASSERT(map);
     ASSERT(player);
+
+    FOREACH_SCRIPT(AllMapScript)->OnPlayerLeaveAll(map, player);
 
     SCR_MAP_BGN(WorldMapScript, map, itr, end, entry, IsWorldMap);
         itr->second->OnPlayerLeave(map, player);
@@ -720,6 +732,48 @@ bool ScriptMgr::OnItemCreate(Player* player, ItemTemplate const* proto, Item* it
     GET_SCRIPT_RET(ItemScript, proto->ScriptId, tmpscript, false);
     return tmpscript->OnCreate(player, item);
 }
+
+void ScriptMgr::OnHeal(Unit* healer, Unit* receiver, uint32& gain)
+{
+    FOREACH_SCRIPT(UnitScript)->OnHeal(healer, receiver, gain);
+}
+
+void ScriptMgr::OnDamage(Unit* attacker, Unit* victim, uint32& damage)
+{
+    FOREACH_SCRIPT(UnitScript)->OnDamage(attacker, victim, damage);
+}
+
+void ScriptMgr::ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, uint32& damage)
+{
+    FOREACH_SCRIPT(UnitScript)->ModifyPeriodicDamageAurasTick(target, attacker, damage);
+}
+
+void ScriptMgr::ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage)
+{
+    FOREACH_SCRIPT(UnitScript)->ModifyMeleeDamage(target, attacker, damage);
+}
+
+void ScriptMgr::ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage)
+{
+    FOREACH_SCRIPT(UnitScript)->ModifySpellDamageTaken(target, attacker, damage);
+}
+
+void ScriptMgr::ModifyHealReceived(Unit* target, Unit* attacker, uint32& amount)
+{
+    FOREACH_SCRIPT(UnitScript)->ModifyHealReceived(target, attacker, amount);
+}
+
+void ScriptMgr::ModifyVehiclePassengerExitPos(Unit* passenger, Vehicle* vehicle, Position& pos)
+{
+    FOREACH_SCRIPT(UnitScript)->ModifyVehiclePassengerExitPos(passenger, vehicle, pos);
+    FOREACH_SCRIPT(CreatureScript)->ModifyVehiclePassengerExitPos(passenger, vehicle, pos);
+}
+
+//Called From Unit::DealDamage
+//uint32 ScriptMgr::DealDamage(Unit *AttackerUnit, Unit *pVictim, uint32 damage, DamageEffectType damagetype) {
+//    FOR_SCRIPTS_RET(UnitScript, itr, end, damage)damage = itr->second->DealDamage(AttackerUnit, pVictim, damage, damagetype);
+//    return damage;
+//}
 
 bool ScriptMgr::OnDummyEffect(Unit* caster, uint32 spellId, SpellEffIndex effIndex, Creature* target)
 {
@@ -1466,6 +1520,28 @@ void ScriptMgr::OnWorldStateDelete(uint32 variableID, uint8 type)
     FOREACH_SCRIPT(WorldStateScript)->OnDelete(variableID, type);
 }
 
+AllMapScript::AllMapScript(std::string name)
+    : ScriptObject(name)
+{
+    ScriptRegistry<AllMapScript>::AddScript(this);
+}
+
+AllCreatureScript::AllCreatureScript(std::string name)
+    : ScriptObject(name)
+{
+    ScriptRegistry<AllCreatureScript>::AddScript(this);
+}
+
+void ScriptMgr::OnCreatureUpdate(Creature* creature, uint32 diff)
+{
+    FOREACH_SCRIPT(AllCreatureScript)->OnAllCreatureUpdate(creature, diff);
+}
+
+void ScriptMgr::Creature_SelectLevel(const CreatureTemplate* cinfo, Creature* creature)
+{
+    FOREACH_SCRIPT(AllCreatureScript)->Creature_SelectLevel(cinfo, creature);
+}
+
 SpellScriptLoader::SpellScriptLoader(std::string name) : ScriptObject(name)
 {
     ScriptRegistry<SpellScriptLoader>::AddScript(this);
@@ -1535,6 +1611,11 @@ BattlegroundMapScript::BattlegroundMapScript(std::string name, uint32 mapId) : S
 ItemScript::ItemScript(std::string name) : ScriptObject(name)
 {
     ScriptRegistry<ItemScript>::AddScript(this);
+}
+
+UnitScript::UnitScript(std::string name) : ScriptObject(name)
+{
+    ScriptRegistry<UnitScript>::AddScript(this);
 }
 
 CreatureScript::CreatureScript(std::string name) : ScriptObject(name)
@@ -1675,11 +1756,14 @@ template class ScriptRegistry<CreatureScript>;
 template class ScriptRegistry<DynamicObjectScript>;
 template class ScriptRegistry<EventObjectScript>;
 template class ScriptRegistry<FormulaScript>;
+template class ScriptRegistry<AllMapScript>;
 template class ScriptRegistry<GameObjectScript>;
 template class ScriptRegistry<GroupScript>;
 template class ScriptRegistry<GuildScript>;
 template class ScriptRegistry<InstanceMapScript>;
 template class ScriptRegistry<ItemScript>;
+template class ScriptRegistry<UnitScript>;
+template class ScriptRegistry<AllCreatureScript>;
 template class ScriptRegistry<OutdoorPvPScript>;
 template class ScriptRegistry<PlayerScript>;
 template class ScriptRegistry<SceneTriggerScript>;

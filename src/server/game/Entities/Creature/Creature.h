@@ -824,6 +824,7 @@ class Creature : public Unit, public GridObject<Creature>, public MapObject
             m_PlayerDamageReq += unDamage;
         }
         void ResetPlayerDamageReq() { m_PlayerDamageReq = 0; }
+        uint32 GetPlayerDamageReq() { return m_PlayerDamageReq; }
         uint32 m_PlayerDamageReq;
 
         uint32 GetOriginalEntry() const { return m_originalEntry; }

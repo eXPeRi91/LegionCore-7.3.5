@@ -34,6 +34,7 @@
 #include "FunctionProcessor.h"
 #include "World.h"
 #include "ThreadPoolMap.hpp"
+#include "DataMap.h"
 
 #include <cds/container/feldman_hashset_hp.h>
 #include "HashFuctor.h"
@@ -646,6 +647,8 @@ class Map
         std::set<Scenario*> m_scenarios;
 
         void UpdateOutdoorPvPScript();
+
+        DataMap CustomData;
 
     private:
         void LoadMapAndVMap(int gx, int gy);

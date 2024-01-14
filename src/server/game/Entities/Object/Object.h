@@ -20,6 +20,7 @@
 #define _OBJECT_H
 
 #include "Common.h"
+#include "DataMap.h"
 #include "UpdateFields.h"
 #include "UpdateData.h"
 #include "ObjectDefines.h"
@@ -360,6 +361,8 @@ class Object
         WorldObject const* ToWorldObject() const { return reinterpret_cast<WorldObject const*>(this); }
 
         Map* m_currMap;                                    //current object's Map location
+
+        DataMap CustomData;
 
         virtual void SetMap(Map* map);
         virtual void ResetMap();
