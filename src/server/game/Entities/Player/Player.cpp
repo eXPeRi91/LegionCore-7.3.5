@@ -37704,7 +37704,7 @@ void Player::UpdateBattlePetCombatTeam()
     }
 }
 
-bool Player::AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint16 flags /*= 0*/, bool sendUpdate /*= true*/, bool sendDiliveryUpdate /*= false*/)
+bool Player::AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint16 flags /*= 0*/, bool sendUpdate /*= true*/, bool sendDeliveryUpdate /*= false*/)
 {
     if (!entry)
         return false;
@@ -37740,15 +37740,15 @@ bool Player::AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint1
         UpdateAchievementCriteria(CRITERIA_TYPE_ADD_BATTLE_PET_JOURNAL, entry->CreatureID);
     }
 
-    if (sendDiliveryUpdate)
+    if (sendDeliveryUpdate)
         SendDirectMessage(WorldPackets::BattlePay::BattlePayBattlePetDelivered(ObjectGuid::Create<HighGuid::BattlePet>(guidlow), entry->CreatureID).Write());
 
     return true;
 }
 
-bool Player::AddBattlePetByCreatureId(uint32 creatureId, bool sendUpdate /*= true*/, bool sendDiliveryUpdate /*= false*/)
+bool Player::AddBattlePetByCreatureId(uint32 creatureId, bool sendUpdate /*= true*/, bool sendDeliveryUpdate /*= false*/)
 {
-    return AddBattlePetWithSpeciesId(sDB2Manager.GetSpeciesByCreatureID(creatureId), 0, sendUpdate, sendDiliveryUpdate);
+    return AddBattlePetWithSpeciesId(sDB2Manager.GetSpeciesByCreatureID(creatureId), 0, sendUpdate, sendDeliveryUpdate);
 }
 
 bool Player::AddBattlePet(uint32 spellID, uint16 flags, bool sendUpdate /*= true*/)

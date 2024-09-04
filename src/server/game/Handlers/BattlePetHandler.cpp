@@ -755,7 +755,7 @@ void WorldSession::HandlePetBattleRequestPVP(WorldPackets::BattlePet::RequestPVP
     opposant->GetSession()->SendPetBattlePvPChallenge(battleRequest);
 }
 
-void WorldSession::HanldeQueueProposeMatchResult(WorldPackets::BattlePet::QueueProposeMatchResult& packet)
+void WorldSession::HandleQueueProposeMatchResult(WorldPackets::BattlePet::QueueProposeMatchResult& packet)
 {
     if (!sWorld->getBoolConfig(CONFIG_PET_BATTLES))
         return;
@@ -1334,10 +1334,10 @@ void WorldSession::SendBattlePetJournal()
     if (unlockedSlotCount)
         _player->SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PET_BATTLES_UNLOCKED);
 
-    WorldPackets::BattlePet::BattlePetJournal responce;
-    responce.NumMaxPets = BATTLE_PET_MAX_JOURNAL_PETS;
-    responce.TrapLevel = _player->GetBattlePetTrapLevel();
-    responce.HasJournalLock = true;
+    WorldPackets::BattlePet::BattlePetJournal response;
+    response.NumMaxPets = BATTLE_PET_MAX_JOURNAL_PETS;
+    response.TrapLevel = _player->GetBattlePetTrapLevel();
+    response.HasJournalLock = true;
 
     for (uint32 i = 0; i < MAX_PETBATTLE_SLOTS; i++)
     {
@@ -1347,7 +1347,7 @@ void WorldSession::SendBattlePetJournal()
         slot.Locked = !(i + 1 <= unlockedSlotCount);
         if (petSlots[i])
             slot.Pet.BattlePetGUID = petSlots[i]->JournalID;
-        responce.Slots.emplace_back(slot);
+        response.Slots.emplace_back(slot);
     }
 
     for (auto const& pet : *pets)
@@ -1372,10 +1372,10 @@ void WorldSession::SendBattlePetJournal()
         info.CustomName = v->Name;
         //info.OwnerGuid;
         //info.NoRename = false;
-        responce.Pets.emplace_back(info);
+        response.Pets.emplace_back(info);
     }
 
-    SendPacket(responce.Write());
+    SendPacket(response.Write());
 }
 
 void WorldSession::SendBattlePetDeleted(ObjectGuid battlePetGUID)
