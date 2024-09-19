@@ -2639,7 +2639,12 @@ template<class T>
 void AchievementMgr<T>::CompletedAchievement(AchievementEntry const* achievement, Player* player)
 {
     // disable for gamemasters with GM-mode enabled
+    //TODO Add config option to allow GM to get achievements still, useful for really broken things!
     if (GetOwner()->isGameMaster())
+        return;
+
+    // do not reward achievement that the player has already earned!
+    if (player->HasAchieved(achievement->ID))
         return;
 
     // TC_LOG_DEBUG(LOG_FILTER_ACHIEVEMENTSYS, "CompletedAchievement achievement %u", achievement->ID);
