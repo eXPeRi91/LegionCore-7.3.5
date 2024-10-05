@@ -8,4 +8,4 @@ INSERT INTO `game_tele` (`id`, `position_x`, `position_y`, `position_z`, `orient
 -- Insert missing teleport locations (do not include id column)
 DELETE FROM `game_tele` WHERE `name` IN ('Bogpaddle');
 INSERT INTO `game_tele` (`position_x`, `position_y`, `position_z`, `orientation`, `map`, `name`) VALUES
-(-9759.19, -3939.73, 21.652, 1.4289, 1, 'Bogpaddle');
+(-9761.64, -3918.13, 21.644, 1.5467, 0, 'Bogpaddle');
