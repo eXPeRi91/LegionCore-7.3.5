@@ -1,8 +1,8 @@
 -- Fix spawn times to be reasonable for groups, it is silly to have to wait 10 minutes in a group of 2 or 3 just to finish a single quest
 
--- Fix spawn times for quest items that are single container, these will be 3 second respawns
+-- Fix spawn times for quest items that are single container, these will be 2 second respawns
 -- 49012 = Abjurer's Manual
-UPDATE `gameobject` SET `spawntimesecs` = 3 where `id` = 195584;
+UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` = 195584;
 
 -- 49642 = Heart of Arkkoroc (also fixed position)
 UPDATE `gameobject` SET `position_x` = 3543.24, `position_y` = -5138.04, `position_z` = 88.5, `orientation` = 1.87, `spawntimesecs` = 3 WHERE `id` = 200298;

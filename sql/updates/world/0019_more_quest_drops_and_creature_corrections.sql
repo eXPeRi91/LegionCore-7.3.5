@@ -218,3 +218,16 @@ UPDATE `creature_template` SET `minlevel` = 10, `maxlevel` = 10, `ScaleLevelMin`
 -- Fix creatures that should not give XP
 -- 35296 = Explosives Stockpile
 UPDATE `creature_template` SET `flags_extra` = 64 WHERE `entry` = 35296;
+
+-- Remove duplicate creatures (by GUID)
+-- 39819 = Gomegaz
+-- 126040 = Zaeldarr the Outcast
+DELETE FROM `creature` WHERE `guid` IN (39819, 126040);
+
+-- Remove/update horribly placed or problematic creatures (by GUID)
+-- 40335 = Bloodwash Enchantress (right next to quest giver by no others of its kind)
+-- 40336 = Neptool (in a terrible spot, looks like he's forever falling/swimming)
+-- 88399 = Deadwind Widow (only spider in Stonard, too close to flight master)
+DELETE FROM `creature` WHERE `guid` IN (40335, 88399);
+
+UPDATE `creature` SET `position_x` = -12036.07, `position_y` = -3789.83, `position_z` = 26.3827, `orientation` = 0.4514 WHERE `guid` = 40336;
