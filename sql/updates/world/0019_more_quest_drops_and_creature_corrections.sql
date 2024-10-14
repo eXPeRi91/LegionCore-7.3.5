@@ -1,6 +1,8 @@
 -- Fix loot chance for the following quest items
 -- 2855 = Putrid Claw
 -- 2858 = Darkhound Blood
+-- 3264 = Duskbat Wing
+-- 3265 = Scavenger Paw
 -- 3901 = Bloodscalp Tusk
 -- 3905 = Nezzliok's Head
 -- 3924 = Maury's Clubbed Foot
@@ -69,6 +71,11 @@
 -- 23249 = Amani Invasion Plans
 -- 23679 = Bloodscalp Totem
 -- 23707 = Spindleweb Silk Gland
+-- 28562 = Unyielding Battle Horn
+-- 29051 = Warp Nether
+-- 29162 = Galaxis Soul Shard
+-- 31374 = Worg Master's Head
+-- 31529 = Grillok's Eyepatch
 -- 46850 = King Reaperclaw's Horn
 -- 47038 = Slab of Venison
 -- 47039 = Scout's Orders
@@ -112,11 +119,13 @@ DELETE FROM `creature_loot_template` WHERE `entry` = 16346 AND `item` = 22677;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (16348, 16469) AND `item` = 23165;
 DELETE FROM `creature_loot_template` WHERE `entry` = 16345 AND `item` = 23166;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (16344, 16348) AND `item` = 23167;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 16978 AND `item` = 28562;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 19442 AND `item` = 31374;
 DELETE FROM `creature_loot_template` WHERE `entry` = 3117 AND `item` = 47039;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (3195, 3196, 3197, 3198, 3199) AND `item` = 52564;
 
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3905, 3924, 4510, 4525, 4527, 4551, 4769, 4801, 4802, 4805, 4819, 5084, 5830, 5831, 5832, 20483, 20760, 20764, 20797, 20799, 21781, 21808, 22566, 22640, 22653, 22893, 22894, 23679, 23707, 46850, 49204, 49356, 49366, 49535, 49540, 49674, 50018, 50222, 50473, 52080, 57758, 59034, 59035, 60878, 60880, 64386, 72071, 87267);
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -90 WHERE `item` IN (2855, 4751, 4752, 4753, 49359);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3905, 3924, 4510, 4525, 4527, 4551, 4769, 4801, 4802, 4805, 4819, 5084, 5830, 5831, 5832, 20483, 20760, 20764, 20797, 20799, 21781, 21808, 22566, 22640, 22653, 22893, 22894, 23679, 23707, 28562, 29051, 29162, 31374, 31529, 46850, 49204, 49356, 49366, 49535, 49540, 49674, 50018, 50222, 50473, 52080, 57758, 59034, 59035, 60878, 60880, 64386, 72071, 87267);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -90 WHERE `item` IN (2855, 3264, 3265, 4751, 4752, 4753, 49359);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` IN (3901, 4435, 4512, 4513, 4758, 4759, 4803, 4871, 4888, 5087, 5203, 22570, 22579, 22580, 22633, 22634, 22677, 23165, 23166, 23167, 49068, 49208, 52564, 82605);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -70 WHERE `item` IN (20482, 22567, 47038);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -50 WHERE `item` IN (4440, 4053, 20772, 21757, 21771, 22639, 49364, 49365, 60874, 60875);
@@ -137,6 +146,7 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 40 WHERE `entry` = 1
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 57879;
 
 -- Fix loot chance for the following game objects
+-- 2846 = Tirisfal Pumpkin
 -- 3906 = Balia'mah Trophy
 -- 3907 = Ziata'jai Trophy
 -- 3920 = Bloodsail Charts
@@ -181,11 +191,13 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 5
 -- 60386 = Pure Water
 -- 60871 = Moontouched Wood
 -- 60872 = Moonsteel Ingots
+-- 64581 = Corpse-Stitching Twine
+-- 64582 = Thick Embalming Fluid
 -- 69919 = Plump Cockroach
 -- 69988 = Pine Nut
 DELETE FROM `creature_loot_template` WHERE `item` IN (48128, 49642);
 
-UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3906, 3907, 3920, 4492, 4530, 4531, 4532, 4863, 4918, 5012, 12708, 20743, 20771, 22413, 22414, 22583, 22590, 22591, 22592, 22598, 22599, 22674, 45004, 46742, 48128, 48525, 48921, 49012, 49036, 49062, 49082, 49094, 49162, 49207, 49365, 49367, 49642, 52558, 58877, 59145, 59151, 60386, 60871, 60872, 69919);
+UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (2846, 3906, 3907, 3920, 4492, 4530, 4531, 4532, 4863, 4918, 5012, 12708, 20743, 20771, 22413, 22414, 22583, 22590, 22591, 22592, 22598, 22599, 22674, 45004, 46742, 48128, 48525, 48921, 49012, 49036, 49062, 49082, 49094, 49162, 49207, 49365, 49367, 49642, 52558, 58877, 59145, 59151, 60386, 60871, 60872, 64581, 64582, 69919);
 UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100, `mincountOrRef` = 5, `maxcount` = 5 WHERE `item` = 69988;
 
 -- Fix broken "Lily, Oh Lily" quest (can't loot the lillies)
