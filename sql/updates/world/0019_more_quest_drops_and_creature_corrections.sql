@@ -36,6 +36,7 @@
 -- 5830 = Kenata's Head
 -- 5831 = Fardel's Head
 -- 5832 = Marcel's Head
+-- 6212 = Head of Jammal'an
 -- 20482 = Arcane Sliver
 -- 20483 = Tainted Arcane Sliver
 -- 20760 = Chieftain Zul'Marosh's Head
@@ -74,8 +75,10 @@
 -- 28562 = Unyielding Battle Horn
 -- 29051 = Warp Nether
 -- 29162 = Galaxis Soul Shard
+-- 29586 = Head of Forgefiend Razorsaw
 -- 31374 = Worg Master's Head
 -- 31529 = Grillok's Eyepatch
+-- 33330 = Ingvar's Head
 -- 46850 = King Reaperclaw's Horn
 -- 47038 = Slab of Venison
 -- 47039 = Scout's Orders
@@ -109,6 +112,7 @@
 -- 60875 = Ghostly Essence
 -- 60878 = Silverlaine's Enchanted Crystal
 -- 60880 = Springvale's Sharpening Stone
+-- 62714 = Duskfang's Hide
 -- 64386 = Yetimus' Twisted Horn
 -- 72071 = Stolen Training Supplies
 -- 82605 = Corrupted Insignia
@@ -120,11 +124,12 @@ DELETE FROM `creature_loot_template` WHERE `entry` IN (16348, 16469) AND `item` 
 DELETE FROM `creature_loot_template` WHERE `entry` = 16345 AND `item` = 23166;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (16344, 16348) AND `item` = 23167;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 16978 AND `item` = 28562;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 20798 AND `item` = 29586;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 19442 AND `item` = 31374;
 DELETE FROM `creature_loot_template` WHERE `entry` = 3117 AND `item` = 47039;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (3195, 3196, 3197, 3198, 3199) AND `item` = 52564;
 
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3905, 3924, 4510, 4525, 4527, 4551, 4769, 4801, 4802, 4805, 4819, 5084, 5830, 5831, 5832, 20483, 20760, 20764, 20797, 20799, 21781, 21808, 22566, 22640, 22653, 22893, 22894, 23679, 23707, 28562, 29051, 29162, 31374, 31529, 46850, 49204, 49356, 49366, 49535, 49540, 49674, 50018, 50222, 50473, 52080, 57758, 59034, 59035, 60878, 60880, 64386, 72071, 87267);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3905, 3924, 4510, 4525, 4527, 4551, 4769, 4801, 4802, 4805, 4819, 5084, 5830, 5831, 5832, 6212, 20483, 20760, 20764, 20797, 20799, 21781, 21808, 22566, 22640, 22653, 22893, 22894, 23679, 23707, 28562, 29051, 29162, 29586, 31374, 31529, 33330, 46850, 49204, 49356, 49366, 49535, 49540, 49674, 50018, 50222, 50473, 52080, 57758, 59034, 59035, 60878, 60880, 62714, 64386, 72071, 87267);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -90 WHERE `item` IN (2855, 3264, 3265, 4751, 4752, 4753, 49359);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` IN (3901, 4435, 4512, 4513, 4758, 4759, 4803, 4871, 4888, 5087, 5203, 22570, 22579, 22580, 22633, 22634, 22677, 23165, 23166, 23167, 49068, 49208, 52564, 82605);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -70 WHERE `item` IN (20482, 22567, 47038);
