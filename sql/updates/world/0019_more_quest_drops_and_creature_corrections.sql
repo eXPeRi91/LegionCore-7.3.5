@@ -70,10 +70,14 @@
 -- 23167 = Shadowcaster Mace
 -- 23191 = Crystal Controlling Orb
 -- 23249 = Amani Invasion Plans
+-- 23269 = Felblood Sample
+-- 23387 = Bonestripper Tail Feather
+-- 23483 = Haal'eshi Scroll
 -- 23679 = Bloodscalp Totem
 -- 23707 = Spindleweb Silk Gland
 -- 28562 = Unyielding Battle Horn
 -- 29051 = Warp Nether
+-- 29113 = Demonic Essence
 -- 29162 = Galaxis Soul Shard
 -- 29586 = Head of Forgefiend Razorsaw
 -- 31374 = Worg Master's Head
@@ -123,7 +127,10 @@ DELETE FROM `creature_loot_template` WHERE `entry` = 16346 AND `item` = 22677;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (16348, 16469) AND `item` = 23165;
 DELETE FROM `creature_loot_template` WHERE `entry` = 16345 AND `item` = 23166;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (16344, 16348) AND `item` = 23167;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 16951 AND `item` = 23269;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (16966, 16967, 17084) AND `item` = 23483;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 16978 AND `item` = 28562;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 17058 AND `item` = 29113;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 20798 AND `item` = 29586;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 19442 AND `item` = 31374;
 DELETE FROM `creature_loot_template` WHERE `entry` = 3117 AND `item` = 47039;
@@ -133,10 +140,11 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -90 WHERE `item` IN (2855, 3264, 3265, 4751, 4752, 4753, 49359);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` IN (3901, 4435, 4512, 4513, 4758, 4759, 4803, 4871, 4888, 5087, 5203, 22570, 22579, 22580, 22633, 22634, 22677, 23165, 23166, 23167, 49068, 49208, 52564, 82605);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -70 WHERE `item` IN (20482, 22567, 47038);
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -50 WHERE `item` IN (4440, 4053, 20772, 21757, 21771, 22639, 49364, 49365, 60874, 60875);
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -40 WHERE `item` = 49533;
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -35 WHERE `item` IN (2858, 4450);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -50 WHERE `item` IN (4440, 4053, 20772, 21757, 21771, 22639, 29113, 49364, 49365, 60874, 60875);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -40 WHERE `item` IN (23387, 49533);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -35 WHERE `item` IN (2858, 4450, 23269);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -20 WHERE `item` IN (23191, 47039, 47819, 60270, 60271, 60272);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -15 WHERE `item` = 23483;
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (3935, 23249, 59143);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 10 WHERE `item` IN (21776, 22597);
 
