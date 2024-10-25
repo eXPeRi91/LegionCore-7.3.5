@@ -214,11 +214,18 @@ UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` 
 UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100, `mincountOrRef` = 5, `maxcount` = 5 WHERE `item` = 69988;
 
 -- Fix broken "Lily, Oh Lily" quest (can't loot the lillies)
-DELETE FROM `conditions` WHERE `SourceEntry` = 69917;
+DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 4 AND `SourceEntry` = 69917;
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
 (4, 208833, 69917, 0, 0, 9, 0, 29332, 0, 0, 0, 0, '', '');
 
 UPDATE `gameobject_template` SET `type` = 3 WHERE `entry` = 208833;
+
+-- Fix broken "Kasha Will Fly Again" quest (can't loot the mushrooms)
+DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 4 AND `SourceEntry` = 3502;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
+(4, 1723, 3502, 0, 0, 9, 0, 28354, 0, 0, 0, 0, '', '');
+
+UPDATE `gameobject_template` SET `type` = 3 WHERE `entry` = 1723;
 
 -- Fix loot chance for the following quest items (from fishing)
 -- 58951 = Giant Furious Pike
