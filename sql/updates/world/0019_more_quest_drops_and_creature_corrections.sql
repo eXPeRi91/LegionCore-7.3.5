@@ -227,6 +227,13 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 
 UPDATE `gameobject_template` SET `type` = 3 WHERE `entry` = 1723;
 
+-- Fix broken "Burstcap Mushrooms, Mon!" quest (can't loot the mushrooms)
+DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 4 AND `SourceEntry` = 24468;
+INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `SourceId`, `ElseGroup`, `ConditionTypeOrReference`, `ConditionTarget`, `ConditionValue1`, `ConditionValue2`, `ConditionValue3`, `NegativeCondition`, `ErrorTextId`, `ScriptName`, `Comment`) VALUES
+(4, 182095, 24468, 0, 0, 9, 0, 9814, 0, 0, 0, 0, '', '');
+
+UPDATE `gameobject_template` SET `type` = 3 WHERE `entry` = 182095;
+
 -- Fix loot chance for the following quest items (from fishing)
 -- 58951 = Giant Furious Pike
 -- 69901 = Severed Abomination Head
