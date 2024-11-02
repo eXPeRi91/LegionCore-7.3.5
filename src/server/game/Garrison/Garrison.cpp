@@ -345,21 +345,21 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             fields = followers->Fetch();
 
             auto followerId = fields[1].GetUInt32();
-            auto foloowerEntry = sGarrFollowerStore.LookupEntry(followerId);
-            if (!foloowerEntry)
+            auto followerEntry = sGarrFollowerStore.LookupEntry(followerId);
+            if (!followerEntry)
                 continue;
 
-            if (foloowerEntry->GarrTypeID != GARRISON_TYPE_GARRISON && foloowerEntry->GarrTypeID != GARRISON_TYPE_CLASS_ORDER)
+            if (followerEntry->GarrTypeID != GARRISON_TYPE_GARRISON && followerEntry->GarrTypeID != GARRISON_TYPE_CLASS_ORDER)
                 continue;
 
             auto dbId = fields[0].GetUInt64();
-            _followerIds[foloowerEntry->GarrTypeID].insert(followerId);
-            auto& follower = _followers[foloowerEntry->GarrTypeID][dbId];
+            _followerIds[followerEntry->GarrTypeID].insert(followerId);
+            auto& follower = _followers[followerEntry->GarrTypeID][dbId];
             follower.PacketInfo.DbID = dbId;
             follower.PacketInfo.GarrFollowerID = followerId;
             follower.PacketInfo.Quality = fields[2].GetUInt32();
 
-            switch (foloowerEntry->GarrFollowerTypeID)
+            switch (followerEntry->GarrFollowerTypeID)
             {
             case GarrisonConst::FollowerType::Garrison:
                 follower.PacketInfo.FollowerLevel = std::min(fields[3].GetUInt32(), uint32(GarrisonConst::Globals::MaxFollowerLevel));
@@ -379,7 +379,7 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             follower.PacketInfo.FollowerStatus = fields[9].GetUInt32();
             follower.PacketInfo.Vitality = fields[10].GetUInt16();
 
-            follower.TypeID = foloowerEntry->GarrFollowerTypeID;
+            follower.TypeID = followerEntry->GarrFollowerTypeID;
             follower.DbState = DB_STATE_UNCHANGED;
 
             if (!sGarrBuildingStore.LookupEntry(follower.PacketInfo.CurrentBuildingID))
@@ -410,22 +410,22 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
                 }
             }
 
-            if (_missionIds[foloowerEntry->GarrTypeID].empty())
+            if (_missionIds[followerEntry->GarrTypeID].empty())
                 if (auto mission = sGarrisonMgr.GetMissionAtFollowerTaking(followerId))
                     AddMission(mission->ID);
 
-            if (foloowerEntry->Vitality)
+            if (followerEntry->Vitality)
             {
                 follower.PacketInfo.FollowerStatus |= GarrisonConst::GarrisonFollowerFlags::FOLLOWER_STATUS_TROOP;
                 follower.PacketInfo.FollowerStatus |= GarrisonConst::GarrisonFollowerFlags::FOLLOWER_STATUS_NO_XP_GAIN;
 
                 // disable more then limit.
-                uint32 limit = GetTroopLimit(foloowerEntry->Vitality, _owner->GetTeam() == ALLIANCE ? foloowerEntry->AllianceGarrClassSpecID : foloowerEntry->HordeGarrClassSpecID);
-                if (_troopCount[foloowerEntry->Vitality] > limit)
+                uint32 limit = GetTroopLimit(followerEntry->Vitality, _owner->GetTeam() == ALLIANCE ? followerEntry->AllianceGarrClassSpecID : followerEntry->HordeGarrClassSpecID);
+                if (_troopCount[followerEntry->Vitality] > limit)
                     follower.PacketInfo.FollowerStatus |= GarrisonConst::GarrisonFollowerFlags::FOLLOWER_STATUS_INACTIVE;
 
-                ASSERT(foloowerEntry->Vitality < 5);
-                ++_troopCount[foloowerEntry->Vitality];
+                ASSERT(followerEntry->Vitality < 5);
+                ++_troopCount[followerEntry->Vitality];
             }
 
         } while (followers->NextRow());
