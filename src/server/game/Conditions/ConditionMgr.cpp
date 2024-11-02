@@ -455,7 +455,7 @@ bool Condition::Meets(ConditionSourceInfo& sourceInfo)
         {
             if (Player* player = object->ToPlayer())
                 if (Garrison* garr = player->GetGarrisonPtr())
-                    condMeets = garr->hasTallent(ConditionValue1);
+                    condMeets = garr->hasTalent(ConditionValue1);
             break;
         }
         case CONDITION_CURRENCY:

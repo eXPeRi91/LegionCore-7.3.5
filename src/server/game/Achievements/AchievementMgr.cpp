@@ -4151,7 +4151,7 @@ bool AchievementMgr<T>::AdditionalRequirementsSatisfied(ModifierTreeNode const* 
                     break;
                 }
 
-                if (!garrison->hasTallent(reqValue))
+                if (!garrison->hasTalent(reqValue))
                     check = false;
                 break;
             }
