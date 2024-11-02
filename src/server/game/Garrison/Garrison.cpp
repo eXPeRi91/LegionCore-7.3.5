@@ -327,7 +327,7 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             mission.PacketInfo.TravelDuration = fields[5].GetUInt32();
             mission.PacketInfo.Duration = fields[6].GetUInt32();
             mission.PacketInfo.State = fields[7].GetUInt32();
-            mission.PacketInfo.SuccesChance = fields[8].GetUInt16();
+            mission.PacketInfo.SuccessChance = fields[8].GetUInt16();
 
             if (!sGarrisonMgr.GetMissionRewardByRecID(missionRecID))
                 continue;
@@ -642,7 +642,7 @@ void Garrison::SaveToDB(SQLTransaction const& trans)
             stmt->setUInt32(index++, mission.PacketInfo.TravelDuration);
             stmt->setUInt32(index++, mission.PacketInfo.Duration);
             stmt->setUInt32(index++, mission.PacketInfo.State);
-            stmt->setUInt16(index++, mission.PacketInfo.SuccesChance);
+            stmt->setUInt16(index++, mission.PacketInfo.SuccessChance);
             trans->Append(stmt);
             mission.DbState = DB_STATE_UNCHANGED;
         }
@@ -1580,7 +1580,7 @@ void Garrison::AddMission(uint32 missionRecID, bool sendLog/* = true*/)
     mission.PacketInfo.TravelDuration = 0;
     mission.PacketInfo.Duration = 0/*missionEntry->MissionDuration*/;
     mission.PacketInfo.State = MISSION_STATE_AVAILABLE;
-    mission.PacketInfo.SuccesChance = 0;
+    mission.PacketInfo.SuccessChance = 0;
     mission.PacketInfo.UnkInt2 = 0;
     mission.DbState = DB_STATE_NEW;
 

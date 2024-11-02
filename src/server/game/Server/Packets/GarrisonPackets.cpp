@@ -72,7 +72,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Garrison::GarrisonMission
     data << uint32(mission.TravelDuration);
     data << uint32(mission.Duration);
     data << uint32(mission.State);
-    data << uint32(mission.SuccesChance);
+    data << uint32(mission.SuccessChance);
     data << uint32(mission.UnkInt2);
 
     return data;
