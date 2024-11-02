@@ -977,16 +977,18 @@ INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `positio
 -- 25837 = Ironjaw's Pelt
 -- 25891 = Pristine Shimmerscale Eel
 -- 27861 = Lathrai's Stolen Goods
--- 29588 = Burning Legion Missive
+-- 29588 = Burning Legion Missive (Alliance)
+-- 29590 = Burning Legion Missive (Horde)
 -- 62919 = Claw of Tichondrius
 DELETE FROM `creature_loot_template` WHERE `entry` = 18461 AND `item` = 25891;
 DELETE FROM `creature_loot_template` WHERE `entry` = 18541 AND `item` = 27861;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (17035, 17053) AND `item` = 23580;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (16772, 18453, 18463, 18464, 18466, 18595) AND `item` = 25807;
 DELETE FROM `creature_loot_template` WHERE `entry` IN (18464, 18477) AND `item` = 25837;
-DELETE FROM `creature_loot_template` WHERE `entry` IN (16946, 16947, 16954, 16960) AND `item` = 29588;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 19298 AND `item` = 29588;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 20798 AND `item` = 29590;
 
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (23580, 29588);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (23580, 29588, 29590);
 
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (10754, 10755, 25837, 62919);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` = 25891;
