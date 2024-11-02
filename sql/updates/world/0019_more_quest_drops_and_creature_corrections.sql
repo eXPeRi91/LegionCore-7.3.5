@@ -270,3 +270,10 @@ DELETE FROM `creature` WHERE `guid` IN (39819, 126040);
 DELETE FROM `creature` WHERE `guid` IN (40335, 88399);
 
 UPDATE `creature` SET `position_x` = -12036.07, `position_y` = -3789.83, `position_z` = 26.3827, `orientation` = 0.4514 WHERE `guid` = 40336;
+
+-- Fix game event start time
+-- 14 = Stranglethorn Fishing Extravaganza Announce
+-- 15 = Stranglethorn Fishing Extravaganza Fishing Pools
+-- 62 = Stranglethorn Fishing Extravaganza Turn-ins
+UPDATE `game_event` SET `start_time` = '2016-10-29 00:00:00', `length` = 1440 WHERE `eventEntry` = 14;
+UPDATE `game_event` SET `start_time` = '2016-10-30 14:00:00' WHERE `eventEntry` IN (15, 62);
