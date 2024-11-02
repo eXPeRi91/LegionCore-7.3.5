@@ -319,7 +319,7 @@ public:
     bool canStartUpgrade();
     void StartClassHallUpgrade(uint32 tallentID);
     void AddTalentToStore(uint32 talentID, uint32 time, uint32 flags, ObjectDBState DbState = DB_STATE_UNCHANGED);
-    bool hasTallent(uint32 talentID) const;
+    bool hasTalent(uint32 talentID) const;
 
     //Advancement
     bool hasLegionFall() const;

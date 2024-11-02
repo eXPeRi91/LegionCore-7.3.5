@@ -828,7 +828,6 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
                     if (!sWorld->GetNewCharString().empty())
                         chatHandler.PSendSysMessage("%s", sWorld->GetNewCharString().c_str());
                 }
-            
         }
 
         if (!player->GetMap()->AddPlayerToMap(player) || !player->GetMap()->IsGarrison() && !player->CheckInstanceLoginValid())

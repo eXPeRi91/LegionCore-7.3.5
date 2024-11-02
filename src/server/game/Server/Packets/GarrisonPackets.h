@@ -70,7 +70,7 @@ namespace WorldPackets
             uint32 TravelDuration = 0;
             uint32 Duration = 0;
             uint32 State = 0; // MS::Garrison::Mission::State
-            uint32 SuccesChance = 0;
+            uint32 SuccessChance = 0;
             uint32 UnkInt2 = 0;
         };
 

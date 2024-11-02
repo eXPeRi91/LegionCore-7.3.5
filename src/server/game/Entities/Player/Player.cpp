@@ -8637,7 +8637,7 @@ void Player::SendMovieStart(uint32 MovieId)
     packet.MovieID = MovieId;
     SendDirectMessage(packet.Write());
 
-    // used for chacking plr state.
+    // used for checking plr state.
     setWatchinMovie(true);
     SetCanDelayTeleport(true);
 }
