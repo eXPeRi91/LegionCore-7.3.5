@@ -75,6 +75,25 @@
 -- 23483 = Haal'eshi Scroll
 -- 23679 = Bloodscalp Totem
 -- 23707 = Spindleweb Silk Gland
+-- 24469 = Muck-Ridden Core
+-- 24473 = Enraged Crusher Core
+-- 24496 = Horn of Banthar
+-- 24502 = Warmaul Skull
+-- 24503 = Gurok's Earthen Head
+-- 24504 = Howling Wind
+-- 24505 = Heart of Tusker
+-- 24523 = Hoof of Bach'lor
+-- 25433 = Obsidian Warbeads
+-- 25463 = Pair of Ivory Tusks
+-- 25468 = Boulderfist Plans
+-- 24558 = Murkblood Invasion Plans (Horde)
+-- 24559 = Murkblood Invasion Plans (Alliance)
+-- 25416 = Oshu'gun Crystal Fragment
+-- 25590 = Head of Cho'war
+-- 25648 = Cho'war's Key
+-- 25770/25771 = Fel Cannon Activator
+-- 27807 = Air Elemental Gas
+-- 27841 = Severed Talon of the Matriarch
 -- 28562 = Unyielding Battle Horn
 -- 29051 = Warp Nether
 -- 29113 = Demonic Essence
@@ -135,17 +154,28 @@ DELETE FROM `creature_loot_template` WHERE NOT `entry` = 20798 AND `item` = 2958
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 19442 AND `item` = 31374;
 DELETE FROM `creature_loot_template` WHERE `entry` = 3117 AND `item` = 47039;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (3195, 3196, 3197, 3198, 3199) AND `item` = 52564;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (17158, 17159, 17160) AND `item` = 24504;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (17158, 17159, 17160) AND `item` = 27807;
+DELETE FROM `creature_loot_template` WHERE `entry` = 19201 AND `item` = 24502;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 18334 AND `item` = 25463;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 18062 AND `item` = 24473;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 17149 AND `item` = 25416;
+DELETE FROM `creature_loot_template` WHERE `entry` IN (18440, 19201) AND `item` = 25433;
+DELETE FROM `creature_loot_template` WHERE `entry` = 18062 AND `item` = 24469;
 
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3905, 3924, 4510, 4525, 4527, 4551, 4769, 4801, 4802, 4805, 4819, 5084, 5830, 5831, 5832, 6212, 20483, 20760, 20764, 20797, 20799, 21781, 21808, 22566, 22640, 22653, 22893, 22894, 23679, 23707, 28562, 29051, 29162, 29586, 31374, 31529, 33330, 46850, 49204, 49356, 49366, 49535, 49540, 49674, 50018, 50222, 50473, 52080, 57758, 59034, 59035, 60878, 60880, 62714, 64386, 72071, 87267);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (3905, 3924, 4510, 4525, 4527, 4551, 4769, 4801, 4802, 4805, 4819, 5084, 5830, 5831, 5832, 6212, 20483, 20760, 20764, 20797, 20799, 21781, 21808, 22566, 22640, 22653, 22893, 22894, 23679, 23707, 24496, 24503, 24505, 24523, 25468, 25590, 25648, 25770, 25771, 27841, 28562, 29051, 29162, 29586, 31374, 31529, 33330, 46850, 49204, 49356, 49366, 49535, 49540, 49674, 50018, 50222, 50473, 52080, 57758, 59034, 59035, 60878, 60880, 62714, 64386, 72071, 87267);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -90 WHERE `item` IN (2855, 3264, 3265, 4751, 4752, 4753, 49359);
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` IN (3901, 4435, 4512, 4513, 4758, 4759, 4803, 4871, 4888, 5087, 5203, 22570, 22579, 22580, 22633, 22634, 22677, 23165, 23166, 23167, 49068, 49208, 52564, 82605);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` IN (3901, 4435, 4512, 4513, 4758, 4759, 4803, 4871, 4888, 5087, 5203, 22570, 22579, 22580, 22633, 22634, 22677, 23165, 23166, 23167, 24473, 27807, 49068, 49208, 52564, 82605);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -70 WHERE `item` IN (20482, 22567, 47038);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -50 WHERE `item` IN (4440, 4053, 20772, 21757, 21771, 22639, 29113, 49364, 49365, 60874, 60875);
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -40 WHERE `item` IN (23387, 49533);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -40 WHERE `item` IN (23387, 24469, 49533);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -35 WHERE `item` IN (2858, 4450, 23269);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -30 WHERE `item` = 24502;
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -20 WHERE `item` IN (23191, 47039, 47819, 60270, 60271, 60272);
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -15 WHERE `item` = 23483;
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (3935, 23249, 59143);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (3935, 23249, 24558, 24559, 25463, 59143);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 50 WHERE `item` IN (25416, 25433);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 25 WHERE `item` = 24504;
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 10 WHERE `item` IN (21776, 22597);
 
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 50 WHERE `entry` = 16301 AND `item` = 22641;
@@ -182,6 +212,9 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 5
 -- 22598 = Stone of Light
 -- 22599 = Stone of Flame
 -- 22674 = Wavefront Medallion
+-- 24419 = Digested Caracoli
+-- 25416 = Oshu'gun Crystal Fragment
+-- 25554 = Kil'sorrow Armaments
 -- 45004 = Serviceable Arrow
 -- 46742 = Stolen Grain
 -- 48128 = Mountainfoot Iron
@@ -210,7 +243,7 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 5
 -- 69988 = Pine Nut
 DELETE FROM `creature_loot_template` WHERE `item` IN (48128, 49642);
 
-UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (2846, 3906, 3907, 3920, 4492, 4530, 4531, 4532, 4863, 4918, 5012, 12708, 20743, 20771, 22413, 22414, 22583, 22590, 22591, 22592, 22598, 22599, 22674, 45004, 46742, 48128, 48525, 48921, 49012, 49036, 49062, 49082, 49094, 49162, 49207, 49365, 49367, 49642, 52558, 58877, 59145, 59151, 60386, 60871, 60872, 64581, 64582, 69919);
+UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (2846, 3906, 3907, 3920, 4492, 4530, 4531, 4532, 4863, 4918, 5012, 12708, 20743, 20771, 22413, 22414, 22583, 22590, 22591, 22592, 22598, 22599, 22674, 24419, 25416, 25554, 45004, 46742, 48128, 48525, 48921, 49012, 49036, 49062, 49082, 49094, 49162, 49207, 49365, 49367, 49642, 52558, 58877, 59145, 59151, 60386, 60871, 60872, 64581, 64582, 69919);
 UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100, `mincountOrRef` = 5, `maxcount` = 5 WHERE `item` = 69988;
 
 -- Fix broken "Lily, Oh Lily" quest (can't loot the lillies)
