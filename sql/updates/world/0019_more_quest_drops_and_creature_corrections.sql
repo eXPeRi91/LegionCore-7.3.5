@@ -243,8 +243,10 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 5
 -- 69988 = Pine Nut
 DELETE FROM `creature_loot_template` WHERE `item` IN (48128, 49642);
 
-UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (2846, 3906, 3907, 3920, 4492, 4530, 4531, 4532, 4863, 4918, 5012, 12708, 20743, 20771, 22413, 22414, 22583, 22590, 22591, 22592, 22598, 22599, 22674, 24419, 25416, 25554, 45004, 46742, 48128, 48525, 48921, 49012, 49036, 49062, 49082, 49094, 49162, 49207, 49365, 49367, 49642, 52558, 58877, 59145, 59151, 60386, 60871, 60872, 64581, 64582, 69919);
+UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (2846, 3906, 3907, 3920, 4492, 4530, 4531, 4532, 4863, 4918, 5012, 12708, 20743, 20771, 22413, 22414, 22583, 22590, 22591, 22592, 22598, 22599, 22674, 24419, 25554, 45004, 46742, 48128, 48525, 48921, 49012, 49036, 49062, 49082, 49094, 49162, 49207, 49365, 49367, 49642, 52558, 58877, 59145, 59151, 60386, 60871, 60872, 64581, 64582, 69919);
 UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100, `mincountOrRef` = 5, `maxcount` = 5 WHERE `item` = 69988;
+
+UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 25416;
 
 -- Fix broken "Lily, Oh Lily" quest (can't loot the lillies)
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 4 AND `SourceEntry` = 69917;
