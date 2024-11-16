@@ -312,14 +312,14 @@ void AuraApplication::BuildLossOfControlPacket(WorldPackets::Spells::LossOfContr
         if (!effect)
             continue;
 
-        auto addLoosOfControlInfo = [i, this, aura, &loosOfControl](uint32 type)->void
+        auto addLossOfControlInfo = [i, this, aura, &loosOfControl](uint32 type)->void
         {
-            WorldPackets::Spells::LossOfControlInfo loosOfControlInfo;
-            loosOfControlInfo.Mechanic = aura->GetSpellInfo()->GetEffectMechanic(i);
-            loosOfControlInfo.Type = type;
-            loosOfControlInfo.AuraSlot = GetSlot();
-            loosOfControlInfo.EffectIndex = i;
-            loosOfControl.Infos.push_back(loosOfControlInfo);
+            WorldPackets::Spells::LossOfControlInfo lossOfControlInfo;
+            lossOfControlInfo.Mechanic = aura->GetSpellInfo()->GetEffectMechanic(i);
+            lossOfControlInfo.Type = type;
+            lossOfControlInfo.AuraSlot = GetSlot();
+            lossOfControlInfo.EffectIndex = i;
+            loosOfControl.Infos.push_back(lossOfControlInfo);
         };
 
         switch (effect->GetAuraType())
@@ -327,36 +327,36 @@ void AuraApplication::BuildLossOfControlPacket(WorldPackets::Spells::LossOfContr
         case SPELL_AURA_MOD_DISARM:
         case SPELL_AURA_MOD_DISARM_OFFHAND:
         case SPELL_AURA_MOD_DISARM_RANGED:
-            addLoosOfControlInfo(LOC_DISARM);
+            addLossOfControlInfo(LOC_DISARM);
             break;
         case SPELL_AURA_MOD_SILENCE:
-            addLoosOfControlInfo(LOC_SILENCE);
+            addLossOfControlInfo(LOC_SILENCE);
             break;
         case SPELL_AURA_MOD_PACIFY:
-            addLoosOfControlInfo(LOC_PACIFY);
+            addLossOfControlInfo(LOC_PACIFY);
             break;
         case SPELL_AURA_MOD_PACIFY_SILENCE:
-            addLoosOfControlInfo(LOC_PACIFYSILENCE);
+            addLossOfControlInfo(LOC_PACIFYSILENCE);
             break;
         case SPELL_AURA_MOD_CONFUSE:
-            addLoosOfControlInfo(LOC_CONFUSE);
+            addLossOfControlInfo(LOC_CONFUSE);
             break;
         case SPELL_AURA_MOD_FEAR:
         case SPELL_AURA_MOD_FEAR_2:
-            addLoosOfControlInfo(LOC_FEAR);
+            addLossOfControlInfo(LOC_FEAR);
             break;
         case SPELL_AURA_MOD_STUN:
-            addLoosOfControlInfo(LOC_STUN_MECHANIC);
+            addLossOfControlInfo(LOC_STUN_MECHANIC);
             break;
         case SPELL_AURA_MOD_ROOT:
         case SPELL_AURA_MOD_ROOTED:
-            addLoosOfControlInfo(LOC_ROOT);
+            addLossOfControlInfo(LOC_ROOT);
             break;
         case SPELL_AURA_MOD_POSSESS:
-            addLoosOfControlInfo(LOC_POSSESS);
+            addLossOfControlInfo(LOC_POSSESS);
             break;
         case SPELL_AURA_MOD_CHARM:
-            addLoosOfControlInfo(LOC_CHARM);
+            addLossOfControlInfo(LOC_CHARM);
             break;
         default:
             break;

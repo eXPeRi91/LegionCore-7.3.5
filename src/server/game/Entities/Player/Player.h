@@ -1771,7 +1771,7 @@ class Player : public Unit, public GridObject<Player>
         void ModifyCurrencyFlag(uint32 id, uint8 flag);
         void ModifyCurrency(uint32 id, int32 count, bool sendInChat = false, bool ignoreMultipliers = false, bool modifyWeek = true, bool modifySeason = true, bool sendToast = false, bool refund = false);
         uint32 GetTotalCurrencyCap(uint32 currencyID);
-        void ModCurrnecyCap(uint32 currencyID, uint32 value);
+        void ModCurrencyCap(uint32 currencyID, uint32 value);
         void ModifyExcludeCasterAuraSpell(uint32 auraId, bool apply);
 
         /*********************************************************/
@@ -2370,7 +2370,7 @@ class Player : public Unit, public GridObject<Player>
         void UpdatePvP(bool state, bool override=false);
         void UpdateZone(uint32 newZone, uint32 newArea);
         void UpdateArea(uint32 newArea);
-        void ChaeckSeamlessTeleport(uint32 newZoneOrArea, bool isArea = false);
+        void CheckSeamlessTeleport(uint32 newZoneOrArea, bool isArea = false);
         void ZoneTeleport(uint32 zoneId);
         bool InFFAPvPArea();
 
