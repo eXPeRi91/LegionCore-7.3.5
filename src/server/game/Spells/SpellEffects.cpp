@@ -2012,7 +2012,7 @@ void Spell::EffectIncreaseCurrencyCap(SpellEffIndex effIndex)
         return;
 
     if (auto player = unitTarget->ToPlayer())
-        player->ModCurrnecyCap(effect->MiscValue, effect->BasePoints);
+        player->ModCurrencyCap(effect->MiscValue, effect->BasePoints);
 }
 
 void Spell::EffectPlayerMoveWaypoints(SpellEffIndex effIndex)

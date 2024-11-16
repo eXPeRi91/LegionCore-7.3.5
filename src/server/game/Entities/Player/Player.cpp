@@ -9871,7 +9871,7 @@ uint32 Player::GetTotalCurrencyCap(uint32 currencyID)
     return baseCap;
 }
 
-void Player::ModCurrnecyCap(uint32 currencyID, uint32 value)
+void Player::ModCurrencyCap(uint32 currencyID, uint32 value)
 {
     CurrencyTypesEntry const* currency = sCurrencyTypesStore.LookupEntry(currencyID);
     if (!currency)
@@ -10043,7 +10043,7 @@ void Player::UpdateArea(uint32 newArea)
     //! new area on garrison not has flag2 - 0x20
     if (GetMap()->IsGarrison() && !Garrison::GetAreaIdForTeam(GetTeam(), area) && !GetSession()->PlayerLoading())
     {
-        //remove from garrison
+        // remove from garrison
         TeleportTo(1116, GetPositionX(), GetPositionY(), GetPositionZ(), GetOrientation(), TELE_TO_SEAMLESS);
     }
     else if (!GetMap()->IsGarrison() && Garrison::GetAreaIdForTeam(GetTeam(), area)) // Add to garrison.
@@ -10060,7 +10060,7 @@ void Player::UpdateArea(uint32 newArea)
         }
     }
 
-    ChaeckSeamlessTeleport(newArea, true);
+    CheckSeamlessTeleport(newArea, true);
 
 
     uint32 newAreaForUpdate = m_areaId;
@@ -10176,7 +10176,7 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
         GetPhaseMgr().AddUpdateFlag(PHASE_UPDATE_FLAG_ZONE_UPDATE);
     });
 
-    ChaeckSeamlessTeleport(newZone);
+    CheckSeamlessTeleport(newZone);
 
     if (m_zoneId != newZone)
     {
@@ -36025,22 +36025,22 @@ bool Player::IsForbiddenMapForLevel(uint32 mapid, uint32 zone)
         case 646:
             minLevel = 80;
             break;
-        case 732:  //Tol Barad
-        case 861:  //Molten Front
-        case 1064: //Isle of Giants
+        case 732:  // Tol Barad
+        case 861:  // Molten Front
+        case 1064: // Isle of Giants
             minLevel = 85;
             break;
         case 870:
             if (getClass() != CLASS_MONK)
                 minLevel = 80;
             break;
-        case 1116: //Draenor
-        case 1265: //Dark Portal
+        case 1116: // Draenor
+        case 1265: // Dark Portal
             minLevel = 90;
             break;
-        case 1220: //Legion: Broken Isles
+        case 1220: // Legion: Broken Isles
         {
-            //Allied Races start loc
+            // Allied Races start loc
             if (GetAreaId() == 7999 || GetAreaId() == 9502)
                 return false;
 
@@ -36062,10 +36062,10 @@ bool Player::IsLoXpMap(uint32 map)
 {
     switch (map)
     {
-        case 609:  // start DK
-        case 648:  // start goblin
-        case 654:  // start worgen
-        case 860:  // start pandaren
+        case 609:  // Start DK
+        case 648:  // Start goblin
+        case 654:  // Start worgen
+        case 860:  // Start pandaren
         case 1265: // Dark Portal
         case 1481: // Start DH: Mardum, the Shattered Abyss
         case 1468: // Start DH: Vault of the Wardens
@@ -36857,7 +36857,7 @@ void Player::UnLockThirdSocketIfNeed(Item* item)
             item->AddBonuses(bonusID);
 }
 
-void Player::ChaeckSeamlessTeleport(uint32 newZoneOrArea, bool isArea)
+void Player::CheckSeamlessTeleport(uint32 newZoneOrArea, bool isArea)
 {
     if (!isArea && (m_zoneId ? m_zoneId : m_oldZoneId) != newZoneOrArea)
     {
