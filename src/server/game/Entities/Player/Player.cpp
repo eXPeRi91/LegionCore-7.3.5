@@ -36033,7 +36033,7 @@ bool Player::IsForbiddenMapForLevel(uint32 mapid, uint32 zone)
             minLevel = 80;
 
             // Kun-Lai Summit (where Zen Pilgrimage takes you)
-            if (getClass() = CLASS_MONK && zone == 5841)
+            if (getClass() == CLASS_MONK && zone == 5841)
                 minLevel = 0;
 
             break;
