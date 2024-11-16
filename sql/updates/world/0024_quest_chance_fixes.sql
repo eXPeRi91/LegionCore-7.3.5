@@ -1,4 +1,4 @@
---------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------
 -- Fix loot chance for the following quest items
 -- 28292 = Archmage Vargoth's Staff
 -- 28376 = B'naar Personnel Roster
@@ -15,7 +15,7 @@
 -- 29026 = Ata'mal Crystal
 -- 29163 = Raw Farahlite
 -- 29164 = Farahlite Core
--- 29209 = 
+-- 29209 = Zaxxis Insignia
 -- 29331 = Annals of Kirin'Var
 -- 29338 = Loathsome Remnant
 -- 29365 = Smithing Hammer
@@ -70,8 +70,8 @@ DELETE FROM `creature_loot_template` WHERE NOT `entry` = 21499 AND `item` IN (30
 DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (21179, 21180) AND `item` = 30679;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` = 21500 AND `item` = 30785;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (21503, 21505) AND `item` = 30811;
-DELETE FROM `creature_loot_template` WHERE NOT `entry` = 21408 AND `item` = 30819;;
-DELETE FROM `creature_loot_template` WHERE NOT `entry` = 16949 AND `item` = 31653;;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 21408 AND `item` = 30819;
+DELETE FROM `creature_loot_template` WHERE NOT `entry` = 16949 AND `item` = 31653;
 DELETE FROM `creature_loot_template` WHERE NOT `entry` IN (20452, 20453, 20454, 20456, 20458, 20459, 20474, 20727, 20770, 20854, 23008) AND `item` = 31956;
 
 -- Quest only drops
@@ -104,7 +104,7 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 3 WHERE NOT `entry` 
 -- Needs to be marked as quest only after loot system is fixed!
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (29624, 29625);
 
---------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------
 -- Fix loot chance for the following game objects
 -- 30596 = Baa'ri Tablet Fragment
 -- 30628 = Fel Reaver Power Core

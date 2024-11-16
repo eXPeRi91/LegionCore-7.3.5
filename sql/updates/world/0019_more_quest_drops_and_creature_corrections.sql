@@ -1,3 +1,4 @@
+-- ------------------------------------------------------------------------------------------
 -- Fix loot chance for the following quest items
 -- 2855 = Putrid Claw
 -- 2858 = Darkhound Blood
@@ -188,6 +189,7 @@ UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 40 WHERE `entry` = 1
 -- TODO Fix when loot system is fixed!
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 57879;
 
+-- ------------------------------------------------------------------------------------------
 -- Fix loot chance for the following game objects
 -- 2846 = Tirisfal Pumpkin
 -- 3906 = Balia'mah Trophy
@@ -269,16 +271,19 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 
 UPDATE `gameobject_template` SET `type` = 3 WHERE `entry` = 182095;
 
+-- ------------------------------------------------------------------------------------------
 -- Fix loot chance for the following quest items (from fishing)
 -- 58951 = Giant Furious Pike
 -- 69901 = Severed Abomination Head
 UPDATE `fishing_loot_template` SET `ChanceOrQuestChance` = -10 WHERE `item` = 69901;
 
+-- ------------------------------------------------------------------------------------------
 -- Fix NPCs that incorrectly aggressively attack the player
 -- 44112 = Airwyn Bantamflax
 -- 44866 = Auctioneer Drezmit
 UPDATE `creature_template` SET `flags_extra` = 2 WHERE `entry` IN (44112, 44866);
 
+-- ------------------------------------------------------------------------------------------
 -- Fix creature level scaling
 -- 6118 = Varo'then's Ghost
 -- 17207 = Naias
@@ -289,15 +294,18 @@ UPDATE `creature_template` SET `flags_extra` = 2 WHERE `entry` IN (44112, 44866)
 UPDATE `creature_template` SET `minlevel` = 25, `maxlevel` = 25, `ScaleLevelMin` = 25, `ScaleLevelMax` = 60 WHERE `entry` = 17207;
 UPDATE `creature_template` SET `minlevel` = 10, `maxlevel` = 10, `ScaleLevelMin` = 10, `ScaleLevelMax` = 60 WHERE `entry` IN (6118, 35558, 36130, 36156, 36822);
 
+-- ------------------------------------------------------------------------------------------
 -- Fix creatures that should not give XP
 -- 35296 = Explosives Stockpile
 UPDATE `creature_template` SET `flags_extra` = 64 WHERE `entry` = 35296;
 
+-- ------------------------------------------------------------------------------------------
 -- Remove duplicate creatures (by GUID)
 -- 39819 = Gomegaz
 -- 126040 = Zaeldarr the Outcast
 DELETE FROM `creature` WHERE `guid` IN (39819, 126040);
 
+-- ------------------------------------------------------------------------------------------
 -- Remove/update horribly placed or problematic creatures (by GUID)
 -- 40335 = Bloodwash Enchantress (right next to quest giver by no others of its kind)
 -- 40336 = Neptool (in a terrible spot, looks like he's forever falling/swimming)
@@ -306,6 +314,7 @@ DELETE FROM `creature` WHERE `guid` IN (40335, 88399);
 
 UPDATE `creature` SET `position_x` = -12036.07, `position_y` = -3789.83, `position_z` = 26.3827, `orientation` = 0.4514 WHERE `guid` = 40336;
 
+-- ------------------------------------------------------------------------------------------
 -- Fix game event start time
 -- 14 = Stranglethorn Fishing Extravaganza Announce
 -- 15 = Stranglethorn Fishing Extravaganza Fishing Pools
