@@ -36029,12 +36029,16 @@ bool Player::IsForbiddenMapForLevel(uint32 mapid, uint32 zone)
             break;
         case 732:  // Tol Barad
         case 861:  // Molten Front
+        case 870:  // Pandaria
+            minLevel = 80;
+
+            // Kun-Lai Summit (where Zen Pilgrimage takes you)
+            if (getClass() = CLASS_MONK && zone == 5841)
+                minLevel = 0;
+
+            break;
         case 1064: // Isle of Giants
             minLevel = 85;
-            break;
-        case 870:
-            if (getClass() != CLASS_MONK)
-                minLevel = 80;
             break;
         case 1116: // Draenor
         case 1265: // Dark Portal
