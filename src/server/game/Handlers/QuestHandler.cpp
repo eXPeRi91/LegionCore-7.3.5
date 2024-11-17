@@ -640,8 +640,6 @@ void WorldSession::HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty&
         if (!player || player == _player || !player->CanContact())
             continue;
 
-        _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_SHARING_QUEST);
-
         if (!player->SatisfyQuestStatus(quest, false))
         {
             _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_HAVE_QUEST);
@@ -666,14 +664,18 @@ void WorldSession::HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty&
             continue;
         }
 
-        if (player->GetDivider())
-        {
-            _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_BUSY);
-            continue;
-        }
+        _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_SHARING_QUEST);
 
-        player->PlayerTalkClass->SendQuestGiverQuestDetails(quest, _player->GetGUID(), true);
-        player->SetDivider(_player->GetGUID());
+        if (quest->IsAutoAccept() && player->CanAddQuest(quest, true) && player->CanTakeQuest(quest, true))
+            player->AddQuest(quest, _player);
+
+        if (quest->IsAutoComplete())
+            player->PlayerTalkClass->SendQuestGiverRequestItems(quest, _player->GetGUID(), player->CanCompleteRepeatableQuest(quest), true);
+        else
+        {
+            player->SetDivider(_player->GetGUID());
+            player->PlayerTalkClass->SendQuestGiverQuestDetails(quest, player->GetGUID(), true);
+        }
     }
 }
 
