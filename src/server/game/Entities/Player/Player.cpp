@@ -19306,7 +19306,8 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
         switch (obj.Type)
         {
             case QUEST_OBJECTIVE_ITEM:
-                if (!(quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS))
+                ItemTemplate const* item = sObjectMgr->GetItemTemplate(obj.ObjectID);
+                if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || !(item->GetClass() == ITEM_CLASS_QUEST))
                     DestroyAllOfItem(obj.ObjectID, true);
                 break;
             case QUEST_OBJECTIVE_CURRENCY:
@@ -20166,7 +20167,7 @@ bool Player::TakeQuestSourceItem(uint32 questId, bool msg)
 
             if (destroyItem)
             {
-                if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS))
+                if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || !(item->GetClass() == ITEM_CLASS_QUEST))
                     DestroyItemCount(quest->SourceItemId, quest->SourceItemIdCount ? quest->SourceItemIdCount : 1, true, true);
                 else
                     DestroyAllOfItem(quest->SourceItemId, true, true);
