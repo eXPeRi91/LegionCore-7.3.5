@@ -16246,7 +16246,7 @@ void Player::DestroyItem(uint8 bag, uint8 slot, bool update)
     }
 }
 
-void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequip_check)
+void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequip_check, bool remove_all = false)
 {
     TC_LOG_DEBUG(LOG_FILTER_PLAYER_ITEMS, "STORAGE: DestroyItemCount item = %u, count = %u", item, count);
     uint32 remcount = 0;
@@ -16258,7 +16258,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
         {
             if (pItem->GetEntry() == item && !pItem->IsInTrade())
             {
-                if (pItem->GetCount() + remcount <= count)
+                if (pItem->GetCount() + remcount <= count || remove_all)
                 {
                     // all items in inventory can unequipped
                     remcount += pItem->GetCount();
@@ -16292,7 +16292,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
                     if (pItem->GetEntry() == item && !pItem->IsInTrade())
                     {
                         // all items in bags can be unequipped
-                        if (pItem->GetCount() + remcount <= count)
+                        if (pItem->GetCount() + remcount <= count || remove_all)
                         {
                             remcount += pItem->GetCount();
                             DestroyItem(i, j, update);
@@ -16322,7 +16322,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
         {
             if (pItem && pItem->GetEntry() == item && !pItem->IsInTrade())
             {
-                if (pItem->GetCount() + remcount <= count)
+                if (pItem->GetCount() + remcount <= count || remove_all)
                 {
                     if (!unequip_check || CanUnequipItem(INVENTORY_SLOT_BAG_0 << 8 | i, false) == EQUIP_ERR_OK)
                     {
@@ -16353,7 +16353,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
         {
             if (pItem->GetEntry() == item && !pItem->IsInTrade())
             {
-                if (pItem->GetCount() + remcount <= count)
+                if (pItem->GetCount() + remcount <= count || remove_all)
                 {
                     remcount += pItem->GetCount();
                     DestroyItem(INVENTORY_SLOT_BAG_0, i, update);
@@ -16387,7 +16387,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
                     if (pItem->GetEntry() == item && !pItem->IsInTrade())
                     {
                         // all items in bags can be unequipped
-                        if (pItem->GetCount() + remcount <= count)
+                        if (pItem->GetCount() + remcount <= count || remove_all)
                         {
                             remcount += pItem->GetCount();
                             DestroyItem(i, j, update);
@@ -16410,13 +16410,14 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
         }
     }
 
+    // in reagent bank
     for (uint8 i = REAGENT_SLOT_START; i < REAGENT_SLOT_END; ++i)
     {
         if (Item* pitem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
         {
             if (pitem->GetEntry() == item && !pitem->IsInTrade())
             {
-                if (pitem->GetCount() + remcount <= count)
+                if (pitem->GetCount() + remcount <= count || remove_all)
                 {
                     // all keys can be unequipped
                     remcount += pitem->GetCount();
@@ -16444,7 +16445,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
         {
             if (pitem->GetEntry() == item && !pitem->IsInTrade())
             {
-                if (pitem->GetCount() + remcount <= count)
+                if (pitem->GetCount() + remcount <= count || remove_all)
                 {
                     // all keys can be unequipped
                     remcount += pitem->GetCount();
@@ -20054,12 +20055,12 @@ bool Player::TakeQuestSourceItem(uint32 questId, bool msg)
                         destroyItem = false;
 
             if (destroyItem)
-                DestroyItemCount(quest->SourceItemId, quest->SourceItemIdCount ? quest->SourceItemIdCount : 1, true, true);
+                DestroyItemCount(quest->SourceItemId, quest->SourceItemIdCount ? quest->SourceItemIdCount : 1, true, true, !quest->IsRepeatable());
         }
 
         for (uint8 i = 0; i < QUEST_ITEM_COUNT; ++i)
             if (quest->ItemDrop[i] && !quest->HasSpecialFlag(QUEST_SPECIAL_FLAGS_NOT_REMOVE_SOURCE))
-                DestroyItemCount(quest->ItemDrop[i], quest->ItemDropQuantity[i] ? quest->ItemDropQuantity[i] : 9999, true);
+                DestroyItemCount(quest->ItemDrop[i], quest->ItemDropQuantity[i] ? quest->ItemDropQuantity[i] : 9999, true, !quest->IsRepeatable());
     }
 
     return true;
