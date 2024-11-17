@@ -1851,7 +1851,7 @@ class Player : public Unit, public GridObject<Player>
         void AddArmorProficiency(uint32 newflag) { m_ArmorProficiency |= newflag; }
         uint32 GetWeaponProficiency() const { return m_WeaponProficiency; }
         uint32 GetArmorProficiency() const { return m_ArmorProficiency; }
-        bool IsUseEquipedWeapon(bool mainhand) const
+        bool IsUseEquippedWeapon(bool mainhand) const
         {
             // disarm applied only to mainhand weapon
             return !IsInFeralForm() && (!mainhand || !HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISARMED));
@@ -2342,9 +2342,9 @@ class Player : public Unit, public GridObject<Player>
 
         void SetResurrectRequestData(Unit* caster, uint64 health, uint32 mana, uint32 appliedAura, SpellInfo const* resSpell = nullptr);
         void ClearResurrectRequestData();
-        bool IsRessurectRequestedBy(ObjectGuid guid) const;
-        bool IsRessurectRequested() const;
-        void ResurectUsingRequestData();
+        bool IsResurrectRequestedBy(ObjectGuid guid) const;
+        bool IsResurrectRequested() const;
+        void ResurrectUsingRequestData();
 
         uint8 getCinematic()
         {
