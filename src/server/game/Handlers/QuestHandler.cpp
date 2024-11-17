@@ -98,7 +98,7 @@ void WorldSession::HandleQuestGiverHello(WorldPackets::Quest::QuestGiverHello& p
 
 void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAcceptQuest& packet)
 {
-    Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT|TYPEMASK_GAMEOBJECT|TYPEMASK_ITEM|TYPEMASK_PLAYER);
+    Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM | TYPEMASK_PLAYER);
     if (!object || object == _player)
         return;
 
@@ -163,14 +163,14 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
                     {
                         Player* player = itr->getSource();
 
-                        if (!player || player == _player || !player->CanContact())     // not self
+                        if (!player || player == _player || !player->IsAtGroupRewardDistance(_player) || player->HasPendingBind())     // not self
                             continue;
 
-                        if (player->CanTakeQuest(quest, true))
+                        if (player->CanTakeQuest(quest, false))
                         {
                             player->SetDivider(_player->GetGUID());
 
-                            //need confirmation that any gossip window will close
+                            // need confirmation that any gossip window will close
                             player->PlayerTalkClass->SendCloseGossip();
 
                             _player->SendQuestConfirmAccept(quest, player);
