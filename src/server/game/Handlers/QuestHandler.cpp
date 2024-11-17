@@ -546,7 +546,10 @@ void WorldSession::HandleQuestConfirmAccept(WorldPackets::Quest::QuestConfirmAcc
         if (!pOriginalPlayer)
             return;
 
-        if (!player->IsInSameRaidWith(pOriginalPlayer))
+        if (!player->IsInSameRaidWith(pOriginalPlayer) || !player->IsAtGroupRewardDistance(pOriginalPlayer))
+            return;
+
+        if (!player->CanTakeQuest(quest, true) || player->HasPendingBind())
             return;
 
         if (player->CanAddQuest(quest, true))
