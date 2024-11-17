@@ -15602,7 +15602,7 @@ Item* Player::_StoreItem(uint16 pos, Item* pItem, uint32 count, bool clone, bool
         if (!pItem)
             return NULL;
 
-        if (pItem->GetBonding() == BIND_WHEN_PICKED_UP || pItem->GetBonding() == BIND_QUEST_ITEM || (pItem->GetBonding() == BIND_WHEN_EQUIPED && IsBagPos(pos)))
+        if (pItem->GetBonding() == BIND_WHEN_PICKED_UP || pItem->GetBonding() == BIND_QUEST_ITEM || (pItem->GetBonding() == BIND_WHEN_EQUIPPED && IsBagPos(pos)))
             pItem->SetBinding(true);
 
         Bag* pBag = (bag == INVENTORY_SLOT_BAG_0) ? NULL : GetBagByPos(bag);
@@ -15639,7 +15639,7 @@ Item* Player::_StoreItem(uint16 pos, Item* pItem, uint32 count, bool clone, bool
     if(pItem->GetEntry() != pItem2->GetEntry())
         return NULL;
 
-    if (pItem2->GetBonding() == BIND_WHEN_PICKED_UP || pItem2->GetBonding() == BIND_QUEST_ITEM || (pItem2->GetBonding() == BIND_WHEN_EQUIPED && IsBagPos(pos)))
+    if (pItem2->GetBonding() == BIND_WHEN_PICKED_UP || pItem2->GetBonding() == BIND_QUEST_ITEM || (pItem2->GetBonding() == BIND_WHEN_EQUIPPED && IsBagPos(pos)))
         pItem2->SetBinding(true);
 
     if ((pItem2->GetCount() + count) <= pItem2->GetTemplate()->GetMaxStackSize())
@@ -15935,7 +15935,7 @@ void Player::VisualizeItem(uint8 slot, Item* pItem)
         return;
 
     // check also  BIND_WHEN_PICKED_UP and BIND_QUEST_ITEM for .additem or .additemset case by GM (not binded at adding to inventory)
-    if (pItem->GetBonding() == BIND_WHEN_EQUIPED || pItem->GetBonding() == BIND_WHEN_PICKED_UP || pItem->GetBonding() == BIND_QUEST_ITEM)
+    if (pItem->GetBonding() == BIND_WHEN_EQUIPPED || pItem->GetBonding() == BIND_WHEN_PICKED_UP || pItem->GetBonding() == BIND_QUEST_ITEM)
         pItem->SetBinding(true);
 
     TC_LOG_DEBUG(LOG_FILTER_PLAYER_ITEMS, "STORAGE: EquipItem slot = %u, item = %u", slot, pItem->GetEntry());

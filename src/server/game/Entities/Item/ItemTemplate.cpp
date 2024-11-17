@@ -294,7 +294,7 @@ bool ItemTemplate::IsRecipe() const
 
 bool ItemTemplate::IsNotNeedCheck() const
 {
-    return GetBonding() == BIND_WHEN_EQUIPED || GetBonding() == BIND_WHEN_USE || GetBonding() == NO_BIND || (GetFlags() & ITEM_FLAG_IS_BOUND_TO_ACCOUNT);
+    return GetBonding() == BIND_WHEN_EQUIPPED || GetBonding() == BIND_WHEN_USE || GetBonding() == NO_BIND || (GetFlags() & ITEM_FLAG_IS_BOUND_TO_ACCOUNT);
 }
 
 bool ItemTemplate::IsRangedWeapon() const
