@@ -19309,6 +19309,8 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
                 {
                     ItemTemplate const* item = sObjectMgr->GetItemTemplate(obj.ObjectID);
                     if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || !(item->GetClass() == ITEM_CLASS_QUEST))
+                        DestroyItemCount(obj.ObjectID, obj.Amount, true);
+                    else
                         DestroyAllOfItem(obj.ObjectID, true);
                 }
                 break;
