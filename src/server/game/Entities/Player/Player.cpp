@@ -16410,6 +16410,7 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
         }
     }
 
+    // in reagent bank
     for (uint8 i = REAGENT_SLOT_START; i < REAGENT_SLOT_END; ++i)
     {
         if (Item* pitem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
@@ -16462,6 +16463,116 @@ void Player::DestroyItemCount(uint32 item, uint32 count, bool update, bool unequ
                     pitem->SetState(ITEM_CHANGED, this);
                     return;
                 }
+            }
+        }
+    }
+}
+
+void Player::DestroyAllOfItem(uint32 item, bool update, bool unequip_check)
+{
+    TC_LOG_DEBUG(LOG_FILTER_PLAYER_ITEMS, "STORAGE: DestroyAllOfItem item = %u", item);
+
+    // in inventory
+    for (uint8 i = INVENTORY_SLOT_ITEM_START; i < GetInventoryEndSlot(); ++i)
+    {
+        if (Item* pItem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+        {
+            if (pItem->GetEntry() == item && !pItem->IsInTrade())
+            {
+                // all items in inventory can unequipped
+                DestroyItem(INVENTORY_SLOT_BAG_0, i, update);
+            }
+        }
+    }
+
+    // in inventory bags
+    for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; i++)
+    {
+        if (Bag* pBag = GetBagByPos(i))
+        {
+            for (uint32 j = 0; j < pBag->GetBagSize(); j++)
+            {
+                if (Item* pItem = pBag->GetItemByPos(j))
+                {
+                    if (pItem->GetEntry() == item && !pItem->IsInTrade())
+                    {
+                        // all items in bags can be unequipped
+                        DestroyItem(i, j, update);
+                    }
+                }
+            }
+        }
+    }
+
+    // in equipment and bag list
+    for (uint8 i = EQUIPMENT_SLOT_START; i < INVENTORY_SLOT_BAG_END; i++)
+    {
+        if (Item* pItem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+        {
+            if (pItem && pItem->GetEntry() == item && !pItem->IsInTrade())
+            {
+                if (!unequip_check || CanUnequipItem(INVENTORY_SLOT_BAG_0 << 8 | i, false) == EQUIP_ERR_OK)
+                {
+                    DestroyItem(INVENTORY_SLOT_BAG_0, i, update);
+                }
+            }
+        }
+    }
+
+    // in bank
+    for (uint8 i = BANK_SLOT_ITEM_START; i < BANK_SLOT_ITEM_END; i++)
+    {
+        if (Item* pItem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+        {
+            if (pItem->GetEntry() == item && !pItem->IsInTrade())
+            {
+                DestroyItem(INVENTORY_SLOT_BAG_0, i, update);
+            }
+        }
+    }
+
+    // in bank bags
+    for (uint8 i = BANK_SLOT_BAG_START; i < BANK_SLOT_BAG_END; i++)
+    {
+        if (Bag* pBag = GetBagByPos(i))
+        {
+            for (uint32 j = 0; j < pBag->GetBagSize(); j++)
+            {
+                if (Item* pItem = pBag->GetItemByPos(j))
+                {
+
+
+                    if (pItem->GetEntry() == item && !pItem->IsInTrade())
+                    {
+                        // all items in bags can be unequipped
+                        DestroyItem(i, j, update);
+                    }
+                }
+            }
+        }
+    }
+
+    // in reagent bank
+    for (uint8 i = REAGENT_SLOT_START; i < REAGENT_SLOT_END; ++i)
+    {
+        if (Item* pitem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+        {
+            if (pitem->GetEntry() == item && !pitem->IsInTrade())
+            {
+                // all keys can be unequipped
+                DestroyItem(INVENTORY_SLOT_BAG_0, i, update);
+            }
+        }
+    }
+
+    for (uint8 i = CHILD_EQUIPMENT_SLOT_START; i < CHILD_EQUIPMENT_SLOT_END; ++i)
+    {
+        if (Item* pitem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+        {
+            if (pitem->GetEntry() == item && !pitem->IsInTrade())
+            {
+                // all keys can be unequipped
+                DestroyItem(INVENTORY_SLOT_BAG_0, i, update);
             }
         }
     }
@@ -19196,7 +19307,7 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
         {
             case QUEST_OBJECTIVE_ITEM:
                 if (!(quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS))
-                    DestroyItemCount(obj.ObjectID, obj.Amount, true);
+                    DestroyAllOfItem(obj.ObjectID, true);
                 break;
             case QUEST_OBJECTIVE_CURRENCY:
                 if (int32 reqCountCurrency = obj.Amount)
@@ -20054,7 +20165,12 @@ bool Player::TakeQuestSourceItem(uint32 questId, bool msg)
                         destroyItem = false;
 
             if (destroyItem)
-                DestroyItemCount(quest->SourceItemId, quest->SourceItemIdCount ? quest->SourceItemIdCount : 1, true, true);
+            {
+                if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS))
+                    DestroyItemCount(quest->SourceItemId, quest->SourceItemIdCount ? quest->SourceItemIdCount : 1, true, true);
+                else
+                    DestroyAllOfItem(quest->SourceItemId, true, true);
+            }
         }
 
         for (uint8 i = 0; i < QUEST_ITEM_COUNT; ++i)
