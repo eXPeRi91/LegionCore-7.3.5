@@ -19306,12 +19306,12 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
         switch (obj.Type)
         {
             case QUEST_OBJECTIVE_ITEM:
-            {
-                ItemTemplate const* item = sObjectMgr->GetItemTemplate(obj.ObjectID);
-                if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || !(item->GetClass() == ITEM_CLASS_QUEST))
-                    DestroyAllOfItem(obj.ObjectID, true);
+                {
+                    ItemTemplate const* item = sObjectMgr->GetItemTemplate(obj.ObjectID);
+                    if (quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || !(item->GetClass() == ITEM_CLASS_QUEST))
+                        DestroyAllOfItem(obj.ObjectID, true);
+                }
                 break;
-            }
             case QUEST_OBJECTIVE_CURRENCY:
                 if (int32 reqCountCurrency = obj.Amount)
                 {
@@ -19320,11 +19320,11 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
                 }
                 break;
             case QUEST_OBJECTIVE_COMPLETE_CRITERIA_TREE:
-            {
-                if (CriteriaTree const* tree = sAchievementMgr->GetCriteriaTree(obj.ObjectID))
-                    for (CriteriaTree const* node : tree->Children)
-                        m_achievementMgr->RemoveCriteriaProgress(node);
-            }
+                {
+                    if (CriteriaTree const* tree = sAchievementMgr->GetCriteriaTree(obj.ObjectID))
+                        for (CriteriaTree const* node : tree->Children)
+                            m_achievementMgr->RemoveCriteriaProgress(node);
+                }
             default:
                 break;
         }
