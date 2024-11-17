@@ -11304,7 +11304,7 @@ void Player::CastItemCombatSpell(Unit* target, WeaponAttackType attType, uint32 
                             continue;
                         // Check if item is useable (forms or disarm)
                         if (attType == BASE_ATTACK)
-                            if (!IsUseEquipedWeapon(true) && !IsInFeralForm())
+                            if (!IsUseEquippedWeapon(true) && !IsInFeralForm())
                                 continue;
                     }
                     CastItemCombatSpell(target, attType, procVictim, procEx, item, proto);
@@ -25186,7 +25186,7 @@ void Player::HandleAltVisSwitch()
 
 void Player::SetResurrectRequestData(Unit* caster, uint64 health, uint32 mana, uint32 appliedAura, SpellInfo const* resSpell)
 {
-    ASSERT(!IsRessurectRequested());
+    ASSERT(!IsResurrectRequested());
     _resurrectionData = new ResurrectionData();
     _resurrectionData->GUID = caster->GetGUID();
     _resurrectionData->Location.WorldRelocate(*caster);
@@ -25202,19 +25202,19 @@ void Player::ClearResurrectRequestData()
     _resurrectionData = nullptr;
 }
 
-bool Player::IsRessurectRequestedBy(ObjectGuid guid) const
+bool Player::IsResurrectRequestedBy(ObjectGuid guid) const
 {
-    if (!IsRessurectRequested())
+    if (!IsResurrectRequested())
         return false;
     return _resurrectionData->GUID == guid;
 }
 
-bool Player::IsRessurectRequested() const
+bool Player::IsResurrectRequested() const
 {
     return _resurrectionData != nullptr;
 }
 
-void Player::ResurectUsingRequestData()
+void Player::ResurrectUsingRequestData()
 {
     if (GetMap()->IsDungeon() && _resurrectionData->ResSpell && _resurrectionData->ResSpell->IsBattleResurrection())
     {
@@ -25614,7 +25614,7 @@ void Player::_SaveMail(SQLTransaction& trans)
         }
     }
 
-    //deallocate deleted mails...
+    // deallocate deleted mails...
     for (PlayerMails::iterator itr = m_mail.begin(); itr != m_mail.end();)
     {
         if ((*itr)->state == MAIL_STATE_DELETED)

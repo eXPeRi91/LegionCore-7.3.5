@@ -364,7 +364,7 @@ void Spell::EffectResurrectNew(SpellEffIndex effIndex)
         return;
 
     Player* target = unitTarget->ToPlayer();
-    if (target->IsRessurectRequested())       // already have one active request
+    if (target->IsResurrectRequested())       // already have one active request
         return;
 
     ExecuteLogEffectResurrect(effIndex, target);
@@ -6590,7 +6590,7 @@ void Spell::EffectResurrect(SpellEffIndex effIndex)
 
     Player* target = unitTarget->ToPlayer();
 
-    if (target->IsRessurectRequested())       // already have one active request
+    if (target->IsResurrectRequested())       // already have one active request
         return;
 
     //if (m_spellInfo->HasAttribute(SPELL_ATTR8_BATTLE_RESURRECTION) && GetCaster()->isInCombat())
@@ -8258,7 +8258,7 @@ void Spell::EffectResurrectWithAura(SpellEffIndex effIndex)
     if (unitTarget->isAlive())
         return;
 
-    if (target->IsRessurectRequested())       // already have one active request
+    if (target->IsResurrectRequested())       // already have one active request
         return;
 
     ExecuteLogEffectResurrect(effIndex, target);

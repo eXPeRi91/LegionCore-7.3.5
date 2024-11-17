@@ -177,10 +177,10 @@ void WorldSession::HandleResurrectResponse(WorldPackets::Misc::ResurrectResponse
         return;
     }
 
-    if (!player->IsRessurectRequestedBy(packet.Resurrecter))
+    if (!player->IsResurrectRequestedBy(packet.Resurrecter))
         return;
 
-    player->ResurectUsingRequestData();
+    player->ResurrectUsingRequestData();
 }
 
 void WorldSession::HandleAreaTrigger(WorldPackets::Misc::AreaTrigger& packet)
