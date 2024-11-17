@@ -169,7 +169,7 @@ void ItemTemplate::GetDamage(uint32 itemLevel, float& minDamage, float& maxDamag
 
 bool ItemTemplate::IsUsableBySpecialization(uint32 specId, uint8 level) const
 {
-    if (!ItemSpecExist) // if item don`t use spec allways good
+    if (!ItemSpecExist) // if item don`t use spec always good
         return true;
 
     if (ChrSpecializationEntry const* chrSpecialization = sChrSpecializationStore.LookupEntry(specId))
