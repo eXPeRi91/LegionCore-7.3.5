@@ -830,44 +830,56 @@ void WorldSession::SendQuestgiverStatusMultipleQuery()
 
     _player->i_clientGUIDLock.lock();
     WorldPackets::Quest::QuestGiverStatusMultiple response;
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 2");
     for (auto const& itr : _player->m_clientGUIDs)
     {
+        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 3");
         if (itr.IsCreatureOrPetOrVehicle())
         {
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 4");
             // need also pet quests case support
             Creature* questgiver = ObjectAccessor::GetCreatureOrPetOrVehicle(*GetPlayer(), itr);
-            if (!questgiver || questgiver->IsHostileTo(_player))
-                continue;
-
-            if (!questgiver->HasFlag(UNIT_FIELD_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER))
+            if (!questgiver || questgiver->IsHostileTo(_player) || !questgiver->HasFlag(UNIT_FIELD_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER))
                 continue;
 
             questStatus = sScriptMgr->GetDialogStatus(_player, questgiver);
             if (questStatus > 6)
+            {
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 5");
                 questStatus = getDialogStatus(_player, questgiver, defstatus);
+            }
 
             if ((questStatus & DIALOG_STATUS_IGNORED) == 0)
+            {
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 6");
                 response.QuestGiver.emplace_back(questgiver->GetGUID(), questStatus);
+            }
         }
         else if (itr.IsGameObject())
         {
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 7");
             GameObject* questgiver = GetPlayer()->GetMap()->GetGameObject(itr);
-            if (!questgiver)
-                continue;
-
-            if (questgiver->GetGoType() != GAMEOBJECT_TYPE_QUESTGIVER)
+            if (!questgiver || questgiver->GetGoType() != GAMEOBJECT_TYPE_QUESTGIVER)
                 continue;
 
             questStatus = sScriptMgr->GetDialogStatus(_player, questgiver);
             if (questStatus > 6)
+            {
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 8");
                 questStatus = getDialogStatus(_player, questgiver, defstatus);
+            }
 
             if ((questStatus & DIALOG_STATUS_IGNORED) == 0)
+            {
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 9");
                 response.QuestGiver.emplace_back(questgiver->GetGUID(), questStatus);
+            }
         }
     }
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 10");
     _player->i_clientGUIDLock.unlock();
 
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 11");
     SendPacket(response.Write());
 }
 
