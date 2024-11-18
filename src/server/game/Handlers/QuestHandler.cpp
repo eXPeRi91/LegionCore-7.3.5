@@ -108,9 +108,6 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
         return;
     }
 
-    if (object && object->IsPlayer() && !object->hasQuest(packet.QuestID))
-        return;
-
     // some kind of WPE protection
     if (!_player->CanInteractWithQuestGiver(object))
         return;
@@ -125,25 +122,11 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
             return;
         }
 
-        if (object && object->IsPlayer() && !quest->HasFlag(QUEST_FLAGS_SHARABLE))
-            return;
-
         if (_player->GetDivider())
         {
             Player* player = ObjectAccessor::FindPlayer(_player->GetDivider());
-            if (!player)
-            {
-                _player->SetDivider(ObjectGuid::Empty);
-                return;
-            }
             if (player)
             {
-                if (!player->CanShareQuest(packet.QuestID))
-                {
-                    player->SendPushToPartyResponse(_player, QUEST_PARTY_MSG_CANT_TAKE_QUEST);
-                    _player->SetDivider(ObjectGuid::Empty);
-                    return;
-                }
                 player->SendPushToPartyResponse(_player, QUEST_PARTY_MSG_ACCEPT_QUEST);
                 _player->SetDivider(ObjectGuid::Empty);
             }
@@ -177,6 +160,11 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
                 }
             }
 
+            _player->PlayerTalkClass->SendCloseGossip();
+
+            if (quest->SourceSpellID)
+                _player->CastSpell(_player, quest->SourceSpellID, true);
+
             if (_player->CanCompleteQuest(packet.QuestID))
                 _player->CompleteQuest(packet.QuestID);
 
@@ -200,10 +188,12 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
                     for (QuestObjective const& obj : quest->GetObjectives())
                     {
                         if (obj.Type == QUEST_OBJECTIVE_ITEM)
-                            if ((obj.ObjectID == item->GetEntry()) && (item->GetTemplate()->GetMaxCount() > 0))
                         {
-                            destroyItem = false;
-                            break;
+                            if ((obj.ObjectID == item->GetEntry()) && (item->GetTemplate()->GetMaxCount() > 0))
+                            {
+                                destroyItem = false;
+                                break;
+                            }
                         }
                     }
 
@@ -219,10 +209,6 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
                 default:
                     break;
             }
-            _player->PlayerTalkClass->SendCloseGossip();
-
-            if (quest->SourceSpellID)
-                _player->CastSpell(_player, quest->SourceSpellID, true);
 
             return;
         }
