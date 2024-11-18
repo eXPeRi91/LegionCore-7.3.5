@@ -99,11 +99,9 @@ void WorldSession::HandleQuestGiverHello(WorldPackets::Quest::QuestGiverHello& p
 void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAcceptQuest& packet)
 {
     Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM | TYPEMASK_PLAYER);
-    if (!object || object == _player)
-        return;
 
     // no or incorrect quest giver
-    if (!object || (!object->IsPlayer() && !object->hasQuest(packet.QuestID)) || (object->IsPlayer() && object != _player && !object->ToPlayer()->CanShareQuest(packet.QuestID)))
+    if (!object || object == _player || (!object->IsPlayer() && !object->hasQuest(packet.QuestID)) || (object->IsPlayer() && !object->ToPlayer()->CanShareQuest(packet.QuestID)))
     {
         _player->PlayerTalkClass->SendCloseGossip();
         _player->SetDivider(ObjectGuid::Empty);
