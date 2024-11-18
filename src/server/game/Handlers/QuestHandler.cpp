@@ -638,7 +638,7 @@ void WorldSession::HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty&
     if (_player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_NONE || _player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_REWARDED)
         return;
 
-    if (Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID);)
+    if (Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID))
     {
         if (Group* group = _player->GetGroup())
         {
