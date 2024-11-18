@@ -98,6 +98,7 @@ void WorldSession::HandleQuestGiverHello(WorldPackets::Quest::QuestGiverHello& p
     creature->AI()->sGossipHello(_player);
 }
 
+// Called when you click 'Accept' on a quest from a quest giver
 void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAcceptQuest& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverAcceptQuest DEBUG 1");
@@ -236,6 +237,7 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
     _player->PlayerTalkClass->SendCloseGossip();
 }
 
+// Called when you actually click on a quest on a quest giver
 void WorldSession::HandleQuestGiverQueryQuest(WorldPackets::Quest::QuestGiverQueryQuest& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverQueryQuest DEBUG 1");
@@ -370,6 +372,7 @@ void WorldSession::HandleQueryTreasurePicker(WorldPackets::Quest::QueryTreasureP
     GetPlayer()->SendDirectMessage(response.Write());
 }
 
+// Called when you choose your quest reward and click 'Complete' for a quest on a quest giver
 void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverChooseReward& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverChooseReward DEBUG 1");
@@ -465,12 +468,13 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
         SendQuestgiverStatusMultipleQuery();
 
         // AutoTake system
-         _player->PrepareAreaQuest( _player->GetCurrentAreaID());
+         _player->PrepareAreaQuest(_player->GetCurrentAreaID());
     }
     else 
         _player->PlayerTalkClass->SendQuestGiverOfferReward(quest, packet.QuestGiverGUID, true);
 }
 
+// Called when you click continue for a quest on a quest giver that you can complete
 void WorldSession::HandleQuestGiverRequestReward(WorldPackets::Quest::QuestGiverRequestReward& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverRequestReward DEBUG 1");
@@ -569,6 +573,7 @@ void WorldSession::HandleQuestConfirmAccept(WorldPackets::Quest::QuestConfirmAcc
     }
 }
 
+// Called when you click on a quest on a quest giver that you currently have in your quest log
 void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiverCompleteQuest& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 1");
