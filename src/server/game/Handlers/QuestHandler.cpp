@@ -631,62 +631,67 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiver
         }
     }
 }
-//TODO
+
 void WorldSession::HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandlePushQuestToParty DEBUG 1");
     if (_player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_NONE || _player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_REWARDED)
         return;
 
-    Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID);
-    if (!quest)
-        return;
-
-    Group* group = _player->GetGroup();
-    if (!group)
-        return;
-
-    for (GroupReference* itr = group->GetFirstMember(); itr != nullptr; itr = itr->next())
+    if (Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID);)
     {
-        Player* player = itr->getSource();
-        if (!player || player == _player || !player->CanContact())
-            continue;
-
-        if (!player->SatisfyQuestStatus(quest, false))
+        if (Group* group = _player->GetGroup())
         {
-            _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_HAVE_QUEST);
-            continue;
-        }
+            for (GroupReference* itr = group->GetFirstMember(); itr != nullptr; itr = itr->next())
+            {
+                Player* player = itr->getSource();
 
-        if (player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_COMPLETE)
-        {
-            _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_FINISH_QUEST);
-            continue;
-        }
+                if (!player || player == _player || !player->IsInMap(_player))
+                    continue;
 
-        if (!player->CanTakeQuest(quest, false))
-        {
-            _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_CANT_TAKE_QUEST);
-            continue;
-        }
+                if (!player->SatisfyQuestStatus(quest, false))
+                {
+                    _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_HAVE_QUEST);
+                    continue;
+                }
 
-        if (!player->SatisfyQuestLog(false))
-        {
-            _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_LOG_FULL);
-            continue;
-        }
+                if (player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_COMPLETE)
+                {
+                    _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_FINISH_QUEST);
+                    continue;
+                }
 
-        _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_SHARING_QUEST);
+                if (!player->CanTakeQuest(quest, false))
+                {
+                    _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_CANT_TAKE_QUEST);
+                    continue;
+                }
 
-        if (quest->IsAutoAccept() && player->CanAddQuest(quest, true) && player->CanTakeQuest(quest, true))
-            player->AddQuest(quest, _player);
+                if (!player->SatisfyQuestLog(false))
+                {
+                    _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_LOG_FULL);
+                    continue;
+                }
 
-        if (quest->IsAutoComplete())
-            player->PlayerTalkClass->SendQuestGiverRequestItems(quest, _player->GetGUID(), player->CanCompleteRepeatableQuest(quest), true);
-        else
-        {
-            player->SetDivider(_player->GetGUID());
-            player->PlayerTalkClass->SendQuestGiverQuestDetails(quest, player->GetGUID(), true);
+                if (player->GetDivider())
+                {
+                    _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_BUSY);
+                    continue;
+                }
+
+                _player->SendPushToPartyResponse(player, QUEST_PARTY_MSG_SHARING_QUEST);
+
+                if (quest->IsAutoAccept() && player->CanAddQuest(quest, true) && player->CanTakeQuest(quest, true))
+                    player->AddQuest(quest, _player);
+
+                if (quest->IsAutoComplete())
+                    player->PlayerTalkClass->SendQuestGiverRequestItems(quest, _player->GetGUID(), player->CanCompleteRepeatableQuest(quest), true);
+                else
+                {
+                    player->SetDivider(_player->GetGUID());
+                    player->PlayerTalkClass->SendQuestGiverQuestDetails(quest, player->GetGUID(), true);
+                }
+            }
         }
     }
 }
