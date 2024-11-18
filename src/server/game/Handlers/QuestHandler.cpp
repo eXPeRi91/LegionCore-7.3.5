@@ -38,6 +38,7 @@
 
 void WorldSession::HandleQuestGiverStatusQuery(WorldPackets::Quest::QuestGiverStatusQuery& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverStatusQuery DEBUG 1");
     uint32 questStatus = DIALOG_STATUS_NONE;
     uint32 defstatus = DIALOG_STATUS_NONE;
 
@@ -77,6 +78,7 @@ void WorldSession::HandleQuestGiverStatusQuery(WorldPackets::Quest::QuestGiverSt
 
 void WorldSession::HandleQuestGiverHello(WorldPackets::Quest::QuestGiverHello& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverHello DEBUG 1");
     Creature* creature = GetPlayer()->GetNPCIfCanInteractWith(packet.QuestGiverGUID, UNIT_NPC_FLAG_NONE);
     if (!creature)
         return;
@@ -98,9 +100,9 @@ void WorldSession::HandleQuestGiverHello(WorldPackets::Quest::QuestGiverHello& p
 
 void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAcceptQuest& packet)
 {
-    Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM | TYPEMASK_PLAYER);
-
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverAcceptQuest DEBUG 1");
+
+    Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM | TYPEMASK_PLAYER);
 
     // no or incorrect quest giver
     if (!object || object == _player || (!object->IsPlayer() && !object->hasQuest(packet.QuestID)) || (object->IsPlayer() && !object->ToPlayer()->CanShareQuest(packet.QuestID)))
@@ -236,6 +238,7 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
 
 void WorldSession::HandleQuestGiverQueryQuest(WorldPackets::Quest::QuestGiverQueryQuest& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverQueryQuest DEBUG 1");
     // Verify that the guid is valid and is a questgiver or involved in the requested quest
     Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT | TYPEMASK_ITEM);
     if (!object || (!object->hasQuest(packet.QuestID) && !object->hasInvolvedQuest(packet.QuestID)))
@@ -275,6 +278,7 @@ void WorldSession::HandleQuestGiverQueryQuest(WorldPackets::Quest::QuestGiverQue
 
 void WorldSession::HandleQueryQuestInfo(WorldPackets::Quest::QueryQuestInfo& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQueryQuestInfo DEBUG 1");
     if (!_player)
         return;
 
@@ -283,6 +287,7 @@ void WorldSession::HandleQueryQuestInfo(WorldPackets::Quest::QueryQuestInfo& pac
 
 void WorldSession::HandleQueryTreasurePicker(WorldPackets::Quest::QueryTreasurePicker& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQueryTreasurePicker DEBUG 1");
     auto quest = sQuestDataStore->GetQuestTemplate(packet.QuestID);
     if (!quest || !sWorld->getBoolConfig(CONFIG_WORLD_QUEST))
         return;
@@ -367,6 +372,7 @@ void WorldSession::HandleQueryTreasurePicker(WorldPackets::Quest::QueryTreasureP
 
 void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverChooseReward& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverChooseReward DEBUG 1");
     Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID);
     if (!quest)
         return;
@@ -467,6 +473,7 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
 
 void WorldSession::HandleQuestGiverRequestReward(WorldPackets::Quest::QuestGiverRequestReward& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverRequestReward DEBUG 1");
     Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID);
     if (!quest)
         return;
@@ -493,6 +500,7 @@ void WorldSession::HandleQuestGiverRequestReward(WorldPackets::Quest::QuestGiver
 
 void WorldSession::HandleQuestLogRemoveQuest(WorldPackets::Quest::QuestLogRemoveQuest& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestLogRemoveQuest DEBUG 1");
     Player* player = GetPlayer();
     if (!player)
         return;
@@ -533,6 +541,7 @@ void WorldSession::HandleQuestLogRemoveQuest(WorldPackets::Quest::QuestLogRemove
 
 void WorldSession::HandleQuestConfirmAccept(WorldPackets::Quest::QuestConfirmAccept& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestConfirmAccept DEBUG 1");
     if (Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID))
     {
         if (!quest->HasFlag(QUEST_FLAGS_PARTY_ACCEPT))
@@ -562,6 +571,7 @@ void WorldSession::HandleQuestConfirmAccept(WorldPackets::Quest::QuestConfirmAcc
 
 void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiverCompleteQuest& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 1");
     if (!packet.FromScript)
     {
         Object* object = ObjectAccessor::GetObjectByTypeMask(*_player, packet.QuestGiverGUID, TYPEMASK_UNIT | TYPEMASK_GAMEOBJECT);
@@ -621,9 +631,10 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiver
         }
     }
 }
-
+//TODO
 void WorldSession::HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandlePushQuestToParty DEBUG 1");
     if (_player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_NONE || _player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_REWARDED)
         return;
 
@@ -682,6 +693,7 @@ void WorldSession::HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty&
 
 void WorldSession::HandleQuestPushResult(WorldPackets::Quest::QuestPushResult& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestPushResult DEBUG 1");
     if (!_player->GetDivider().IsEmpty() && _player->GetDivider() == packet.SenderGUID)
     {
         if (Player* player = ObjectAccessor::FindPlayer(_player->GetDivider()))
@@ -694,6 +706,7 @@ void WorldSession::HandleQuestPushResult(WorldPackets::Quest::QuestPushResult& p
 
 uint32 WorldSession::getDialogStatus(Player* player, Object* questgiver, uint32 defstatus)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "getDialogStatus DEBUG 1");
     uint32 result = defstatus;
 
     QuestRelationBounds qr;
@@ -714,7 +727,7 @@ uint32 WorldSession::getDialogStatus(Player* player, Object* questgiver, uint32 
             break;
         }
         default:
-            //its imposible, but check ^)
+            // it's impossible, but check
             TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "Warning: GetDialogStatus called for unexpected type %u", questgiver->GetTypeId());
             return DIALOG_STATUS_NONE;
     }
@@ -736,7 +749,7 @@ uint32 WorldSession::getDialogStatus(Player* player, Object* questgiver, uint32 
             continue;
 
         QuestStatus status = player->GetQuestStatus(quest_id);
-        //no need there add autocomplete quest as it's fail. autocomplete should be added first.
+        // no need there add autocomplete quest as it's fail. autocomplete should be added first.
         if (status == QUEST_STATUS_COMPLETE && !player->GetQuestRewardStatus(quest_id))
         {
             if (quest->IsAutoComplete() && quest->IsRepeatable())
@@ -795,11 +808,13 @@ uint32 WorldSession::getDialogStatus(Player* player, Object* questgiver, uint32 
 
 void WorldSession::HandleQuestgiverStatusMultipleQuery(WorldPackets::Quest::QuestGiverStatusMultipleQuery& /*packet*/)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverStatusMultipleQuery DEBUG 1");
     SendQuestgiverStatusMultipleQuery();
 }
 
 void WorldSession::SendQuestgiverStatusMultipleQuery()
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 1");
     uint32 questStatus = DIALOG_STATUS_NONE;
     uint32 defstatus = DIALOG_STATUS_NONE;
 
@@ -928,6 +943,7 @@ void WorldSession::HandleGarrisonRequestScoutingMap(WorldPackets::Garrison::Garr
 void WorldSession::HandleRequestWorldQuestUpdate(WorldPackets::Quest::RequestWorldQuestUpdate& /*packet*/)
 {
     TC_LOG_DEBUG(LOG_FILTER_WORLD_QUEST, "HandleRequestWorldQuestUpdate");
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleRequestWorldQuestUpdate DEBUG 1");
 
     WorldPackets::Quest::WorldQuestUpdate response;
     if (_player->getLevel() >= MAX_LEVEL && sWorld->getBoolConfig(CONFIG_WORLD_QUEST))
@@ -990,6 +1006,7 @@ void WorldSession::HandleRequestWorldQuestUpdate(WorldPackets::Quest::RequestWor
                             continue;
                     }
 
+                    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleRequestWorldQuestUpdate DEBUG 2");
                     response.WorldQuestUpdates.emplace_back(worldQuest->StartTime, worldQuest->QuestID, worldQuest->Timer, worldQuest->VariableID, worldQuest->Value);
                 }
             }
@@ -1001,6 +1018,7 @@ void WorldSession::HandleRequestWorldQuestUpdate(WorldPackets::Quest::RequestWor
 
 void WorldSession::HandleRequestAreaPoiUpdate(WorldPackets::Quest::RequestAreaPoiUpdate& /*packet*/)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleRequestAreaPoiUpdate DEBUG 1");
     WorldPackets::Quest::AreaPoiUpdate response;
     bool needSend = false;
     // For activate screen need cast 233539
