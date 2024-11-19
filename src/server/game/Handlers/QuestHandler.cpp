@@ -588,20 +588,24 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiver
             return;
     }
 
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 2");
     if (Quest const* quest = sQuestDataStore->GetQuestTemplate(packet.QuestID))
     {
         if (packet.FromScript && !quest->HasFlag(QUEST_FLAGS_AUTOCOMPLETE))
         {
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 3");
             TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "Possible hacking attempt: Player %s [playerGuid: %s] tried to complete questId [entry: %u] by auto-submit flag for quest witch not suport it.",
                 _player->GetName(), _player->GetGUID().ToString().c_str(), packet.QuestID);
             return;
         }
         if (!_player->CanSeeStartQuest(quest) && _player->GetQuestStatus(packet.QuestID) == QUEST_STATUS_NONE)
         {
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 4");
             TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "Possible hacking attempt: Player %s [playerGuid: %s] tried to complete questId [entry: %u] without being in possession of the questId!",
                           _player->GetName(), _player->GetGUID().ToString().c_str(), packet.QuestID);
             return;
         }
+        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 5");
         // TODO: need a virtual function
         if (_player->InBattleground())
             if (Battleground* bg = _player->GetBattleground())
@@ -610,6 +614,7 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiver
 
         if (_player->GetQuestStatus(packet.QuestID) != QUEST_STATUS_COMPLETE)
         {
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 6");
             if (quest->IsRepeatable())
                 _player->PlayerTalkClass->SendQuestGiverRequestItems(quest, packet.QuestGiverGUID, _player->CanCompleteRepeatableQuest(quest), false);
             else
@@ -617,6 +622,7 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiver
         }
         else
         {
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 7");
             bool reqItem = false;
             if (quest->HasSpecialFlag(QUEST_SPECIAL_FLAGS_DELIVER))                  // some items required
             {
@@ -630,9 +636,15 @@ void WorldSession::HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiver
                 }
             }
             if (reqItem)                  // some items required
+            {
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 8");
                 _player->PlayerTalkClass->SendQuestGiverRequestItems(quest, packet.QuestGiverGUID, _player->CanRewardQuest(quest, false), false);
+            }
             else                                                                    // no items required
+            {
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverCompleteQuest DEBUG 9");
                 _player->PlayerTalkClass->SendQuestGiverOfferReward(quest, packet.QuestGiverGUID, !packet.FromScript);
+            }
         }
     }
 }
