@@ -229,8 +229,6 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
                     break;
             }
 
-
-            SendQuestGiverStatusMultipleQuery();
             return;
         }
     }
@@ -417,7 +415,7 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
         case TYPEID_UNIT:
         case TYPEID_PLAYER:
             {
-                // For AutoSubmition was added plr case there as it almost same exclude AI script cases.
+                // For AutoSubmission was added plr case there as it almost same exclude AI script cases.
                 Creature *creatureQGiver = object->ToCreature();
                 if (!creatureQGiver || !(sScriptMgr->OnQuestReward(_player, creatureQGiver, quest, reward)))
                 {
@@ -467,7 +465,7 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
             break;
         }
 
-        // As quest complete send available quests. Need when questgiver from next quest chain staying near questtaker
+        // As quest complete send available quests. Need when questgiver from next quest chain staying near quest taker
         SendQuestGiverStatusMultipleQuery();
 
         // AutoTake system
@@ -505,6 +503,7 @@ void WorldSession::HandleQuestGiverRequestReward(WorldPackets::Quest::QuestGiver
     _player->PlayerTalkClass->SendQuestGiverOfferReward(quest, packet.QuestGiverGUID, true);
 }
 
+// Called when you abandon a quest from your quest log
 void WorldSession::HandleQuestLogRemoveQuest(WorldPackets::Quest::QuestLogRemoveQuest& packet)
 {
     TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestLogRemoveQuest DEBUG 1");
