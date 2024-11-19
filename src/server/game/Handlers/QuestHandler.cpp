@@ -55,7 +55,7 @@ void WorldSession::HandleQuestGiverStatusQuery(WorldPackets::Quest::QuestGiverSt
             {
                 questStatus = sScriptMgr->GetDialogStatus(_player, cr_questgiver);
                 if (questStatus > 6)
-                    questStatus = getDialogStatus(_player, cr_questgiver, defstatus);
+                    questStatus = GetDialogStatus(_player, cr_questgiver, defstatus);
             }
             break;
         }
@@ -64,7 +64,7 @@ void WorldSession::HandleQuestGiverStatusQuery(WorldPackets::Quest::QuestGiverSt
             auto go_questgiver = questgiver->ToGameObject();
             questStatus = sScriptMgr->GetDialogStatus(_player, go_questgiver);
             if (questStatus > 6)
-                questStatus = getDialogStatus(_player, go_questgiver, defstatus);
+                questStatus = GetDialogStatus(_player, go_questgiver, defstatus);
             break;
         }
         default:
@@ -465,7 +465,7 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
             break;
         }
         // As quest complete send available quests. Need when questgiver from next quest chain staying near questtaker
-        SendQuestgiverStatusMultipleQuery();
+        SendQuestGiverStatusMultipleQuery();
 
         // AutoTake system
          _player->PrepareAreaQuest(_player->GetCurrentAreaID());
@@ -726,9 +726,9 @@ void WorldSession::HandleQuestPushResult(WorldPackets::Quest::QuestPushResult& p
     }
 }
 
-uint32 WorldSession::getDialogStatus(Player* player, Object* questgiver, uint32 defstatus)
+uint32 WorldSession::GetDialogStatus(Player* player, Object* questgiver, uint32 defstatus)
 {
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "getDialogStatus DEBUG 1");
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetDialogStatus DEBUG 1");
     uint32 result = defstatus;
 
     QuestRelationBounds qr;
@@ -828,27 +828,27 @@ uint32 WorldSession::getDialogStatus(Player* player, Object* questgiver, uint32 
     return result;
 }
 
-void WorldSession::HandleQuestgiverStatusMultipleQuery(WorldPackets::Quest::QuestGiverStatusMultipleQuery& /*packet*/)
+void WorldSession::HandleQuestGiverStatusMultipleQuery(WorldPackets::Quest::QuestGiverStatusMultipleQuery& /*packet*/)
 {
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestgiverStatusMultipleQuery DEBUG 1");
-    SendQuestgiverStatusMultipleQuery();
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "HandleQuestGiverStatusMultipleQuery DEBUG 1");
+    SendQuestGiverStatusMultipleQuery();
 }
 
-void WorldSession::SendQuestgiverStatusMultipleQuery()
+void WorldSession::SendQuestGiverStatusMultipleQuery()
 {
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 1");
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 1");
     uint32 questStatus = DIALOG_STATUS_NONE;
     uint32 defstatus = DIALOG_STATUS_NONE;
 
     _player->i_clientGUIDLock.lock();
     WorldPackets::Quest::QuestGiverStatusMultiple response;
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 2");
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 2");
     for (auto const& itr : _player->m_clientGUIDs)
     {
-        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 3");
+        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 3");
         if (itr.IsCreatureOrPetOrVehicle())
         {
-            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 4");
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 4");
             // need also pet quests case support
             Creature* questgiver = ObjectAccessor::GetCreatureOrPetOrVehicle(*GetPlayer(), itr);
             if (!questgiver || questgiver->IsHostileTo(_player) || !questgiver->HasFlag(UNIT_FIELD_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER))
@@ -857,19 +857,19 @@ void WorldSession::SendQuestgiverStatusMultipleQuery()
             questStatus = sScriptMgr->GetDialogStatus(_player, questgiver);
             if (questStatus > 6)
             {
-                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 5");
-                questStatus = getDialogStatus(_player, questgiver, defstatus);
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 5");
+                questStatus = GetDialogStatus(_player, questgiver, defstatus);
             }
 
             if ((questStatus & DIALOG_STATUS_IGNORED) == 0)
             {
-                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 6");
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 6");
                 response.QuestGiver.emplace_back(questgiver->GetGUID(), questStatus);
             }
         }
         else if (itr.IsGameObject())
         {
-            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 7");
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 7");
             GameObject* questgiver = GetPlayer()->GetMap()->GetGameObject(itr);
             if (!questgiver || questgiver->GetGoType() != GAMEOBJECT_TYPE_QUESTGIVER)
                 continue;
@@ -877,21 +877,21 @@ void WorldSession::SendQuestgiverStatusMultipleQuery()
             questStatus = sScriptMgr->GetDialogStatus(_player, questgiver);
             if (questStatus > 6)
             {
-                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 8");
-                questStatus = getDialogStatus(_player, questgiver, defstatus);
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 8");
+                questStatus = GetDialogStatus(_player, questgiver, defstatus);
             }
 
             if ((questStatus & DIALOG_STATUS_IGNORED) == 0)
             {
-                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 9");
+                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 9");
                 response.QuestGiver.emplace_back(questgiver->GetGUID(), questStatus);
             }
         }
     }
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 10");
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 10");
     _player->i_clientGUIDLock.unlock();
 
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestgiverStatusMultipleQuery DEBUG 11");
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "SendQuestGiverStatusMultipleQuery DEBUG 11");
     SendPacket(response.Write());
 }
 
