@@ -229,6 +229,8 @@ void WorldSession::HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAc
                     break;
             }
 
+
+            SendQuestGiverStatusMultipleQuery();
             return;
         }
     }
@@ -415,7 +417,7 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
         case TYPEID_UNIT:
         case TYPEID_PLAYER:
             {
-                //For AutoSubmition was added plr case there as it almost same exclude AI script cases.
+                // For AutoSubmition was added plr case there as it almost same exclude AI script cases.
                 Creature *creatureQGiver = object->ToCreature();
                 if (!creatureQGiver || !(sScriptMgr->OnQuestReward(_player, creatureQGiver, quest, reward)))
                 {
@@ -464,6 +466,7 @@ void WorldSession::HandleQuestGiverChooseReward(WorldPackets::Quest::QuestGiverC
         default:
             break;
         }
+
         // As quest complete send available quests. Need when questgiver from next quest chain staying near questtaker
         SendQuestGiverStatusMultipleQuery();
 
