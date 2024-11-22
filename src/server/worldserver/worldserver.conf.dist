@@ -843,10 +843,10 @@ DungeonFinder.DebugJoin = 1
 #
 #     Bpay.Enabled
 #        Description: Enable BattlePay ingame shop button (need to fill the database)
-#        Default:     0 (disabled)
-#                     1 (enabled)
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
 
-Bpay.Enabled = 1
+Bpay.Enabled = 0
 
 #
 #     Custom.GainHonorOnGuardKill
