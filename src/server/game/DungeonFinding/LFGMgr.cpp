@@ -1911,6 +1911,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
         return lock;
     }
 
+    bool allowPrevious = sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS);
     uint8 level = player->getLevel();
     uint8 expansion = player->GetSession()->Expansion();
     LfgDungeonSet const& dungeons = GetDungeonsByRandom(0);
@@ -1934,7 +1935,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
             lockData.status = LFG_LOCKSTATUS_RAID_LOCKED;
         else if (dungeon->minlevel > level)
             lockData.status = LFG_LOCKSTATUS_TOO_LOW_LEVEL;
-        else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level)
+        else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && !allowPrevious)
             lockData.status = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
         else if (dungeon->seasonal && !IsSeasonActive(dungeon->id))
             lockData.status = LFG_LOCKSTATUS_NOT_IN_SEASON;
@@ -2781,6 +2782,8 @@ uint32 LFGMgr::GetLFGDungeonEntry(uint32 id)
 
 LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
 {
+    bool allowPrevious = sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS);
+
     LfgDungeonSet randomDungeons;
     for (uint32 i = 0; i < sLfgDungeonsStore.GetNumRows(); i++)
     {
@@ -2788,7 +2791,7 @@ LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
         if (!dungeon)
             continue;
 
-        if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && level <= dungeon->maxlevel)
+        if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && (level <= dungeon->maxlevel || allowPrevious))
             if (GetDungeonReward(dungeon->dbc->Entry(), level))
                 randomDungeons.insert(dungeon->dbc->Entry());
     }
