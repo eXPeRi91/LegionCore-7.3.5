@@ -841,6 +841,14 @@ PlayerStart.AllReputation = 0
 DungeonFinder.DebugJoin = 1
 
 #
+#     DungeonFinder.AllowPreviousDungeons
+#        Description: Allow DungeonFinder usage for dungeons after you have leveled past them.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+DungeonFinder.AllowPreviousDungeons = 0
+
+#
 #     Bpay.Enabled
 #        Description: Enable BattlePay ingame shop button (need to fill the database)
 #        Default:     0 - (Disabled)

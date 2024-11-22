@@ -342,7 +342,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(GuidList check)
     uint8 minGroupSize = MAX_GROUP_SIZE;
     uint8 maxGroupSize = MAX_GROUP_SIZE;
     bool forceMinPlayers = sWorld->getBoolConfig(CONFIG_LFG_FORCE_MINPLAYERS) || sWorld->getBoolConfig(CONFIG_LFG_DEBUG_JOIN);
-    bool noNeedWaightConfirm = false;
+    bool noNeedWaitConfirm = false;
     LfgDungeonSet::const_iterator itr = QueueDataStore[check.front()].dungeons.begin();
     if (itr != QueueDataStore[check.front()].dungeons.end())
         if (LFGDungeonData const* dungeon = sLFGMgr->GetLFGDungeon(*itr))
@@ -354,7 +354,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(GuidList check)
             {
                 minGroupSize = 1;
                 forceMinPlayers = true;
-                noNeedWaightConfirm = true;
+                noNeedWaitConfirm = true;
             }
         }
 
@@ -574,7 +574,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(GuidList check)
         if (!proposal.isNew && !data.group.IsEmpty() && data.group == proposal.group) // Player from existing group, autoaccept
             data.accept = LFG_ANSWER_AGREE;
 
-        if (noNeedWaightConfirm/*possible some flag do it*/)
+        if (noNeedWaitConfirm/*possible some flag do it*/)
             data.accept = LFG_ANSWER_AGREE;
 
         allAccepted &= data.accept == LFG_ANSWER_AGREE;
