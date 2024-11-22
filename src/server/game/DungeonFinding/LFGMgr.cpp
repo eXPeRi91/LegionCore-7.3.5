@@ -1938,7 +1938,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
             lockData.status = LFG_LOCKSTATUS_TOO_LOW_LEVEL;
         else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && !allowPrevious)
         {
-            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons DEBUG 2");
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons TOO HIGH LEVEL %s", guid.ToString().c_str());
             lockData.status = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
         }
         else if (dungeon->seasonal && !IsSeasonActive(dungeon->id))
@@ -1990,7 +1990,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
         lockData = LFG_LOCKSTATUS_ATTUNEMENT_TOO_HIGH_LEVEL;
         */
 
-        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons DEBUG 3 %u", lockData.status);
+        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons DEBUG 3 %u %s", lockData.status, guid.ToString().c_str());
         if (lockData.status != LFG_LOCKSTATUS_OK)
             lock[dungeon->dbc->Entry()] = lockData;
     }
