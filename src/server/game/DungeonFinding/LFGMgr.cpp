@@ -1938,7 +1938,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
             lockData.status = LFG_LOCKSTATUS_TOO_LOW_LEVEL;
         else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && !allowPrevious)
         {
-            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons TOO HIGH LEVEL %u", dungeon->id);
+            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons TOO HIGH LEVEL %u", dungeon->map);
             lockData.status = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
         }
         else if (dungeon->seasonal && !IsSeasonActive(dungeon->id))
