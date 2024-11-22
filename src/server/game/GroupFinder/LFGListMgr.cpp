@@ -410,7 +410,7 @@ LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPla
     if ((activity->MaxPlayers && static_cast<int32>(group->GetMembersCount()) >= activity->MaxPlayers) || group->GetMembersCount() >= 40)
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_TOO_MANY_MEMBERS;
 
-    if ((requestingPlayer->getLevel() < activity->MinLevel && !sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS)) || (activity->MaxLevelSuggestion && requestingPlayer->getLevel() > activity->MaxLevelSuggestion))
+    if ((requestingPlayer->getLevel() < activity->MinLevel || (activity->MaxLevelSuggestion && requestingPlayer->getLevel() > activity->MaxLevelSuggestion)) && !sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS))
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_INVALID_SLOT;   ///< Filtered out
 
     if (apply)
