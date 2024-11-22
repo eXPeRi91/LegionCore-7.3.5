@@ -2805,7 +2805,7 @@ LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
             }
     }
 
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetRewardableDungeons DEBUG 3 %u", randomDungeons.upper_bound);
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetRewardableDungeons DEBUG 3");
     return randomDungeons;
 }
 
