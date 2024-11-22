@@ -394,6 +394,8 @@ void LFGListMgr::OnPlayerLogin(Player* player)
 
 LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPlayer, bool apply /* = true */)
 {
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "CanQueueFor DEBUG 1");
+
     if (!requestingPlayer)
         return LFGListStatus::None;
 
@@ -410,8 +412,11 @@ LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPla
     if ((activity->MaxPlayers && static_cast<int32>(group->GetMembersCount()) >= activity->MaxPlayers) || group->GetMembersCount() >= 40)
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_TOO_MANY_MEMBERS;
 
-    if ((requestingPlayer->getLevel() < activity->MinLevel && !sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS)) || (activity->MaxLevelSuggestion && requestingPlayer->getLevel() > activity->MaxLevelSuggestion))
+    if ((requestingPlayer->getLevel() < activity->MinLevel || (activity->MaxLevelSuggestion && requestingPlayer->getLevel() > activity->MaxLevelSuggestion)) && !sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS))
+    {
+        TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "CanQueueFor DEBUG 2");
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_INVALID_SLOT;   ///< Filtered out
+    }
 
     if (apply)
         return LFGListStatus::None;
@@ -419,6 +424,7 @@ LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPla
     if (GetApplicationCountByPlayer(requestingPlayer->GetGUIDLow()) >= LFG_LIST_MAX_APPLICATIONS)
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_REASON_TOO_MANY_LFG_LIST;
 
+    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "CanQueueFor DEBUG 3");
     return LFGListStatus::None;
 }
 
