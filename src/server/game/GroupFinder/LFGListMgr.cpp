@@ -260,7 +260,7 @@ void LFGListMgr::OnPlayerApplyForGroup(Player* player, WorldPackets::LFG::RideTi
     {
         if (entry->AutoAccept)
         {
-            if (!entry->ApplicationGroup->isRaidGroup() && GetMemeberCountInGroupIncludingInvite(entry) == 5)
+            if (!entry->ApplicationGroup->isRaidGroup() && GetMemberCountInGroupIncludingInvite(entry) == 5)
                 ChangeApplicantStatus(applicationEntry, LFGListApplicationStatus::Applied); // Handled clientside -- OnAccept = function(self, applicantID) ConvertToRaid(); C_LFGList.InviteApplicant(applicantID) end,
             else
                 ChangeApplicantStatus(applicationEntry, LFGListApplicationStatus::Invited);
@@ -294,7 +294,7 @@ void LFGListMgr::ChangeApplicantStatus(LFGListEntry::LFGListApplicationEntry* ap
     switch (status)
     {
         case LFGListApplicationStatus::Invited:
-            if (!listEntry->ApplicationGroup->isRaidGroup() && GetMemeberCountInGroupIncludingInvite(listEntry) >= 5 || player && CanQueueFor(listEntry, player) != LFGListStatus::None)
+            if (!listEntry->ApplicationGroup->isRaidGroup() && GetMemberCountInGroupIncludingInvite(listEntry) >= 5 || player && CanQueueFor(listEntry, player) != LFGListStatus::None)
                 break;
         case LFGListApplicationStatus::Applied:
             application->ResetTimeout();
@@ -316,7 +316,7 @@ void LFGListMgr::ChangeApplicantStatus(LFGListEntry::LFGListApplicationEntry* ap
                 SendLfgListApplicantGroupInviteResponse(application, player);
             break;
         case LFGListApplicationStatus::InviteAccepted:
-            if (!listEntry->ApplicationGroup->isRaidGroup() && GetMemeberCountInGroupIncludingInvite(listEntry) >= 5 || CanQueueFor(listEntry, player) != LFGListStatus::None)
+            if (!listEntry->ApplicationGroup->isRaidGroup() && GetMemberCountInGroupIncludingInvite(listEntry) >= 5 || CanQueueFor(listEntry, player) != LFGListStatus::None)
                 break;
 
             application->Listed = false;
@@ -402,7 +402,7 @@ LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPla
     auto iLvl = GetPlayerItemLevelForActivity(activity, requestingPlayer);
 
     if (requestingPlayer->GetTeam() != group->GetTeam())
-        return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_INVALID_SLOT;   ///< Shouldnt be a problem, because its only for filters
+        return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_INVALID_SLOT;   ///< Shouldnt be a problem, because it's only for filters
 
     if ((activity->MinGearLevelSuggestion && iLvl < activity->MinGearLevelSuggestion) || iLvl < entry->ItemLevel)
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_INVALID_SLOT;   ///< Same as above, filtered out
@@ -410,7 +410,7 @@ LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPla
     if ((activity->MaxPlayers && static_cast<int32>(group->GetMembersCount()) >= activity->MaxPlayers) || group->GetMembersCount() >= 40)
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_TOO_MANY_MEMBERS;
 
-    if (requestingPlayer->getLevel() < activity->MinLevel || (activity->MaxLevelSuggestion && requestingPlayer->getLevel() > activity->MaxLevelSuggestion))
+    if ((requestingPlayer->getLevel() < activity->MinLevel && !sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS)) || (activity->MaxLevelSuggestion && requestingPlayer->getLevel() > activity->MaxLevelSuggestion))
         return LFGListStatus::LFG_LIST_STATUS_ERR_LFG_LIST_INVALID_SLOT;   ///< Filtered out
 
     if (apply)
@@ -459,7 +459,7 @@ float LFGListMgr::GetLowestItemLevelInGroup(LFGListEntry* entry) const
     return minIlvl != 100000.0f ? minIlvl : 0.0f;
 }
 
-uint8 LFGListMgr::GetMemeberCountInGroupIncludingInvite(LFGListEntry* entry)
+uint8 LFGListMgr::GetMemberCountInGroupIncludingInvite(LFGListEntry* entry)
 {
     return CountEntryApplicationsWithStatus(entry, LFGListApplicationStatus::InviteDeclined) + entry->ApplicationGroup->GetMembersCount();
 }
@@ -477,7 +477,7 @@ void LFGListMgr::AutoInviteApplicantsIfPossible(LFGListEntry* entry)
     if (!entry->AutoAccept)
         return;
 
-    if (!entry->ApplicationGroup->isRaidGroup() && GetMemeberCountInGroupIncludingInvite(entry) >= 5)
+    if (!entry->ApplicationGroup->isRaidGroup() && GetMemberCountInGroupIncludingInvite(entry) >= 5)
         return;
 
     for (auto& applicant : entry->ApplicationsContainer)

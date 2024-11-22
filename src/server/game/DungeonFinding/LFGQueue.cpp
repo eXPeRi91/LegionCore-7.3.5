@@ -520,7 +520,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(GuidList check)
         proposalDungeons = queue.dungeons;
         proposalRoles = queue.roles;
         uint32 n = 0;
-        LFGMgr::CheckGroupRoles(proposalRoles, LfgRoleData(*proposalDungeons.begin() & 0xFFFFF), n);       // assing new roles
+        LFGMgr::CheckGroupRoles(proposalRoles, LfgRoleData(*proposalDungeons.begin() & 0xFFFFF), n);       // assessing new roles
     }
 
     // Enough players?
@@ -557,7 +557,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(GuidList check)
     bool allAccepted = true;
     for (LfgRolesMap::const_iterator itRoles = proposalRoles.begin(); itRoles != proposalRoles.end(); ++itRoles)
     {
-        // Assing new leader
+        // Assessing new leader
         if (itRoles->second & PLAYER_ROLE_LEADER)
         {
             if (!leader || !proposal.leader || urand(0, 1))
@@ -567,7 +567,7 @@ LfgCompatibility LFGQueue::CheckCompatibility(GuidList check)
         else if (!leader && (!proposal.leader || urand(0, 1)))
             proposal.leader = itRoles->first;
 
-        // Assing player data and roles
+        // Assessing player data and roles
         LfgProposalPlayer &data = proposal.players[itRoles->first];
         data.role = itRoles->second;
         data.group = proposalGroups.find(itRoles->first)->second;
