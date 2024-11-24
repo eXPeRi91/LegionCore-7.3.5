@@ -630,20 +630,20 @@ public:
         {
             switch (player->getRace())
             {
-            case RACE_VOID_ELF:
-                AddQuestPlayer(player, 49928);
-                break;
-            case RACE_LIGHTFORGED_DRAENEI:
-                AddQuestPlayer(player, 49782);
-                break;
-            case RACE_NIGHTBORNE:
-                AddQuestPlayer(player, 49784);
-                break;
-            case RACE_HIGHMOUNTAIN_TAUREN:
-                AddQuestPlayer(player, 49783);
-                break;
-            default:
-                break;
+                case RACE_VOID_ELF:
+                    AddQuestPlayer(player, 49928);
+                    break;
+                case RACE_LIGHTFORGED_DRAENEI:
+                    AddQuestPlayer(player, 49782);
+                    break;
+                case RACE_NIGHTBORNE:
+                    AddQuestPlayer(player, 49784);
+                    break;
+                case RACE_HIGHMOUNTAIN_TAUREN:
+                    AddQuestPlayer(player, 49783);
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -919,10 +919,10 @@ public:
     }
 };
 
-class player_chineese_event : public PlayerScript
+class player_chinese_event : public PlayerScript
 {
 public:
-    player_chineese_event() : PlayerScript("player_chineese_event") {}
+    player_chinese_event() : PlayerScript("player_chineese_event") {}
 
     void OnLogin(Player* player) override
     {
@@ -1028,7 +1028,7 @@ void AddSC_player_special_scripts()
     new playerScriptWeeklyQuests();
     new player_kick_afk_moderators();
     new player_heirloom_achieve_check();
-    new player_chineese_event();
+    new player_chinese_event();
     new player_clear_timed_titles();
     new player_invisible_status_mod_map_handler();
 };

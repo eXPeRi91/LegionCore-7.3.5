@@ -780,7 +780,7 @@ static Location AllianceCoords[]=
     {-3746.37f, -4525.35f, 14.16f, 5.22f},                      // Left bunk near entrance
 };
 
-//alliance run to where
+// alliance run to where
 #define A_RUNTOX -3742.96f
 #define A_RUNTOY -4531.52f
 #define A_RUNTOZ 11.91f
@@ -795,7 +795,7 @@ static Location HordeCoords[]=
     {-1020.95f, -3499.21f, 62.98f, 4.34f}                       // Right, Front
 };
 
-//horde run to where
+// horde run to where
 #define H_RUNTOX -1016.44f
 #define H_RUNTOY -3508.48f
 #define H_RUNTOZ 62.96f
@@ -809,9 +809,9 @@ uint32 const AllianceSoldierId[3] =
 
 uint32 const HordeSoldierId[3] =
 {
-    12923,                                                  //12923 Injured Soldier
-    12924,                                                  //12924 Badly injured Soldier
-    12925                                                   //12925 Critically injured Soldier
+    12923,                                                  // 12923 Injured Soldier
+    12924,                                                  // 12924 Badly injured Soldier
+    12925                                                   // 12925 Critically injured Soldier
 };
 
 /*######
@@ -985,26 +985,26 @@ class npc_injured_patient : public CreatureScript
                 Coord = NULL;
                 tickTimer = 200;
 
-                //no select
+                // no select
                 me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
 
-                //to make them lay with face down
+                // to make them lay with face down
                 me->SetUInt32Value(UNIT_FIELD_BYTES_1, UNIT_STAND_STATE_DEAD);
 
                 uint32 mobId = me->GetEntry();
 
                 switch (mobId)
-                {                                                   //lower max health
+                {                                                   // lower max health
                     case 12923:
-                    case 12938:                                     //Injured Soldier
+                    case 12938:                                     // injured soldier
                         me->SetHealth(me->CountPctFromMaxHealth(75));
                         break;
                     case 12924:
-                    case 12936:                                     //Badly injured Soldier
+                    case 12936:                                     // badly injured soldier
                         me->SetHealth(me->CountPctFromMaxHealth(50));
                         break;
                     case 12925:
-                    case 12937:                                     //Critically injured Soldier
+                    case 12937:                                     // critically injured soldier
                         me->SetHealth(me->CountPctFromMaxHealth(25));
                         break;
                 }
@@ -1029,10 +1029,10 @@ class npc_injured_patient : public CreatureScript
                             if (Creature* doctor = Unit::GetCreature(*me, DoctorGUID))
                                 CAST_AI(npc_doctor::npc_doctorAI, doctor->AI())->PatientSaved(me, CAST_PLR(caster), Coord);
 
-                    //make not selectable
+                    // make not selectable
                     me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
 
-                    //stand up
+                    // stand up
                     me->SetUInt32Value(UNIT_FIELD_BYTES_1, UNIT_STAND_STATE_STAND);
                     Talk(0);
 
@@ -1065,7 +1065,7 @@ class npc_injured_patient : public CreatureScript
                     return;
                 }
 
-                //lower HP on every world tick makes it a useful counter, not officlone though
+                // lower HP on every world tick makes it a useful counter, not officlone though
                 if (me->isAlive() && me->GetHealth() > 6)
                     me->ModifyHealth(-5);
 
@@ -1122,7 +1122,7 @@ void npc_doctor::npc_doctorAI::UpdateAI(uint32 diff)
             {
                 if (Creature* Patient = me->SummonCreature(patientEntry, point->x, point->y, point->z, point->o, TEMPSUMMON_TIMED_DESPAWN, 60000))
                 {
-                    //303, this flag appear to be required for client side item->spell to work (TARGET_SINGLE_FRIEND)
+                    // 303, this flag appear to be required for client side item->spell to work (TARGET_SINGLE_FRIEND)
                     Patient->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);
 
                     Patients.push_back(Patient->GetGUID());
@@ -1144,7 +1144,7 @@ void npc_doctor::npc_doctorAI::UpdateAI(uint32 diff)
 ## npc_garments_of_quests
 ######*/
 
-//TODO: get text for each NPC
+// TODO: get text for each NPC
 
 enum eGarments
 {
@@ -1163,7 +1163,7 @@ enum eGarments
     ENTRY_KORJA             = 12430,
     ENTRY_DG_KEL            = 12428,
 
-    //used by 12429, 12423, 12427, 12430, 12428, but signed for 12429
+    // used by 12429, 12423, 12427, 12430, 12428, but signed for 12429
     SAY_COMMON_HEALED       = 0,
     SAY_DG_KEL_THANKS       = 1,
     SAY_DG_KEL_GOODBYE      = 2,
@@ -1174,7 +1174,7 @@ enum eGarments
     SAY_DOLF_THANKS         = 7,
     SAY_DOLF_GOODBYE        = 8,
     SAY_SHAYA_THANKS        = 9,
-    SAY_SHAYA_GOODBYE       = 0, //signed for 21469
+    SAY_SHAYA_GOODBYE       = 0, // signed for 21469
 };
 
 class npc_garments_of_quests : public CreatureScript
@@ -1203,7 +1203,7 @@ class npc_garments_of_quests : public CreatureScript
                 RunAwayTimer = 5000;
 
                 me->SetStandState(UNIT_STAND_STATE_KNEEL);
-                //expect database to have RegenHealth=0
+                // expect database to have RegenHealth=0
                 me->SetHealth(me->CountPctFromMaxHealth(70));
             }
 
@@ -1213,11 +1213,11 @@ class npc_garments_of_quests : public CreatureScript
             {
                 if (Spell->Id == SPELL_LESSER_HEAL_R2 || Spell->Id == SPELL_FORTITUDE_R1)
                 {
-                    //not while in combat
+                    // not while in combat
                     if (me->isInCombat())
                         return;
 
-                    //nothing to be done now
+                    // nothing to be done now
                     if (IsHealed && CanRun)
                         return;
 
@@ -1312,7 +1312,7 @@ class npc_garments_of_quests : public CreatureScript
                                 break;
                         }
 
-                        //give quest credit, not expect any special quest objectives
+                        // give quest credit, not expect any special quest objectives
                         if (CanRun)
                             player->TalkedToCreature(me->GetEntry(), me->GetGUID());
                     }
@@ -1351,7 +1351,7 @@ class npc_garments_of_quests : public CreatureScript
                             Start(false, true);
                         }
                         else
-                            EnterEvadeMode();                       //something went wrong
+                            EnterEvadeMode();                       // something went wrong
 
                         RunAwayTimer = 30000;
                     }
@@ -2296,15 +2296,15 @@ class npc_rogue_trainer : public CreatureScript
 ## npc_sayge
 ######*/
 
-#define SPELL_DMG       23768                               //dmg
-#define SPELL_RES       23769                               //res
-#define SPELL_ARM       23767                               //arm
-#define SPELL_SPI       23738                               //spi
-#define SPELL_INT       23766                               //int
-#define SPELL_STM       23737                               //stm
-#define SPELL_STR       23735                               //str
-#define SPELL_AGI       23736                               //agi
-#define SPELL_FORTUNE   23765                               //faire fortune
+#define SPELL_DMG       23768                               // dmg
+#define SPELL_RES       23769                               // res
+#define SPELL_ARM       23767                               // arm
+#define SPELL_SPI       23738                               // spi
+#define SPELL_INT       23766                               // int
+#define SPELL_STM       23737                               // stm
+#define SPELL_STR       23735                               // str
+#define SPELL_AGI       23736                               // agi
+#define SPELL_FORTUNE   23765                               // faire fortune
 
 #define GOSSIP_HELLO_SAYGE  "Yes"
 #define GOSSIP_SENDACTION_SAYGE1    "Slay the Man"
@@ -2830,9 +2830,9 @@ class npc_winter_reveler : public CreatureScript
 ## npc_snake_trap_serpents
 ####*/
 
-#define SPELL_MIND_NUMBING_POISON    25810   //Viper
-#define SPELL_DEADLY_POISON          34655   //Venomous Snake
-#define SPELL_CRIPPLING_POISON       30981   //Viper
+#define SPELL_MIND_NUMBING_POISON    25810   // Viper
+#define SPELL_DEADLY_POISON          34655   // Venomous Snake
+#define SPELL_CRIPPLING_POISON       30981   // Viper
 
 #define VENOMOUS_SNAKE_TIMER 1500
 #define VIPER_TIMER 3000
@@ -2862,7 +2862,7 @@ class npc_snake_trap : public CreatureScript
                 IsViper = Info->Entry == C_VIPER ? true : false;
 
                 me->SetMaxHealth(uint32(107 * (me->getLevel() - 40) * 0.025f));
-                //Add delta to make them not all hit the same time
+                // Add delta to make them not all hit the same time
                 uint32 delta = (rand() % 7) * 100;
                 me->SetStatFloatValue(UNIT_FIELD_ATTACK_ROUND_BASE_TIME, float(Info->baseattacktime + delta));
 
@@ -2875,7 +2875,7 @@ class npc_snake_trap : public CreatureScript
                     }
             }
 
-            //Redefined for random target selection:
+            // Redefined for random target selection:
             void MoveInLineOfSight(Unit* who) override
             {
                 if (!me->getVictim() && me->canCreatureAttack(who))
@@ -2909,9 +2909,9 @@ class npc_snake_trap : public CreatureScript
 
                 if (SpellTimer <= diff)
                 {
-                    if (IsViper) //Viper
+                    if (IsViper) // Viper
                     {
-                        if (urand(0, 2) == 0) //33% chance to cast
+                        if (urand(0, 2) == 0) // 33% chance to cast
                         {
                             uint32 spell;
                             if (urand(0, 1) == 0)
@@ -2924,9 +2924,9 @@ class npc_snake_trap : public CreatureScript
 
                         SpellTimer = VIPER_TIMER;
                     }
-                    else //Venomous Snake
+                    else // Venomous Snake
                     {
-                        if (urand(0, 2) == 0) //33% chance to cast
+                        if (urand(0, 2) == 0) // 33% chance to cast
                             DoCast(me->getVictim(), SPELL_DEADLY_POISON);
                         SpellTimer = VENOMOUS_SNAKE_TIMER + (rand() % 5) * 100;
                     }
@@ -3028,10 +3028,10 @@ class mob_mojo : public CreatureScript
                     me->MonsterWhisper(whisp.c_str(), player->GetGUID());
                     if (victimGUID)
                         if (Player* victim = Unit::GetPlayer(*me, victimGUID))
-                            victim->RemoveAura(43906);//remove polymorph frog thing
-                    me->AddAura(43906, player);//add polymorph frog thing
+                            victim->RemoveAura(43906); // remove polymorph frog thing
+                    me->AddAura(43906, player); // add polymorph frog thing
                     victimGUID = player->GetGUID();
-                    DoCast(me, 20372, true);//tag.hearts
+                    DoCast(me, 20372, true); // tag.hearts
                     me->GetMotionMaster()->MoveFollow(player, 0, 0);
                     hearts = 15000;
                 }
@@ -3719,7 +3719,7 @@ class npc_locksmith : public CreatureScript
 ## npc_experience
 ######*/
 
-#define EXP_COST                100000 //10 00 00 copper (10golds)
+#define EXP_COST                100000 // 10 00 00 copper (10 gold)
 #define GOSSIP_TEXT_EXP         14736
 #define GOSSIP_XP_OFF           "I no longer wish to gain experience."
 #define GOSSIP_XP_ON            "I wish to start gaining experience again."
@@ -3745,16 +3745,16 @@ class npc_experience : public CreatureScript
 
             switch (action)
             {
-                case GOSSIP_ACTION_INFO_DEF + 1://xp off
+                case GOSSIP_ACTION_INFO_DEF + 1: // xp off
                     {
-                        if (!noXPGain)//does gain xp
-                            doSwitch = true;//switch to don't gain xp
+                        if (!noXPGain) // does gain xp
+                            doSwitch = true; // switch to don't gain xp
                     }
                     break;
-                case GOSSIP_ACTION_INFO_DEF + 2://xp on
+                case GOSSIP_ACTION_INFO_DEF + 2: // xp on
                     {
-                        if (noXPGain)//doesn't gain xp
-                            doSwitch = true;//switch to gain xp
+                        if (noXPGain) // doesn't gain xp
+                            doSwitch = true; // switch to gain xp
                     }
                     break;
             }
@@ -5039,8 +5039,8 @@ class npc_riggle_bassbait : public CreatureScript
         void OnQuestReward(Player* player, Quest const* quest) override
         {
             ++count;
-            // player->CreateConversation(3904);
-            // me->RemoveFlag(UNIT_FIELD_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER);
+            //player->CreateConversation(3904);
+            //me->RemoveFlag(UNIT_FIELD_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER);
         }
 
         void OnStartQuest(Player* player, Quest const* /*quest*/) override
@@ -5208,7 +5208,7 @@ class npc_king_mrgl : public CreatureScript
         }
 };
 
-//68553
+// 68553
 class npc_slg_generic_mop_large_aoi : public CreatureScript
 {
 public:
@@ -5222,13 +5222,13 @@ public:
 
         void Reset() override
         {
-            if (me->GetMapId() == 1279) //The Everbloom
-                DoCast(169147); //Visual Teleport To Stormwind
+            if (me->GetMapId() == 1279) // The Everbloom
+                DoCast(169147); // Visual Teleport To Stormwind
         }
 
         void SummonedCreatureDies(Creature* summon, Unit* /*killer*/) override
         {
-            if (summon->GetEntry() == 112973) //NightHold: Duskwatch Weaver
+            if (summon->GetEntry() == 112973) // NightHold: Duskwatch Weaver
             {
                 ++diesCount;
 
@@ -5306,7 +5306,7 @@ class npc_nightmare_hitching_post : public CreatureScript
         }
 };
 
-//90401
+// 90401
 class npc_azsuna_allari_q37660 : public CreatureScript
 {
 public:
@@ -5399,7 +5399,7 @@ public:
     }
 };
 
-//107995
+// 107995
 class npc_azsuna_stellagosa_q37862 : public CreatureScript
 {
 public:
@@ -5505,7 +5505,7 @@ Position const revilWP[83] =
     { -10453.4f, -1447.40f, 68.9825f },
     { -10455.6f, -1455.19f, 69.8618f },
     { -10453.2f, -1463.69f, 71.0152f },
-    { -10451.8f, -1469.66f, 71.9085f }, //26
+    { -10451.8f, -1469.66f, 71.9085f }, // 26
 
     { -10450.4f, -1478.22f, 73.086f },
     { -10448.6f, -1493.43f, 74.5244f },
@@ -5535,7 +5535,7 @@ Position const revilWP[83] =
     { -10442.4f, -1848.84f, 103.478f },
     { -10445.2f, -1862.04f, 104.863f },
     { -10444.4f, -1878.11f, 104.335f },
-    { -10438.9f, -1931.75f, 104.616f }, //55
+    { -10438.9f, -1931.75f, 104.616f }, // 55
 
     { -10439.8f, -1953.88f, 103.45f },
     { -10443.1f, -1968.3f, 102.588f },
@@ -5563,10 +5563,10 @@ Position const revilWP[83] =
     { -10467.9f, -2137.57f, 90.7902f },
     { -10455.8f, -2138.84f, 90.7796f },
     { -10445.4f, -2141.07f, 90.7797f },
-    { -10440.0f, -2143.57f, 90.7797f }, //83
+    { -10440.0f, -2143.57f, 90.7797f }, // 83
 };
 
-//100578
+// 100578
 class npc_revil_kost_following_the_curse : public CreatureScript
 {
 public:
@@ -5820,7 +5820,7 @@ public:
     }
 };
 
-//100346 99875 - first pack, 100704 - second, 100707 100708 - third
+// 100346 99875 - first pack, 100704 - second, 100707 100708 - third
 class npc_revil_kost_dark_rider : public CreatureScript
 {
 public:
@@ -5900,7 +5900,7 @@ public:
     }
 };
 
-//105586
+// 105586
 Position const wpoints[4] =
 {
     { -784.01f, 4575.47f, 728.09f },
@@ -5937,7 +5937,7 @@ public:
                             if (Creature* cre = me->SummonCreature(105733, me->GetPosition(), TEMPSUMMON_TIMED_DESPAWN, 60000))
                                 cre->AddPlayerInPersonnalVisibilityList(player->GetGUID());
 
-                me->DespawnOrUnsummon(60000); //if player do nothing
+                me->DespawnOrUnsummon(60000); // if player do nothing
             }
         }
 
@@ -6025,7 +6025,7 @@ public:
     }
 };
 
-//91185
+// 91185
 class npc_azsuna_daglop_q38237 : public CreatureScript
 {
 public:
@@ -6127,7 +6127,7 @@ public:
     }
 };
 
-//97648
+// 97648
 class npc_grasp_of_underking_quest : public CreatureScript
 {
 public:
@@ -6213,8 +6213,8 @@ enum npcs
 
 Position const dogsdrpos[3] =
 {
-    { -201.42f, 7005.10f, 4.75f, 5.69f }, //bridge
-    { -153.57f, 7091.64f, 0.27f, 5.15f }, //center
+    { -201.42f, 7005.10f, 4.75f, 5.69f }, // bridge
+    { -153.57f, 7091.64f, 0.27f, 5.15f }, // center
     { -181.03f, 7032.41f, -0.83f, 4.97f },
 };
 
@@ -6985,7 +6985,7 @@ struct npc_aria_sorrowheart : public ScriptedAI
     }
 };
 
-//99555
+// 99555
 struct npc_moonfeather_statue : public ScriptedAI
 {
     npc_moonfeather_statue(Creature* creature) : ScriptedAI(creature) {}
@@ -7036,7 +7036,7 @@ struct npc_chi_ji : public ScriptedAI
     }
 };
 
-//110441
+// 110441
 struct npc_snowglobe_stalker : public ScriptedAI
 {
     npc_snowglobe_stalker(Creature* creature) : ScriptedAI(creature)
@@ -7260,7 +7260,7 @@ struct npc_hearthstation : public ScriptedAI
     }
 };
 
-//40246
+// 40246
 struct npc_instant_statue_pedestal : public ScriptedAI
 {
     npc_instant_statue_pedestal(Creature* creature) : ScriptedAI(creature) {}
@@ -7272,7 +7272,7 @@ struct npc_instant_statue_pedestal : public ScriptedAI
     }
 };
 
-//56194
+// 56194
 struct npc_infant_spider : public ScriptedAI
 {
     npc_infant_spider(Creature* creature) : ScriptedAI(creature) {}
