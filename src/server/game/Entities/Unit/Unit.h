@@ -264,7 +264,7 @@ enum VictimState
     VICTIMSTATE_DEFLECTS       = 8
 };
 
-//i would like to remove this: (it is defined in item.h
+// I would like to remove this: (it is defined in item.h
 enum InventorySlot
 {
     NULL_BAG                   = 0,

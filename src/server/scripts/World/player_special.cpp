@@ -922,7 +922,7 @@ public:
 class player_chinese_event : public PlayerScript
 {
 public:
-    player_chinese_event() : PlayerScript("player_chineese_event") {}
+    player_chinese_event() : PlayerScript("player_chineese_event") {} // TODO: Fix in database!
 
     void OnLogin(Player* player) override
     {

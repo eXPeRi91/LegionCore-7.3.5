@@ -57,7 +57,7 @@ enum DefiantSay
 class npc_defiant_troll : public CreatureScript
 {
     public:
-    npc_defiant_troll() : CreatureScript("npc_deffiant_troll") { }
+    npc_defiant_troll() : CreatureScript("npc_deffiant_troll") { } // TODO: Fix in database!
 
     CreatureAI* GetAI(Creature* creature) const override
     {
