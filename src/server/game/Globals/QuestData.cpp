@@ -1578,7 +1578,7 @@ void QuestDataStoreMgr::LoadGameObjectForQuests()
             }
             case GAMEOBJECT_TYPE_GENERIC:
             {
-                if (itr->second.generic.questID > 0)            //quests objects
+                if (itr->second.generic.questID > 0)            // quests objects
                 {
                     _gameObjectForQuestStore.insert(itr->second.entry);
                     count++;
@@ -1587,7 +1587,7 @@ void QuestDataStoreMgr::LoadGameObjectForQuests()
             }
             case GAMEOBJECT_TYPE_GOOBER:
             {
-                if (itr->second.goober.questID > 0)              //quests objects
+                if (itr->second.goober.questID > 0)              // quests objects
                 {
                     _gameObjectForQuestStore.insert(itr->second.entry);
                     count++;
@@ -1597,7 +1597,7 @@ void QuestDataStoreMgr::LoadGameObjectForQuests()
             case GAMEOBJECT_TYPE_SPELL_FOCUS:
             {
                 //
-                if (itr->second.spellFocus.questID > 0)              //quests objects
+                if (itr->second.spellFocus.questID > 0)              // quests objects
                 {
                     _gameObjectForQuestStore.insert(itr->second.entry);
                     count++;
