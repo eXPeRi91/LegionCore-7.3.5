@@ -19308,7 +19308,7 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
             case QUEST_OBJECTIVE_ITEM:
                 {
                     ItemTemplate const* item = sObjectMgr->GetItemTemplate(obj.ObjectID);
-                    if ((quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS)) && item->GetBonding() != BIND_QUEST_ITEM)
+                    if ((quest->IsRepeatable() && item->GetBonding() != BIND_QUEST_ITEM) || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || item->GetBonding() != BIND_QUEST_ITEM)
                         DestroyItemCount(obj.ObjectID, obj.Amount, true);
                     else
                         DestroyAllOfItem(obj.ObjectID, true);
@@ -20171,7 +20171,7 @@ bool Player::TakeQuestSourceItem(uint32 questId, bool msg)
 
             if (destroyItem)
             {
-                if ((quest->IsRepeatable() || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS)) && item->GetBonding() != BIND_QUEST_ITEM)
+                if ((quest->IsRepeatable() && item->GetBonding() != BIND_QUEST_ITEM) || (quest->FlagsEx & QUEST_FLAGS_EX_KEEP_ADDITIONAL_ITEMS) || item->GetBonding() != BIND_QUEST_ITEM)
                     DestroyItemCount(quest->SourceItemId, quest->SourceItemIdCount ? quest->SourceItemIdCount : 1, true, true);
                 else
                     DestroyAllOfItem(quest->SourceItemId, true, true);
