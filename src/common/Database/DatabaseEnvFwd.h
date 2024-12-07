@@ -44,11 +44,4 @@ class SQLQueryHolder;
 typedef std::future<SQLQueryHolder*> QueryResultHolderFuture;
 typedef std::promise<SQLQueryHolder*> QueryResultHolderPromise;
 
-// mysql
-typedef struct MYSQL MYSQL;
-typedef struct MYSQL_RES MYSQL_RES;
-typedef struct MYSQL_FIELD MYSQL_FIELD;
-typedef struct MYSQL_BIND MYSQL_BIND;
-typedef struct MYSQL_STMT MYSQL_STMT;
-
 #endif // DatabaseEnvFwd_h__
