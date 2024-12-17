@@ -406,7 +406,7 @@ m_achievementMgr(sf::safe_ptr<AchievementMgr<Player>>(this))
     m_clientCheckDelay = 15000;
     m_clientKickDelay = 0;
 
-    memset(_voidStorageItems, NULL, sizeof(_voidStorageItems));
+    memset(_voidStorageItems, 0, sizeof(_voidStorageItems));
 
     m_PetSlots.resize(PET_SLOT_LAST, 0);
     realmTransferid = 0;
