@@ -784,8 +784,6 @@ bool Group::RemoveMember(ObjectGuid const& guid, bool /*disbandInfo*/, RemoveMet
     // {
         // m_Functions.AddFunction([this, guid, method, kicker, reason]() -> void
         // {
-            // if (!this)
-                // return;
             // RemoveMemberQueue(guid, method, kicker, reason);
         // }, m_Functions.CalculateTime(10));
     // }

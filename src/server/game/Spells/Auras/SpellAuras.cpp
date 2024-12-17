@@ -1783,9 +1783,6 @@ bool Aura::HasAuraAttribute(AuraAttr attribute) const
 
 void Aura::SetAuraAttribute(AuraAttr attribute, bool apply)
 {
-    if (!this)
-        return;
-
     if (apply)
     {
         auraAttributes |= attribute;

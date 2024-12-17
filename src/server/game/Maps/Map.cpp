@@ -3388,8 +3388,6 @@ bool Map::getObjectHitPos(std::set<uint32> const& phases, bool otherUsePlayerPha
 
 float Map::GetHeight(std::set<uint32> const& phases, float x, float y, float z, bool vmap /*= true*/, float maxSearchDist /*= DEFAULT_HEIGHT_SEARCH*/, DynamicTreeCallback* dCallback /*= nullptr*/) const
 {
-    if (!this)
-        return VMAP_INVALID_HEIGHT_VALUE;
     float vmapZ = GetHeight(x, y, z, vmap, maxSearchDist);
     float goZ = _dynamicTree.getHeight(x, y, z, maxSearchDist, phases, dCallback);
     if (vmapZ > goZ && dCallback)

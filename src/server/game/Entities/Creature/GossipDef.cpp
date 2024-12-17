@@ -223,9 +223,6 @@ bool PlayerMenu::IsGossipOptionCoded(uint32 selection) const
 
 void PlayerMenu::SendGossipMenu(uint32 titleTextId, ObjectGuid objectGUID, uint32 friendshipFactionID /*= 0*/) const
 {
-    if (!this)
-        return;
-
     WorldPackets::NPC::GossipMessage packet;
     packet.GossipGUID = objectGUID;
     packet.TextID = titleTextId;

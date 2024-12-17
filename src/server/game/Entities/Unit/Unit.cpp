@@ -1073,8 +1073,6 @@ uint32 Unit::DealDamage(Unit* victim, uint32 damage, CleanDamage const* cleanDam
         {
             AddDelayedEvent(10, [heal, this]() -> void
             {
-                if (!this)
-                    return;
                 CastCustomSpell(this, 143924, &heal, nullptr, nullptr, true);
             });
         }
@@ -5840,9 +5838,6 @@ AuraApplication * Unit::GetAuraApplication(uint32 spellId, ObjectGuid casterGUID
 
 Aura* Unit::GetAura(uint32 spellId, ObjectGuid casterGUID, ObjectGuid itemCasterGUID, uint32 reqEffMask) const
 {
-    if (!this)
-        return nullptr;
-
     AuraApplication * aurApp = GetAuraApplication(spellId, casterGUID, itemCasterGUID, reqEffMask);
     return aurApp ? aurApp->GetBase() : nullptr;
 }
@@ -12209,8 +12204,6 @@ int32 Unit::DealHeal(Unit* victim, uint32 addhealth, SpellInfo const* spellProto
             {
                 AddDelayedEvent(10, [heal, this]() -> void
                 {
-                    if (!this)
-                        return;
                     CastCustomSpell(this, 146347, &heal, nullptr, nullptr, true);
                 });
             }

@@ -779,9 +779,6 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
 
     AddDelayedEvent(100, [=]() -> void
     {
-        if (!this)
-            return;
-
         auto player = GetPlayer();
         if (!player)
             return;
@@ -799,7 +796,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         artifactKnowledgeFishingPole.KnowledgeLevel = 0;
         SendPacket(artifactKnowledgeFishingPole.Write());
 
-        //Show cinematic at the first time that player login
+        // Show cinematic at the first time that player login
         bool firstLogin = !player->getCinematic(); // it's needed below
         if (!player->getCinematic())
         {
