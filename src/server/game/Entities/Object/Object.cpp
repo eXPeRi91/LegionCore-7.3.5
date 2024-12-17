@@ -2485,7 +2485,7 @@ float WorldObject::GetVisibilityCombatLog() const
 
 float WorldObject::GetSightRange(const WorldObject* target) const
 {
-    if (!this || !GetMap())
+    if (!GetMap())
         return 0.0f;
 
     if (ToUnit())

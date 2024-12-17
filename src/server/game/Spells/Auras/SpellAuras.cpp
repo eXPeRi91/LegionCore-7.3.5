@@ -1016,7 +1016,7 @@ bool Aura::IsAppliedOnTarget(ObjectGuid const& guid)
 
 void Aura::UpdateTargetMap(Unit* caster, bool apply)
 {
-    if (!this || IsRemoved())
+    if (IsRemoved())
         return;
 
     m_updateTargetMapInterval = UPDATE_TARGET_MAP_INTERVAL;
