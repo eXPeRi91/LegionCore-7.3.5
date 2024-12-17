@@ -1655,7 +1655,7 @@ void Player::Update(uint32 p_time)
 			{
 				bool hasTemplate = HasAura(SPELL_PRINCIPLES_OF_WAR);
 
-				if (hasTemplate && !HasPvpStatsScalingEnabled() || !hasTemplate && HasPvpStatsScalingEnabled())
+				if ((hasTemplate && !HasPvpStatsScalingEnabled()) || (!hasTemplate && HasPvpStatsScalingEnabled()))
 					sWorld->AddPvPMysticCount(); // for debug
 
 				if (map->IsBattlegroundOrArena())
@@ -3488,7 +3488,7 @@ bool Player::InvisibleStatusMapRequirements()
 {
     if (Map* pMap = GetMap())
     {
-        if (pMap->GetId() != 0 && pMap->GetId() != 1 && !pMap->IsBattleArena() || pMap->IsDungeon())
+        if ((pMap->GetId() != 0 && pMap->GetId() != 1 && !pMap->IsBattleArena()) || pMap->IsDungeon())
         {
             SendInvisibleStatusMsg(4);
             return false;
@@ -4096,7 +4096,7 @@ void Player::TogglePvpTalents(bool enable)
         if (!pvpTalentInfo)
             continue;
 
-        if (enable && v.second != PLAYERSPELL_REMOVED || sWorld->getBoolConfig(CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME))
+        if ((enable && v.second != PLAYERSPELL_REMOVED) || sWorld->getBoolConfig(CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME))
         {
             if (pvpTalentInfo->OverrideSpellID)
                 AddOverrideSpell(pvpTalentInfo->OverrideSpellID, pvpTalentInfo->SpellID);
@@ -5205,8 +5205,8 @@ bool Player::addSpell(uint32 spellId, bool active, bool learning, bool dependent
         // not ranked skills
         for (SkillLineAbilityMap::const_iterator _spell_idx = skill_bounds.first; _spell_idx != skill_bounds.second; ++_spell_idx)
         {
-            UpdateAchievementCriteria(CRITERIA_TYPE_LEARN_SKILL_LINE, _spell_idx->second->SkillLine, mSkillSpellCount[_spell_idx->second->SkillLine], 0, NULL, this);
-            UpdateAchievementCriteria(CRITERIA_TYPE_LEARN_SKILLLINE_SPELLS, _spell_idx->second->SkillLine, mSkillSpellCount[_spell_idx->second->SkillLine], 0, NULL, this);
+            UpdateAchievementCriteria(CRITERIA_TYPE_LEARN_SKILL_LINE, _spell_idx->second->SkillLine, mSkillSpellCount[_spell_idx->second->SkillLine], 0, NULL, true);
+            UpdateAchievementCriteria(CRITERIA_TYPE_LEARN_SKILLLINE_SPELLS, _spell_idx->second->SkillLine, mSkillSpellCount[_spell_idx->second->SkillLine], 0, NULL, true);
         }
         UpdateAchievementCriteria(CRITERIA_TYPE_LEARN_SPELL, spellId);
     }
@@ -7662,6 +7662,7 @@ void Player::HandleBaseModValue(BaseModGroup modGroup, BaseModType modType, floa
         case PCT_MOD:
             ApplyPercentModFloatVar(m_auraBaseMod[modGroup][modType], amount, apply);
             break;
+        default: break;
     }
 
     switch (modGroup)
@@ -10500,7 +10501,7 @@ void Player::_ApplyItemMods(Item* item, uint8 slot, bool apply)
     else
         AddDelayedEvent(100, [=]() -> void
         {
-            if (this && item)
+            if (item)
                 _ApplyOrRemoveItemEquipDependentAuras(item->GetGUID(), true);
         });
 
@@ -10951,7 +10952,7 @@ bool Player::CheckItemEquipDependentSpell(SpellInfo const* spellInfo, ObjectGuid
                             if (spellInfo->EquippedItemSubClassMask == 0 || (spellInfo->EquippedItemSubClassMask & (1 << checkItemTemplate->GetSubClass())))
                                 resemblance++;
 
-            if (onlyDual && resemblance > 1 || !onlyDual && resemblance > 0)
+            if ((onlyDual && resemblance > 1) || (!onlyDual && resemblance > 0))
                 return true;
 
             break;
@@ -19684,7 +19685,7 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
         UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_QUESTS_IN_ZONE, quest_id, quest->QuestSortID, quest->QuestInfoID);
     UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_QUEST_COUNT);
     UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_QUEST, quest_id, quest->QuestInfoID);
-    UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_QUESTS_COUNT, 1, 0, 0, NULL, this);
+    UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_QUESTS_COUNT, 1, 0, 0, NULL, true);
 
     SetQuestCompletedBit(sDB2Manager.GetQuestUniqueBitFlag(quest_id), true);
 
@@ -20669,7 +20670,8 @@ void Player::KilledMonsterCredit(uint32 entry, ObjectGuid guid /*= ObjectGuid::E
     Creature* killed = NULL;
     if (!guid.IsEmpty())
     {
-        if (killed = GetMap()->GetCreature(guid))
+        killed = GetMap()->GetCreature(guid);
+        if (killed)
         {
             if (killed->GetEntry())
                 real_entry = killed->GetEntry();
@@ -28420,7 +28422,7 @@ bool Player::BuyItemFromVendorSlot(ObjectGuid vendorguid, uint32 vendorslot, uin
 
     uint64 extGold = crItem->Money;
     uint64 price = 0;
-    if (extGold || crItem->IsGoldRequired(pProto) && pProto->GetBuyPrice() > 0) // assume price cannot be negative (do not know why it is int32)
+    if (extGold || (crItem->IsGoldRequired(pProto) && pProto->GetBuyPrice() > 0)) // assume price cannot be negative (do not know why it is int32)
     {
         extGold = (extGold ? extGold : pProto->GetBuyPrice());
 
@@ -33088,6 +33090,7 @@ void Player::UpdateAchievementCriteria(CriteriaTypes type, uint32 miscValue1 /*=
                     m_killPoints += 4.0f;
                 break;
             }
+            default: break;
         }
     }
 
@@ -36975,7 +36978,8 @@ void Player::UnLockThirdSocketIfNeed(Item* item)
         if (bonusListID == bonusID)
             return;
 
-    if (unlock = sDB2Manager.GetArtifactUnlock(item->GetTemplate()->GetArtifactID()))
+    unlock = sDB2Manager.GetArtifactUnlock(item->GetTemplate()->GetArtifactID());
+    if (unlock)
         if (sConditionMgr->IsPlayerMeetingCondition(this, unlock->PlayerConditionID))
             item->AddBonuses(bonusID);
 }
