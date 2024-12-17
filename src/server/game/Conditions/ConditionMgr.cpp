@@ -3183,8 +3183,8 @@ bool ConditionMgr::IsPlayerMeetingCondition(Unit* unit, PlayerConditionEntry con
             // return false;
     // }
 
-    if (player && condition->MinExpansionLevel != -1 && condition->MinExpansionTier != -1 && !player->isGameMaster()
-        && ((condition->MinExpansionLevel == CURRENT_EXPANSION) && condition->MinExpansionTier > 0) || condition->MinExpansionLevel > CURRENT_EXPANSION)
+    if ((player && condition->MinExpansionLevel != -1 && condition->MinExpansionTier != -1 && !player->isGameMaster()
+        && ((condition->MinExpansionLevel == CURRENT_EXPANSION) && condition->MinExpansionTier > 0)) || condition->MinExpansionLevel > CURRENT_EXPANSION)
         return false;
 
     if (condition->PhaseID && !unit->HasPhaseId(condition->PhaseID))
