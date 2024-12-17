@@ -339,7 +339,7 @@ bool AreaTrigger::CreateAreaTrigger(ObjectGuid::LowType guidlow, uint32 triggerE
 
     _ai->CalculateDuration(_duration);
 
-    if ((info && (GetCustomEntry() == 13251 && (caster && caster->IsCreature() && caster->GetEntry() != 116407)) || info->Id == 233530)) //! Hack!!!, because it is so stupid and don't work else
+    if (info && ((GetCustomEntry() == 13251 && (caster && caster->IsCreature() && caster->GetEntry() != 116407)) || info->Id == 233530)) //! Hack!!!, because it is so stupid and don't work else
         _canMove = false;
 
     // culculate destination point
