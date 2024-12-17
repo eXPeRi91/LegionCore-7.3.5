@@ -29,8 +29,6 @@
 #include <zlib.h>
 #include <memory>
 
-static_assert(true, "!"); // dummy declaration, ends the preamble
-
 #pragma pack(push, 1)
 
 void Battlenet::Session::AccountInfo::LoadResult(PreparedQueryResult result)
