@@ -362,7 +362,7 @@ playerDamageTaken_(), npcDamageTaken_()
 
     ClearMirrorImageData();
 
-    memset(m_modAuras, NULL, sizeof(m_modAuras));
+    memset(m_modAuras, 0, sizeof(m_modAuras));
     memset(m_auraTypeCount, 0, sizeof(m_auraTypeCount));
 
     m_powerCost.assign(MAX_POWERS + 1, 0);
@@ -434,7 +434,7 @@ Unit::~Unit()
     delete m_charmInfo;
     delete movespline;
 
-    memset(m_modAuras, NULL, sizeof(m_modAuras));
+    memset(m_modAuras, 0, sizeof(m_modAuras));
     for (AuraEffectListMap::iterator iter = m_modMapAuras.begin(); iter != m_modMapAuras.end(); ++iter)
         delete iter->second;
     m_modMapAuras.clear();
@@ -986,7 +986,7 @@ uint32 Unit::DealDamage(Unit* victim, uint32 damage, CleanDamage const* cleanDam
         if (spellProto)
         {
             if (!(spellProto->HasAttribute(SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS)))
-                if (damagetype == DOT && damage != 0 || damagetype != DOT)
+                if ((damagetype == DOT && damage != 0) || damagetype != DOT)
                     victim->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_TAKE_DAMAGE, spellProto->Id, spellProto->Id);
         }
         else if (damagetype != SELF_DAMAGE)
@@ -4052,8 +4052,7 @@ void Unit::_UpdateAutoRepeatSpell()
     if (!spellProto)
         return;
 
-    if (((IsPlayer() && ToPlayer()->isMoving()) || spellProto && IsNonMeleeSpellCast(false, false, true, spellProto->Id == 75)) && 
-        !HasAuraCastWhileWalking(spellProto))
+    if (((IsPlayer() && ToPlayer()->isMoving()) || (spellProto && IsNonMeleeSpellCast(false, false, true, spellProto->Id == 75))) && !HasAuraCastWhileWalking(spellProto))
     {
         // cancel wand shoot
         InterruptSpell(CURRENT_AUTOREPEAT_SPELL);
@@ -5606,7 +5605,7 @@ void Unit::RemoveArenaAuras()
     RemoveAppliedAuras([](AuraApplicationPtr const aurApp)
     {
         Aura const* aura = aurApp->GetBase();
-        return (!(aura->GetSpellInfo()->HasAttribute(SPELL_ATTR4_UNK21)) && !aura->IsPassive() && (aurApp->IsPositive() || !(aura->GetSpellInfo()->HasAttribute(SPELL_ATTR3_DEATH_PERSISTENT))) || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR2_UNK3));
+        return ((!(aura->GetSpellInfo()->HasAttribute(SPELL_ATTR4_UNK21)) && !aura->IsPassive() && (aurApp->IsPositive() || !(aura->GetSpellInfo()->HasAttribute(SPELL_ATTR3_DEATH_PERSISTENT)))) || aura->GetSpellInfo()->HasAttribute(SPELL_ATTR2_UNK3));
     });
 }
 
@@ -10445,7 +10444,7 @@ bool Unit::HandleProcTriggerSpell(Unit* victim, DamageInfo* dmgInfoProc, AuraEff
                     case 40336:
                     {
                         // On successful melee or ranged attack gain $29471s1 mana and if possible drain $27526s1 mana from the target.
-                        if (this && isAlive())
+                        if (isAlive())
                             CastSpell(this, 29471, true, castItem, triggeredByAura);
                         if (victim && victim->isAlive())
                             CastSpell(victim, 27526, true, castItem, triggeredByAura);
@@ -12663,34 +12662,40 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
 
     // bonus against aurastate
     if (AuraEffectList const* mDamageDoneVersusAurastate = GetAuraEffectsByType(SPELL_AURA_MOD_DAMAGE_DONE_VERSUS_AURASTATE))
-    for (AuraEffectList::const_iterator i = mDamageDoneVersusAurastate->begin(); i != mDamageDoneVersusAurastate->end(); ++i)
-        if (victim->HasAuraState(AuraStateType((*i)->GetMiscValue())))
-            if (HasAura(144421) && GetPower(POWER_ALTERNATE))
+    {
+        for (AuraEffectList::const_iterator i = mDamageDoneVersusAurastate->begin(); i != mDamageDoneVersusAurastate->end(); ++i)
+        {
+            if (victim->HasAuraState(AuraStateType((*i)->GetMiscValue())))
             {
-                int32 pos = GetPower(POWER_ALTERNATE);
-                int32 mod = 0;
-                switch (pos)
+                if (HasAura(144421) && GetPower(POWER_ALTERNATE))
                 {
-                case 25:
-                    mod = -10;
-                    break;
-                case 50:
-                    mod = -25;
-                    break;
-                case 75:
-                    mod = -50;
-                    break;
-                case 100:
-                    mod = -75;
-                    break;
-                default:
-                    mod = 0;
-                    break;
+                    int32 pos = GetPower(POWER_ALTERNATE);
+                    int32 mod = 0;
+                    switch (pos)
+                    {
+                    case 25:
+                        mod = -10;
+                        break;
+                    case 50:
+                        mod = -25;
+                        break;
+                    case 75:
+                        mod = -50;
+                        break;
+                    case 100:
+                        mod = -75;
+                        break;
+                    default:
+                        mod = 0;
+                        break;
+                    }
+                    AddPct(DoneTotalMod, mod);
                 }
-                AddPct(DoneTotalMod, mod);
+                else
+                    AddPct(DoneTotalMod, (*i)->GetAmount());
             }
-            else
-                AddPct(DoneTotalMod, (*i)->GetAmount());
+        }
+    }
 
     // Add SPELL_AURA_MOD_DAMAGE_DONE_FOR_MECHANIC percent bonus
     if (spellProto->Categories.Mechanic)
@@ -14068,34 +14073,40 @@ uint32 Unit::MeleeDamageBonusDone(Unit* victim, uint32 pdamage, WeaponAttackType
 
     // bonus against aurastate
     if (AuraEffectList const* mDamageDoneVersusAurastate = GetAuraEffectsByType(SPELL_AURA_MOD_DAMAGE_DONE_VERSUS_AURASTATE))
-    for (AuraEffectList::const_iterator i = mDamageDoneVersusAurastate->begin(); i != mDamageDoneVersusAurastate->end(); ++i)
-        if (victim->HasAuraState(AuraStateType((*i)->GetMiscValue())))
-            if (HasAura(144421) && GetPower(POWER_ALTERNATE))
+    {
+        for (AuraEffectList::const_iterator i = mDamageDoneVersusAurastate->begin(); i != mDamageDoneVersusAurastate->end(); ++i)
+        {
+            if (victim->HasAuraState(AuraStateType((*i)->GetMiscValue())))
             {
-                int32 pos = GetPower(POWER_ALTERNATE);
-                int32 mod = 0;
-                switch (pos)
+                if (HasAura(144421) && GetPower(POWER_ALTERNATE))
                 {
-                case 25:
-                    mod = -10;
-                    break;
-                case 50:
-                    mod = -25;
-                    break;
-                case 75:
-                    mod = -50;
-                    break;
-                case 100:
-                    mod = -75;
-                    break;
-                default:
-                    mod = 0;
-                    break;
+                    int32 pos = GetPower(POWER_ALTERNATE);
+                    int32 mod = 0;
+                    switch (pos)
+                    {
+                    case 25:
+                        mod = -10;
+                        break;
+                    case 50:
+                        mod = -25;
+                        break;
+                    case 75:
+                        mod = -50;
+                        break;
+                    case 100:
+                        mod = -75;
+                        break;
+                    default:
+                        mod = 0;
+                        break;
+                    }
+                    AddPct(DoneTotalMod, mod);
                 }
-                AddPct(DoneTotalMod, mod);
+                else
+                    AddPct(DoneTotalMod, (*i)->GetAmount());
             }
-            else
-                AddPct(DoneTotalMod, (*i)->GetAmount());
+        }
+    }
 
     // Add SPELL_AURA_MOD_DAMAGE_DONE_FOR_MECHANIC percent bonus
     if (spellProto)
@@ -17774,7 +17785,7 @@ void Unit::ProcDamageAndSpellFor(bool isVictim, Unit* target, uint32 procFlag, u
     {
         AuraApplicationPtr auraApp = itr->second;
         // Do not allow auras to proc from effect triggered by itself
-        if (procAura && procAura->Id == itr->first || !auraApp || !auraApp->GetBase()->GetSpellInfo()->GetAuraOptions(GetSpawnMode())->IsProcAura)
+        if ((procAura && procAura->Id == itr->first) || !auraApp || !auraApp->GetBase()->GetSpellInfo()->GetAuraOptions(GetSpawnMode())->IsProcAura)
             continue;
         ProcTriggeredData triggerData(auraApp->GetBase());
 
@@ -18182,7 +18193,7 @@ void Unit::ProcDamageAndSpellFor(bool isVictim, Unit* target, uint32 procFlag, u
                                                 {
                                                     int32 dur = triggeredByAura->GetBase()->GetDuration();
                                                     std::list<Unit*>::const_iterator itr = saveList.begin();
-                                                    caster->AddAura(197277, (*itr), nullptr, NULL, dur, dur);
+                                                    caster->AddAura(197277, (*itr), nullptr, 0, dur, dur);
                                                 }
                                             }
                                         }
@@ -18862,7 +18873,7 @@ Unit* Unit::SelectNearbyAlly(Unit* exclude /*= nullptr*/, float dist /*= NOMINAL
 Unit* Unit::GetNearbyVictim(Unit* exclude, float dist, bool IsInFront, bool IsNeutral) const
 {
     Unit* Nearby    = nullptr;
-    float nearbydist = NULL;
+    float nearbydist = 0;
     std::list<Unit*> targetList;
     GetAttackableUnitListInRange(targetList, dist);
 
@@ -19422,8 +19433,11 @@ bool Unit::SpellProcTriggered(Unit* victim, DamageInfo* dmgInfoProc, AuraEffect*
                 Unit* summon = nullptr;
                 GuidList* summonList = GetSummonList(itr->slot);
                 for (GuidList::const_iterator iter = summonList->begin(); iter != summonList->end(); ++iter)
-                    if(summon = ObjectAccessor::GetUnit(*this, (*iter)))
+                {
+                    summon = ObjectAccessor::GetUnit(*this, (*iter));
+                    if (summon)
                         break;
+                }
                 if (!summon)
                     continue;
                 target = summon;
@@ -19459,8 +19473,11 @@ bool Unit::SpellProcTriggered(Unit* victim, DamageInfo* dmgInfoProc, AuraEffect*
                 Unit* summon = nullptr;
                 GuidList* summonList = GetSummonList(itr->slot);
                 for (GuidList::const_iterator iter = summonList->begin(); iter != summonList->end(); ++iter)
-                    if(summon = ObjectAccessor::GetUnit(*this, (*iter)))
+                {
+                    summon = ObjectAccessor::GetUnit(*this, (*iter));
+                    if (summon)
                         break;
+                }
                 if (!summon)
                     continue;
                 _caster = summon;
@@ -21953,8 +21970,8 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
                         {
                             if (Player* playerInfo = ObjectAccessor::GetPlayer(*this, _guid))
                             {
-                                playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_DUNGEON_ENCOUNTER, encounterId, 0, 0, victim, this);
-                                playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_DUNGEON_ENCOUNTER_COUNTER, encounterId, 0, 0, victim, this);
+                                playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_DUNGEON_ENCOUNTER, encounterId, 0, 0, victim, true);
+                                playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_DUNGEON_ENCOUNTER_COUNTER, encounterId, 0, 0, victim, true);
                             }
                         }
                     }
@@ -21969,14 +21986,14 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
                             if (!playerInfo->IsAtGroupRewardDistance(creature))
                                 continue;
 
-                            playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_DUNGEON_ENCOUNTER, encounterId, 0, 0, victim, this);
-                            playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_DUNGEON_ENCOUNTER_COUNTER, encounterId, 0, 0, victim, this);
+                            playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_DUNGEON_ENCOUNTER, encounterId, 0, 0, victim, true);
+                            playerInfo->UpdateAchievementCriteria(CRITERIA_TYPE_DUNGEON_ENCOUNTER_COUNTER, encounterId, 0, 0, victim, true);
                         }
                     }
                     else
                     {
-                        player->UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_DUNGEON_ENCOUNTER, encounterId, 0, 0, victim, this);
-                        player->UpdateAchievementCriteria(CRITERIA_TYPE_DUNGEON_ENCOUNTER_COUNTER, encounterId, 0, 0, victim, this);
+                        player->UpdateAchievementCriteria(CRITERIA_TYPE_COMPLETE_DUNGEON_ENCOUNTER, encounterId, 0, 0, victim, true);
+                        player->UpdateAchievementCriteria(CRITERIA_TYPE_DUNGEON_ENCOUNTER_COUNTER, encounterId, 0, 0, victim, true);
                     }
                 }
             }
@@ -21989,7 +22006,7 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
 
             if (isNonChallenge && !isLootDisable) // Don`t loot
             {
-                if (creature->IsPersonal() || GetMap() && (GetMap()->GetLootDifficulty() == DIFFICULTY_TIMEWALKING || GetMap()->GetLootDifficulty() == DIFFICULTY_TIMEWALKING_RAID))
+                if (creature->IsPersonal() || (GetMap() && (GetMap()->GetLootDifficulty() == DIFFICULTY_TIMEWALKING || GetMap()->GetLootDifficulty() == DIFFICULTY_TIMEWALKING_RAID)))
                     GeneratePersonalLoot(creature, player);
                 else
                     GenerateLoot(creature, looter);
@@ -23134,7 +23151,7 @@ void Unit::SendPlaySpellVisualKit(uint32 id, uint32 kitType, uint32 duration /*=
 void Unit::ApplyResilience(Unit const* victim, float *damage) const
 {
     // player mounted on multi-passenger mount is also classified as vehicle
-    if (IsVehicle() && !IsPlayer() || (victim->IsVehicle() && !victim->IsPlayer()))
+    if ((IsVehicle() && !IsPlayer()) || (victim->IsVehicle() && !victim->IsPlayer()))
         return;
 
     // Resilience works only for players or pets against other players or pets
@@ -24289,7 +24306,7 @@ void Unit::ExitVehicle(Position const* exitPosition)
         return;
 
     Map* mapInfo = GetMap();
-    if (!mapInfo || mapInfo && !mapInfo->IsMapUnload())
+    if (!mapInfo || (mapInfo && !mapInfo->IsMapUnload()))
         GetVehicleBase()->RemoveAurasByType(SPELL_AURA_CONTROL_VEHICLE, GetGUID());
 
     if (m_vehicle)
@@ -25331,8 +25348,8 @@ void Unit::BuildValuesUpdate(uint8 updateType, ByteBuffer* data, Player* target)
                 if (dynamicFlags & UNIT_DYNFLAG_NOT_SELECTABLE_MODEL)
                 {
                     if (target == this
-                        || HasAura(235734) && target->HasAura(235734) || HasAura(235732) && target->HasAura(235732)
-                        || target->HasAura(235734) && HasAura(235113) || target->HasAura(235732) && HasAura(235620))
+                        || (HasAura(235734) && target->HasAura(235734)) || (HasAura(235732) && target->HasAura(235732))
+                        || (target->HasAura(235734) && HasAura(235113)) || (target->HasAura(235732) && HasAura(235620)))
                     {
                         dynamicFlags &= ~UNIT_DYNFLAG_NOT_SELECTABLE_MODEL;
                     }
@@ -26522,7 +26539,8 @@ void Unit::GenerateLoot(Creature* creature, Player* anyLooter)
                     if (lootPers->isLooted())
                         looter->RemoveLoot(creature->GetGUID());
 
-                    if (group = looter->GetGroup())
+                    group = looter->GetGroup();
+                    if (group)
                     {
                         for (GroupReference* iter = group->GetFirstMember(); iter != nullptr; iter = iter->next())
                         {
@@ -28064,7 +28082,7 @@ bool Unit::IsValidDesolateHostTarget(Unit* target, SpellInfo const* spellInfo) c
 
     if (IsPlayer() && target->IsPlayer())
     {
-        if (HasAura(235621) && !target->HasAura(235621) || !HasAura(235621) && target->HasAura(235621))
+        if ((HasAura(235621) && !target->HasAura(235621)) || (!HasAura(235621) && target->HasAura(235621)))
             valid = false;
     }
     else if (IsPlayer() && target->IsCreature())
