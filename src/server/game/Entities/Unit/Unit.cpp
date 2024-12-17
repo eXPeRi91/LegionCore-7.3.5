@@ -8517,8 +8517,7 @@ bool Unit::HandleDummyAuraProc(Unit* victim, DamageInfo* dmgInfoProc, AuraEffect
 
                     AddDelayedEvent(100, [this, bp0]() -> void
                     {
-                        if (this)
-                            CastCustomSpell(this, 215157, &bp0, nullptr, nullptr, true);
+                        CastCustomSpell(this, 215157, &bp0, nullptr, nullptr, true);
                     });
                     return false;
                 }
@@ -8971,13 +8970,10 @@ bool Unit::HandleDummyAuraProc(Unit* victim, DamageInfo* dmgInfoProc, AuraEffect
 
                     AddDelayedEvent(250, [this]() -> void
                     {
-                        if (this)
+                        if (Player* plr = ToPlayer())
                         {
-                            if (Player* plr = ToPlayer())
-                            {
-                                CastSpell(this, 202788, true);
-                                plr->ModSpellCharge(202771, 1); 
-                            }
+                            CastSpell(this, 202788, true);
+                            plr->ModSpellCharge(202771, 1);
                         }
                     });
                     AddSpellCooldown(248163, 0, getPreciseTime() + cooldown);

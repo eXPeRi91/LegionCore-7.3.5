@@ -5901,8 +5901,7 @@ void Player::TakeSpellCharge(SpellInfo const* spellInfo)
             {
                 AddDelayedEvent(_delay, [this]() -> void
                 {
-                    if (this)
-                        CastSpell(this, 243241, true);
+                    CastSpell(this, 243241, true);
                 });
             }
             break;
@@ -20603,8 +20602,7 @@ void Player::ItemAddedQuestCheck(uint32 entry, uint32 count)
     
     AddDelayedEvent(100, [=]() -> void
     {
-        if (this)
-            UpdateForQuestWorldObjects();
+        UpdateForQuestWorldObjects();
     });
 }
 
@@ -20650,8 +20648,7 @@ void Player::ItemRemovedQuestCheck(uint32 entry, uint32 count)
    
     AddDelayedEvent(100, [=]() -> void
     {
-        if (this)
-            UpdateForQuestWorldObjects();
+        UpdateForQuestWorldObjects();
     });
 }
 
@@ -28768,8 +28765,7 @@ void Player::AddSpellAndCategoryCooldowns(SpellInfo const* spellInfo, uint32 ite
                     int32 delay = (cooldownTime - curTime) * IN_MILLISECONDS;
                     AddDelayedEvent(delay, [this]() -> void
                     {
-                        if (this)
-                            CastSpell(this, 243241, true);
+                        CastSpell(this, 243241, true);
                     });
                 }
                 break;

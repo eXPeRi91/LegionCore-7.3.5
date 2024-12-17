@@ -325,8 +325,7 @@ void BattlegroundQueue::RemovePlayer(ObjectGuid guid, bool decreaseInvitedCount)
 {
     AddDelayedEvent(10, [=]() -> void
     {
-        if (this)
-            RemovePlayerQueue(guid, decreaseInvitedCount);
+        RemovePlayerQueue(guid, decreaseInvitedCount);
     });
 }
 
