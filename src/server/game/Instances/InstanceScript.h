@@ -197,7 +197,7 @@ class InstanceScript : public ZoneScript
         void LogCompletedEncounter(bool success);
 
         virtual void OnUnitCharmed(Unit* unit, Unit* charmer) override;
-        virtual void OnUnitRemoveCharmed(Unit* unit, Unit* charmer);
+        virtual void OnUnitRemoveCharmed(Unit* unit, Unit* charmer) override;
 
         //Handle open / close objects
         void HandleGameObject(ObjectGuid guid, bool open, GameObject* go = nullptr);
