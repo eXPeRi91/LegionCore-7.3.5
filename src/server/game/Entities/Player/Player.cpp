@@ -1809,7 +1809,7 @@ void Player::Update(uint32 p_time)
     {
         if (m_clientCheckDelay < p_time)
         {
-            SendVersionMismatchWarinings();
+            SendVersionMismatchWarnings();
             if (!m_clientKickDelay)
                 m_clientKickDelay = 25000;
             m_clientCheckDelay = 11000;
@@ -36770,7 +36770,7 @@ void Player::AchieveCriteriaCredit(uint32 criteriaID)
     }
 }
 
-void Player::SendVersionMismatchWarinings()
+void Player::SendVersionMismatchWarnings()
 {
     char buff[2048];
     sprintf(buff, GetSession()->GetTrinityString(LANG_CLIENT_VERSION_MISMATCH_MESSAGE));
