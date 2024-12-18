@@ -38,7 +38,7 @@
 #include "Util.h"
 #include "Vehicle.h"
 
-AuraApplication::AuraApplication(Unit* target, Unit* caster, Aura* aura, uint32 effMask) : _target(target), _base(aura), _removeMode(AURA_REMOVE_NONE), _slot(MAX_AURAS), _flags(AFLAG_NONE), _effectMask(NULL), _effectsToApply(effMask), _needClientUpdate(false)
+AuraApplication::AuraApplication(Unit* target, Unit* caster, Aura* aura, uint32 effMask) : _target(target), _base(aura), _removeMode(AURA_REMOVE_NONE), _slot(MAX_AURAS), _flags(AFLAG_NONE), _effectMask(0), _effectsToApply(effMask), _needClientUpdate(false)
 {
     ASSERT(GetTarget() && GetBase());
 
@@ -2797,7 +2797,7 @@ bool Aura::CanStackWith(Aura const* existingAura) const
     }
 
     // negative and positive spells
-    if (m_spellInfo->_IsPositiveSpell() && !existingSpellInfo->_IsPositiveSpell() || !m_spellInfo->_IsPositiveSpell() && existingSpellInfo->_IsPositiveSpell())
+    if ((m_spellInfo->_IsPositiveSpell() && !existingSpellInfo->_IsPositiveSpell()) || (!m_spellInfo->_IsPositiveSpell() && existingSpellInfo->_IsPositiveSpell()))
         return true;
 
     if (HasEffectType(SPELL_AURA_CONTROL_VEHICLE) && existingAura->HasEffectType(SPELL_AURA_CONTROL_VEHICLE))
