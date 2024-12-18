@@ -36772,9 +36772,7 @@ void Player::AchieveCriteriaCredit(uint32 criteriaID)
 
 void Player::SendVersionMismatchWarnings()
 {
-    char buff[2048];
-    sprintf(buff, GetSession()->GetTrinityString(LANG_CLIENT_VERSION_MISMATCH_MESSAGE));
-    sWorld->SendServerMessage(SERVER_MSG_STRING, buff);
+    sWorld->SendServerMessage(SERVER_MSG_STRING, GetSession()->GetTrinityString(LANG_CLIENT_VERSION_MISMATCH_MESSAGE));
 
     GetSession()->SendNotification(LANG_CLIENT_VERSION_MISMATCH_MESSAGE_NOTIFY);
 }
