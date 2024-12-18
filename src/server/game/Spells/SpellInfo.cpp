@@ -1533,11 +1533,11 @@ bool SpellInfo::HasChannelInterruptFlag(SpellAuraInterruptFlags2 flag) const
 
 bool SpellInfo::IsExplicitDiscovery() const
 {
-    return (Effects[0]->Effect == SPELL_EFFECT_CREATE_RANDOM_ITEM
+    return ((Effects[0]->Effect == SPELL_EFFECT_CREATE_RANDOM_ITEM
             || Effects[0]->Effect == SPELL_EFFECT_CREATE_ITEM
             || Effects[0]->Effect == SPELL_EFFECT_CREATE_ITEM_2)
         && Effects[1]->Effect == SPELL_EFFECT_SCRIPT_EFFECT
-        && HasAttribute(SPELL_ATTR0_TRADESPELL)
+        && HasAttribute(SPELL_ATTR0_TRADESPELL))
         || Id == 64323 || Id == 101805;
 }
 
@@ -1861,7 +1861,7 @@ bool SpellInfo::IsBreakingStealth() const
 
 bool SpellInfo::IsRangedWeaponSpell() const
 {
-    return ClassOptions.SpellClassSet == SPELLFAMILY_HUNTER || EquippedItemSubClassMask != -1 && EquippedItemSubClassMask & ITEM_SUBCLASS_MASK_WEAPON_RANGED;
+    return ClassOptions.SpellClassSet == SPELLFAMILY_HUNTER || (EquippedItemSubClassMask != -1 && EquippedItemSubClassMask & ITEM_SUBCLASS_MASK_WEAPON_RANGED);
 }
 
 bool SpellInfo::IsRangedSpell() const
@@ -2215,7 +2215,7 @@ SpellCastResult SpellInfo::CheckLocation(uint32 map_id, uint32 zone_id, uint32 a
             if (!mapEntry)
                 return SPELL_FAILED_INCORRECT_AREA;
 
-            return mapEntry->ID == 1191 || zone_id == 4197 || mapEntry->IsBattleground() && player && player->InBattleground() ? SPELL_CAST_OK : SPELL_FAILED_REQUIRES_AREA;
+            return mapEntry->ID == 1191 || zone_id == 4197 || (mapEntry->IsBattleground() && player && player->InBattleground()) ? SPELL_CAST_OK : SPELL_FAILED_REQUIRES_AREA;
         }
         case SPELL_BG_PREPARATION:
         {
@@ -2469,7 +2469,7 @@ SpellCastResult SpellInfo::CheckExplicitTarget(Unit const* caster, WorldObject c
             if (neededTargets & TARGET_FLAG_UNIT_ENEMY)
                 if (caster->GetGUID() == unitTarget->GetGUID() || caster->_IsValidAttackTarget(unitTarget, this))
                     return SPELL_CAST_OK;
-            if (neededTargets & TARGET_FLAG_UNIT_ALLY || neededTargets & TARGET_FLAG_UNIT_PARTY && caster->IsInPartyWith(unitTarget) || neededTargets & TARGET_FLAG_UNIT_RAID && caster->IsInRaidWith(unitTarget))
+            if (neededTargets & TARGET_FLAG_UNIT_ALLY || (neededTargets & TARGET_FLAG_UNIT_PARTY && caster->IsInPartyWith(unitTarget)) || (neededTargets & TARGET_FLAG_UNIT_RAID && caster->IsInRaidWith(unitTarget)))
                 if (caster->_IsValidAssistTarget(unitTarget, this))
                     return SPELL_CAST_OK;
             if (neededTargets & TARGET_FLAG_UNIT_MINIPET)
@@ -3469,7 +3469,7 @@ void SpellInfo::_LoadAuraState()
             return AURA_STATE_FAERIE_FIRE;
 
         // Victorious
-        if (ClassOptions.SpellClassSet == SPELLFAMILY_WARRIOR && ClassOptions.SpellClassMask[1] & 0x00040000 || Id == 138279)
+        if ((ClassOptions.SpellClassSet == SPELLFAMILY_WARRIOR && ClassOptions.SpellClassMask[1] & 0x00040000) || Id == 138279)
             return AURA_STATE_WARRIOR_VICTORY_RUSH;
 
         // Swiftmend state on Regrowth & Rejuvenation
