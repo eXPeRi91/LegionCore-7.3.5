@@ -78,10 +78,12 @@ struct boss_temple_vonjin : public ScriptedAI
     void Skull()
     {
         if (auto skull = me->FindNearestGameObject(go_hazorn_skull_1, 50.f))
+        {
             if (me->isAlive())
                 skull->SetFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
             else
                 skull->RemoveFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
+        }
     }
 
     void JustSummoned(Creature* summon) override
@@ -254,10 +256,12 @@ struct boss_temple_lessar : public ScriptedAI
     void Blood()
     {
         if (auto blood = me->FindNearestGameObject(go_ritual_blood_1, 50.f))
+        {
             if (me->isAlive())
                 blood->SetFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
             else
                 blood->RemoveFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
+        }
     }
 
     void KilledUnit(Unit* who) override
@@ -1589,7 +1593,7 @@ class spell_events_spirit_chains : public AuraScript
         if (timer <= diff)
         {
             if (auto target = GetCaster())
-                if (health = target->GetHealth())
+                if ((health = target->GetHealth()))
                     target->SetHealth(health - (health * 5 / 100));
 
             timer = 1000;
