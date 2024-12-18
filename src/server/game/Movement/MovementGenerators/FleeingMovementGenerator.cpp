@@ -30,7 +30,7 @@
 template<class T>
 void FleeingMovementGenerator<T>::_setTargetLocation(T &owner)
 {
-    if (!&owner)
+    if (!owner)
         return;
 
     if (owner.HasUnitState(UNIT_STATE_ROOT | UNIT_STATE_STUNNED))
@@ -53,7 +53,7 @@ void FleeingMovementGenerator<T>::_setTargetLocation(T &owner)
 template<class T>
 bool FleeingMovementGenerator<T>::_getPoint(T &owner, float &x, float &y, float &z)
 {
-    if (!&owner)
+    if (!owner)
         return false;
 
     owner.GetPosition(x, y, z, owner.GetTransport());
@@ -298,7 +298,7 @@ bool FleeingMovementGenerator<T>::_setMoveData(T &owner)
 template<class T>
 void FleeingMovementGenerator<T>::DoInitialize(T &owner)
 {
-    if (!&owner)
+    if (!owner)
         return;
 
     owner.SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_FLEEING);
@@ -370,7 +370,7 @@ void FleeingMovementGenerator<T>::DoReset(T &owner)
 template<class T>
 bool FleeingMovementGenerator<T>::DoUpdate(T &owner, const uint32 &time_diff)
 {
-    if (!&owner || !owner.isAlive())
+    if (!owner || !owner.isAlive())
         return false;
     if (owner.HasUnitState(UNIT_STATE_ROOT | UNIT_STATE_STUNNED))
     {
