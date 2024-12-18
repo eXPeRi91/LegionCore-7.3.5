@@ -298,7 +298,7 @@ bool FleeingMovementGenerator<T>::_setMoveData(T &owner)
 template<class T>
 void FleeingMovementGenerator<T>::DoInitialize(T &owner)
 {
-    if (!&owner)
+    if (&owner == nullptr)
         return;
 
     owner.SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_FLEEING);
