@@ -1111,7 +1111,7 @@ void Map::Update(const uint32 t_diff)
 
     uint32 _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 200)
-        sLog->outDiff("Map::Update Player mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId % u activeEntry % u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry);
+        sLog->outDiff("Map::Update Player mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry);
 
     if (b_isMapUnload)
         return;
@@ -1163,7 +1163,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update Collected mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId % u activeEntry % u collectedCount % u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, collectedCount);
+        sLog->outDiff("Map::Update Collected mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u collectedCount %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, collectedCount);
 
     // sWorldStateMgr.MapUpdate(this);
 
@@ -1187,7 +1187,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update ScriptsProcess mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId % u activeEntry % u activeEncounter % u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update ScriptsProcess mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 
     if (b_isMapUnload)
         return;
@@ -1199,7 +1199,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update MoveAll mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId % u activeEntry % u activeEncounter % u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update MoveAll mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 
     std::set<ObjectGuid> objectsTemp;
 
@@ -1251,7 +1251,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update UpdateDataMap mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId % u activeEntry % u activeEncounter % u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update UpdateDataMap mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 
     std::set<Object*> objectsAddTemp;
     if (!i_objectsAddToMap.empty())
@@ -1286,7 +1286,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 500) // Only lags
-        sLog->outDiff("Map::Update mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId % u activeEntry % u activeEncounter % u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 }
 
 void Map::UpdateSessions(uint32 diff)
