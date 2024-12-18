@@ -585,7 +585,7 @@ void InstanceScript::DoRemovePlayeresCooldownAndDebuff(bool wipe)
         auto& Auras = player->GetAppliedAuras();
         for (auto itr = Auras.begin(); itr != Auras.end(); ++itr)
             if (auto aura = itr->second->GetBase()->GetSpellInfo())
-                if (aura->GetMisc()->MiscData.Attributes[0] & (SPELL_ATTR0_UNAFFECTED_BY_INVULNERABILITY | SPELL_ATTR0_DEBUFF) && aura->HasAttribute(SPELL_ATTR5_UNK2) || (wipe && aura->HasAttribute(SPELL_ATTR10_UNK13)))
+                if ((aura->GetMisc()->MiscData.Attributes[0] & (SPELL_ATTR0_UNAFFECTED_BY_INVULNERABILITY | SPELL_ATTR0_DEBUFF) && aura->HasAttribute(SPELL_ATTR5_UNK2)) || (wipe && aura->HasAttribute(SPELL_ATTR10_UNK13)))
                     player->RemoveAura(itr);
     });
 }
