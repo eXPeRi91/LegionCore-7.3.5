@@ -52,7 +52,7 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
                 AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                 HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
                 CurrectAllianceScore = AllianceScore;
-                CurrectHordeScore = CurrectHordeScore;
+                CurrectHordeScore = HordeScore;
             }
 
             void OnCreatureCreate(Creature* creature) override
