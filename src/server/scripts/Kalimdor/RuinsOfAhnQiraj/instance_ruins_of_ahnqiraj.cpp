@@ -40,8 +40,8 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
             }
 
             uint32 update_worldstate;
-            uint32 CurrectAllianceScore{};
-            uint32 CurrectHordeScore{};
+            uint32 CurrentAllianceScore{};
+            uint32 CurrentHordeScore{};
             uint32 AllianceScore{};
             uint32 HordeScore{};
 
@@ -51,8 +51,8 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
 
                 AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                 HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
-                CurrectAllianceScore = AllianceScore;
-                CurrectHordeScore = HordeScore;
+                CurrentAllianceScore = AllianceScore;
+                CurrentHordeScore = HordeScore;
             }
 
             void OnCreatureCreate(Creature* creature) override
@@ -104,18 +104,18 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
                     {
                         instance->ApplyOnEveryPlayer([=](Player* player) -> void
                         {
-                            AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+                            AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                             HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
-                            if (AllianceScore > CurrectAllianceScore)
+                            if (AllianceScore > CurrentAllianceScore)
                             {
-                                CurrectAllianceScore = AllianceScore;
+                                CurrentAllianceScore = AllianceScore;
                                 player->SendUpdateWorldState(static_cast<WorldStates>(12953), AllianceScore);
                             }
 
-                            if (HordeScore > CurrectHordeScore)
+                            if (HordeScore > CurrentHordeScore)
                             {
-                                CurrectHordeScore = AllianceScore;
+                                CurrentHordeScore = AllianceScore;
                                 player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                             }
                         });

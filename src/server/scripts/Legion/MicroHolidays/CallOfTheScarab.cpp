@@ -89,15 +89,15 @@ public:
                 AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                 HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
-                if (AllianceScore > CurrectAllianceScore)
+                if (AllianceScore > CurrentAllianceScore)
                 {
-                    CurrectAllianceScore = AllianceScore;
+                    CurrentAllianceScore = AllianceScore;
                     player->SendUpdateWorldState(static_cast<WorldStates>(12953), AllianceScore);
                 }
 
-                if (HordeScore > CurrectHordeScore)
+                if (HordeScore > CurrentHordeScore)
                 {
-                    CurrectHordeScore = AllianceScore;
+                    CurrentHordeScore = AllianceScore;
                     player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                 }
             });
@@ -149,8 +149,8 @@ public:
                 if (sGameEventMgr->IsActiveEvent(EVENT_WINNER_TEAM))
                     sGameEventMgr->StopEvent(EVENT_WINNER_TEAM, true);
 
-                CurrectAllianceScore = 0;
-                CurrectHordeScore = 0;
+                CurrentAllianceScore = 0;
+                CurrentHordeScore = 0;
                 update_worldstate = 0;
                 HordeScore = 0;
                 AllianceScore = 0;
@@ -185,16 +185,16 @@ public:
         update_worldstate = 2000;
         AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
-        CurrectAllianceScore = AllianceScore;
-        CurrectHordeScore = CurrectHordeScore;
+        CurrentAllianceScore = AllianceScore;
+        CurrentHordeScore = CurrentHordeScore;
     }
 
 private:
     uint8 m_stage{};
     uint8 m_winner{};
     uint32 update_worldstate{};
-    uint32 CurrectAllianceScore{};
-    uint32 CurrectHordeScore{};
+    uint32 CurrentAllianceScore{};
+    uint32 CurrentHordeScore{};
     uint32 AllianceScore{};
     uint32 HordeScore{};
     bool b_winner = false;

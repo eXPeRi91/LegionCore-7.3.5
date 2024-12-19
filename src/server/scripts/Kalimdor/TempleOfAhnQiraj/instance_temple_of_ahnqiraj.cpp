@@ -57,8 +57,8 @@ public:
         uint32 CthunPhase;
 
         uint32 update_worldstate;
-        uint32 CurrectAllianceScore{};
-        uint32 CurrectHordeScore{};
+        uint32 CurrentAllianceScore{};
+        uint32 CurrentHordeScore{};
         uint32 AllianceScore{};
         uint32 HordeScore{};
 
@@ -82,8 +82,8 @@ public:
 
             AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
             HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
-            CurrectAllianceScore = AllianceScore;
-            CurrectHordeScore = CurrectHordeScore;
+            CurrentAllianceScore = AllianceScore;
+            CurrentHordeScore = CurrentHordeScore;
         }
 
         void OnCreatureCreate(Creature* creature) override
@@ -123,15 +123,15 @@ public:
                         AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
-                        if (AllianceScore > CurrectAllianceScore)
+                        if (AllianceScore > CurrentAllianceScore)
                         {
-                            CurrectAllianceScore = AllianceScore;
+                            CurrentAllianceScore = AllianceScore;
                             player->SendUpdateWorldState(static_cast<WorldStates>(12953), AllianceScore);
                         }
 
-                        if (HordeScore > CurrectHordeScore)
+                        if (HordeScore > CurrentHordeScore)
                         {
-                            CurrectHordeScore = AllianceScore;
+                            CurrentHordeScore = AllianceScore;
                             player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                         }
                     });
