@@ -708,7 +708,8 @@ struct boss_helya : public BossAI
                 case EVENT_P1_SUBMERGED_END:
                     submerged = false;
                     OpenNewPool(true);
-                    DoTeleportTo(2933.5f, 961.79f, 512.38f, 4.71f);
+                    float pos[4] = { 2933.5f, 961.79f, 512.38f, 4.71f };
+                    DoTeleportTo(pos);
                     me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_NOT_ATTACKABLE_1);
                     me->RemoveFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_PREVENT_SELECT_NPC);
                     DoCast(me, SPELL_TRANSFORM, true);
