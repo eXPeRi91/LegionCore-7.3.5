@@ -115,7 +115,7 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
 
                             if (HordeScore > CurrentHordeScore)
                             {
-                                CurrentHordeScore = AllianceScore;
+                                CurrentHordeScore = HordeScore;
                                 player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                             }
                         });

@@ -83,7 +83,7 @@ public:
             AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
             HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
             CurrentAllianceScore = AllianceScore;
-            CurrentHordeScore = CurrentHordeScore;
+            CurrentHordeScore = HordeScore;
         }
 
         void OnCreatureCreate(Creature* creature) override
@@ -131,7 +131,7 @@ public:
 
                         if (HordeScore > CurrentHordeScore)
                         {
-                            CurrentHordeScore = AllianceScore;
+                            CurrentHordeScore = HordeScore;
                             player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                         }
                     });
