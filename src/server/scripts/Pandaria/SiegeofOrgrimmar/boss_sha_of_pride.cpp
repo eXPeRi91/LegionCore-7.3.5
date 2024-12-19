@@ -505,7 +505,7 @@ public:
             }
         }
 
-        void WaypointReached(uint32 i)
+        void WaypointReached(uint32 i) override
         {
             switch(i)
             {
@@ -531,7 +531,7 @@ public:
             }
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             if (me->HasUnitState(UNIT_STATE_CASTING))
                 return;

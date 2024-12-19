@@ -1423,11 +1423,15 @@ public:
                     break;
                 case DATA_SHA_PRE_EVENT:
                     for (std::set<ObjectGuid>::iterator itr = shaSlgGUID.begin(); itr != shaSlgGUID.end(); ++itr)
+                    {
                         if (Creature* slg = instance->GetCreature(*itr))
+                        {
                             if (data == IN_PROGRESS)
                                 slg->AddAura(SPELL_SHA_VORTEX, slg);
                             else
                                 slg->RemoveAura(SPELL_SHA_VORTEX);
+                        }
+                    }
                     break;
                 case DATA_SHA_OF_PRIDE:
                     if (data == DONE)

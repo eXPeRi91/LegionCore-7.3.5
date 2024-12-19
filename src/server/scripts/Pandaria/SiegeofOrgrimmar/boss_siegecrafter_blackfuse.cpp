@@ -238,7 +238,7 @@ public:
         uint8 laserwallmod[3];
         bool createconveyer;
 
-        void Reset()
+        void Reset() override
         {
             events.Reset();
             instance->SetBossState(DATA_BLACKFUSE, NOT_STARTED);
@@ -335,7 +335,7 @@ public:
             return 0;
         }
 
-        void EnterCombat(Unit* who)
+        void EnterCombat(Unit* who) override
         {
             _EnterCombat();
             Talk(SAY_PULL);
