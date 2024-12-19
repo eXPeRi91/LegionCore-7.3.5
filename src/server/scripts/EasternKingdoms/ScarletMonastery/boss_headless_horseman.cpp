@@ -105,7 +105,7 @@ struct mob_wisp_invis : public ScriptedAI
             DoCast(who, SPELL_SQUASH_SOUL, false);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         if (delay)
         {
@@ -750,7 +750,7 @@ struct mob_pulsing_pumpkin : public ScriptedAI
             DoStartMovement(who);
     }
 
-    void UpdateAI(uint32 /*diff*/)
+    void UpdateAI(uint32 /*diff*/) override
     {
         if (sprouted && UpdateVictim())
             DoMeleeAttackIfReady();
