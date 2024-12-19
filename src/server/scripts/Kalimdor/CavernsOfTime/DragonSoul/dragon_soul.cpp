@@ -1826,7 +1826,7 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 me->SetReactState(REACT_PASSIVE);
             }
 
-            void Reset()
+            void Reset() override
             {
                 if (me->isDead())
                     return;
@@ -1858,7 +1858,7 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 me->CastSpell(me, SPELL_TEMPERAMENT);
             }
 
-            void EnterCombat(Unit* who)
+            void EnterCombat(Unit* who) override
             {
                 if (me->GetReactState() == REACT_PASSIVE)
                 {
@@ -1884,14 +1884,14 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 events.ScheduleEvent(EVENT_ASSAULTER_BREATH, urand(20000, 30000));
             }
 
-            void JustDied(Unit* /*killer*/)
+            void JustDied(Unit* /*killer*/) override
             {
                 me->GetMotionMaster()->Clear();
                 me->GetMotionMaster()->MoveFall();
                 instance->SetData(DATA_DRAGONS_COUNT, 0);
             }
 
-            void SpellHit(Unit* caster, SpellInfo const* spell)
+            void SpellHit(Unit* caster, SpellInfo const* spell) override
             {
                 if (spell->HasEffect(SPELL_EFFECT_ATTACK_ME) || spell->HasAura(SPELL_AURA_MOD_TAUNT))
                 {
@@ -1900,7 +1900,7 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 }
             }
 
-            void MovementInform(uint32 type, uint32 point)
+            void MovementInform(uint32 type, uint32 point) override
             {
                 if (type != POINT_MOTION_TYPE || point != POINT_ASSAULTER)
                     return;
@@ -1914,7 +1914,7 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 DoCastAOE(SPELL_TWLIGHT_FLAMES_CHANNEL);
             }
 
-            void DoAction(int32 const action)
+            void DoAction(int32 const action) override
             {
                 if (action == ACTION_START_ASSAULT)
                 {
@@ -1964,7 +1964,7 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 }
             }
 
-            ObjectGuid GetGUID(int32 type = 0)
+            ObjectGuid GetGUID(int32 type = 0) override
             {
                 return stalkerGUID;
             }
@@ -1976,7 +1976,7 @@ class npc_dragon_soul_twilight_assaulter : public CreatureScript
                 return 0;
             }
 
-            void UpdateAI(uint32 diff)
+            void UpdateAI(uint32 diff) override
             {
                 events.Update(diff);
                 switch (events.ExecuteEvent())
