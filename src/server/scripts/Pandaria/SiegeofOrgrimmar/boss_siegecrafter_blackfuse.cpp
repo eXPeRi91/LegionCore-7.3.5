@@ -258,7 +258,7 @@ public:
             ClearConveyerArray();
         }
 
-        void JustSummoned(Creature* sum)
+        void JustSummoned(Creature* sum) override
         {
             summon.Summon(sum);
         }
@@ -286,7 +286,7 @@ public:
             }
         }
 
-        void JustReachedHome()
+        void JustReachedHome() override
         {
             reset = 5000;
         }

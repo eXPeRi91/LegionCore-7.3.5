@@ -735,16 +735,15 @@ public:
 
                     uint32 timer = 0; //timer - open way in mist
                     uint32 data = 0;  //timer - close safe zone
-                    switch (rotatedirection)
+                    if (rotatedirection) // right
                     {
-                    case 0:      //left
-                        timer = nextmiststage <= 3 ? 2000 : 4000;
-                        data = nextmiststage <= 3 ? 4000 : 7000;
-                        break;
-                    case 1:      //right
                         timer = nextmiststage <= 3 ? 1000 : 4000;
                         data = nextmiststage < 3 ? 2500 : 5500;
-                        break;
+                    }
+                    else // left
+                    {
+                        timer = nextmiststage <= 3 ? 2000 : 4000;
+                        data = nextmiststage <= 3 ? 4000 : 7000;
                     }
                     events.RescheduleEvent(EVENT_OPEN_WAY_IN_MIST, timer);
                     if (Creature* lastcrosseye = me->GetCreature(*me, crosseyelist[lastmiststage]))

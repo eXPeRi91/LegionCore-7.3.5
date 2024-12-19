@@ -474,7 +474,7 @@ public:
             _gift.erase(guid);
         }
 
-        void SetData(uint32 id, uint32 value)
+        void SetData(uint32 id, uint32 value) override
         {
             //event after killing all NPC_LINGERING_CORRUPTION. Appear of Sha.
             if (id == NPC_LINGERING_CORRUPTION)

@@ -357,7 +357,7 @@ public:
                 nextheadentry = GetNextMeleeHeadEntry(nexthead->GetEntry());
                 if (Creature* megaera = me->GetCreature(*me, instance->GetGuidData(NPC_MEGAERA)))
                 {
-                    uint32 modhp = megaera->CountPctFromMaxHealth(14.3f);
+                    uint32 modhp = megaera->CountPctFromMaxHealth(14);
                     megaera->SetHealth(megaera->GetHealth() - modhp);
                     events.RescheduleEvent(EVENT_SPAWN_NEW_HEADS, 3000);
                 }
@@ -871,7 +871,7 @@ public:
         ObjectGuid targetGuid;
         EventMap events;
 
-        void Reset()
+        void Reset() override
         {
             events.Reset();
             targetGuid.Clear();
@@ -892,17 +892,17 @@ public:
             me->DespawnOrUnsummon();
         }
 
-        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType) override
         {
             if (damage >= me->GetHealth())
                 damage = 0;
         }
 
-        void EnterCombat(Unit* /*victim*/){}
+        void EnterCombat(Unit* /*victim*/) override {}
 
-        void EnterEvadeMode(){}
+        void EnterEvadeMode() override {}
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
 
