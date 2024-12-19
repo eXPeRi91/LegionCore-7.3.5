@@ -681,7 +681,7 @@ class npc_emperor_terracotta_boss : public CreatureScript
 
             void Reset() override {}
 
-            void DamageTaken(Unit* /*attacker*/, uint32& damage, DamageEffectType dmgType)
+            void DamageTaken(Unit* /*attacker*/, uint32& damage, DamageEffectType dmgType) override
             {
                 damage = 0;
             }
