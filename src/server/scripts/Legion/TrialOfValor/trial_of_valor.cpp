@@ -19,7 +19,7 @@ struct npc_odyn_after_kill_helya : ScriptedAI
         DoCast(SpellOdynTeleport);
     }
 
-    void SpellHit(Unit* /*who*/, const SpellInfo* spellInfo)
+    void SpellHit(Unit* /*who*/, const SpellInfo* spellInfo) override
     {
         if (spellInfo->Id == SpellOdynTeleportTrigger)
             me->CreateConversation(CONV_INTRO);
@@ -128,7 +128,7 @@ public:
         uint16 checkOnProc;
         uint16 checkOnRemove;
 
-        bool Load()
+        bool Load() override
         {
             checkOnProc = 1000;
             checkOnRemove = 1000;
