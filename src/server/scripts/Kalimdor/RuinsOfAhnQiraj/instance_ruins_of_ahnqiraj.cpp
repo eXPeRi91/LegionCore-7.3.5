@@ -80,7 +80,7 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
                 }
             }
 
-            bool SetBossState(uint32 bossId, EncounterState state)
+            bool SetBossState(uint32 bossId, EncounterState state) override
             {
                 if (!InstanceScript::SetBossState(bossId, state))
                     return false;
@@ -125,7 +125,7 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
                     update_worldstate -= diff;
             }
 
-            ObjectGuid GetGuidData(uint32 type) const
+            ObjectGuid GetGuidData(uint32 type) const override
             {
                 switch (type)
                 {
@@ -146,7 +146,7 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
                 return ObjectGuid::Empty;
             }
 
-            std::string GetSaveData()
+            std::string GetSaveData() override
             {
                 OUT_SAVE_INST_DATA;
 
@@ -157,7 +157,7 @@ class instance_ruins_of_ahnqiraj : public InstanceMapScript
                 return saveStream.str();
             }
 
-            void Load(char const* data)
+            void Load(char const* data) override
             {
                 if (!data)
                 {
