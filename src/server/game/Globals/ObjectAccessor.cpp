@@ -473,13 +473,13 @@ void ObjectAccessor::UnloadAll()
 
 /// Define the static members of HashMapHolder
 
-template <class T> inline std::unordered_map<ObjectGuid, T*> HashMapHolder<T>::_objectMap;
-template <class T> inline std::unordered_map<std::string, T*> HashMapHolder<T>::_objectMapStr;
-template <class T> inline std::vector<T*> HashMapHolder<T>::_objectVector;
-template <class T> inline sf::contention_free_shared_mutex< > HashMapHolder<T>::i_lock;
-template <class T> inline sf::contention_free_shared_mutex< > HashMapHolder<T>::i_lockVector;
-template <class T> inline uint32 HashMapHolder<T>::_size;
-template <class T> inline std::atomic<bool> HashMapHolder<T>::_checkLock;
+template <class T> std::unordered_map<ObjectGuid, T*> HashMapHolder<T>::_objectMap;
+template <class T> std::unordered_map<std::string, T*> HashMapHolder<T>::_objectMapStr;
+template <class T> std::vector<T*> HashMapHolder<T>::_objectVector;
+template <class T> sf::contention_free_shared_mutex< > HashMapHolder<T>::i_lock;
+template <class T> sf::contention_free_shared_mutex< > HashMapHolder<T>::i_lockVector;
+template <class T> uint32 HashMapHolder<T>::_size;
+template <class T> std::atomic<bool> HashMapHolder<T>::_checkLock;
 
 /// Global definitions for the hashmap storage
 
