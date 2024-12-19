@@ -80,7 +80,7 @@ public:
 
             update_worldstate = 2000;
 
-            AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+            AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
             HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
             CurrectAllianceScore = AllianceScore;
             CurrectHordeScore = CurrectHordeScore;
@@ -120,7 +120,7 @@ public:
                 {
                     instance->ApplyOnEveryPlayer([=](Player* player) -> void
                     {
-                        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+                        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
                         if (AllianceScore > CurrectAllianceScore)

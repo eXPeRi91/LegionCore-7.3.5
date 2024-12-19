@@ -20969,8 +20969,8 @@ void Player::CurrencyChanged(uint32 currencyID, int32 change)
 {
     if (currencyID == 1325)
     {
-        uint32 AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE) + change;
-        sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE, AllianceScore);
+        uint32 AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE) + change;
+        sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE, AllianceScore);
     }
 
     if (currencyID == 1324)
