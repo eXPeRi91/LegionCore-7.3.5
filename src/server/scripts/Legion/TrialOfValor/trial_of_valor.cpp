@@ -58,7 +58,7 @@ public:
         if (player->isInCombat())
             return true;
 
-        if (graveyardId = 5827)
+        if (graveyardId == 5827)
             if (WorldSafeLocsEntry const* entry = sWorldSafeLocsStore.LookupEntry(graveyardId))
                 player->TeleportTo(entry->MapID, entry->Loc.X, entry->Loc.Y, entry->Loc.Z, entry->Loc.O * M_PI / 180.0f);
 
@@ -83,7 +83,7 @@ public:
         if (player->isInCombat())
             return true;
 
-        if (graveyardId = 5828)
+        if (graveyardId == 5828)
             if (WorldSafeLocsEntry const* entry = sWorldSafeLocsStore.LookupEntry(graveyardId))
                 player->TeleportTo(entry->MapID, entry->Loc.X, entry->Loc.Y, entry->Loc.Z, entry->Loc.O * M_PI / 180.0f);
 
