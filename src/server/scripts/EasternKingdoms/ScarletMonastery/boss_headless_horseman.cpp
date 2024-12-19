@@ -175,7 +175,6 @@ struct mob_head : public ScriptedAI
     {
         if (action == ACTION_2)
         {
-            Phase = Phase;
             Disappear();
         }
     }
