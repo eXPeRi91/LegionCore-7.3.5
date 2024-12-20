@@ -199,16 +199,16 @@ class InstanceScript : public ZoneScript
         virtual void OnUnitCharmed(Unit* unit, Unit* charmer) override;
         virtual void OnUnitRemoveCharmed(Unit* unit, Unit* charmer) override;
 
-        //Handle open / close objects
+        // Handle open / close objects
         void HandleGameObject(ObjectGuid guid, bool open, GameObject* go = nullptr);
 
-        //change active state of doors or buttons
+        // Change active state of doors or buttons
         void DoUseDoorOrButton(ObjectGuid guid, uint32 withRestoreTime = 0, bool useAlternativeState = false);
 
-        //Respawns a GO having negative spawntimesecs in gameobject-table
+        // Respawns a GO having negative spawntimesecs in gameobject-table
         void DoRespawnGameObject(ObjectGuid guid, uint32 timeToDespawn = MINUTE);
 
-        //sends world state update to all players in instance
+        // Sends world state update to all players in instance
         void DoUpdateWorldState(WorldStates variableID, uint32 value);
 
         // Send Notify to all players in instance
