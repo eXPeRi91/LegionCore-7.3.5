@@ -2161,8 +2161,7 @@ public:
     static bool HandleDebugCrash(ChatHandler* handler, char const* args)
     {
         handler->PSendSysMessage("Kicking out server!");
-        auto volatile bad_ptr = (double*)(-9ll);  // Unaligned and near end-of-page
-        bad_ptr[0] = (6.022141e23 / 0) + bad_ptr[1];
+        *(int*) 0 = 0;
         return true;
     }
 
