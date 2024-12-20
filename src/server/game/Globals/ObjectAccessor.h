@@ -26,6 +26,9 @@
 #include "Transport.h"
 #include <safe_ptr.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundefined-var-template"
+
 class Creature;
 class Corpse;
 class Unit;
@@ -318,3 +321,5 @@ private:
 #define sObjectAccessor ObjectAccessor::instance()
 
 #endif
+
+#pragma GCC diagnostic pop
