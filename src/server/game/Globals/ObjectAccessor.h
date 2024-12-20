@@ -26,9 +26,6 @@
 #include "Transport.h"
 #include <safe_ptr.h>
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wundefined-var-template"
-
 class Creature;
 class Corpse;
 class Unit;
@@ -144,12 +141,15 @@ private:
     //Non instanceable only static
     HashMapHolder() { _checkLock = false; _size = 0; }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundefined-var-template"
     static sf::contention_free_shared_mutex< > i_lock;
     static sf::contention_free_shared_mutex< > i_lockVector;
     static MapType _objectMap;
     static MapTypeStr _objectMapStr;
     static MapTypeVector _objectVector;
     static std::atomic<bool> _checkLock;
+#pragma GCC diagnostic pop
 };
 
 class ObjectAccessor
@@ -321,5 +321,3 @@ private:
 #define sObjectAccessor ObjectAccessor::instance()
 
 #endif
-
-#pragma GCC diagnostic pop
