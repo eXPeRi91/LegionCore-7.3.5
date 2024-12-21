@@ -2817,7 +2817,10 @@ void Player::ProcessDelayedOperations()
             uint8 teamID = battle->Teams[PETBATTLE_TEAM_1]->OwnerGuid == GetGUID() ? PETBATTLE_TEAM_1 : PETBATTLE_TEAM_2;
 
             PetBattleRequest request;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdynamic-class-memaccess"
             memcpy(&request, &battle->PvPMatchMakingRequest, sizeof(PetBattleRequest)); //@TODO check that
+#pragma GCC diagnostic pop
 
             auto& matchMakingRequest = battle->PvPMatchMakingRequest;
 
