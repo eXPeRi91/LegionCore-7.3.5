@@ -230,7 +230,7 @@ public:
 
 };
 
-bool IsGarrisonMap(Map* map)
+static bool IsGarrisonMap(Map* map)
 {
     bool garrison = false;
 
