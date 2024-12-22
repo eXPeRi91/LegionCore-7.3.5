@@ -98,38 +98,38 @@ uint32 getQuestIdReqForShipment(uint32 siteID, uint32 buildingType)
     return 0;
 }
 
-//! Shipment for requarement.
+//! Shipment for requirement.
 uint32 getProgressShipment(uint32 questID)
 {
     switch (questID)
     {
-        //GARR_BTYPE_ALCHEMY_LAB
+        // GARR_BTYPE_ALCHEMY_LAB
         case 36641: return 114;
         case 37568: return 122;
-        //GARR_BTYPE_TAILORING
+        // GARR_BTYPE_TAILORING
         case 36643: return 120;
         case 37575: return 136;
-        //GARR_BTYPE_FORGE
+        // GARR_BTYPE_FORGE
         case 35168: return 113;
         case 37569: return 123;
-        //GARR_BTYPE_TANNERY
+        // GARR_BTYPE_TANNERY
         case 36642: return 119;
         case 37574: return 134;
-        //GARR_BTYPE_GEM
+        // GARR_BTYPE_GEM
         case 36644: return 118;
         case 37573: return 131;
-        //GARR_BTYPE_ENCHANTERS
+        // GARR_BTYPE_ENCHANTERS
         case 36645: return 115;
         case 37570: return 126;
-        //GARR_BTYPE_ENGINEERING
+        // GARR_BTYPE_ENGINEERING
         case 36646: return 116;
         case 37571: return 128;
-        //GARR_BTYPE_SCRIBE
+        // GARR_BTYPE_SCRIBE
         case 36647: return 117;
         case 37572: return 130;
-        //GARR_BTYPE_LUMBER_MILL
+        // GARR_BTYPE_LUMBER_MILL
         case 36189: case 36137: return 0;
-        //GARR_BTYPE_TRADING_POST:
+        // GARR_BTYPE_TRADING_POST:
         case 37088: case 37062: return 0;
     }
     ASSERT(false);
