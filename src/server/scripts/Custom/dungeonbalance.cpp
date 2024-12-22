@@ -78,7 +78,7 @@ public:
 
             TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "Incoming XP of %u for player %s from killing %s.", amount, player->GetName(), victim->GetName());
             
-            if (map->IsDungeon() || map->IsRaidOrHeroicDungeon())
+            if ((map->IsDungeon() || map->IsRaidOrHeroicDungeon()) && !IsGarrisonMap(player->GetMap()))
             {
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "Incoming XP of %u for player %s from killing %s.", amount, player->GetName(), victim->GetName());
 
