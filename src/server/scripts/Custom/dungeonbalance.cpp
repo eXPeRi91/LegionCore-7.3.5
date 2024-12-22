@@ -61,7 +61,6 @@ class DungeonBalance_PlayerScript : public PlayerScript
 {
 public:
     DungeonBalance_PlayerScript() : PlayerScript("DungeonBalance_PlayerScript") { }
-    friend bool IsGarrisonMap(Map* map);
 
     void OnLogin(Player* Player, bool /*firstLogin*/) override
     {
@@ -79,7 +78,7 @@ public:
 
             TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "Incoming XP of %u for player %s from killing %s.", amount, player->GetName(), victim->GetName());
             
-            if ((map->IsDungeon() || map->IsRaidOrHeroicDungeon()) && !IsGarrisonMap(player->GetMap()))
+            if ((map->IsDungeon() || map->IsRaidOrHeroicDungeon()) && !DungeonBalance_Helpers::IsGarrisonMap(player->GetMap()))
             {
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "Incoming XP of %u for player %s from killing %s.", amount, player->GetName(), victim->GetName());
 
@@ -111,7 +110,6 @@ public:
 class DungeonBalance_UnitScript : public UnitScript {
 public:
     DungeonBalance_UnitScript() : UnitScript("DungeonBalance_UnitScript") { }
-    friend bool IsGarrisonMap(Map* map);
 
     void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage) override
     {
@@ -141,7 +139,7 @@ public:
 
     uint32 _Modifier_DealDamage(Unit* target, Unit* attacker, uint32 damage)
     {
-        if (!enabled || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()) || IsGarrisonMap(attacker->GetMap()))
+        if (!enabled || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(attacker->GetMap()))
             return damage;
 
         int8 maxPlayerCount = attacker->GetMap()->GetMapMaxPlayers();
@@ -189,11 +187,10 @@ class DungeonBalance_AllMapScript : public AllMapScript
 {
 public:
     DungeonBalance_AllMapScript() : AllMapScript("DungeonBalance_AllMapScript") { }
-    friend bool IsGarrisonMap(Map* map);
 
     void OnPlayerEnterAll(Map* map, Player* player)
     {
-        if (!enabled || !playerChangeNotify || !map || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()) || IsGarrisonMap(map))
+        if (!enabled || !playerChangeNotify || !map || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(map))
             return;
 
         Map::PlayerList const& playerList = map->GetPlayers();
@@ -213,7 +210,7 @@ public:
 
     void OnPlayerLeaveAll(Map* map, Player* player)
     {
-        if (!enabled || !playerChangeNotify || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()) || IsGarrisonMap(map))
+        if (!enabled || !playerChangeNotify || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(map))
             return;
 
         Map::PlayerList const& playerList = map->GetPlayers();
@@ -233,35 +230,39 @@ public:
 
 };
 
-bool IsGarrisonMap(Map* map)
+class DungeonBalance_Helpers
 {
-    bool garrison = false;
-
-    switch (map->GetId())
+public:
+    static bool IsGarrisonMap(Map* map)
     {
-    case 1158:  // Alliance Lvl 1
-    case 1331:  // Alliance Lvl 2
-    case 1159:  // Alliance Lvl 3
-    case 1473:  // Alliance Shipyard
-    case 1482:  // Alliance Shipyard - Submarine
-    case 1483:  // Alliance Shipyard - Destroyer
-    case 1485:  // Alliance Shipyard - Battleship
-    case 1496:  // Alliance Shipyard - Carrier
-    case 1152:  // Horde Lvl 1
-    case 1330:  // Horde Lvl 2
-    case 1153:  // Horde Lvl 3
-    case 1474:  // Horde Shipyard
-    case 1486:  // Horde Shipyard - Carrier
-    case 1487:  // Horde Shipyard - Submarine
-    case 1488:  // Horde Shipyard - Destroyer
-    case 1497:  // Horde Shipyard - Battleship
-        garrison = true;
-        break;
-    default: break;
-    }
+        bool garrison = false;
 
-    return garrison;
-}
+        switch (map->GetId())
+        {
+        case 1158:  // Alliance Lvl 1
+        case 1331:  // Alliance Lvl 2
+        case 1159:  // Alliance Lvl 3
+        case 1473:  // Alliance Shipyard
+        case 1482:  // Alliance Shipyard - Submarine
+        case 1483:  // Alliance Shipyard - Destroyer
+        case 1485:  // Alliance Shipyard - Battleship
+        case 1496:  // Alliance Shipyard - Carrier
+        case 1152:  // Horde Lvl 1
+        case 1330:  // Horde Lvl 2
+        case 1153:  // Horde Lvl 3
+        case 1474:  // Horde Shipyard
+        case 1486:  // Horde Shipyard - Carrier
+        case 1487:  // Horde Shipyard - Submarine
+        case 1488:  // Horde Shipyard - Destroyer
+        case 1497:  // Horde Shipyard - Battleship
+            garrison = true;
+            break;
+        default: break;
+        }
+
+        return garrison;
+    }
+};
 
 void AddSC_DungeonBalance()
 {
