@@ -38,6 +38,40 @@
 
 static bool enabled, announce, playerChangeNotify, dungeonScaleDownXP;
 
+class DungeonBalance_Helpers
+{
+public:
+    static bool IsGarrisonMap(Map* map)
+    {
+        bool garrison = false;
+
+        switch (map->GetId())
+        {
+            case 1158:  // Alliance Lvl 1
+            case 1331:  // Alliance Lvl 2
+            case 1159:  // Alliance Lvl 3
+            case 1473:  // Alliance Shipyard
+            case 1482:  // Alliance Shipyard - Submarine
+            case 1483:  // Alliance Shipyard - Destroyer
+            case 1485:  // Alliance Shipyard - Battleship
+            case 1496:  // Alliance Shipyard - Carrier
+            case 1152:  // Horde Lvl 1
+            case 1330:  // Horde Lvl 2
+            case 1153:  // Horde Lvl 3
+            case 1474:  // Horde Shipyard
+            case 1486:  // Horde Shipyard - Carrier
+            case 1487:  // Horde Shipyard - Submarine
+            case 1488:  // Horde Shipyard - Destroyer
+            case 1497:  // Horde Shipyard - Battleship
+                garrison = true;
+                break;
+            default: break;
+        }
+
+        return garrison;
+    }
+};
+
 class DungeonBalance_WorldScript : public WorldScript
 {
 public:
@@ -228,40 +262,6 @@ public:
         }
     }
 
-};
-
-class DungeonBalance_Helpers
-{
-public:
-    static bool IsGarrisonMap(Map* map)
-    {
-        bool garrison = false;
-
-        switch (map->GetId())
-        {
-            case 1158:  // Alliance Lvl 1
-            case 1331:  // Alliance Lvl 2
-            case 1159:  // Alliance Lvl 3
-            case 1473:  // Alliance Shipyard
-            case 1482:  // Alliance Shipyard - Submarine
-            case 1483:  // Alliance Shipyard - Destroyer
-            case 1485:  // Alliance Shipyard - Battleship
-            case 1496:  // Alliance Shipyard - Carrier
-            case 1152:  // Horde Lvl 1
-            case 1330:  // Horde Lvl 2
-            case 1153:  // Horde Lvl 3
-            case 1474:  // Horde Shipyard
-            case 1486:  // Horde Shipyard - Carrier
-            case 1487:  // Horde Shipyard - Submarine
-            case 1488:  // Horde Shipyard - Destroyer
-            case 1497:  // Horde Shipyard - Battleship
-                garrison = true;
-                break;
-            default: break;
-        }
-
-        return garrison;
-    }
 };
 
 void AddSC_DungeonBalance()
