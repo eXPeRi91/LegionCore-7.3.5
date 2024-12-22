@@ -61,6 +61,7 @@ class DungeonBalance_PlayerScript : public PlayerScript
 {
 public:
     DungeonBalance_PlayerScript() : PlayerScript("DungeonBalance_PlayerScript") { }
+    friend static bool DungeonBalance_Helpers::IsGarrisonMap(Map* map);
 
     void OnLogin(Player* Player, bool /*firstLogin*/) override
     {
@@ -110,6 +111,7 @@ public:
 class DungeonBalance_UnitScript : public UnitScript {
 public:
     DungeonBalance_UnitScript() : UnitScript("DungeonBalance_UnitScript") { }
+    friend static bool DungeonBalance_Helpers::IsGarrisonMap(Map* map);
 
     void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage) override
     {
@@ -187,6 +189,7 @@ class DungeonBalance_AllMapScript : public AllMapScript
 {
 public:
     DungeonBalance_AllMapScript() : AllMapScript("DungeonBalance_AllMapScript") { }
+    friend static bool DungeonBalance_Helpers::IsGarrisonMap(Map* map);
 
     void OnPlayerEnterAll(Map* map, Player* player)
     {
