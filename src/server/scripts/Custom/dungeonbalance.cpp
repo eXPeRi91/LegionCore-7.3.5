@@ -61,7 +61,6 @@ class DungeonBalance_PlayerScript : public PlayerScript
 {
 public:
     DungeonBalance_PlayerScript() : PlayerScript("DungeonBalance_PlayerScript") { }
-    friend static bool DungeonBalance_Helpers::IsGarrisonMap(Map* map);
 
     void OnLogin(Player* Player, bool /*firstLogin*/) override
     {
@@ -111,7 +110,6 @@ public:
 class DungeonBalance_UnitScript : public UnitScript {
 public:
     DungeonBalance_UnitScript() : UnitScript("DungeonBalance_UnitScript") { }
-    friend static bool DungeonBalance_Helpers::IsGarrisonMap(Map* map);
 
     void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage) override
     {
@@ -189,7 +187,6 @@ class DungeonBalance_AllMapScript : public AllMapScript
 {
 public:
     DungeonBalance_AllMapScript() : AllMapScript("DungeonBalance_AllMapScript") { }
-    friend static bool DungeonBalance_Helpers::IsGarrisonMap(Map* map);
 
     void OnPlayerEnterAll(Map* map, Player* player)
     {
@@ -242,25 +239,25 @@ public:
 
         switch (map->GetId())
         {
-        case 1158:  // Alliance Lvl 1
-        case 1331:  // Alliance Lvl 2
-        case 1159:  // Alliance Lvl 3
-        case 1473:  // Alliance Shipyard
-        case 1482:  // Alliance Shipyard - Submarine
-        case 1483:  // Alliance Shipyard - Destroyer
-        case 1485:  // Alliance Shipyard - Battleship
-        case 1496:  // Alliance Shipyard - Carrier
-        case 1152:  // Horde Lvl 1
-        case 1330:  // Horde Lvl 2
-        case 1153:  // Horde Lvl 3
-        case 1474:  // Horde Shipyard
-        case 1486:  // Horde Shipyard - Carrier
-        case 1487:  // Horde Shipyard - Submarine
-        case 1488:  // Horde Shipyard - Destroyer
-        case 1497:  // Horde Shipyard - Battleship
-            garrison = true;
-            break;
-        default: break;
+            case 1158:  // Alliance Lvl 1
+            case 1331:  // Alliance Lvl 2
+            case 1159:  // Alliance Lvl 3
+            case 1473:  // Alliance Shipyard
+            case 1482:  // Alliance Shipyard - Submarine
+            case 1483:  // Alliance Shipyard - Destroyer
+            case 1485:  // Alliance Shipyard - Battleship
+            case 1496:  // Alliance Shipyard - Carrier
+            case 1152:  // Horde Lvl 1
+            case 1330:  // Horde Lvl 2
+            case 1153:  // Horde Lvl 3
+            case 1474:  // Horde Shipyard
+            case 1486:  // Horde Shipyard - Carrier
+            case 1487:  // Horde Shipyard - Submarine
+            case 1488:  // Horde Shipyard - Destroyer
+            case 1497:  // Horde Shipyard - Battleship
+                garrison = true;
+                break;
+            default: break;
         }
 
         return garrison;
