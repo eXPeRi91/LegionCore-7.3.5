@@ -264,7 +264,7 @@ enum VictimState
     VICTIMSTATE_DEFLECTS       = 8
 };
 
-//i would like to remove this: (it is defined in item.h
+// I would like to remove this: (it is defined in item.h
 enum InventorySlot
 {
     NULL_BAG                   = 0,
@@ -1120,8 +1120,8 @@ class Unit : public WorldObject
 
         virtual ~Unit();
 
-        void Clear();
-        uint32 GetSize();
+        void Clear() override;
+        uint32 GetSize() override;
 
         UnitAI* GetAI() { return i_AI; }
         void SetAI(UnitAI* newAI) { i_AI = newAI; }
@@ -1149,7 +1149,7 @@ class Unit : public WorldObject
         float GetSpellMaxRangeForTarget(Unit const* target, SpellInfo const* spellInfo) const;
         float GetSpellMinRangeForTarget(Unit const* target, SpellInfo const* spellInfo) const;
 
-        virtual void Update(uint32 time);
+        virtual void Update(uint32 time) override;
 
         void setAttackTimer(WeaponAttackType type, uint32 time) { m_attackTimer[type] = time; }
         void resetAttackTimer(WeaponAttackType type = BASE_ATTACK);
@@ -1219,6 +1219,7 @@ class Unit : public WorldObject
         uint8 getLevel() const;
         uint8 GetEffectiveLevel() const;
         uint8 getLevelForTarget(WorldObject const* target) const override;
+        uint8 getLevelForXPReward(Player const* player) const;
         float getScaleForTarget(int32 delta) const;
         uint32 GetDamageFromLevelScale(Unit* target, uint32 damage);
         void SetLevel(uint8 lvl);

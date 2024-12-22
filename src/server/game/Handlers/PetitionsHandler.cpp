@@ -90,7 +90,7 @@ void WorldSession::HandlePetitionBuy(WorldPackets::Petition::PetitionBuy& packet
     }
 
     ItemPosCountVec dest;
-    InventoryResult msg = player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, charterid, pProto->VendorStackCount);
+    InventoryResult msg = player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, charterid, pProto->GetBuyCount());
     if (msg != EQUIP_ERR_OK)
     {
         player->SendEquipError(msg, nullptr, nullptr, charterid);
@@ -492,7 +492,7 @@ void WorldSession::HandleTurnInPetition(WorldPackets::Petition::TurnInPetition& 
 
     stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_PETITION_SIGNATURE);
     stmt->setUInt64(0, packet.Item.GetCounter());
-    if (result = CharacterDatabase.Query(stmt))
+    if ((result = CharacterDatabase.Query(stmt)))
         signatures = uint8(result->GetRowCount());
 
     if (signatures < sWorld->getIntConfig(CONFIG_MIN_PETITION_SIGNS))

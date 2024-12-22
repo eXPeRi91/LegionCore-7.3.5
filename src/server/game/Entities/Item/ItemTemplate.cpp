@@ -169,7 +169,7 @@ void ItemTemplate::GetDamage(uint32 itemLevel, float& minDamage, float& maxDamag
 
 bool ItemTemplate::IsUsableBySpecialization(uint32 specId, uint8 level) const
 {
-    if (!ItemSpecExist) // if item don`t use spec allways good
+    if (!ItemSpecExist) // if item don`t use spec always good
         return true;
 
     if (ChrSpecializationEntry const* chrSpecialization = sChrSpecializationStore.LookupEntry(specId))
@@ -294,7 +294,7 @@ bool ItemTemplate::IsRecipe() const
 
 bool ItemTemplate::IsNotNeedCheck() const
 {
-    return GetBonding() == BIND_WHEN_EQUIPED || GetBonding() == BIND_WHEN_USE || GetBonding() == NO_BIND || (GetFlags() & ITEM_FLAG_IS_BOUND_TO_ACCOUNT);
+    return GetBonding() == BIND_WHEN_EQUIPPED || GetBonding() == BIND_WHEN_USE || GetBonding() == NO_BIND || (GetFlags() & ITEM_FLAG_IS_BOUND_TO_ACCOUNT);
 }
 
 bool ItemTemplate::IsRangedWeapon() const

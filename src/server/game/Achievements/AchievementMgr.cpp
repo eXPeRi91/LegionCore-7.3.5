@@ -1596,7 +1596,7 @@ void AchievementMgr<T>::UpdateAchievementCriteria(AchievementCachePtr cachePtr, 
     // TC_LOG_DEBUG(LOG_FILTER_ACHIEVEMENTSYS, "UpdateAchievementCriteria type %u (%u, %u, %u) CriteriaSort %u", cachePtr->type, cachePtr->miscValue1, cachePtr->miscValue2, cachePtr->miscValue3, GetCriteriaSort());
 
     // Prevent update if player not loading
-    if (!this || !CanUpdate())
+    if (!CanUpdate())
         return;
 
     // disable for gamemasters with GM-mode enabled
@@ -2036,9 +2036,8 @@ bool AchievementMgr<Player>::CanCompleteCriteria(AchievementEntry const* achieve
             return false;
 
         if (GetOwner())
-            if (GetOwner()->GetSession())
-                if (GetOwner()->GetSession()->GetSecurity())
-                    return false;
+            if (GetOwner()->isGameMaster())
+                return false;
     }
 
     return true;
@@ -4151,7 +4150,7 @@ bool AchievementMgr<T>::AdditionalRequirementsSatisfied(ModifierTreeNode const* 
                     break;
                 }
 
-                if (!garrison->hasTallent(reqValue))
+                if (!garrison->hasTalent(reqValue))
                     check = false;
                 break;
             }

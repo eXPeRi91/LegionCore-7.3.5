@@ -317,7 +317,7 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS] =
     &Spell::EffectReTrainFollower,                          //233 SPELL_EFFECT_RETRAIN_FOLLOWER
     &Spell::EffectNULL,                                     //234 SPELL_EFFECT_234
     &Spell::EffectNULL,                                     //235 SPELL_EFFECT_RANDOM_REWARD_SKILL_POINTS
-    &Spell::EffectGieveExperience,                          //236 SPELL_EFFECT_GIVE_EXPERIENCE
+    &Spell::EffectGiveExperience,                           //236 SPELL_EFFECT_GIVE_EXPERIENCE
     &Spell::EffectNULL,                                     //237 SPELL_EFFECT_GIVE_RESTED_EXPERIENCE_BONUS
     &Spell::EffectIncreaseSkill,                            //238 SPELL_EFFECT_INCREASE_SKILL
     &Spell::EffectNULL,                                     //239 SPELL_EFFECT_END_GARRISON_BUILDING_CONSTRUCTION
@@ -364,7 +364,7 @@ void Spell::EffectResurrectNew(SpellEffIndex effIndex)
         return;
 
     Player* target = unitTarget->ToPlayer();
-    if (target->IsRessurectRequested())       // already have one active request
+    if (target->IsResurrectRequested())       // already have one active request
         return;
 
     ExecuteLogEffectResurrect(effIndex, target);
@@ -2012,7 +2012,7 @@ void Spell::EffectIncreaseCurrencyCap(SpellEffIndex effIndex)
         return;
 
     if (auto player = unitTarget->ToPlayer())
-        player->ModCurrnecyCap(effect->MiscValue, effect->BasePoints);
+        player->ModCurrencyCap(effect->MiscValue, effect->BasePoints);
 }
 
 void Spell::EffectPlayerMoveWaypoints(SpellEffIndex effIndex)
@@ -2737,7 +2737,7 @@ void Spell::EffectHealPct(SpellEffIndex effIndex)
                 if ((*i)->GetMiscValue() == 11)
                     if ((*i)->GetAmount() == m_spellInfo->Id)
                     {
-                        (*i)->SetAmount(NULL);
+                        (*i)->SetAmount(0);
                         resetHeal = false;
                     }
 
@@ -2855,8 +2855,8 @@ void Spell::EffectHealthLeech(SpellEffIndex effIndex)
         float critMod = 2.f;
         bool isCrit = IsCritForTarget(unitTarget);
 
-        if ((m_caster->IsPlayer() || m_caster->HasUnitTypeMask(UNIT_MASK_CREATED_BY_PLAYER)) &&
-            unitTarget->IsPlayer() || unitTarget->HasUnitTypeMask(UNIT_MASK_CREATED_BY_PLAYER))
+        if (((m_caster->IsPlayer() || m_caster->HasUnitTypeMask(UNIT_MASK_CREATED_BY_PLAYER)) &&
+            unitTarget->IsPlayer()) || unitTarget->HasUnitTypeMask(UNIT_MASK_CREATED_BY_PLAYER))
             critMod = 1.5f;
 
         uint64 healthGain = isCrit ? damage * critMod : damage;
@@ -3531,8 +3531,8 @@ void Spell::EffectOpenLock(SpellEffIndex effIndex)
             gameObjTarget->UseDoorOrButton(0, false, player);
             player->GetMap()->ScriptsStart(sGameObjectScripts, gameObjTarget->GetDBTableGUIDLow(), player, gameObjTarget);
         }
-        else if (gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_GOOBER && sOutdoorPvPMgr->HandleOpenGo(player, gameObjTarget->GetGUID()) ||
-            gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_NEW_FLAG_DROP && sOutdoorPvPMgr->HandleOpenGo(player, gameObjTarget->GetGUID()))
+        else if ((gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_GOOBER && sOutdoorPvPMgr->HandleOpenGo(player, gameObjTarget->GetGUID())) ||
+            (gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_NEW_FLAG_DROP && sOutdoorPvPMgr->HandleOpenGo(player, gameObjTarget->GetGUID())))
             return;
 
         lockId = goInfo->GetLockId();
@@ -4883,7 +4883,7 @@ void Spell::EffectWeaponDmg(SpellEffIndex effIndex)
                 normalized = true;
                 break;
             case SPELL_EFFECT_WEAPON_PERCENT_DAMAGE:
-                if (!calcAllEffects && effIndex == j + 1 || calcAllEffects)
+                if ((!calcAllEffects && effIndex == j + 1) || calcAllEffects)
                     weaponDamagePercentMod += m_spellInfo->GetEffect(j, m_diffMode)->CalcValue(_caster, nullptr, unitTarget, m_CastItem, false, nullptr, GetComboPoints()) / 100.0f;
                     //weaponDamagePercentMod += CalculateDamage(j, unitTarget) / 100.0f;
                 break;
@@ -6590,7 +6590,7 @@ void Spell::EffectResurrect(SpellEffIndex effIndex)
 
     Player* target = unitTarget->ToPlayer();
 
-    if (target->IsRessurectRequested())       // already have one active request
+    if (target->IsResurrectRequested())       // already have one active request
         return;
 
     //if (m_spellInfo->HasAttribute(SPELL_ATTR8_BATTLE_RESURRECTION) && GetCaster()->isInCombat())
@@ -7306,7 +7306,27 @@ void Spell::EffectTransmitted(SpellEffIndex effIndex)
 
             // end time of range when possible catch fish (FISHING_BOBBER_READY_TIME..GetDuration(m_spellInfo))
             // start time == fish-FISHING_BOBBER_READY_TIME (0..GetDuration(m_spellInfo)-FISHING_BOBBER_READY_TIME)
-            duration = duration - urand(1, 15)*IN_MILLISECONDS + FISHING_BOBBER_READY_TIME*IN_MILLISECONDS;
+            int32 lastSec = 0;
+            switch (urand(0, 3))
+            {
+                case 0: lastSec = 3; break;
+                case 1: lastSec = 7; break;
+                case 2: lastSec = 13; break;
+                case 3: lastSec = 17; break;
+            }
+
+            switch (sWorld->getIntConfig(CONFIG_FAST_FISHING))
+            {
+                case 2:  // Instant fishing
+                    duration = 0;
+                    break;
+                case 1:  // Faster fishing (fall through to default calculation)
+                    lastSec = 17;
+                default:
+                    // Duration of the fishing bobber can't be higher than the Fishing channeling duration
+                    duration = std::min(duration, duration - lastSec * IN_MILLISECONDS + FISHING_BOBBER_READY_TIME * IN_MILLISECONDS);
+            }
+            
             break;
         }
         case GAMEOBJECT_TYPE_RITUAL:
@@ -8007,7 +8027,7 @@ void Spell::EffectGiveCurrency(SpellEffIndex effIndex)
 
     // log Veiled Argunite and Wakening Essence currency
     if (currencyID == 1508 || currencyID == 1533)
-        sLog->outWarden("Player %s (GUID: %u) adds a currency value %u (%u) from spell %u", unitTarget->ToPlayer()->GetName(), unitTarget->ToPlayer()->GetGUIDLow(), amount, currencyID, m_spellInfo->Id);
+        sLog->outWarden("Player %s (GUID: %u) adds a currency value %f (%u) from spell %u", unitTarget->ToPlayer()->GetName(), unitTarget->ToPlayer()->GetGUIDLow(), amount, currencyID, m_spellInfo->Id);
 }
 
 void Spell::EffectCastButtons(SpellEffIndex effIndex)
@@ -8238,7 +8258,7 @@ void Spell::EffectResurrectWithAura(SpellEffIndex effIndex)
     if (unitTarget->isAlive())
         return;
 
-    if (target->IsRessurectRequested())       // already have one active request
+    if (target->IsResurrectRequested())       // already have one active request
         return;
 
     ExecuteLogEffectResurrect(effIndex, target);
@@ -8683,13 +8703,13 @@ void Spell::EffectBonusLoot(SpellEffIndex effIndex)
             loot->_itemContext = m_caster->GetMap()->GetDifficultyLootItemContext(false, m_caster->getLevel() == MAX_LEVEL, false);
             if (lootId >= 254773 && lootId <= 254794) // For token 910, have other TreeMod
                 loot->_itemContext = 43;
-            if (lootId >= 242842 && lootId <= 242864 || lootId == 243074) // For token 880, have other TreeMod
+            if ((lootId >= 242842 && lootId <= 242864) || lootId == 243074) // For token 880, have other TreeMod
             {
                 loot->_itemContext = 43;
                 loot->_needLevel = 880;
             }
 
-            if (lootId >= 240485 && lootId <= 240518 || lootId == 262946) // For legendary token
+            if ((lootId >= 240485 && lootId <= 240518) || lootId == 262946) // For legendary token
                 loot->_isLegendaryLoot = true;
             break;
         case 438: // Bonus loot from boss
@@ -9026,7 +9046,7 @@ void Spell::EffectUpgradeHeirloom(SpellEffIndex /*effIndex*/)
         collectionMgr->UpgradeHeirloom(m_miscData[0], m_castItemEntry);
 }
 
-void Spell::EffectGieveExperience(SpellEffIndex effIndex)
+void Spell::EffectGiveExperience(SpellEffIndex effIndex)
 {
     if (effectHandleMode != SPELL_EFFECT_HANDLE_LAUNCH_TARGET)
         return;
@@ -9565,7 +9585,7 @@ void Spell::EffectObliterateItem(SpellEffIndex /*effIndex*/)
         ItemPosCountVec dest;
         if (player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, itemId, addCount) == EQUIP_ERR_OK)
         {
-            if (item = player->StoreNewItem(dest, itemId, true))
+            if ((item = player->StoreNewItem(dest, itemId, true)))
             {
                 player->SendNewItem(item, addCount, true, false, true);
                 //player->SendDisplayToast(itemId, ToastType::ITEM, false, addCount, DisplayToastMethod::ITEM, 0, item);

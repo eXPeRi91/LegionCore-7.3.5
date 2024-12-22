@@ -1046,6 +1046,7 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[CONFIG_WEATHER] = sConfigMgr->GetBoolDefault("ActivateWeather", true);
 
     m_int_configs[CONFIG_DISABLE_BREATHING] = sConfigMgr->GetIntDefault("DisableWaterBreath", SEC_CONSOLE);
+    m_int_configs[CONFIG_FAST_FISHING] = sConfigMgr->GetIntDefault("FastFishing", 0);
 
     m_bool_configs[CONFIG_ANTI_FLOOD_LFG] = sConfigMgr->GetBoolDefault("Anti.Flood.on.LFG", false);
     m_bool_configs[CONFIG_ANTI_FLOOD_PM] = sConfigMgr->GetBoolDefault("Anti.Flood.on.PM", false);
@@ -1338,6 +1339,7 @@ void World::LoadConfigSettings(bool reload)
     // Dungeon finder
     m_int_configs[CONFIG_LFG_OPTIONSMASK] = sConfigMgr->GetIntDefault("DungeonFinder.OptionsMask", 1);
     m_bool_configs[CONFIG_LFG_DEBUG_JOIN] = sConfigMgr->GetBoolDefault("DungeonFinder.DebugJoin", false);
+    m_bool_configs[CONFIG_LFG_ALL_PREVIOUS_DUNGEONS] = sConfigMgr->GetBoolDefault("DungeonFinder.AllowPreviousDungeons", false);
     m_bool_configs[CONFIG_LFG_FORCE_MINPLAYERS] = sConfigMgr->GetBoolDefault("DungeonFinder.ForceMinplayers", false);
     m_int_configs[CONFIG_LFG_SHORTAGE_CHECK_INTERVAL] = sConfigMgr->GetIntDefault("DungeonFinder.ShortageCheckInterval", 5);
     m_int_configs[CONFIG_LFG_SHORTAGE_PERCENT] = sConfigMgr->GetIntDefault("DungeonFinder.ShortagePercent", 50);

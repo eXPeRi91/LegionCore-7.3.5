@@ -111,7 +111,7 @@ public:
         bool DeathEvent;
         bool dognotkilled;
 
-        void Reset()
+        void Reset() override
         {
             events.Reset();
             summons.DespawnAll();
@@ -139,7 +139,7 @@ public:
             return 0;
         }
 
-        void JustSummoned(Creature* summon)
+        void JustSummoned(Creature* summon) override
         {
             summons.Summon(summon);
 
@@ -162,7 +162,7 @@ public:
             }
         }
 
-        void EnterCombat(Unit* /*who*/)
+        void EnterCombat(Unit* /*who*/) override
         {
             Talk(SAY_AGGRO_1);
             events.RescheduleEvent(EVENT_AGGRO, 5000);
@@ -171,31 +171,31 @@ public:
             _EnterCombat();
         }
 
-        void EnterEvadeMode()
+        void EnterEvadeMode() override
         {
             Talk(SAY_EVADE);
             BossAI::EnterEvadeMode();
         }
 
-        void JustDied(Unit* /*killer*/)
+        void JustDied(Unit* /*killer*/) override
         {
             Talk(SAY_DEATH);
             _JustDied();
         }
 
-        void SummonedCreatureDies(Creature* /*summon*/, Unit* /*killer*/)
+        void SummonedCreatureDies(Creature* /*summon*/, Unit* /*killer*/) override
         {
             Talk(SAY_DOG_DIED);
             if (me->GetMap()->GetDifficultyID() == DIFFICULTY_HEROIC)
                 dognotkilled = false;
         }
 
-        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType) override
         {
             if (damage >= me->GetHealth())
             {
                 if (!attacker->ToCreature())
-                    if (attacker->ToPet() ||attacker->ToPlayer())
+                    if (attacker->ToPet() || attacker->ToPlayer())
                         damage = 0;
 
                 if (!DeathEvent)
@@ -244,7 +244,7 @@ public:
             }
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             if (!UpdateVictim())
                 return;

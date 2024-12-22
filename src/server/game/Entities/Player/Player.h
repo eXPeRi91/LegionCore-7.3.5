@@ -1771,7 +1771,7 @@ class Player : public Unit, public GridObject<Player>
         void ModifyCurrencyFlag(uint32 id, uint8 flag);
         void ModifyCurrency(uint32 id, int32 count, bool sendInChat = false, bool ignoreMultipliers = false, bool modifyWeek = true, bool modifySeason = true, bool sendToast = false, bool refund = false);
         uint32 GetTotalCurrencyCap(uint32 currencyID);
-        void ModCurrnecyCap(uint32 currencyID, uint32 value);
+        void ModCurrencyCap(uint32 currencyID, uint32 value);
         void ModifyExcludeCasterAuraSpell(uint32 auraId, bool apply);
 
         /*********************************************************/
@@ -1836,6 +1836,7 @@ class Player : public Unit, public GridObject<Player>
         void DestroyItem(uint8 bag, uint8 slot, bool update);
         void DestroyItemCount(uint32 item, uint32 count, bool update, bool unequip_check = false);
         void DestroyItemCount(Item* item, uint32& count, bool update);
+        void DestroyAllOfItem(uint32 item, bool update, bool unequip_check = false);
         void DestroyConjuredItems(bool update);
         void DestroyZoneLimitedItem(bool update, uint32 new_zone);
         void SplitItem(uint16 src, uint16 dst, uint32 count);
@@ -1851,7 +1852,7 @@ class Player : public Unit, public GridObject<Player>
         void AddArmorProficiency(uint32 newflag) { m_ArmorProficiency |= newflag; }
         uint32 GetWeaponProficiency() const { return m_WeaponProficiency; }
         uint32 GetArmorProficiency() const { return m_ArmorProficiency; }
-        bool IsUseEquipedWeapon(bool mainhand) const
+        bool IsUseEquippedWeapon(bool mainhand) const
         {
             // disarm applied only to mainhand weapon
             return !IsInFeralForm() && (!mainhand || !HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISARMED));
@@ -2342,9 +2343,9 @@ class Player : public Unit, public GridObject<Player>
 
         void SetResurrectRequestData(Unit* caster, uint64 health, uint32 mana, uint32 appliedAura, SpellInfo const* resSpell = nullptr);
         void ClearResurrectRequestData();
-        bool IsRessurectRequestedBy(ObjectGuid guid) const;
-        bool IsRessurectRequested() const;
-        void ResurectUsingRequestData();
+        bool IsResurrectRequestedBy(ObjectGuid guid) const;
+        bool IsResurrectRequested() const;
+        void ResurrectUsingRequestData();
 
         uint8 getCinematic()
         {
@@ -2370,7 +2371,7 @@ class Player : public Unit, public GridObject<Player>
         void UpdatePvP(bool state, bool override=false);
         void UpdateZone(uint32 newZone, uint32 newArea);
         void UpdateArea(uint32 newArea);
-        void ChaeckSeamlessTeleport(uint32 newZoneOrArea, bool isArea = false);
+        void CheckSeamlessTeleport(uint32 newZoneOrArea, bool isArea = false);
         void ZoneTeleport(uint32 zoneId);
         bool InFFAPvPArea();
 
@@ -2602,9 +2603,17 @@ class Player : public Unit, public GridObject<Player>
         void CheckAreaExploreAndOutdoor();
 
         static uint32 TeamForRace(uint8 race);
+        static TeamId TeamIdForRace(uint8 race);
         uint32 GetTeam() const { return m_team; }
+        void SwitchToOppositeTeam(bool apply);
+        uint32 GetBgQueueTeam() const;
+        bool IsInAlliance() const { return m_team == ALLIANCE; }
+        bool IsInHorde() const { return m_team == HORDE; }
         TeamId GetTeamId() const { if (m_team == ALLIANCE) return TEAM_ALLIANCE; if (m_team == HORDE) return TEAM_HORDE; return TEAM_NEUTRAL; }
         void setFactionForRace(uint8 race);
+
+        uint32 GetNativeTeam() const { return TeamForRace(getRace()); }
+        TeamId GetNativeTeamId() const { return TeamIdForRace(getRace()); }
 
         void InitDisplayIds();
 
@@ -3223,7 +3232,7 @@ class Player : public Unit, public GridObject<Player>
         void SetAdvancedCombatLogging(bool enabled) { _advancedCombatLoggingEnabled = enabled; }
 
         // client version server check and helpers
-        void SendVersionMismatchWarinings();
+        void SendVersionMismatchWarnings();
 
         uint32 GetGoVisualQuestData(GameObject const* go, uint32 field) const;
 

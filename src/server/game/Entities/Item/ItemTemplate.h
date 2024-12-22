@@ -125,7 +125,7 @@ enum ItemBondingType : uint8
 {
     NO_BIND                                     = 0,
     BIND_WHEN_PICKED_UP                         = 1,
-    BIND_WHEN_EQUIPED                           = 2,
+    BIND_WHEN_EQUIPPED                           = 2,
     BIND_WHEN_USE                               = 3,
     BIND_QUEST_ITEM                             = 4,
     BIND_QUEST_ITEM1                            = 5,         // not used in game
@@ -728,6 +728,7 @@ struct ItemTemplate
     int32 GetItemRandomSuffixGroupID() const { return ExtendedData->ItemRandomSuffixGroupID; }
     uint32 GetSpellWeightCategory() const { return ExtendedData->SpellWeightCategory; }
     uint32 GetSpellWeight() const { return ExtendedData->SpellWeight; }
+    uint32 GetBuyCount() const { return std::max<uint32>(ExtendedData->VendorStackCount, 1u); }
     int32 GetBuyPrice() const { return ExtendedData->BuyPrice; }
     uint32 GetSellPrice() const { return ExtendedData->SellPrice; }
     uint32 GetItemNameDescriptionID() const { return ExtendedData->ItemNameDescriptionID; }

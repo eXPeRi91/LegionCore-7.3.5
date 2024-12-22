@@ -1027,6 +1027,11 @@ void Creature::Update(uint32 diff)
         {
             Unit::Update(diff);
 
+            // creature can be dead after Unit::Update call
+            // CORPSE/DEAD state will processed at next tick (in other case death timer will be updated unexpectedly)
+            if (!isAlive())
+                break;
+
             // if creature is charmed, switch to charmed AI (and back)
             if (NeedChangeAI)
             {
@@ -1387,7 +1392,7 @@ void Creature::SetReactState(ReactStates st, uint32 delay /*= 0*/)
     {
         AddDelayedCombat(delay, [this, st] () -> void
         {
-            if (this && isInCombat())
+            if (isInCombat())
                 m_reactState = st;
         });
     }
@@ -2521,11 +2526,6 @@ void Creature::setDeathState(DeathState s)
 
         setActive(false);
 
-        if (!isPet() && GetCreatureTemplate()->SkinLootId)
-            if (LootTemplates_Skinning.HaveLootFor(GetCreatureTemplate()->SkinLootId))
-                if (hasLootRecipient())
-                    SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_SKINNABLE);
-
         if (HasSearchedAssistance())
         {
             SetNoSearchAssistance(false);
@@ -2698,7 +2698,7 @@ void Creature::ForcedDespawn(uint32 timeMSToDespawn /*= 0*/, Seconds const& forc
 
 void Creature::DespawnOrUnsummon(uint32 msTimeToDespawn /*= 0*/, Seconds const& forceRespawnTimer /*= 0*/)
 {
-    if (!this || m_despawn || !IsInWorld())
+    if (m_despawn || !IsInWorld())
         return;
 
     if (TempSummon* summon = this->ToTempSummon())
@@ -2853,7 +2853,7 @@ SpellInfo const* Creature::reachWithSpellCure(Unit* victim)
             if (spellInfo->EffectMask < uint32(1 << j))
                 break;
 
-            if ((spellInfo->Effects[j]->Effect == SPELL_EFFECT_HEAL))
+            if (spellInfo->Effects[j]->Effect == SPELL_EFFECT_HEAL)
             {
                 bcontinue = false;
                 break;
@@ -3523,13 +3523,13 @@ uint32 Creature::GetVendorItemCurrentCount(VendorItem const* vItem)
         ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(vItem->item);
 
         auto diff = uint32((ptime - vCount->lastIncrementTime)/vItem->incrtime);
-        if ((vCount->count + diff * pProto->VendorStackCount) >= vItem->maxcount)
+        if ((vCount->count + diff * pProto->GetBuyCount()) >= vItem->maxcount)
         {
             m_vendorItemCounts.erase(itr);
             return vItem->maxcount;
         }
 
-        vCount->count += diff * pProto->VendorStackCount;
+        vCount->count += diff * pProto->GetBuyCount();
         vCount->lastIncrementTime = ptime;
     }
 
@@ -3562,8 +3562,8 @@ uint32 Creature::UpdateVendorItemCurrentCount(VendorItem const* vItem, uint32 us
         ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(vItem->item);
 
         auto diff = uint32((ptime - vCount->lastIncrementTime)/vItem->incrtime);
-        if ((vCount->count + diff * pProto->VendorStackCount) < vItem->maxcount)
-            vCount->count += diff * pProto->VendorStackCount;
+        if ((vCount->count + diff * pProto->GetBuyCount()) < vItem->maxcount)
+            vCount->count += diff * pProto->GetBuyCount();
         else
             vCount->count = vItem->maxcount;
     }

@@ -52,7 +52,7 @@ public:
 
     static bool HandleQuestAutocomplete(ChatHandler* handler, const char* args)
     {
-        Player* player = handler->getSelectedPlayer();
+        Player* player = handler->getSelectedPlayerOrSelf();
         if (!player)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -88,7 +88,7 @@ public:
 
     static bool HandleQuestAdd(ChatHandler* handler, const char* args)
     {
-        Player* player = handler->getSelectedPlayer();
+        Player* player = handler->getSelectedPlayerOrSelf();
         if (!player)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -140,7 +140,7 @@ public:
 
     static bool HandleQuestRemove(ChatHandler* handler, const char* args)
     {
-        Player* player = handler->getSelectedPlayer();
+        Player* player = handler->getSelectedPlayerOrSelf();
         if (!player)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -187,7 +187,7 @@ public:
 
     static bool HandleQuestComplete(ChatHandler* handler, const char* args)
     {
-        Player* player = handler->getSelectedPlayer();
+        Player* player = handler->getSelectedPlayerOrSelf();
         if (!player)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -232,7 +232,7 @@ public:
 
     static bool HandleQuestReward(ChatHandler* handler, char const* args)
     {
-        Player* player = handler->getSelectedPlayer();
+        Player* player = handler->getSelectedPlayerOrSelf();
         if (!player)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -264,7 +264,7 @@ public:
 
     static bool HandleQuestStatus(ChatHandler* handler, char const* args)
     {
-        Player* player = handler->getSelectedPlayer();
+        Player* player = handler->getSelectedPlayerOrSelf();
         if (!player)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -286,18 +286,19 @@ public:
 
         switch (player->GetQuestStatus(entry))
         {
-        case QUEST_STATUS_INCOMPLETE:
-            handler->PSendSysMessage(600025, entry, player->GetName());
-            break;
-        case QUEST_STATUS_COMPLETE:
-            handler->PSendSysMessage(600026, entry, player->GetName());
-            break;
-        case QUEST_STATUS_REWARDED:
-            handler->PSendSysMessage(600027, entry, player->GetName());
-            break;
-        case QUEST_STATUS_NONE:
-            handler->PSendSysMessage(600028, player->GetName(), entry);
-            break;
+            case QUEST_STATUS_INCOMPLETE:
+                handler->PSendSysMessage(600025, entry, player->GetName());
+                break;
+            case QUEST_STATUS_COMPLETE:
+                handler->PSendSysMessage(600026, entry, player->GetName());
+                break;
+            case QUEST_STATUS_REWARDED:
+                handler->PSendSysMessage(600027, entry, player->GetName());
+                break;
+            case QUEST_STATUS_NONE:
+                handler->PSendSysMessage(600028, player->GetName(), entry);
+                break;
+            default: break;
         }
         return true;
     }

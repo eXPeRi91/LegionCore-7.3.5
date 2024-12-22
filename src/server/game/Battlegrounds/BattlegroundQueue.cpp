@@ -191,14 +191,14 @@ GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* grp, uint16 B
     else if ((sWorld->getBoolConfig(CONFIG_CROSSFACTIONBG) && JoinType == MS::Battlegrounds::JoinType::None) || BgTypeId == MS::Battlegrounds::BattlegroundTypeId::BattlegroundDeathMatch)   
     {
         if (m_SelectionPools[TEAM_ALLIANCE].GetPlayerCount() == m_SelectionPools[TEAM_HORDE].GetPlayerCount())
-            ginfo->Team = leader->GetBGTeam();
+            ginfo->Team = leader->GetBgQueueTeam();
         else if (m_SelectionPools[TEAM_ALLIANCE].GetPlayerCount() > m_SelectionPools[TEAM_HORDE].GetPlayerCount())
             ginfo->Team = HORDE;
         else
             ginfo->Team = ALLIANCE;
     }
     else
-        ginfo->Team = leader->GetBGTeam();
+        ginfo->Team = leader->GetBgQueueTeam();
 
     ginfo->MatchmakerRating = mmr;
     ginfo->OpponentsMatchmakerRating = 0;
@@ -231,6 +231,14 @@ GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* grp, uint16 B
             info.LastOnlineTime = lastOnlineTime;
             info.GroupInfo = ginfo;
             ginfo->Players[member->GetGUID()] = &info;
+
+            if (ginfo->Team != member->GetTeam())
+            {
+                if (member->GetTeam() == ALLIANCE)
+                    member->CastSpell(member, SPELL_MERCENARY_CONTRACT_HORDE);
+                else
+                    member->CastSpell(member, SPELL_MERCENARY_CONTRACT_ALLIANCE);
+            }
         }
     }
     else
@@ -317,8 +325,7 @@ void BattlegroundQueue::RemovePlayer(ObjectGuid guid, bool decreaseInvitedCount)
 {
     AddDelayedEvent(10, [=]() -> void
     {
-        if (this)
-            RemovePlayerQueue(guid, decreaseInvitedCount);
+        RemovePlayerQueue(guid, decreaseInvitedCount);
     });
 }
 
@@ -1172,7 +1179,7 @@ void BattlegroundQueue::BattlegroundQueueUpdate(uint32 /*diff*/, uint16 bgTypeId
         next = itr;
         ++next;
 
-        if ((*itr)->IsBattleground() && ((*itr)->GetTypeID(true) == bgTypeId || (bgTypeId == MS::Battlegrounds::BattlegroundTypeId::BattlegroundRandom && !(*itr)->IsBrawl()) && (*itr)->GetTypeID(true) != MS::Battlegrounds::BattlegroundTypeId::BattlegroundDeathMatch)
+        if ((*itr)->IsBattleground() && ((*itr)->GetTypeID(true) == bgTypeId || ((bgTypeId == MS::Battlegrounds::BattlegroundTypeId::BattlegroundRandom && !(*itr)->IsBrawl()) && (*itr)->GetTypeID(true) != MS::Battlegrounds::BattlegroundTypeId::BattlegroundDeathMatch))
         && (*itr)->GetMinLevel() == bracket_MinLevel && (*itr)->GetStatus() > STATUS_WAIT_QUEUE && (*itr)->GetStatus() < STATUS_WAIT_LEAVE)
         {
             auto bg = *itr;
