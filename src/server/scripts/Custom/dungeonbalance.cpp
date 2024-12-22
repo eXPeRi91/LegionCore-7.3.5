@@ -35,7 +35,6 @@
 #include "Log.h"
 #include "Map.h"
 #include "ScriptMgr.h"
-#include "Log.h"
 
 static bool enabled, announce, playerChangeNotify, dungeonScaleDownXP;
 
