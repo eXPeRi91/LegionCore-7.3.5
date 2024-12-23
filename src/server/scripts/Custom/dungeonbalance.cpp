@@ -144,30 +144,30 @@ public:
     void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage) override
     {
         uint32 convertedDamage = static_cast<uint32>(damage);
-        convertedDamage = _Modifier_DealDamage(target, attacker, damage, "periodic damage");
+        convertedDamage = _Modifier_DealDamage(target, attacker, damage, false, "periodic damage");
         damage = static_cast<float>(convertedDamage);
     }
 
     void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage) override
     {
         uint32 convertedDamage = static_cast<uint32>(damage);
-        convertedDamage = _Modifier_DealDamage(target, attacker, convertedDamage, "spell damage");
+        convertedDamage = _Modifier_DealDamage(target, attacker, convertedDamage, false, "spell damage");
         damage = static_cast<float>(convertedDamage);
     }
 
     void ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage) override
     {
-        damage = _Modifier_DealDamage(target, attacker, damage, "melee damage");
+        damage = _Modifier_DealDamage(target, attacker, damage, false, "melee damage");
     }
 
     void ModifyHealReceived(Unit* target, Unit* attacker, float& amount) override
     {
         uint32 convertedAmount = static_cast<uint32>(amount);
-        convertedAmount = _Modifier_DealDamage(target, attacker, convertedAmount, "heal");
+        convertedAmount = _Modifier_DealDamage(target, attacker, convertedAmount, true, "heal");
         amount = static_cast<float>(convertedAmount);
     }
 
-    uint32 _Modifier_DealDamage(Unit* target, Unit* attacker, uint32 damage, std::string type)
+    uint32 _Modifier_DealDamage(Unit* target, Unit* attacker, uint32 damage, bool heal, std::string type)
     {
         if (!enabled || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(attacker->GetMap()))
             return damage;
@@ -196,7 +196,7 @@ public:
         else if (playerCount >= (maxPlayerCount * .75) && playerCount <= (maxPlayerCount * .9))
             playerCount = maxPlayerCount * .9;
 
-        if (attacker->IsPlayer() || (attacker->IsControlledByPlayer() && (attacker->isHunterPet() || attacker->isPet() || attacker->isSummon())))
+        if ((attacker->IsPlayer() && (!target->IsPlayer() || heal)) || (attacker->IsControlledByPlayer() && (attacker->isHunterPet() || attacker->isPet() || attacker->isSummon())))
         {
             // Player
             TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s updated from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), damage, static_cast<uint32>(damage * float(maxPlayerCount / playerCount)), playerCount);
