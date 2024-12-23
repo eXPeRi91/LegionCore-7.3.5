@@ -130,7 +130,19 @@ public:
                 uint32 newAmount = uint32(amount * xpMult);
                 
                 if (victim)
-                    TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] XP reduced from %u to %u (%.3f multiplier) for killing %s.", player->GetName(), amount, newAmount, xpMult, victim->GetName());
+                {
+                    if (xpMult == 1)
+                        TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] XP amount of %u unchanged (%.3f multiplier) for killing %s.", player->GetName(), amount, xpMult, victim->GetName());
+                    else
+                        TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] XP reduced from %u to %u (%.3f multiplier) for killing %s.", player->GetName(), amount, newAmount, xpMult, victim->GetName());
+                }
+                else
+                {
+                    if (xpMult == 1)
+                        TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] XP amount of %u unchanged (%.3f multiplier).", player->GetName(), amount, xpMult);
+                    else
+                        TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] XP reduced from %u to %u (%.3f multiplier).", player->GetName(), amount, newAmount, xpMult);
+                }
 
                 amount = uint32(amount * xpMult);
             }
@@ -200,14 +212,26 @@ public:
         if ((attacker->IsPlayer() && (!target->IsPlayer() || heal)) || (attacker->IsControlledByPlayer() && (attacker->isHunterPet() || attacker->isPet() || attacker->isSummon())))
         {
             // Player
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s updated from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), damage, static_cast<uint32>(damage * float(maxPlayerCount / playerCount)), playerCount);
+            std::string actionTaken;
+            if (damage < static_cast<uint32>(damage * float(maxPlayerCount / playerCount)))
+                actionTaken = "increased";
+            else
+                actionTaken = "decreased";
+
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from % u to % u(player count of % .2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, static_cast<uint32>(damage * float(maxPlayerCount / playerCount)), playerCount);
 
             return static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
         }
         else
         {
             // Enemy
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s updated from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), damage, static_cast<uint32>(damage * float(playerCount / maxPlayerCount)), playerCount);
+            std::string actionTaken;
+            if (damage < static_cast<uint32>(damage * float(playerCount / maxPlayerCount)))
+                actionTaken = "increased";
+            else
+                actionTaken = "decreased";
+
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, static_cast<uint32>(damage * float(playerCount / maxPlayerCount)), playerCount);
 
             return static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
         }
