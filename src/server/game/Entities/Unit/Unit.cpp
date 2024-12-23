@@ -2051,7 +2051,7 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, float dama
     SpellSchoolMask damageSchoolMask = SpellSchoolMask(damageInfo->schoolMask);
 
     // Script Hook For CalculateSpellDamageTaken -- Allow scripts to change the Damage post class mitigation calculations
-    sScriptMgr->ModifySpellDamageTaken(damageInfo->target, damageInfo->attacker, damage);
+    sScriptMgr->ModifySpellDamageTaken(damageInfo->target, damageInfo->attacker, damage, spellInfo);
 
     if (IsDamageReducedByArmor(damageSchoolMask, spellInfo, effectMask))
         damage = CalcArmorReducedDamage(damageInfo->attacker, victim, damage, spellInfo);
@@ -12517,7 +12517,7 @@ int32 Unit::HealBySpell(Unit* victim, SpellInfo const* spellInfo, uint32 addHeal
     int32 gain = 0;
 
     float convertedAddHealth = static_cast<float>(addHealth);
-    sScriptMgr->ModifyHealReceived(this, victim, convertedAddHealth);
+    sScriptMgr->ModifyHealReceived(this, victim, convertedAddHealth, spellInfo);
     addHealth = static_cast<uint32>(convertedAddHealth);
 
     // calculate heal absorb and reduce healing

@@ -27,14 +27,15 @@
 *
 */
 
-#include "Configuration/Config.h"
-#include "Unit.h"
 #include "Chat.h"
-#include "Player.h"
-#include "World.h"
+#include "Configuration/Config.h"
 #include "Log.h"
 #include "Map.h"
+#include "Player.h"
 #include "ScriptMgr.h"
+#include "SpellInfo.h"
+#include "Unit.h"
+#include "World.h"
 
 static bool enabled, announce, playerChangeNotify, dungeonScaleDownXP;
 
@@ -141,14 +142,14 @@ class DungeonBalance_UnitScript : public UnitScript {
 public:
     DungeonBalance_UnitScript() : UnitScript("DungeonBalance_UnitScript") { }
 
-    void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage) override
+    void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo) override
     {
         uint32 convertedDamage = static_cast<uint32>(damage);
         convertedDamage = _Modifier_DealDamage(target, attacker, damage, false, "periodic damage");
         damage = static_cast<float>(convertedDamage);
     }
 
-    void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage) override
+    void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo) override
     {
         uint32 convertedDamage = static_cast<uint32>(damage);
         convertedDamage = _Modifier_DealDamage(target, attacker, convertedDamage, false, "spell damage");
@@ -160,7 +161,7 @@ public:
         damage = _Modifier_DealDamage(target, attacker, damage, false, "melee damage");
     }
 
-    void ModifyHealReceived(Unit* target, Unit* attacker, float& amount) override
+    void ModifyHealReceived(Unit* target, Unit* attacker, float& amount, SpellInfo const* spellInfo) override
     {
         uint32 convertedAmount = static_cast<uint32>(amount);
         convertedAmount = _Modifier_DealDamage(target, attacker, convertedAmount, true, "heal");

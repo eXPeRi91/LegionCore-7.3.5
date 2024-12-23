@@ -21,12 +21,13 @@
 
 #include <atomic>
 #include "Common.h"
+#include "ObjectMgr.h"
 #include "Player.h"
 #include "SharedDefines.h"
+#include "SpellInfo.h"
 #include "Unit.h"
-#include "World.h"
 #include "Weather.h"
-#include "ObjectMgr.h"
+#include "World.h"
 
 class AreaTriggerAI;
 class AuctionHouseObject;
@@ -325,16 +326,16 @@ class UnitScript : public ScriptObject, public UpdatableScript<Unit>
         virtual void OnDamage(Unit* attacker, Unit* victim, uint32& damage) { }
 
         // Called when DoT's Tick Damage is being Dealt
-        virtual void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage) { }
+        virtual void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo) { }
 
         // Called when Melee Damage is being Dealt
         virtual void ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage) { }
 
         // Called when Spell Damage is being Dealt
-        virtual void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage) { }
+        virtual void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo) { }
 
         // Called when heal is received
-        virtual void ModifyHealReceived(Unit* /*target*/, Unit* /*attacker*/, float& /*amount*/) { }
+        virtual void ModifyHealReceived(Unit* /*target*/, Unit* /*attacker*/, float& /*amount*/, SpellInfo const* /*spellInfo*/) {}
 };
 
 class CreatureScript : public ScriptObject, public UpdatableScript<Creature>
@@ -378,7 +379,7 @@ class CreatureScript : public ScriptObject, public UpdatableScript<Creature>
         virtual CreatureAI* GetAI(Creature* /*creature*/) const { return nullptr; }
 
         // Called when heal is received
-        virtual void ModifyHealReceived(Unit* target, Unit* attacker, uint32& amount) { }
+        virtual void ModifyHealReceived(Unit* target, Unit* attacker, uint32& amount, SpellInfo const* spellInfo) { }
 };
 
 template<class AI>
@@ -1133,10 +1134,10 @@ class ScriptMgr
         /* UnitScript */
         void OnHeal(Unit* healer, Unit* receiver, uint32& gain);
         void OnDamage(Unit* attacker, Unit* victim, uint32& damage);
-        void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage);
+        void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo);
         void ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage);
-        void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage);
-        void ModifyHealReceived(Unit* target, Unit* attacker, float& addHealth);
+        void ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo);
+        void ModifyHealReceived(Unit* target, Unit* attacker, float& addHealth, SpellInfo const* spellInfo);
 
         /* Scheduled scripts */
         uint32 IncreaseScheduledScriptsCount() { return ++_scheduledScripts; }

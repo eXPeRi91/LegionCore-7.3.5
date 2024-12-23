@@ -737,9 +737,9 @@ void ScriptMgr::OnDamage(Unit* attacker, Unit* victim, uint32& damage)
     FOREACH_SCRIPT(UnitScript)->OnDamage(attacker, victim, damage);
 }
 
-void ScriptMgr::ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage)
+void ScriptMgr::ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo)
 {
-    FOREACH_SCRIPT(UnitScript)->ModifyPeriodicDamageAurasTick(target, attacker, damage);
+    FOREACH_SCRIPT(UnitScript)->ModifyPeriodicDamageAurasTick(target, attacker, damage, spellInfo);
 }
 
 void ScriptMgr::ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage)
@@ -747,14 +747,14 @@ void ScriptMgr::ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage)
     FOREACH_SCRIPT(UnitScript)->ModifyMeleeDamage(target, attacker, damage);
 }
 
-void ScriptMgr::ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage)
+void ScriptMgr::ModifySpellDamageTaken(Unit* target, Unit* attacker, float& damage, SpellInfo const* spellInfo)
 {
-    FOREACH_SCRIPT(UnitScript)->ModifySpellDamageTaken(target, attacker, damage);
+    FOREACH_SCRIPT(UnitScript)->ModifySpellDamageTaken(target, attacker, damage, spellInfo);
 }
 
-void ScriptMgr::ModifyHealReceived(Unit* target, Unit* attacker, float& amount)
+void ScriptMgr::ModifyHealReceived(Unit* target, Unit* attacker, float& amount, SpellInfo const* spellInfo)
 {
-    FOREACH_SCRIPT(UnitScript)->ModifyHealReceived(target, attacker, amount);
+    FOREACH_SCRIPT(UnitScript)->ModifyHealReceived(target, attacker, amount, spellInfo);
 }
 
 bool ScriptMgr::OnDummyEffect(Unit* caster, uint32 spellId, SpellEffIndex effIndex, Creature* target)
