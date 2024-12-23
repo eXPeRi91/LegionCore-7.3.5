@@ -209,29 +209,43 @@ public:
         else if (playerCount >= (maxPlayerCount * .75) && playerCount <= (maxPlayerCount * .9))
             playerCount = maxPlayerCount * .9;
 
+        uint32 modifiedDamage = 0;
+
         if ((attacker->IsPlayer() && (!target->IsPlayer() || heal)) || (attacker->IsControlledByPlayer() && (attacker->isHunterPet() || attacker->isPet() || attacker->isSummon())))
         {
             // Player
+            modifiedDamage = static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
+
             std::string actionTaken;
-            if (damage < static_cast<uint32>(damage * float(maxPlayerCount / playerCount)))
+            if (damage < modifiedDamage)
                 actionTaken = "increased";
             else
                 actionTaken = "decreased";
 
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, static_cast<uint32>(damage * float(maxPlayerCount / playerCount)), playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount);
 
-            return static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
+            return modifiedDamage;
         }
         else
         {
             // Enemy
+            modifiedDamage = static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
+
             std::string actionTaken;
-            if (damage < static_cast<uint32>(damage * float(playerCount / maxPlayerCount)))
+            if (damage < modifiedDamage)
                 actionTaken = "increased";
             else
                 actionTaken = "decreased";
+
+            // cap player damage taken to 10% of max health if not a full group
+            std::string capped = "";
+            if (float(maxPlayerCount / playerCount) != 1.0)
+            {
+                capped = " (capped)";
+                modifiedDamage = std::min(modifiedDamage, static_cast<uint32>(target->GetMaxHealth() * .1f));
+            }
             
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s (Max HP: %u) %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), target->GetMaxHealth(), actionTaken, damage, static_cast<uint32>(damage * float(playerCount / maxPlayerCount)), playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount);
 
             return static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
         }
