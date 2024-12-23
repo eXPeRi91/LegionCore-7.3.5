@@ -2237,7 +2237,7 @@ void Unit::CalculateMeleeDamage(Unit* victim, uint32 damage, CalcDamageInfo* dam
 
     damageInfo->damage = damage;
 
-    if (Unit* owner = GetAnyOwner()) //For pets chance calc from owner
+    if (Unit* owner = GetAnyOwner()) // For pets, chance calc from owner
         damageInfo->hitOutCome = owner->RollMeleeOutcomeAgainst(damageInfo->target, damageInfo->attackType);
     else
         damageInfo->hitOutCome = RollMeleeOutcomeAgainst(damageInfo->target, damageInfo->attackType);
