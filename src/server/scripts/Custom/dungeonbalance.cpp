@@ -239,10 +239,11 @@ public:
 
             // cap player damage taken to 10% of max health if not a full group
             std::string capped = "";
-            if (float(maxPlayerCount / playerCount) != 1.0)
+            uint32 cappedDamage = static_cast<uint32>(target->GetMaxHealth() * .1f);
+            if (float(maxPlayerCount / playerCount) != 1.0 && modifiedDamage > cappedDamage)
             {
                 capped = " (capped)";
-                modifiedDamage = std::min(modifiedDamage, static_cast<uint32>(target->GetMaxHealth() * .1f));
+                modifiedDamage = cappedDamage;
             }
             
             TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount);
