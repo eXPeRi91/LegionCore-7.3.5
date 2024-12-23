@@ -8479,8 +8479,7 @@ void AuraEffect::HandlePeriodicHealAurasTick(Unit* target, Unit* caster, SpellEf
     TC_LOG_INFO(LOG_FILTER_SPELLS_AURAS, "PeriodicTick: %s heal of %s for %u health inflicted by %u",
         GetCasterGUID().ToString(), target->GetGUID().ToString(), damage, GetId());
 
-    // Script Hook For HandlePeriodicDamageAurasTick -- Allow scripts to change the Damage pre class mitigation calculations
-    sScriptMgr->ModifyPeriodicDamageAurasTick(target, caster, damage, m_spellInfo);
+    // Script Hook For ModifyHealReceived -- Allow scripts to change the heal amount
     sScriptMgr->ModifyHealReceived(target, caster, damage, m_spellInfo);
 
     GetBase()->CallScriptEffectChangeTickDamageHandlers(const_cast<AuraEffect const*>(this), damage, target);
