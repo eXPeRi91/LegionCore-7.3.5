@@ -218,7 +218,7 @@ public:
             else
                 actionTaken = "decreased";
 
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from % u to % u(player count of % .2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, static_cast<uint32>(damage * float(maxPlayerCount / playerCount)), playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, static_cast<uint32>(damage * float(maxPlayerCount / playerCount)), playerCount);
 
             return static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
         }
