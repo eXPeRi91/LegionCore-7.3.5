@@ -1205,8 +1205,8 @@ void World::LoadConfigSettings(bool reload)
         m_MaxVisibleDistanceOnContinents = MAX_VISIBILITY_DISTANCE;
     }
 
-    m_visibilityRelocationLowerLimit = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimit", 10.f);
-    m_visibilityRelocationLowerLimitC = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimitC", 10.f);
+    m_visibilityRelocationLowerLimit = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimit", 20.f);
+    m_visibilityRelocationLowerLimitC = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimitC", 20.f);
     m_visibilityAINotifyDelay = sConfigMgr->GetIntDefault("Visibility.AINotifyDelay", DEFAULT_VISIBILITY_NOTIFY_PERIOD);
     Relocation_UpdateUnderwateLimit = sConfigMgr->GetFloatDefault("Relocation.UpdateUnderwateLimit", 20.f);
     ZoneUpdateDistanceRangeLimit = sConfigMgr->GetFloatDefault("Zone.UpdateDistanceRage", 5.f);
