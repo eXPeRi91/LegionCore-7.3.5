@@ -37,7 +37,7 @@
 #include "Unit.h"
 #include "World.h"
 
-static bool enabled, announce, playerChangeNotify, dungeonScaleDownXP;
+static bool enabled, announce, scaleScenarios, playerChangeNotify, dungeonScaleDownXP;
 
 class DungeonBalance_Helpers
 {
@@ -71,6 +71,21 @@ public:
 
         return garrison;
     }
+
+    static bool IsScenarioMap(Map* map)
+    {
+        bool scenario = false;
+
+        switch (map->GetId())
+        {
+            case 1475:  // The Maw of Nashal
+                scenario = true;
+                break;
+            default: break;
+        }
+
+        return scenario || map->IsScenario();
+    }
 };
 
 class DungeonBalance_WorldScript : public WorldScript
@@ -87,6 +102,7 @@ public:
     {
         enabled = sConfigMgr->GetBoolDefault("DungeonBalance.Enable", 0);
         announce = enabled && sConfigMgr->GetBoolDefault("DungeonBalance.Announce", 1);
+        scaleScenarios = sConfigMgr->GetBoolDefault("DungeonBalance.ScaleScenarios", 0);
         playerChangeNotify = sConfigMgr->GetBoolDefault("DungeonBalance.PlayerChangeNotify", 1);
         dungeonScaleDownXP = sConfigMgr->GetBoolDefault("DungeonBalance.DungeonScaleDownXP", 1);
     }
@@ -109,8 +125,16 @@ public:
         {
             Map* map = player->GetMap();
 
-            if ((map->IsDungeon() || map->IsRaidOrHeroicDungeon()) && !DungeonBalance_Helpers::IsGarrisonMap(player->GetMap()))
+            if (map->IsDungeon() || map->IsRaidOrHeroicDungeon())
             {
+                // Check if this is a garrison map
+                if (DungeonBalance_Helpers::IsGarrisonMap(player->GetMap()))
+                    return;
+
+                // Check if this is a scenario map and if it is make sure we should scale it
+                if (DungeonBalance_Helpers::IsScenarioMap(player->GetMap()) && !scaleScenarios)
+                    return;
+
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
 
                 uint16 maxPlayerCount = map->GetMapMaxPlayers();
@@ -182,7 +206,15 @@ public:
 
     uint32 _Modifier_DealDamage(Unit* target, Unit* attacker, uint32 damage, bool heal, std::string type)
     {
-        if (!enabled || damage == 0 || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(attacker->GetMap()))
+        if (!enabled || damage == 0 || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()))
+            return damage;
+
+        // Check if this is a garrison map
+        if (DungeonBalance_Helpers::IsGarrisonMap(attacker->GetMap()))
+            return damage;
+
+        // Check if this is a scenario map and if it is make sure we should scale it
+        if (DungeonBalance_Helpers::IsScenarioMap(attacker->GetMap()) && !scaleScenarios)
             return damage;
 
         int8 maxPlayerCount = attacker->GetMap()->GetMapMaxPlayers();
@@ -260,7 +292,15 @@ public:
 
     void OnPlayerEnterAll(Map* map, Player* player)
     {
-        if (!enabled || !playerChangeNotify || !map || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(map))
+        if (!enabled || !playerChangeNotify || !map || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()))
+            return;
+        
+        // Check if this is a garrison map
+        if (DungeonBalance_Helpers::IsGarrisonMap(map))
+            return;
+
+        // Check if this is a scenario map and if it is make sure we should scale it
+        if (DungeonBalance_Helpers::IsScenarioMap(map) && !scaleScenarios)
             return;
 
         Map::PlayerList const& playerList = map->GetPlayers();
@@ -280,7 +320,15 @@ public:
 
     void OnPlayerLeaveAll(Map* map, Player* player)
     {
-        if (!enabled || !playerChangeNotify || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()) || DungeonBalance_Helpers::IsGarrisonMap(map))
+        if (!enabled || !playerChangeNotify || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()))
+            return;
+
+        // Check if this is a garrison map
+        if (DungeonBalance_Helpers::IsGarrisonMap(map))
+            return;
+
+        // Check if this is a scenario map and if it is make sure we should scale it
+        if (DungeonBalance_Helpers::IsScenarioMap(map) && !scaleScenarios)
             return;
 
         Map::PlayerList const& playerList = map->GetPlayers();

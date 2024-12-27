@@ -2807,6 +2807,14 @@ DungeonBalance.Enable = 0
 DungeonBalance.Announce = 1
 
 #
+#     DungeonBalance.ScaleScenarios
+#        Determines whether or not scenarios are scaled as well (such as class hall instanced quests)
+#       Default:     0 - (Disabled)
+#                    1 - (Enabled)
+
+DungeonBalance.ScaleScenarios = 0
+
+#
 #     DungeonBalance.DungeonScaleDownXP
 #        Decrease individual player's amount of XP gained during a dungeon to match the
 #        amount of XP gained during a full group run. Example: In a 5-man group, you
