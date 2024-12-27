@@ -76,13 +76,13 @@ public:
     {
         bool scenario = false;
 
-        switch (map->GetId())
-        {
-            case 1475:  // The Maw of Nashal
-                scenario = true;
-                break;
-            default: break;
-        }
+        //switch (map->GetId())
+        //{
+        //    case 1475:  // The Maw of Nashal
+        //        scenario = true;
+        //        break;
+        //    default: break;
+        //}
 
         return scenario || map->IsScenario();
     }
