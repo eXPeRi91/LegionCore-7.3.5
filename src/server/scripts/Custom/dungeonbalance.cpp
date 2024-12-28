@@ -39,55 +39,6 @@
 
 static bool enabled, announce, scaleScenarios, playerChangeNotify, dungeonScaleDownXP;
 
-class DungeonBalance_Helpers
-{
-public:
-    static bool IsGarrisonMap(Map* map)
-    {
-        bool garrison = false;
-
-        switch (map->GetId())
-        {
-            case 1158:  // Alliance Lvl 1
-            case 1331:  // Alliance Lvl 2
-            case 1159:  // Alliance Lvl 3
-            case 1473:  // Alliance Shipyard
-            case 1482:  // Alliance Shipyard - Submarine
-            case 1483:  // Alliance Shipyard - Destroyer
-            case 1485:  // Alliance Shipyard - Battleship
-            case 1496:  // Alliance Shipyard - Carrier
-            case 1152:  // Horde Lvl 1
-            case 1330:  // Horde Lvl 2
-            case 1153:  // Horde Lvl 3
-            case 1474:  // Horde Shipyard
-            case 1486:  // Horde Shipyard - Carrier
-            case 1487:  // Horde Shipyard - Submarine
-            case 1488:  // Horde Shipyard - Destroyer
-            case 1497:  // Horde Shipyard - Battleship
-                garrison = true;
-                break;
-            default: break;
-        }
-
-        return garrison;
-    }
-
-    static bool IsScenarioMap(Map* map)
-    {
-        bool scenario = false;
-
-        //switch (map->GetId())
-        //{
-        //    case 1475:  // The Maw of Nashal
-        //        scenario = true;
-        //        break;
-        //    default: break;
-        //}
-
-        return scenario || map->IsScenario();
-    }
-};
-
 class DungeonBalance_WorldScript : public WorldScript
 {
 public:
@@ -128,11 +79,11 @@ public:
             if (map->IsDungeon() || map->IsRaidOrHeroicDungeon())
             {
                 // Check if this is a garrison map
-                if (DungeonBalance_Helpers::IsGarrisonMap(player->GetMap()))
+                if (player->GetMap()->IsGarrison())
                     return;
 
                 // Check if this is a scenario map and if it is make sure we should scale it
-                if (DungeonBalance_Helpers::IsScenarioMap(player->GetMap()) && !scaleScenarios)
+                if (player->GetMap()->IsScenario() && !scaleScenarios)
                     return;
 
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
@@ -210,11 +161,11 @@ public:
             return damage;
 
         // Check if this is a garrison map
-        if (DungeonBalance_Helpers::IsGarrisonMap(attacker->GetMap()))
+        if (attacker->GetMap()->IsGarrison())
             return damage;
 
         // Check if this is a scenario map and if it is make sure we should scale it
-        if (DungeonBalance_Helpers::IsScenarioMap(attacker->GetMap()) && !scaleScenarios)
+        if (attacker->GetMap()->IsScenario() && !scaleScenarios)
             return damage;
 
         int8 maxPlayerCount = attacker->GetMap()->GetMapMaxPlayers();
@@ -296,11 +247,11 @@ public:
             return;
         
         // Check if this is a garrison map
-        if (DungeonBalance_Helpers::IsGarrisonMap(map))
+        if (map->IsGarrison())
             return;
 
         // Check if this is a scenario map and if it is make sure we should scale it
-        if (DungeonBalance_Helpers::IsScenarioMap(map) && !scaleScenarios)
+        if (map->IsScenario() && !scaleScenarios)
             return;
 
         Map::PlayerList const& playerList = map->GetPlayers();
@@ -324,11 +275,11 @@ public:
             return;
 
         // Check if this is a garrison map
-        if (DungeonBalance_Helpers::IsGarrisonMap(map))
+        if (map->IsGarrison())
             return;
 
         // Check if this is a scenario map and if it is make sure we should scale it
-        if (DungeonBalance_Helpers::IsScenarioMap(map) && !scaleScenarios)
+        if (map->IsScenario() && !scaleScenarios)
             return;
 
         Map::PlayerList const& playerList = map->GetPlayers();
