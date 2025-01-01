@@ -767,7 +767,7 @@ bool ChatHandler::ShowHelpForSubCommands(std::vector<ChatCommand> const& table, 
 
     if (&table == &getCommandTable())
     {
-        SendSysMessage(LANG_AVIABLE_CMD);
+        SendSysMessage(LANG_AVAILABLE_CMD);
         PSendSysMessage("%s", list.c_str());
     }
     else
