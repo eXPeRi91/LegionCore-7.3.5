@@ -303,13 +303,12 @@ public:
             return false;
         }
 
-        // Command is supposed to be: .account password [$oldpassword] [$newpassword] [$newpasswordconfirmation]
+        // Command is supposed to be: .account password [$oldpassword] [$newpassword]
         char* oldPassword = strtok((char*)args, " ");       // This extracts [$oldpassword]
         char* newPassword = strtok(NULL, " ");              // This extracts [$newpassword]
-        char* passwordConfirmation = strtok(NULL, " ");     // This extracts [$newpasswordconfirmation]
 
-        //Is any of those variables missing for any reason ? We return false.
-        if (!oldPassword || !newPassword || !passwordConfirmation)
+        // Is any of those variables missing for any reason ? We return false.
+        if (!oldPassword || !newPassword)
         {
             handler->SendSysMessage(LANG_CMD_SYNTAX);
             handler->SetSentErrorMessage(true);
@@ -320,14 +319,6 @@ public:
         if (!AccountMgr::CheckPassword(handler->GetSession()->GetAccountId(), std::string(oldPassword)))
         {
             handler->SendSysMessage(LANG_COMMAND_WRONGOLDPASSWORD);
-            handler->SetSentErrorMessage(true);
-            return false;
-        }
-
-        // Making sure that newly entered password is correctly entered.
-        if (strcmp(newPassword, passwordConfirmation) != 0)
-        {
-            handler->SendSysMessage(LANG_NEW_PASSWORDS_NOT_MATCH);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -559,9 +550,8 @@ public:
         ///- Get the command line arguments
         char* account = strtok((char*)args, " ");
         char* password = strtok(NULL, " ");
-        char* passwordConfirmation = strtok(NULL, " ");
 
-        if (!account || !password || !passwordConfirmation)
+        if (!account || !password)
             return false;
 
         std::string accountName = account;
@@ -584,13 +574,6 @@ public:
         /// This is also reject self apply in fact
         if (handler->HasLowerSecurityAccount(NULL, targetAccountId, true))
             return false;
-
-        if (strcmp(password, passwordConfirmation))
-        {
-            handler->SendSysMessage(LANG_NEW_PASSWORDS_NOT_MATCH);
-            handler->SetSentErrorMessage(true);
-            return false;
-        }
 
         AccountOpResult result = AccountMgr::ChangePassword(targetAccountId, password);
 
