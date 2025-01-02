@@ -22111,14 +22111,14 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
             }
             else                                                // have start node, to it
             {
-                TC_LOG_ERROR(LOG_FILTER_PLAYER, "Character %u have too short taxi destination list, teleport to original node.", GetGUIDLow());
-                if (MapManager::IsValidMapCoord(nodeEntry->ContinentID, nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z))
+                TC_LOG_ERROR(LOG_FILTER_PLAYER, "Character %u have too short taxi destination list, this is informational only.", GetGUIDLow());
+                /*if (MapManager::IsValidMapCoord(nodeEntry->ContinentID, nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z))
                 {
                     mapId = nodeEntry->ContinentID;
                     Relocate(nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z, 0.0f);
                 }
                 else
-                    RelocateToHomebind();
+                    RelocateToHomebind();*/
             }
             m_taxi.ClearTaxiDestinations();
         }
