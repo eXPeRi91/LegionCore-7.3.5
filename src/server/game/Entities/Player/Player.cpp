@@ -3946,9 +3946,9 @@ void Player::GiveLevel(uint8 level)
 
     AddDelayedEvent(100, [this]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddConditionType(CONDITION_LEVEL);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddConditionType(CONDITION_LEVEL);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 
     // Refer-A-Friend
@@ -19224,9 +19224,9 @@ void Player::AddQuest(Quest const* quest, Object* questGiver)
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         UpdateForQuestWorldObjects();
     });
 }
@@ -19624,9 +19624,9 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 
     // update area quests
@@ -20309,9 +20309,9 @@ void Player::SetQuestStatus(uint32 quest_id, QuestStatus status)
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         UpdateForQuestWorldObjects();
     });
 }
@@ -20333,9 +20333,9 @@ void Player::RemoveActiveQuest(uint32 quest_id)
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 }
 
@@ -20348,9 +20348,9 @@ void Player::RemoveRewardedQuest(uint32 quest_id)
 
         AddDelayedEvent(100, [this, quest_id]() -> void
         {
-            PhaseUpdateData phaseUdateData;
-            phaseUdateData.AddQuestUpdate(quest_id);
-            GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+            PhaseUpdateData phaseUpdateData;
+            phaseUpdateData.AddQuestUpdate(quest_id);
+            GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         });
     }
 
@@ -34070,9 +34070,9 @@ void Player::ActivateTalentGroup(ChrSpecializationEntry const* spec)
 
     AddDelayedEvent(100, [this]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddConditionType(CONDITION_SPEC_ID);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddConditionType(CONDITION_SPEC_ID);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 
     AddDelayedEvent(500, [this]() -> void
