@@ -25,3 +25,8 @@ UPDATE game_event SET start_time = '2018-08-07 05:57:00' WHERE eventEntry = 191;
 
 -- set the minimum item level for pvp world quests and dungeon world quests
 UPDATE world_quest_template SET MinItemLevel = 890 WHERE ZoneId = 0 AND QuestInfoId IN (113, 137);
+
+-- disable quest that no longer exists after 7.3.0
+DELETE FROM `disables` WHERE `sourceType` = 1 AND `entry` = 44886;
+INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, `comment`) VALUES
+(1, 44886, 0, '', '', 'Quest removed in 7.3.0');
