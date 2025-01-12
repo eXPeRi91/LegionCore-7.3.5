@@ -2030,17 +2030,6 @@ void WorldSession::HandleLogoutRequest(WorldPackets::Character::LogoutRequest& /
     if (!lguid.IsEmpty())
         DoLootRelease(lguid);
 
-    uint32 reason = 0;
-    if (player->isInCombat())
-        reason = 1;
-    else if (player->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_FALLING | MOVEMENTFLAG_FALLING_FAR))
-        reason = 3;                                         // is jumping or falling
-    else if (player->duel || player->HasAura(9454)) // is dueling or frozen by GM via freeze command
-        reason = 2;                                         // FIXME - Need the correct value
-    else if (auto instance = player->GetInstanceScript())
-        if (!player->isGameMaster() && instance->IsEncounterInProgress()) // Don`t res if instance in progress
-            reason = 1;
-
     //instant logout in taverns/cities or on taxi or for admins, gm's, mod's if its enabled in worldserver.conf
     bool instantLogout = player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING) || player->isInFlight() ||
         GetSecurity() >= AccountTypes(sWorld->getIntConfig(CONFIG_INSTANT_LOGOUT)) || player->GetMapId() == 1179;//duel zone
@@ -2050,6 +2039,17 @@ void WorldSession::HandleLogoutRequest(WorldPackets::Character::LogoutRequest& /
 
     bool preventAfkLogout = sWorld->getIntConfig(CONFIG_AFK_PREVENT_LOGOUT) == 2
         && GetPlayer()->isAFK();
+
+    uint32 reason = 0;
+    if (player->isInCombat())
+        reason = 1;
+    else if (player->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_FALLING | MOVEMENTFLAG_FALLING_FAR))
+        reason = 3;                                         // is jumping or falling
+    else if (preventAfkSanctuaryLogout || preventAfkLogout || player->duel || player->HasAura(9454)) // is dueling or frozen by GM via freeze command
+        reason = 2;                                         // FIXME - Need the correct value
+    else if (auto instance = player->GetInstanceScript())
+        if (!player->isGameMaster() && instance->IsEncounterInProgress()) // Don`t res if instance in progress
+            reason = 1;
 
     WorldPackets::Character::LogoutResponse logoutResponse;
     logoutResponse.LogoutResult = reason;
