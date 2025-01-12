@@ -80,6 +80,10 @@ INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
 -- Alchemy
 UPDATE `quest_template_addon` SET `RequiredSkillID` = 171, `RequiredSkillPoints` = 1 WHERE `ID` IN (39343, 39344, 39346, 39566);
 
+-- Mining
+UPDATE `quest_template_addon` SET `RequiredSkillID` = 186, `RequiredSkillPoints` = 1 WHERE `ID` IN (38796, 38797);
+UPDATE `quest_template_addon` SET `ExclusiveGroup` = 38795 WHERE `ID` IN (38795, 38796, 38797);
+
 -- Engineering
 UPDATE `quest_template_addon` SET `RequiredSkillID` = 202, `RequiredSkillPoints` = 1 WHERE `ID` IN (46119);
 
