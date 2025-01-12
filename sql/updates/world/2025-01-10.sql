@@ -78,7 +78,7 @@ INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
 ('98948', '40415');
 
 -- Alchemy
-UPDATE `quest_template_addon` SET `RequiredSkillID` = 171, `RequiredSkillPoints` = 1 WHERE `ID` IN (39343, 39344, 39566);
+UPDATE `quest_template_addon` SET `RequiredSkillID` = 171, `RequiredSkillPoints` = 1 WHERE `ID` IN (39343, 39344, 39346, 39566);
 
 -- Engineering
 UPDATE `quest_template_addon` SET `RequiredSkillID` = 202, `RequiredSkillPoints` = 1 WHERE `ID` IN (46119);
