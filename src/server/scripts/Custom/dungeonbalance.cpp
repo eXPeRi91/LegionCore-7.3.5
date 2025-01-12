@@ -39,6 +39,25 @@
 
 static bool enabled, announce, scaleScenarios, playerChangeNotify, dungeonScaleDownXP;
 
+class DungeonBalance_Helpers
+{
+public:
+    static bool IsExcluded(Map* map)
+    {
+        bool excluded = false;
+
+        switch (map->GetId())
+        {
+            case 1460:  // Broken Shore Scenario (needed due to hitting lvl 100 bug, you get severely nerfed)
+                excluded = true;
+                break;
+            default: break;
+        }
+
+        return excluded;
+    }
+};
+
 class DungeonBalance_WorldScript : public WorldScript
 {
 public:
@@ -78,13 +97,17 @@ public:
 
             if (map->IsDungeon() || map->IsRaidOrHeroicDungeon())
             {
-                // Check if this is a garrison map
-                if (player->GetMap()->IsGarrison())
-                    return;
+                // Check if excluded map
+                if (!DungeonBalance_Helpers::IsExcluded(player->GetMap()))
+                {
+                    // Check if this is a garrison map
+                    if (player->GetMap()->IsGarrison())
+                        return;
 
-                // Check if this is a scenario map and if it is make sure we should scale it
-                if (player->GetMap()->IsScenario() && !scaleScenarios)
-                    return;
+                    // Check if this is a scenario map and if it is make sure we should scale it
+                    if (player->GetMap()->IsScenario() && !scaleScenarios)
+                        return;
+                }
 
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
 
@@ -160,13 +183,17 @@ public:
         if (!enabled || damage == 0 || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()))
             return damage;
 
-        // Check if this is a garrison map
-        if (attacker->GetMap()->IsGarrison())
-            return damage;
+        // Check if excluded map
+        if (!DungeonBalance_Helpers::IsExcluded(attacker->GetMap()))
+        {
+            // Check if this is a garrison map
+            if (attacker->GetMap()->IsGarrison())
+                return damage;
 
-        // Check if this is a scenario map and if it is make sure we should scale it
-        if (attacker->GetMap()->IsScenario() && !scaleScenarios)
-            return damage;
+            // Check if this is a scenario map and if it is make sure we should scale it
+            if (attacker->GetMap()->IsScenario() && !scaleScenarios)
+                return damage;
+        }
 
         int8 maxPlayerCount = attacker->GetMap()->GetMapMaxPlayers();
         float playerCount = attacker->GetMap()->GetPlayerCount();
@@ -245,14 +272,18 @@ public:
     {
         if (!enabled || !playerChangeNotify || !map || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()))
             return;
-        
-        // Check if this is a garrison map
-        if (map->IsGarrison())
-            return;
 
-        // Check if this is a scenario map and if it is make sure we should scale it
-        if (map->IsScenario() && !scaleScenarios)
-            return;
+        // Check if excluded map
+        if (!DungeonBalance_Helpers::IsExcluded(map))
+        {
+            // Check if this is a garrison map
+            if (map->IsGarrison())
+                return;
+
+            // Check if this is a scenario map and if it is make sure we should scale it
+            if (map->IsScenario() && !scaleScenarios)
+                return;
+        }
 
         Map::PlayerList const& playerList = map->GetPlayers();
         if (!playerList.isEmpty())
@@ -274,13 +305,17 @@ public:
         if (!enabled || !playerChangeNotify || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()))
             return;
 
-        // Check if this is a garrison map
-        if (map->IsGarrison())
-            return;
+        // Check if excluded map
+        if (!DungeonBalance_Helpers::IsExcluded(map))
+        {
+            // Check if this is a garrison map
+            if (map->IsGarrison())
+                return;
 
-        // Check if this is a scenario map and if it is make sure we should scale it
-        if (map->IsScenario() && !scaleScenarios)
-            return;
+            // Check if this is a scenario map and if it is make sure we should scale it
+            if (map->IsScenario() && !scaleScenarios)
+                return;
+        }
 
         Map::PlayerList const& playerList = map->GetPlayers();
         if (!playerList.isEmpty())
