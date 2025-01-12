@@ -42,7 +42,7 @@ static bool enabled, announce, scaleScenarios, playerChangeNotify, dungeonScaleD
 class DungeonBalance_Helpers
 {
 public:
-    static bool IsExcluded(Map* map)
+    static bool IsExcludedMap(Map* map)
     {
         bool excluded = false;
 
@@ -55,6 +55,27 @@ public:
         }
 
         return excluded;
+    }
+
+    static uint16 CalculateMaxPlayersCount(Map* map, bool forXP = false)
+    {
+        uint16 maxPlayerCount = map->GetMapMaxPlayers();
+
+        if (maxPlayerCount == 10 || maxPlayerCount == 0)
+            maxPlayerCount = 5;
+
+        if (forXP)
+        {
+            uint32 playerCount = map->GetPlayerCount();
+
+            // Adjust so that 1 or 2 player is not a ridiculous way to get XP
+            if (playerCount == 1)
+                maxPlayerCount = 15;
+            else if (playerCount == 2)
+                maxPlayerCount = 10;
+        }
+
+        return maxPlayerCount;
     }
 };
 
@@ -98,7 +119,7 @@ public:
             if (map->IsDungeon() || map->IsRaidOrHeroicDungeon())
             {
                 // Check if excluded map
-                if (!DungeonBalance_Helpers::IsExcluded(player->GetMap()))
+                if (!DungeonBalance_Helpers::IsExcludedMap(player->GetMap()))
                 {
                     // Check if this is a garrison map
                     if (player->GetMap()->IsGarrison())
@@ -111,20 +132,9 @@ public:
 
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
 
-                uint16 maxPlayerCount = map->GetMapMaxPlayers();
-
-                if (maxPlayerCount == 10 || maxPlayerCount == 0)
-                    maxPlayerCount = 5;
-
-                uint32 playerCount = map->GetPlayerCount();
-
-                // Adjust so that 1 or 2 player is not a ridiculous way to get XP
-                if (playerCount == 1)
-                    maxPlayerCount = 15;
-                else if (playerCount == 2)
-                    maxPlayerCount = 10;
-
-                float xpMult = float(playerCount) / float(maxPlayerCount);
+                uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(map);
+                
+                float xpMult = float(map->GetPlayerCount()) / float(maxPlayerCount);
                 uint32 newAmount = uint32(amount * xpMult);
                 
                 if (victim)
@@ -184,7 +194,7 @@ public:
             return damage;
 
         // Check if excluded map
-        if (!DungeonBalance_Helpers::IsExcluded(attacker->GetMap()))
+        if (!DungeonBalance_Helpers::IsExcludedMap(attacker->GetMap()))
         {
             // Check if this is a garrison map
             if (attacker->GetMap()->IsGarrison())
@@ -195,7 +205,7 @@ public:
                 return damage;
         }
 
-        int8 maxPlayerCount = attacker->GetMap()->GetMapMaxPlayers();
+        uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(attacker->GetMap());
         float playerCount = attacker->GetMap()->GetPlayerCount();
 
         //TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "Initial maxPlayerCount is %u.", maxPlayerCount);
@@ -232,7 +242,7 @@ public:
             else
                 actionTaken = "decreased";
 
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used, maxplayercount is %i).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount, maxPlayerCount);
 
             return modifiedDamage;
         }
@@ -256,7 +266,7 @@ public:
                 modifiedDamage = cappedDamage;
             }
             
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used, maxplayercount is %i).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount, maxPlayerCount);
 
             return static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
         }
@@ -274,7 +284,7 @@ public:
             return;
 
         // Check if excluded map
-        if (!DungeonBalance_Helpers::IsExcluded(map))
+        if (!DungeonBalance_Helpers::IsExcludedMap(map))
         {
             // Check if this is a garrison map
             if (map->IsGarrison())
@@ -293,8 +303,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the Instance %s. Auto setting player count to %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount());
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the Instance %s. Auto setting player count to %u, max player count is %u, adjusted max player count is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), map->GetMapMaxPlayers(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
                 }
             }
         }
@@ -306,7 +316,7 @@ public:
             return;
 
         // Check if excluded map
-        if (!DungeonBalance_Helpers::IsExcluded(map))
+        if (!DungeonBalance_Helpers::IsExcludedMap(map))
         {
             // Check if this is a garrison map
             if (map->IsGarrison())
@@ -325,8 +335,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [-DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount());
+                    chatHandle.PSendSysMessage("|cffFF0000 [-DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u, max player count is %u, adjusted max player count is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), map->GetMapMaxPlayers(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
                 }
             }
         }
