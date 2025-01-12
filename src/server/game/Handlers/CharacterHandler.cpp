@@ -2045,6 +2045,12 @@ void WorldSession::HandleLogoutRequest(WorldPackets::Character::LogoutRequest& /
     bool instantLogout = player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING) || player->isInFlight() ||
         GetSecurity() >= AccountTypes(sWorld->getIntConfig(CONFIG_INSTANT_LOGOUT)) || player->GetMapId() == 1179;//duel zone
 
+    bool preventAfkSanctuaryLogout = sWorld->getIntConfig(CONFIG_AFK_PREVENT_LOGOUT) == 1
+        && GetPlayer()->isAFK() && sAreaTableStore.LookupEntry(GetPlayer()->GetAreaId())->IsSanctuary();
+
+    bool preventAfkLogout = sWorld->getIntConfig(CONFIG_AFK_PREVENT_LOGOUT) == 2
+        && GetPlayer()->isAFK();
+
     WorldPackets::Character::LogoutResponse logoutResponse;
     logoutResponse.LogoutResult = reason;
     logoutResponse.Instant = instantLogout;
