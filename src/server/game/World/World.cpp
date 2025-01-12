@@ -1294,6 +1294,7 @@ void World::LoadConfigSettings(bool reload)
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "VMap data directory is: %svmaps", m_dataPath.c_str());
 
     m_int_configs[CONFIG_MAX_WHO] = sConfigMgr->GetIntDefault("MaxWhoListReturns", 49);
+    m_int_configs[CONFIG_AFK_PREVENT_LOGOUT] = sConfigMgr->GetIntDefault("PreventAFKLogout", 0);
     m_bool_configs[CONFIG_LIMIT_WHO_ONLINE] = sConfigMgr->GetBoolDefault("LimitWhoOnline", true);
     m_bool_configs[CONFIG_PET_LOS] = sConfigMgr->GetBoolDefault("vmap.petLOS", true);
 

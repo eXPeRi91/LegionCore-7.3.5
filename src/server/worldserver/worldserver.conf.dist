@@ -667,6 +667,15 @@ MinPetName = 2
 MaxWhoListReturns = 49
 
 #
+#    PreventAFKLogout
+#        Description: Prevent players AFK from being logged out
+#        Default:     0  - (Disabled)
+#                     1  - (Enabled, prevent players AFK from being logged out in Sanctuary zones)
+#                     2  - (Enabled, prevent players AFK from being logged out in all zones)
+
+PreventAFKLogout = 0
+
+#
 #    CharactersPerAccount
 #        Description: Limit number of characters per account on all realms on this realmlist.
 #        Important:   Number must be >= CharactersPerRealm
