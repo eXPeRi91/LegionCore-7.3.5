@@ -132,7 +132,7 @@ public:
 
                 TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
 
-                uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(map);
+                uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true);
                 
                 float xpMult = float(map->GetPlayerCount()) / float(maxPlayerCount);
                 uint32 newAmount = uint32(amount * xpMult);
