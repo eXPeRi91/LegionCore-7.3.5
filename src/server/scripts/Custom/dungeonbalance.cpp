@@ -58,20 +58,20 @@ public:
     }
 
     /*
-    * ==== Dungeons ====
-    * Normal = 10
-    * Heroic = 5
-    * Mythic = 5
-    * 
-    * ==== Raids ====
-    * Normal = 30
-    * Heroic = 30
-    * Mythic = 20
-    * 
-    * ==== Legacy Raids ====
-    * Normal = 10 or 25 (depending on player choice)
-    * Heroic = 10
-    * Mythic = 10 or 25 (depending on player choice)
+    *   ==== Dungeons ====
+    *   Normal = 10
+    *   Heroic = 5
+    *   Mythic = 5
+    *   
+    *   ==== Raids ====
+    *   Normal = 30
+    *   Heroic = 30
+    *   Mythic = 20
+    *   
+    *   ==== Legacy Raids ====
+    *   Normal = 10 or 25 (depending on player choice)
+    *   Heroic = 10
+    *   Mythic = 10
     */
     static uint16 CalculateMaxPlayersCount(Map* map, bool forXP = false)
     {
@@ -354,7 +354,7 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [-DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u, adjusted max player count is %u |r",
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u, adjusted max player count is %u |r",
                         player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
                 }
             }
