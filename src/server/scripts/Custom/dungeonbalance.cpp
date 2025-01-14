@@ -89,7 +89,7 @@ public:
 
             // Adjust so that 1 or 2 player is not a ridiculous way to get XP
             if (playerCount == 1)
-                maxPlayerCount *= 1.5;
+                maxPlayerCount *= 3;
             else if (playerCount == 2)
                 maxPlayerCount *= 2;
         }
