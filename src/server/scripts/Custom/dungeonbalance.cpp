@@ -57,12 +57,31 @@ public:
         return excluded;
     }
 
+    /*
+    * ==== Dungeons ====
+    * Normal = 10
+    * Heroic = 5
+    * Mythic = 5
+    * 
+    * ==== Raids ====
+    * Normal = 30
+    * Heroic = 30
+    * Mythic = 20
+    * 
+    * ==== Legacy Raids ====
+    * Normal = 10 or 25 (depending on player choice)
+    * Heroic = 10
+    * Mythic = 10 or 25 (depending on player choice)
+    */
     static uint16 CalculateMaxPlayersCount(Map* map, bool forXP = false)
     {
         uint16 maxPlayerCount = map->GetMapMaxPlayers();
 
-        if (maxPlayerCount == 10 || maxPlayerCount == 0)
-            maxPlayerCount = 5;
+        if (maxPlayerCount == 0)
+        {
+            MapDifficultyEntry const* difficulty = map->GetMapDifficulty();
+            maxPlayerCount = difficulty->MaxPlayers;
+        }
 
         if (forXP)
         {
@@ -70,9 +89,9 @@ public:
 
             // Adjust so that 1 or 2 player is not a ridiculous way to get XP
             if (playerCount == 1)
-                maxPlayerCount = 15;
+                maxPlayerCount *= 1.5;
             else if (playerCount == 2)
-                maxPlayerCount = 10;
+                maxPlayerCount *= 2;
         }
 
         return maxPlayerCount;
@@ -303,8 +322,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the Instance %s. Auto setting player count to %u, max player count is %u, adjusted max player count is %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), map->GetMapMaxPlayers(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the Instance %s. Auto setting player count to %u, adjusted max player count is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
                 }
             }
         }
@@ -335,8 +354,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [-DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u, max player count is %u, adjusted max player count is %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), map->GetMapMaxPlayers(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
+                    chatHandle.PSendSysMessage("|cffFF0000 [-DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u, adjusted max player count is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
                 }
             }
         }
