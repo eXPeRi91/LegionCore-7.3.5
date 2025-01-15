@@ -149,10 +149,10 @@ public:
                         return;
                 }
 
-                TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
-
                 uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true);
-                
+
+                TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.  Max player count of %u used.", player->GetName(), amount, victim->GetName(), maxPlayerCount);
+
                 float xpMult = float(map->GetPlayerCount()) / float(maxPlayerCount);
                 uint32 newAmount = uint32(amount * xpMult);
                 
@@ -261,7 +261,7 @@ public:
             else
                 actionTaken = "decreased";
 
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used, maxplayercount is %i).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount, maxPlayerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used, max player count is %u).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount, maxPlayerCount);
 
             return modifiedDamage;
         }
@@ -285,7 +285,7 @@ public:
                 modifiedDamage = cappedDamage;
             }
             
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used, maxplayercount is %i).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount, maxPlayerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used, max player count is %u).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount, maxPlayerCount);
 
             return static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
         }
@@ -322,8 +322,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the Instance %s. Auto setting player count to %u, adjusted max player count is %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the instance %s. Player count is now %u, adjusted max count is %u, count for XP is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map), DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true));
                 }
             }
         }
@@ -354,8 +354,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u, adjusted max player count is %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map));
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s left the instance %s. Player count is now %u, adjusted max count is %u, count for XP is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map), DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true));
                 }
             }
         }
