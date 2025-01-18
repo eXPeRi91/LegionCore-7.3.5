@@ -4,7 +4,7 @@
 
 SET @creature_id = 800000;
 SET @gossip_menu = 55555;
-SET @broadcast_id = 333333;
+SET @broadcast_id = 333333;  -- Must match same variable in hotfixes SQL file
 
 -- creature_template
 DELETE FROM `creature_template` WHERE `entry` = @creature_id;
