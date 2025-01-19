@@ -1465,6 +1465,7 @@ void World::LoadConfigSettings(bool reload)
         TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "MaxPrestigeLevel (%i) must be in range 1..25. Set to 25.", m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]);
         m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] = 25;
     }
+    m_bool_configs[CONFIG_RESET_PVP_TALENTS_ON_PRESTIGE] = sConfigMgr->GetBoolDefault("ResetHonorTalentsOnPrestige", false);
 
     m_int_configs[CONFIG_SIZE_CELL_FOR_PULL] = sConfigMgr->GetIntDefault("SizeCellForPull", 8);
 

@@ -960,8 +960,11 @@ void WorldSession::HandleUpdatePrestigeLevel(WorldPackets::Battleground::NullCms
     player->SetUInt32Value(PLAYER_FIELD_HONOR_NEXT_LEVEL, honorInfo->NextHonorAtLevel);
     player->SetUInt32Value(PLAYER_FIELD_PRESTIGE, honorInfo->PrestigeLevel);
 
-    player->RemoveAllPvPTalent();
-    player->SendTalentsInfoData(false);
+    if (sWorld->getBoolConfig(CONFIG_RESET_PVP_TALENTS_ON_PRESTIGE) == true)
+    {
+        player->RemoveAllPvPTalent();
+        player->SendTalentsInfoData(false);
+    }
 }
 
 void WorldSession::HandleAcceptWargameInvite(WorldPackets::Battleground::AcceptWargameInvite& packet)

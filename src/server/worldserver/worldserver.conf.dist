@@ -778,6 +778,14 @@ StartHeroicPlayerLevel = 55
 MaxPrestigeLevel = 25
 
 #
+#    ResetHonorTalentsOnPrestige
+#        Description: Choose whether or not honor talents are reset when you prestige.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+ResetHonorTalentsOnPrestige = 0
+
+#
 #    StartPlayerMoney
 #        Description: Amount of money (in Copper) that a character has after creation.
 #        Default:     0
