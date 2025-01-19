@@ -32,7 +32,7 @@ namespace AccountMgr
 AccountOpResult CreateAccount(std::string username, std::string password, bool async)
 {
     if (utf8length(username) > MAX_EMAIL_STR)
-        return AccountOpResult::AOR_NAME_TOO_LONG;          // username's too long
+        return AccountOpResult::AOR_NAME_TOO_LONG;          // username is too long
 
     if (utf8length(password) > MAX_PASS_STR)
         return AccountOpResult::AOR_PASS_TOO_LONG;
@@ -41,7 +41,7 @@ AccountOpResult CreateAccount(std::string username, std::string password, bool a
     Utf8ToUpperOnlyLatin(password);
 
     if (GetId(username))
-        return AccountOpResult::AOR_NAME_ALREADY_EXIST;     // username does already exist
+        return AccountOpResult::AOR_NAME_ALREADY_EXIST;     // username already exists
 
     PreparedStatement* stmt = LoginDatabase.GetPreparedStatement(LOGIN_INS_ACCOUNT);
     stmt->setString(0, username);
@@ -52,7 +52,7 @@ AccountOpResult CreateAccount(std::string username, std::string password, bool a
     else
         LoginDatabase.DirectExecute(stmt);
 
-    return AccountOpResult::AOR_OK;                         // everything's fine
+    return AccountOpResult::AOR_OK;                         // everything is okay
 }
 
 #ifndef _WEB_API

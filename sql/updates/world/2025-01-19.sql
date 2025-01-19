@@ -1,0 +1,2 @@
+-- Add missing error message for account creation
+INSERT INTO `trinity_string` (`entry`, `content_default`) VALUES (1029, 'Username should not be in email format, remove any ''@'' or ''.'' from the username and try again!');
