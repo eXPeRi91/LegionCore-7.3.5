@@ -1459,7 +1459,7 @@ void World::LoadConfigSettings(bool reload)
     m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
     m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
 
-    m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]  = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 14);
+    m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]  = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 25);
 
     m_int_configs[CONFIG_SIZE_CELL_FOR_PULL]  = sConfigMgr->GetIntDefault("SizeCellForPull", 8);
 

@@ -763,11 +763,19 @@ StartPlayerLevel = 1
 
 #
 #    StartHeroicPlayerLevel
-#        Description: Staring level for heroic class characters after creation.
+#        Description: Starting level for heroic class characters after creation.
 #        Range:       1-MaxPlayerLevel
 #        Default:     55
 
 StartHeroicPlayerLevel = 55
+
+#
+#    MaxPrestigeLevel
+#        Description: Maximum prestige level a player may prestige to.
+#        Range:       1-25
+#        Default:     25
+
+MaxPrestigeLevel = 25
 
 #
 #    StartPlayerMoney
