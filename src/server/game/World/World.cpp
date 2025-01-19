@@ -1456,8 +1456,8 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[CONFIG_RESTRUCT_GUID] = sConfigMgr->GetBoolDefault("Restruct.Guid", false);
 
     //Time Zone
-    m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "Europe/Paris");// == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
-    m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "Europe/Paris"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
+    m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
+    m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
 
     m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]  = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 14);
 
