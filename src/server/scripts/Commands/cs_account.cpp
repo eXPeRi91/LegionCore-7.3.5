@@ -107,7 +107,7 @@ public:
         if (!accountName || !password)
             return false;
 
-        if (!strchr(accountName, '@'))
+        if (strchr(accountName, '@') || strchr(accountName, '.'))
         {
             handler->SendSysMessage(LANG_ACCOUNT_INVALID_BNET_NAME);
             handler->SetSentErrorMessage(true);
