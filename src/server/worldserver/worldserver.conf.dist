@@ -715,7 +715,7 @@ CharacterCreating.MinLevelForHeroicCharacter = 55
 #        Range:       1-12
 #        Default:     1
 
-DemonHuntersPerRealm = 12
+DemonHuntersPerRealm = 1
 
 #
 #    CharacterCreating.MinLevelForDemonHunter
