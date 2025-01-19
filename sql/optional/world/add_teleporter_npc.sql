@@ -1,6 +1,4 @@
-/*
-	New `creature_template` GUIDs start at 800000
-*/
+-- NOTE: You must place the creature manually wherever you want it
 
 SET @creature_id = 800000;
 SET @gossip_menu = 55555;
