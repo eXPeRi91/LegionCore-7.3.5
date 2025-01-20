@@ -1911,7 +1911,6 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
         return lock;
     }
 
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons DEBUG 1");
     bool allowPrevious = sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS);
     uint8 level = player->getLevel();
     uint8 expansion = player->GetSession()->Expansion();
@@ -1937,10 +1936,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
         else if (dungeon->minlevel > level)
             lockData.status = LFG_LOCKSTATUS_TOO_LOW_LEVEL;
         else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && (!allowPrevious || dungeon->dbc->IsRaidFinder()))
-        {
-            TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons TOO HIGH LEVEL %u", dungeon->map);
             lockData.status = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
-        }
         else if (dungeon->seasonal && !IsSeasonActive(dungeon->id))
             lockData.status = LFG_LOCKSTATUS_NOT_IN_SEASON;
         else if (!sConditionMgr->IsPlayerMeetingCondition(player, sDB2Manager.LFGRoleRequirementCondition(dungeon->dbc->ID, player->GetSpecializationRole())))
@@ -2786,7 +2782,6 @@ uint32 LFGMgr::GetLFGDungeonEntry(uint32 id)
 
 LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
 {
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetRewardableDungeons DEBUG 1");
     bool allowPrevious = sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS);
 
     LfgDungeonSet randomDungeons;
@@ -2797,14 +2792,12 @@ LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
             continue;
 
         if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && (level <= dungeon->maxlevel || (allowPrevious && !dungeon->dbc->IsRaidFinder())))
+        {
             if (GetDungeonReward(dungeon->dbc->Entry(), level))
-            {
-                TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetRewardableDungeons DEBUG 2");
                 randomDungeons.insert(dungeon->dbc->Entry());
-            }
+        }
     }
 
-    TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetRewardableDungeons DEBUG 3");
     return randomDungeons;
 }
 
