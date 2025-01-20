@@ -253,7 +253,10 @@ public:
         if ((attacker->IsPlayer() && (!target->IsPlayer() || heal)) || (attacker->IsControlledByPlayer() && (attacker->isHunterPet() || attacker->isPet() || attacker->isSummon())))
         {
             // Player
-            modifiedDamage = static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
+            if (damage * float(maxPlayerCount / playerCount) > std::numeric_limits<uint32_t>::max())
+                modifiedDamage = UINT32_MAX;
+            else
+                modifiedDamage = static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
 
             std::string actionTaken;
             if (damage < modifiedDamage)
@@ -268,7 +271,10 @@ public:
         else
         {
             // Enemy
-            modifiedDamage = static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
+            if (damage * float(playerCount / maxPlayerCount) > std::numeric_limits<uint32_t>::max())
+                modifiedDamage = UINT32_MAX;
+            else
+                modifiedDamage = static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
 
             std::string actionTaken;
             if (damage < modifiedDamage)
