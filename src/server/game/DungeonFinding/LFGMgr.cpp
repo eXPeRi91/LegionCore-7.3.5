@@ -1944,7 +1944,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
         else if (dungeon->seasonal && !IsSeasonActive(dungeon->id))
             lockData.status = LFG_LOCKSTATUS_NOT_IN_SEASON;
         else if (!sConditionMgr->IsPlayerMeetingCondition(player, sDB2Manager.LFGRoleRequirementCondition(dungeon->dbc->ID, player->GetSpecializationRole())))
-            lockData.status = LFG_LOCKSTATUS_NOT_COMLETE_CHALANGE; // atm data only for challenges check, same in beta BFA
+            lockData.status = LFG_LOCKSTATUS_NOT_COMPLETE_CHALLENGE; // atm data only for challenges check, same in beta BFA
         // else if (dungeon->dbc->GroupID == LFG_GROUP_NORMAL_LEGION && !player->HasAchieved(ar->achievement)) // Check artifact in Legion
             // lockData.status = LFG_LOCKSTATUS_NOT_HAVE_ARTIFACT;
         // merge faction check with check on invalid TP pos and check on test invalid maps (BUT we still have to send it! LOL, in WoD blizz deleted invalid maps from client DBC)
