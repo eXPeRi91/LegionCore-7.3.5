@@ -1936,7 +1936,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
             lockData.status = LFG_LOCKSTATUS_RAID_LOCKED;
         else if (dungeon->minlevel > level)
             lockData.status = LFG_LOCKSTATUS_TOO_LOW_LEVEL;
-        else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && !allowPrevious)
+        else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && (!allowPrevious || dungeon->dbc->IsRaidFinder()))
         {
             TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetLockedDungeons TOO HIGH LEVEL %u", dungeon->map);
             lockData.status = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
@@ -2796,7 +2796,7 @@ LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
         if (!dungeon)
             continue;
 
-        if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && (level <= dungeon->maxlevel || allowPrevious))
+        if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && (level <= dungeon->maxlevel || (allowPrevious && !dungeon->dbc->IsRaidFinder())))
             if (GetDungeonReward(dungeon->dbc->Entry(), level))
             {
                 TC_LOG_ERROR(LOG_FILTER_NETWORKIO, "GetRewardableDungeons DEBUG 2");
