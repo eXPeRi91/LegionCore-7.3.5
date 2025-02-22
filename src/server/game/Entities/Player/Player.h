@@ -3571,9 +3571,9 @@ class Player : public Unit, public GridObject<Player>
         uint32 GetBattlePetCombatSize();
         void UpdateBattlePetCombatTeam();
         BattlePetMap _battlePets;
-        bool AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint16 flags = 0, bool sendUpdate = true, bool sendDiliveryUpdate = false);
+        bool AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint16 flags = 0, bool sendUpdate = true, bool sendDeliveryUpdate = false);
         bool AddBattlePet(uint32 spellID, uint16 flags = 0, bool sendUpdate = true);
-        bool AddBattlePetByCreatureId(uint32 creatureId, bool sendUpdate = true, bool sendDiliveryUpdate = false);
+        bool AddBattlePetByCreatureId(uint32 creatureId, bool sendUpdate = true, bool sendDeliveryUpdate = false);
 
         uint32 GetTimeSync() const;
         uint32 GetTimeSyncClient() const;
