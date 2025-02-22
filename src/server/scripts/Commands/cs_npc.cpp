@@ -986,7 +986,6 @@ public:
 
         handler->PSendSysMessage("Level: %u, Effective: %u", target->getLevel(), target->GetEffectiveLevel());
         handler->PSendSysMessage("Scale Min: %u, Scale Max: %u", target->ScaleLevelMin, target->ScaleLevelMax);
-        handler->PSendSysMessage("Zone Min: %u, Zone Max: %u", target->_minZoneLevel, target->_maxZoneLevel);
         handler->PSendSysMessage(LANG_NPCINFO_HEALTH, target->GetCreateHealth(), target->GetMaxHealth(), target->GetHealth());
         handler->PSendSysMessage(LANG_NPCINFO_FLAGS, target->getFaction());
         handler->PSendSysMessage(LANG_COMMAND_RAWPAWNTIMES, defRespawnDelayStr.c_str(), curRespawnDelayStr.c_str());
