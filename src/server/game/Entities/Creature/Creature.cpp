@@ -1829,7 +1829,7 @@ void Creature::SelectLevel(const CreatureTemplate* cInfo)
     SetModifierValue(UNIT_MOD_HEALTH, BASE_VALUE, static_cast<float>(health));
     SetModifierValue(UNIT_MOD_MANA, BASE_VALUE, static_cast<float>(mana));
 
-    //damage
+    // damage
     float maxDmgMod = 1.5f;
     if (GetMap() && GetMap()->GetDifficultyID() == DIFFICULTY_MYTHIC_KEYSTONE)
         maxDmgMod = 1.2f;

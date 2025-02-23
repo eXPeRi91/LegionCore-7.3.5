@@ -1294,6 +1294,7 @@ void World::LoadConfigSettings(bool reload)
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "VMap data directory is: %svmaps", m_dataPath.c_str());
 
     m_int_configs[CONFIG_MAX_WHO] = sConfigMgr->GetIntDefault("MaxWhoListReturns", 49);
+    m_int_configs[CONFIG_AFK_PREVENT_LOGOUT] = sConfigMgr->GetIntDefault("PreventAFKLogout", 0);
     m_bool_configs[CONFIG_LIMIT_WHO_ONLINE] = sConfigMgr->GetBoolDefault("LimitWhoOnline", true);
     m_bool_configs[CONFIG_PET_LOS] = sConfigMgr->GetBoolDefault("vmap.petLOS", true);
 
@@ -1441,13 +1442,13 @@ void World::LoadConfigSettings(bool reload)
     m_float_configs[CONFIG_CAP_KILL_CREATURE_POINTS] = sConfigMgr->GetFloatDefault("Cap.KillCreaturePoints", 150.0f);
 
     m_bool_configs[CONFIG_WORLD_QUEST] = sConfigMgr->GetBoolDefault("WorldQuest", true);
-    m_int_configs[CONFIG_WORLD_QUEST_RESET_TIME_HOUR]  = sConfigMgr->GetIntDefault("WorldQuest.ResetTimeHour", 4);
-    m_int_configs[CONFIG_WORLD_QUEST_HOURLY_RESET]  = sConfigMgr->GetIntDefault("WorldQuest.HourlyReset", 6);
-    m_int_configs[CONFIG_WORLD_QUEST_DAILY_RESET]  = sConfigMgr->GetIntDefault("WorldQuest.DailyReset", 1);
-    m_int_configs[CONFIG_INVASION_POINT_RESET]  = sConfigMgr->GetIntDefault("WorldQuest.InvasionPoint", 2);
+    m_int_configs[CONFIG_WORLD_QUEST_RESET_TIME_HOUR] = sConfigMgr->GetIntDefault("WorldQuest.ResetTimeHour", 4);
+    m_int_configs[CONFIG_WORLD_QUEST_HOURLY_RESET] = sConfigMgr->GetIntDefault("WorldQuest.HourlyReset", 6);
+    m_int_configs[CONFIG_WORLD_QUEST_DAILY_RESET] = sConfigMgr->GetIntDefault("WorldQuest.DailyReset", 1);
+    m_int_configs[CONFIG_INVASION_POINT_RESET] = sConfigMgr->GetIntDefault("WorldQuest.InvasionPoint", 2);
 
-    m_int_configs[CONFIG_WORLD_QUEST_MIN_ITEMLEVEL]  = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Min", 805);
-    m_int_configs[CONFIG_WORLD_QUEST_ITEMLEVEL_CAP]  = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Max", 855);
+    m_int_configs[CONFIG_WORLD_QUEST_MIN_ITEMLEVEL] = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Min", 805);
+    m_int_configs[CONFIG_WORLD_QUEST_ITEMLEVEL_CAP] = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Max", 855);
 
     // Cross Faction BG
     m_bool_configs[CONFIG_CROSSFACTIONBG] = sConfigMgr->GetBoolDefault("MixedBGs", false);
@@ -1455,12 +1456,18 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[CONFIG_RESTRUCT_GUID] = sConfigMgr->GetBoolDefault("Restruct.Guid", false);
 
     //Time Zone
-    m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "Europe/Paris");// == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
-    m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "Europe/Paris"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
+    m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
+    m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
 
-    m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]  = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 14);
+    m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 25);
+    if (int32(m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]) < 0 || m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] > 25)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "MaxPrestigeLevel (%i) must be in range 1..25. Set to 25.", m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]);
+        m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] = 25;
+    }
+    m_bool_configs[CONFIG_RESET_PVP_TALENTS_ON_PRESTIGE] = sConfigMgr->GetBoolDefault("ResetHonorTalentsOnPrestige", false);
 
-    m_int_configs[CONFIG_SIZE_CELL_FOR_PULL]  = sConfigMgr->GetIntDefault("SizeCellForPull", 8);
+    m_int_configs[CONFIG_SIZE_CELL_FOR_PULL] = sConfigMgr->GetIntDefault("SizeCellForPull", 8);
 
     m_bool_configs[CONFIG_ANTICHEAT_ENABLED] = sConfigMgr->GetBoolDefault("Anticheat.Enable", false);
     m_bool_configs[CONFIG_ANTICHEAT_ANTI_MULTI_JUMP_ENABLED] = sConfigMgr->GetBoolDefault("Anticheat.AntiMultiJump.Enable", false);
@@ -1475,7 +1482,7 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_ANTICHEAT_MAX_ALLOWED_DESYNC] = sConfigMgr->GetIntDefault("Anticheat.MaxAllowedDesync", 0);
     m_int_configs[CONFIG_ANTICHEAT_GM_ANNOUNCE_MASK] = sConfigMgr->GetIntDefault("Anticheat.GMAnnounceMask", 0);
 
-    m_bool_configs[CONFIG_OBLITERUM_LEVEL_ENABLE]  = sConfigMgr->GetBoolDefault("Obliterum.LevelEnable", true);
+    m_bool_configs[CONFIG_OBLITERUM_LEVEL_ENABLE] = sConfigMgr->GetBoolDefault("Obliterum.LevelEnable", true);
 
     m_int_configs[CONFIG_CHALLENGE_LEVEL_LIMIT] = sConfigMgr->GetIntDefault("Challenge.LevelLimit", 30);
     m_int_configs[CONFIG_CHALLENGE_LEVEL_MAX] = sConfigMgr->GetIntDefault("Challenge.LevelMax", 15);

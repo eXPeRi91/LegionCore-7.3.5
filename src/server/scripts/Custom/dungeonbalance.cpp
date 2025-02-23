@@ -39,6 +39,69 @@
 
 static bool enabled, announce, scaleScenarios, playerChangeNotify, dungeonScaleDownXP;
 
+class DungeonBalance_Helpers
+{
+public:
+    static bool IsExcludedMap(Map* map)
+    {
+        bool excluded = false;
+
+        switch (map->GetId())
+        {
+            case 1460:  // Broken Shore Scenario (needed due to hitting lvl 100 bug, you get severely nerfed)
+                excluded = true;
+                break;
+            default: break;
+        }
+
+        return excluded;
+    }
+
+    /*
+    *   ==== Dungeons ====
+    *   Normal = 10
+    *   Heroic = 5
+    *   Mythic = 5
+    *   
+    *   ==== Raids ====
+    *   Normal = 30
+    *   Heroic = 30
+    *   Mythic = 20
+    *   
+    *   ==== Legacy Raids ====
+    *   Normal = 10 or 25 (depending on player choice)
+    *   Heroic = 10
+    *   Mythic = 10
+    */
+    static uint16 CalculateMaxPlayersCount(Map* map, bool forXP = false)
+    {
+        uint16 maxPlayerCount = map->GetMapMaxPlayers();
+
+        if (maxPlayerCount == 0)
+        {
+            MapDifficultyEntry const* difficulty = map->GetMapDifficulty();
+            maxPlayerCount = difficulty->MaxPlayers;
+        }
+
+        if (forXP)
+        {
+            uint32 playerCount = map->GetPlayerCount();
+
+            // Adjust so that 1 or 2 player is not a ridiculous way to get XP
+            if (playerCount == 1)
+                maxPlayerCount *= 3;
+            else if (playerCount == 2)
+                maxPlayerCount *= 2;
+        }
+
+        // For raids, cut the maxPlayerCount in half if too few players
+        if (!forXP && map->IsRaid() && map->GetPlayerCount() <= maxPlayerCount * .6)
+            maxPlayerCount *= .5;
+
+        return maxPlayerCount;
+    }
+};
+
 class DungeonBalance_WorldScript : public WorldScript
 {
 public:
@@ -78,30 +141,23 @@ public:
 
             if (map->IsDungeon() || map->IsRaidOrHeroicDungeon())
             {
-                // Check if this is a garrison map
-                if (player->GetMap()->IsGarrison())
-                    return;
+                // Check if excluded map
+                if (!DungeonBalance_Helpers::IsExcludedMap(player->GetMap()))
+                {
+                    // Check if this is a garrison map
+                    if (player->GetMap()->IsGarrison())
+                        return;
 
-                // Check if this is a scenario map and if it is make sure we should scale it
-                if (player->GetMap()->IsScenario() && !scaleScenarios)
-                    return;
+                    // Check if this is a scenario map and if it is make sure we should scale it
+                    if (player->GetMap()->IsScenario() && !scaleScenarios)
+                        return;
+                }
 
-                TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.", player->GetName(), amount, victim->GetName());
+                uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true);
 
-                uint16 maxPlayerCount = map->GetMapMaxPlayers();
+                TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Prospective incoming XP of %u from killing %s.  Max player count of %u used.", player->GetName(), amount, victim->GetName(), maxPlayerCount);
 
-                if (maxPlayerCount == 10 || maxPlayerCount == 0)
-                    maxPlayerCount = 5;
-
-                uint32 playerCount = map->GetPlayerCount();
-
-                // Adjust so that 1 or 2 player is not a ridiculous way to get XP
-                if (playerCount == 1)
-                    maxPlayerCount = 15;
-                else if (playerCount == 2)
-                    maxPlayerCount = 10;
-
-                float xpMult = float(playerCount) / float(maxPlayerCount);
+                float xpMult = float(map->GetPlayerCount()) / float(maxPlayerCount);
                 uint32 newAmount = uint32(amount * xpMult);
                 
                 if (victim)
@@ -160,15 +216,19 @@ public:
         if (!enabled || damage == 0 || !attacker || !attacker->IsInWorld() || !(attacker->GetMap()->IsDungeon() || attacker->GetMap()->IsRaidOrHeroicDungeon()))
             return damage;
 
-        // Check if this is a garrison map
-        if (attacker->GetMap()->IsGarrison())
-            return damage;
+        // Check if excluded map
+        if (!DungeonBalance_Helpers::IsExcludedMap(attacker->GetMap()))
+        {
+            // Check if this is a garrison map
+            if (attacker->GetMap()->IsGarrison())
+                return damage;
 
-        // Check if this is a scenario map and if it is make sure we should scale it
-        if (attacker->GetMap()->IsScenario() && !scaleScenarios)
-            return damage;
+            // Check if this is a scenario map and if it is make sure we should scale it
+            if (attacker->GetMap()->IsScenario() && !scaleScenarios)
+                return damage;
+        }
 
-        int8 maxPlayerCount = attacker->GetMap()->GetMapMaxPlayers();
+        uint16 maxPlayerCount = DungeonBalance_Helpers::CalculateMaxPlayersCount(attacker->GetMap());
         float playerCount = attacker->GetMap()->GetPlayerCount();
 
         //TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "Initial maxPlayerCount is %u.", maxPlayerCount);
@@ -197,7 +257,15 @@ public:
         if ((attacker->IsPlayer() && (!target->IsPlayer() || heal)) || (attacker->IsControlledByPlayer() && (attacker->isHunterPet() || attacker->isPet() || attacker->isSummon())))
         {
             // Player
-            modifiedDamage = static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
+
+            // For raids, cut the maxPlayerCount in half
+            if (attacker->GetMap()->IsRaid() && attacker->GetMap()->GetPlayerCount() <= maxPlayerCount * .6)
+                maxPlayerCount *= .5;
+
+            if (damage * float(maxPlayerCount / playerCount) > std::numeric_limits<uint32_t>::max())
+                modifiedDamage = UINT32_MAX;
+            else
+                modifiedDamage = static_cast<uint32>(damage * float(maxPlayerCount / playerCount));
 
             std::string actionTaken;
             if (damage < modifiedDamage)
@@ -205,14 +273,17 @@ public:
             else
                 actionTaken = "decreased";
 
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Player %s to %s %s from %u to %u (player count of %.2f was used, max player count is %u).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, playerCount, maxPlayerCount);
 
             return modifiedDamage;
         }
         else
         {
             // Enemy
-            modifiedDamage = static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
+            if (damage * float(playerCount / maxPlayerCount) > std::numeric_limits<uint32_t>::max())
+                modifiedDamage = UINT32_MAX;
+            else
+                modifiedDamage = static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
 
             std::string actionTaken;
             if (damage < modifiedDamage)
@@ -229,7 +300,7 @@ public:
                 modifiedDamage = cappedDamage;
             }
             
-            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount);
+            TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used, max player count is %u).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount, maxPlayerCount);
 
             return static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
         }
@@ -245,14 +316,18 @@ public:
     {
         if (!enabled || !playerChangeNotify || !map || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()))
             return;
-        
-        // Check if this is a garrison map
-        if (map->IsGarrison())
-            return;
 
-        // Check if this is a scenario map and if it is make sure we should scale it
-        if (map->IsScenario() && !scaleScenarios)
-            return;
+        // Check if excluded map
+        if (!DungeonBalance_Helpers::IsExcludedMap(map))
+        {
+            // Check if this is a garrison map
+            if (map->IsGarrison())
+                return;
+
+            // Check if this is a scenario map and if it is make sure we should scale it
+            if (map->IsScenario() && !scaleScenarios)
+                return;
+        }
 
         Map::PlayerList const& playerList = map->GetPlayers();
         if (!playerList.isEmpty())
@@ -262,8 +337,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the Instance %s. Auto setting player count to %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount());
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s entered the instance %s. Player count is now %u, adjusted max count is %u, count for XP is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map), DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true));
                 }
             }
         }
@@ -274,13 +349,17 @@ public:
         if (!enabled || !playerChangeNotify || !player || !(map->IsDungeon() || map->IsRaidOrHeroicDungeon()))
             return;
 
-        // Check if this is a garrison map
-        if (map->IsGarrison())
-            return;
+        // Check if excluded map
+        if (!DungeonBalance_Helpers::IsExcludedMap(map))
+        {
+            // Check if this is a garrison map
+            if (map->IsGarrison())
+                return;
 
-        // Check if this is a scenario map and if it is make sure we should scale it
-        if (map->IsScenario() && !scaleScenarios)
-            return;
+            // Check if this is a scenario map and if it is make sure we should scale it
+            if (map->IsScenario() && !scaleScenarios)
+                return;
+        }
 
         Map::PlayerList const& playerList = map->GetPlayers();
         if (!playerList.isEmpty())
@@ -290,8 +369,8 @@ public:
                 if (Player* playerHandle = playerIteration->getSource())
                 {
                     ChatHandler chatHandle = ChatHandler(playerHandle->GetSession());
-                    chatHandle.PSendSysMessage("|cffFF0000 [-DungeonBalance]|r|cffFF8000 %s left the Instance %s. Auto setting player count to %u |r",
-                        player->GetName(), map->GetMapName(), map->GetPlayerCount());
+                    chatHandle.PSendSysMessage("|cffFF0000 [DungeonBalance]|r|cffFF8000 %s left the instance %s. Player count is now %u, adjusted max count is %u, count for XP is %u |r",
+                        player->GetName(), map->GetMapName(), map->GetPlayerCount(), DungeonBalance_Helpers::CalculateMaxPlayersCount(map), DungeonBalance_Helpers::CalculateMaxPlayersCount(map, true));
                 }
             }
         }

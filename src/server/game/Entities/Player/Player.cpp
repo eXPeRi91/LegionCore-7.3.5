@@ -786,28 +786,28 @@ bool Player::Create(ObjectGuid::LowType guidlow, WorldPackets::Character::Charac
         // Factions depending on team, like cities and some more stuff
         switch (GetTeam())
         {
-        case ALLIANCE:
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(72), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(47), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(69), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(930), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(730), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(978), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(54), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(946), 42999);
-            break;
-        case HORDE:
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(76), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(68), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(81), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(911), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(729), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(941), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(530), 42999);
-            GetReputationMgr().SetReputation(sFactionStore.LookupEntry(947), 42999);
-            break;
-        default:
-            break;
+            case ALLIANCE:
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(72), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(47), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(69), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(930), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(730), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(978), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(54), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(946), 42999);
+                break;
+            case HORDE:
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(76), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(68), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(81), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(911), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(729), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(941), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(530), 42999);
+                GetReputationMgr().SetReputation(sFactionStore.LookupEntry(947), 42999);
+                break;
+            default:
+                break;
         }
     }
 
@@ -3036,7 +3036,7 @@ void Player::Regenerate(Powers power, float regenTimer, PowerTypeEntry const* po
             break;
     }
 
-    //Prevent regenerate if power is minimum
+    // Prevent regenerate if power is minimum
     if (powerEntry->CenterPower && powerEntry->CenterPower == curValue)
         return;
 
@@ -3057,7 +3057,7 @@ void Player::Regenerate(Powers power, float regenTimer, PowerTypeEntry const* po
     float regenTypeAndMod = 1.0f; // start type regen + or - for power
     float regenValue = (inCombat ? powerEntry->RegenCombat : powerEntry->RegenPeace) * (regenTimer / 1000.0f);
 
-    //Regenerate if power lower that minimum
+    // Regenerate if power lower that minimum
     if (powerEntry->CenterPower && powerEntry->CenterPower > curValue && regenValue < 0.0f)
         regenValue *= -1.0f;
 
@@ -3759,8 +3759,9 @@ void Player::GiveXP(uint32 xp, Unit* victim, float groupRate /*= 1.0f*/)
     if (IsForbiddenMapForLevel(GetMapId(), m_zoneId))
         xp = 0;
 
-    if (IsLoXpMap(GetMapId()))
-        xp = uint32(xp / (sWorld->getRate(RATE_XP_QUEST)));
+    // Commented this out since there isn't any reason to limit XP rate increase for specific starting areas??
+    //if (IsLoXpMap(GetMapId()))
+    //    xp = uint32(xp / (sWorld->getRate(RATE_XP_QUEST)));
 
     uint8 level = getLevel();
 
@@ -3946,9 +3947,9 @@ void Player::GiveLevel(uint8 level)
 
     AddDelayedEvent(100, [this]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddConditionType(CONDITION_LEVEL);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddConditionType(CONDITION_LEVEL);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 
     // Refer-A-Friend
@@ -4471,7 +4472,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
 
     SetCreateHealth(0);
 
-    //set create powers
+    // set create powers
     SetCreateMana(sObjectMgr->GetPlayerClassLevelInfo(getClass(), GetEffectiveLevel()));
 
     InitStatBuffMods();
@@ -4481,7 +4482,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
         SetInt32Value(PLAYER_FIELD_SCALING_PLAYER_LEVEL_DELTA, -1);
     SetInt32Value(UNIT_FIELD_LOOK_AT_CONTROLLER_ID, -1);
 
-    //reset rating fields values
+    // reset rating fields values
     for (uint16 index = PLAYER_FIELD_COMBAT_RATINGS; index < PLAYER_FIELD_COMBAT_RATINGS + MAX_COMBAT_RATING; ++index)
         SetUInt32Value(index, 0);
 
@@ -4508,7 +4509,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
 
     SetFloatValue(PLAYER_FIELD_MOD_HEALING_DONE_PERCENT, 1.0f);
 
-    //reset attack power, damage and attack speed fields
+    // reset attack power, damage and attack speed fields
     SetFloatValue(UNIT_FIELD_ATTACK_ROUND_BASE_TIME, 2000.0f);
     SetFloatValue(UNIT_FIELD_ATTACK_ROUND_BASE_TIME + 1, 2000.0f); // offhand attack time
     SetFloatValue(UNIT_FIELD_RANGED_ATTACK_ROUND_BASE_TIME, 2000.0f);
@@ -4581,14 +4582,14 @@ void Player::InitStatsForLevel(bool reapplyMods)
     // cleanup unit flags (will be re-applied if need at aura load).
     RemoveFlag(UNIT_FIELD_FLAGS,
         UNIT_FLAG_NON_ATTACKABLE | UNIT_FLAG_REMOVE_CLIENT_CONTROL | UNIT_FLAG_NOT_ATTACKABLE_1 |
-        UNIT_FLAG_IMMUNE_TO_PC | UNIT_FLAG_IMMUNE_TO_NPC  | UNIT_FLAG_LOOTING          |
-        UNIT_FLAG_PET_IN_COMBAT  | UNIT_FLAG_SILENCED     | UNIT_FLAG_PACIFIED         |
-        UNIT_FLAG_STUNNED        | UNIT_FLAG_IN_COMBAT    | UNIT_FLAG_DISARMED         |
-        UNIT_FLAG_CONFUSED       | UNIT_FLAG_FLEEING      | UNIT_FLAG_NOT_SELECTABLE   |
-        UNIT_FLAG_SKINNABLE      | UNIT_FLAG_TAXI_FLIGHT  | UNIT_FLAG_MOUNT);
-    SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);   // must be set
+        UNIT_FLAG_IMMUNE_TO_PC   | UNIT_FLAG_IMMUNE_TO_NPC         | UNIT_FLAG_LOOTING          |
+        UNIT_FLAG_PET_IN_COMBAT  | UNIT_FLAG_SILENCED              | UNIT_FLAG_PACIFIED         |
+        UNIT_FLAG_STUNNED        | UNIT_FLAG_IN_COMBAT             | UNIT_FLAG_DISARMED         |
+        UNIT_FLAG_CONFUSED       | UNIT_FLAG_FLEEING               | UNIT_FLAG_NOT_SELECTABLE   |
+        UNIT_FLAG_SKINNABLE      | UNIT_FLAG_TAXI_FLIGHT           | UNIT_FLAG_MOUNT);
+    SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);  // must be set
 
-    SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER);// must be set
+    SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER);  // must be set
 
     // cleanup player flags (will be re-applied if need at aura load), to avoid have ghost flag without ghost aura, for example.
     RemoveFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_AFK | PLAYER_FLAGS_DND | PLAYER_FLAGS_GM | PLAYER_FLAGS_GHOST | PLAYER_ALLOW_ONLY_ABILITY);
@@ -19224,9 +19225,9 @@ void Player::AddQuest(Quest const* quest, Object* questGiver)
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         UpdateForQuestWorldObjects();
     });
 }
@@ -19624,9 +19625,9 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 
     // update area quests
@@ -19743,7 +19744,7 @@ bool Player::SatisfyQuestSkill(Quest const* qInfo, bool msg) const
     if (const_cast<Player*>(this)->GetSkillValue(skill) < qInfo->RequiredSkillPoints)
     {
         if (msg)
-            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "skill");
+            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "skill level too low");
 
         return false;
     }
@@ -19762,7 +19763,7 @@ bool Player::SatisfyQuestLevel(Quest const* qInfo, bool msg)
     if (qInfo->MaxLevel > 0 && getLevel() > qInfo->MaxLevel)
     {
         if (msg)
-            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "level"); // There doesn't seem to be a specific response for too high player level
+            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "level too high"); // There doesn't seem to be a specific response for too high player level
         return false;
     }
     return true;
@@ -19823,7 +19824,7 @@ bool Player::SatisfyQuestPreviousQuest(Quest const* qInfo, bool msg)
                 if (m_RewardedQuests.find(exclude_Id) == m_RewardedQuests.end())
                 {
                     if (msg)
-                        SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "rewarded");
+                        SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "rewarded quest condition");
                     return false;
                 }
             }
@@ -19867,7 +19868,7 @@ bool Player::SatisfyQuestPreviousQuest(Quest const* qInfo, bool msg)
     // Has only positive prev. quests in non-rewarded state
     // and negative prev. quests in non-active state
     if (msg)
-        SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "prev");
+        SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "previous quest condition");
 
     return false;
 }
@@ -19884,7 +19885,7 @@ bool Player::SatisfyQuestClass(Quest const* qInfo, bool msg) const
         if ((reqClass & getClassMask()) == 0)
         {
             if (msg)
-                SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "class");
+                SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "invalid class (required)");
 
             return false;
         }
@@ -19897,7 +19898,7 @@ bool Player::SatisfyQuestClass(Quest const* qInfo, bool msg) const
         if (reqClass & getClassMask())
         {
             if (msg)
-                SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "class");
+                SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "invalid class (excluded)");
 
             return false;
         }
@@ -19928,7 +19929,7 @@ bool Player::SatisfyQuestReputation(Quest const* qInfo, bool msg)
     if (fIdMin && GetReputationMgr().GetReputation(fIdMin) < qInfo->RequiredMinRepValue)
     {
         if (msg)
-            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "rep");
+            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "required reputation too low");
         return false;
     }
 
@@ -19936,7 +19937,7 @@ bool Player::SatisfyQuestReputation(Quest const* qInfo, bool msg)
     if (fIdMax && GetReputationMgr().GetReputation(fIdMax) >= qInfo->RequiredMaxRepValue)
     {
         if (msg)
-            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "rep");
+            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "required reputation too high");
         return false;
     }
 
@@ -20045,7 +20046,7 @@ bool Player::SatisfyQuestNextChain(Quest const* qInfo, bool msg)
     if (GetQuestStatus(qInfo->NextQuestIdChain) != QUEST_STATUS_NONE) // GetQuestStatus returns QUEST_STATUS_COMPLETED for rewarded quests
     {
         if (msg)
-            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "chain");
+            SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "next chain quest started or completed");
         return false;
     }
 
@@ -20068,7 +20069,7 @@ bool Player::SatisfyQuestPrevChain(Quest const* qInfo, bool msg)
         if (q_status && q_status->Status != QUEST_STATUS_NONE)
         {
             if (msg)
-                SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "prev chain");
+                SendCanTakeQuestResponse(INVALIDREASON_DONT_HAVE_REQ, qInfo, "previous chain quest active");
             return false;
         }
 
@@ -20309,9 +20310,9 @@ void Player::SetQuestStatus(uint32 quest_id, QuestStatus status)
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         UpdateForQuestWorldObjects();
     });
 }
@@ -20333,9 +20334,9 @@ void Player::RemoveActiveQuest(uint32 quest_id)
 
     AddDelayedEvent(100, [this, quest_id]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddQuestUpdate(quest_id);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddQuestUpdate(quest_id);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 }
 
@@ -20348,9 +20349,9 @@ void Player::RemoveRewardedQuest(uint32 quest_id)
 
         AddDelayedEvent(100, [this, quest_id]() -> void
         {
-            PhaseUpdateData phaseUdateData;
-            phaseUdateData.AddQuestUpdate(quest_id);
-            GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+            PhaseUpdateData phaseUpdateData;
+            phaseUpdateData.AddQuestUpdate(quest_id);
+            GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         });
     }
 
@@ -22111,14 +22112,18 @@ bool Player::LoadFromDB(ObjectGuid guid, SQLQueryHolder *holder)
             }
             else                                                // have start node, to it
             {
-                TC_LOG_ERROR(LOG_FILTER_PLAYER, "Character %u have too short taxi destination list, this is informational only.", GetGUIDLow());
-                /*if (MapManager::IsValidMapCoord(nodeEntry->ContinentID, nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z))
+                //TC_LOG_ERROR(LOG_FILTER_PLAYER, "Character %u has too short a taxi destination list, this is informational only.", GetGUIDLow());
+                if (MapManager::IsValidMapCoord(nodeEntry->ContinentID, nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z))
                 {
-                    mapId = nodeEntry->ContinentID;
-                    Relocate(nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z, 0.0f);
+                    //mapId = nodeEntry->ContinentID;
+                    //Relocate(nodeEntry->Pos.X, nodeEntry->Pos.Y, nodeEntry->Pos.Z, 0.0f);
+                    TC_LOG_ERROR(LOG_FILTER_PLAYER, "Character %u has too short a taxi destination list, normally would have teleported to node entry.", GetGUIDLow());
                 }
                 else
-                    RelocateToHomebind();*/
+                {
+                    //RelocateToHomebind();
+                    TC_LOG_ERROR(LOG_FILTER_PLAYER, "Character %u has too short a taxi destination list, normally would have teleported to home bind.", GetGUIDLow());
+                }
             }
             m_taxi.ClearTaxiDestinations();
         }
@@ -34070,9 +34075,9 @@ void Player::ActivateTalentGroup(ChrSpecializationEntry const* spec)
 
     AddDelayedEvent(100, [this]() -> void
     {
-        PhaseUpdateData phaseUdateData;
-        phaseUdateData.AddConditionType(CONDITION_SPEC_ID);
-        GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+        PhaseUpdateData phaseUpdateData;
+        phaseUpdateData.AddConditionType(CONDITION_SPEC_ID);
+        GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
     });
 
     AddDelayedEvent(500, [this]() -> void
@@ -37832,7 +37837,7 @@ void Player::UpdateBattlePetCombatTeam()
     }
 }
 
-bool Player::AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint16 flags /*= 0*/, bool sendUpdate /*= true*/, bool sendDiliveryUpdate /*= false*/)
+bool Player::AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint16 flags /*= 0*/, bool sendUpdate /*= true*/, bool sendDeliveryUpdate /*= false*/)
 {
     if (!entry)
         return false;
@@ -37868,15 +37873,15 @@ bool Player::AddBattlePetWithSpeciesId(BattlePetSpeciesEntry const* entry, uint1
         UpdateAchievementCriteria(CRITERIA_TYPE_ADD_BATTLE_PET_JOURNAL, entry->CreatureID);
     }
 
-    if (sendDiliveryUpdate)
+    if (sendDeliveryUpdate)
         SendDirectMessage(WorldPackets::BattlePay::BattlePayBattlePetDelivered(ObjectGuid::Create<HighGuid::BattlePet>(guidlow), entry->CreatureID).Write());
 
     return true;
 }
 
-bool Player::AddBattlePetByCreatureId(uint32 creatureId, bool sendUpdate /*= true*/, bool sendDiliveryUpdate /*= false*/)
+bool Player::AddBattlePetByCreatureId(uint32 creatureId, bool sendUpdate /*= true*/, bool sendDeliveryUpdate /*= false*/)
 {
-    return AddBattlePetWithSpeciesId(sDB2Manager.GetSpeciesByCreatureID(creatureId), 0, sendUpdate, sendDiliveryUpdate);
+    return AddBattlePetWithSpeciesId(sDB2Manager.GetSpeciesByCreatureID(creatureId), 0, sendUpdate, sendDeliveryUpdate);
 }
 
 bool Player::AddBattlePet(uint32 spellID, uint16 flags, bool sendUpdate /*= true*/)
