@@ -302,7 +302,7 @@ public:
             
             TC_LOG_INFO(LOG_FILTER_DUNGEONBALANCE, "[DB - %s] Enemy %s to %s %s from %u to %u%s (player count of %.2f was used, max player count is %u).", attacker->GetName(), type, target->GetName(), actionTaken, damage, modifiedDamage, capped, playerCount, maxPlayerCount);
 
-            return static_cast<uint32>(damage * float(playerCount / maxPlayerCount));
+            return modifiedDamage;
         }
     }
 };
