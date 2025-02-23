@@ -101,6 +101,7 @@ class ChatHandler
         Player*   getPlayer();
         Player*   getSelectedPlayer();
         Player*   getSelectedPlayerOrSelf();
+        Unit*     getSelectedUnitOrPlayerOrSelf();
         Creature* getSelectedCreature();
         Unit*     getSelectedUnit();
         WorldObject* getSelectedObject();

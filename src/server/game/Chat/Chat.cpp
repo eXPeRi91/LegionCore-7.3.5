@@ -869,6 +869,24 @@ Player* ChatHandler::getSelectedPlayerOrSelf()
     return targetPlayer;
 }
 
+Unit* ChatHandler::getSelectedUnitOrPlayerOrSelf()
+{
+    if (!m_session)
+        return nullptr;
+
+    ObjectGuid selected = m_session->GetPlayer()->GetSelection();
+
+    if (selected.IsEmpty())
+        return m_session->GetPlayer();
+
+    Player* targetPlayer = ObjectAccessor::FindPlayer(selected);
+
+    if (targetPlayer)
+        return targetPlayer;
+
+    return ObjectAccessor::GetUnit(*m_session->GetPlayer(), selected);
+}
+
 Unit* ChatHandler::getSelectedUnit()
 {
     if (!m_session)
