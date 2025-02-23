@@ -964,7 +964,7 @@ public:
                 if (dynamicFlags & UNIT_DYNFLAG_HIDE_MODEL)
                     ss_flags << "HideModel ";
                 if (dynamicFlags & UNIT_DYNFLAG_NOT_SELECTABLE_MODEL)
-                    ss_flags << "NotSlectableModel ";
+                    ss_flags << "NotSelectableModel ";
                 if (dynamicFlags & UNIT_DYNFLAG_LOOTABLE)
                     ss_flags << "Lootable ";
                 if (dynamicFlags & UNIT_DYNFLAG_TRACK_UNIT)

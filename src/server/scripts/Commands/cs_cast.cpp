@@ -57,7 +57,7 @@ public:
         if (!*args)
             return false;
 
-        Unit* target = handler->getSelectedUnit();
+        Unit* target = handler->getSelectedUnitOrPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_SELECT_CHAR_OR_CREATURE);
