@@ -1990,7 +1990,7 @@ class Player : public Unit, public GridObject<Player>
         void SetSpecialCriteriaComplete(uint16 slot, uint8 StorageIndex);
 
         void SetQuestCompletedBit(uint32 questBit, bool completed);
-        bool IsQuestBitFlaged(uint32 questBit) const;
+        bool IsQuestBitFlagged(uint32 questBit) const;
 
         uint16 GetReqKillOrCastCurrentCount(uint32 quest_id, int32 entry);
         void AreaExploredOrEventHappens(uint32 questId);

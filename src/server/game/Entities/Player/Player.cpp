@@ -20496,7 +20496,7 @@ void Player::SetQuestCompletedBit(uint32 questBit, bool completed)
     ApplyModFlag(PLAYER_FIELD_QUEST_COMPLETED + ((questBit - 1) >> 5), 1 << ((questBit - 1) & 31), completed);
 }
 
-bool Player::IsQuestBitFlaged(uint32 questBit) const
+bool Player::IsQuestBitFlagged(uint32 questBit) const
 {
     if (!questBit)
         return false;
@@ -37621,12 +37621,12 @@ uint32 Player::GetUnlockedPetBattleSlot()
     return 0;
 }
 
-void Player::UnsummonCurrentBattlePetIfAny(bool p_Unvolontary)
+void Player::UnsummonCurrentBattlePetIfAny(bool p_Unvoluntary)
 {
     if (!_battlePetSummon)
         return;
 
-    if (!p_Unvolontary)
+    if (!p_Unvoluntary)
         _lastSummonedBattlePet = 0;
 
     if (Creature* pet = GetSummonedBattlePet())
