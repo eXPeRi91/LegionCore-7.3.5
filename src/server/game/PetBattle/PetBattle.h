@@ -557,7 +557,7 @@ public:
 
     void Update(uint32 diff);
 
-    void SwapPet(uint32 teamID, int32 newFrontPetID, bool initial = false);
+    void SwapPet(uint32 teamID, int32 newFrontPetID, bool initial = false, bool fainted = false);
 
     bool CanCast(uint32 teamID, uint32 abilityID);
     void PrepareCast(uint32 teamID, uint32 abilityID);

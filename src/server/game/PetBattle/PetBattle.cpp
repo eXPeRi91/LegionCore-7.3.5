@@ -703,7 +703,7 @@ bool PetBattleTeam::Update()
 
         if (availablesPets.size() == 1)
         {
-            PetBattleInstance->SwapPet(thisTeamID, availablesPets[0]);
+            PetBattleInstance->SwapPet(thisTeamID, availablesPets[0], false, true);
 
             if (auto player = ObjectAccessor::GetObjectInWorld(PlayerGuid, static_cast<Player*>(nullptr)))
                 player->GetSession()->SendPetBattleReplacementMade(PetBattleInstance);
@@ -718,7 +718,7 @@ bool PetBattleTeam::Update()
         }
         else if (PetBattleInstance->BattleType == PETBATTLE_TYPE_PVE && thisTeamID == PETBATTLE_PVE_TEAM_ID)
         {
-            PetBattleInstance->SwapPet(thisTeamID, availablesPets[rand() % availablesPets.size()]);
+            PetBattleInstance->SwapPet(thisTeamID, availablesPets[rand() % availablesPets.size()], false, true);
 
             if (auto player = ObjectAccessor::GetObjectInWorld(PlayerGuid, static_cast<Player*>(nullptr)))
                 player->GetSession()->SendPetBattleReplacementMade(PetBattleInstance);
@@ -1435,7 +1435,7 @@ void PetBattle::Update(uint32 diff)
     }
 }
 
-void PetBattle::SwapPet(uint32 teamID, int32 newFrontPetID, bool initial)
+void PetBattle::SwapPet(uint32 teamID, int32 newFrontPetID, bool initial, bool fainted)
 {
     assert(teamID < MAX_PETBATTLE_TEAM);
 
@@ -1458,7 +1458,7 @@ void PetBattle::SwapPet(uint32 teamID, int32 newFrontPetID, bool initial)
 
     uint32 eventFlags = 0;
 
-    if (!petChanged && BattleStatus != PETBATTLE_STATUS_CREATION)
+    if (!petChanged && BattleStatus != PETBATTLE_STATUS_CREATION && !fainted)
         eventFlags |= PETBATTLE_EVENT_FLAG_SKIP_TURN;
 
     Teams[teamID]->ActivePetID = newFrontPetID;
