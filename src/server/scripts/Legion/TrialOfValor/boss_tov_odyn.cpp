@@ -965,7 +965,7 @@ struct npc_tov_hymdall : ScriptedAI
 
             event1 = true;
             DoCast(SpellRevivify);
-            me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK6);
+            me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK5);
 
             if (instance->GetData(Data::DataMisc::OdynEventComplete1) != DONE)
             {
@@ -1002,7 +1002,7 @@ struct npc_tov_hymdall : ScriptedAI
         {
             case SpellRevivify:
                 event1 = false;
-                me->RemoveFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK6);
+                me->RemoveFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK5);
 
                 if (instance->GetData(Data::DataMisc::OdynEventComplete1) == DONE && instance->GetData(Data::DataMisc::OdynEventComplete2) != DONE)
                     instance->SetData(Data::DataMisc::OdynEventComplete1, FAIL);
@@ -1208,7 +1208,7 @@ struct npc_tov_hyrja : ScriptedAI
 
             event1 = true;
             DoCast(SpellRevivify);
-            me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK6);
+            me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK5);
 
             if (instance->GetData(Data::DataMisc::OdynEventComplete2) != DONE)
             {
@@ -1245,7 +1245,7 @@ struct npc_tov_hyrja : ScriptedAI
         {
         case SpellRevivify:
             event1 = false;
-            me->RemoveFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK6);
+            me->RemoveFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK5);
 
             if ((instance->GetData(Data::DataMisc::OdynEventComplete2) == DONE) && (instance->GetData(Data::DataMisc::OdynEventComplete1) != DONE))
                 instance->SetData(Data::DataMisc::OdynEventComplete2, FAIL);

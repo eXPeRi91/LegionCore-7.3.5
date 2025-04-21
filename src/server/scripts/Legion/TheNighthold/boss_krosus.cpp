@@ -117,7 +117,7 @@ struct boss_krosus : BossAI
 {
     explicit boss_krosus(Creature* creature) : BossAI(creature, DATA_KROSUS)
     {
-        me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK6);
+        me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_DISABLE_TURN | UNIT_FLAG2_UNK5);
         me->RemoveFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_PREVENT_SELECT_NPC);
         me->SetSpeed(MOVE_RUN, 12.0f);
         me->SetSpeed(MOVE_FLIGHT, 2.0f);

@@ -122,80 +122,80 @@ enum UnitRename : uint8
 // Value masks for UNIT_FIELD_FLAGS
 enum UnitFlags : uint32
 {
-    UNIT_FLAG_SERVER_CONTROLLED     = 0x00000001,           // set only when unit movement is controlled by server - by SPLINE/MONSTER_MOVE packets, together with UNIT_FLAG_STUNNED; only set to units controlled by client; client function CGUnit_C::IsClientControlled returns false when set for owner
-    UNIT_FLAG_NON_ATTACKABLE        = 0x00000002,           // not attackable
-    UNIT_FLAG_REMOVE_CLIENT_CONTROL = 0x00000004,           // This is a legacy flag used to disable movement player's movement while controlling other units, SMSG_CLIENT_CONTROL replaces this functionality clientside now. CONFUSED and FLEEING flags have the same effect on client movement asDISABLE_MOVE_CONTROL in addition to preventing spell casts/autoattack (they all allow climbing steeper hills and emotes while moving)
-    UNIT_FLAG_PVP_ATTACKABLE        = 0x00000008,           // allow apply pvp rules to attackable state in addition to faction dependent state
-    UNIT_FLAG_RENAME                = 0x00000010,
-    UNIT_FLAG_PREPARATION           = 0x00000020,           // don't take reagents for spells with SPELL_ATTR5_NO_REAGENT_WHILE_PREP
-    UNIT_FLAG_UNK_6                 = 0x00000040,
-    UNIT_FLAG_NOT_ATTACKABLE_1      = 0x00000080,           // ?? (UNIT_FLAG_PVP_ATTACKABLE | UNIT_FLAG_NOT_ATTACKABLE_1) is NON_PVP_ATTACKABLE
-    UNIT_FLAG_IMMUNE_TO_PC          = 0x00000100,           // disables combat/assistance with PlayerCharacters (PC) - see Unit::_IsValidAttackTarget, Unit::_IsValidAssistTarget
-    UNIT_FLAG_IMMUNE_TO_NPC         = 0x00000200,           // disables combat/assistance with NonPlayerCharacters (NPC) - see Unit::_IsValidAttackTarget, Unit::_IsValidAssistTarget
-    UNIT_FLAG_LOOTING               = 0x00000400,           // loot animation
-    UNIT_FLAG_PET_IN_COMBAT         = 0x00000800,           // in combat?, 2.0.8
-    UNIT_FLAG_PVP                   = 0x00001000,           // changed in 3.0.3
-    UNIT_FLAG_SILENCED              = 0x00002000,           // silenced, 2.1.1
-    UNIT_FLAG_CANNOT_SWIM           = 0x00004000,           // 2.0.8
-    UNIT_FLAG_UNK_15                = 0x00008000,
-    UNIT_FLAG_UNK_16                = 0x00010000,
-    UNIT_FLAG_PACIFIED              = 0x00020000,           // 3.0.3 ok
-    UNIT_FLAG_STUNNED               = 0x00040000,           // 3.0.3 ok
-    UNIT_FLAG_IN_COMBAT             = 0x00080000,
-    UNIT_FLAG_TAXI_FLIGHT           = 0x00100000,           // disable casting at client side spell not allowed by taxi flight (mounted?), probably used with 0x4 flag
-    UNIT_FLAG_DISARMED              = 0x00200000,           // 3.0.3, disable melee spells casting..., "Required melee weapon" added to melee spells tooltip.
-    UNIT_FLAG_CONFUSED              = 0x00400000,
-    UNIT_FLAG_FLEEING               = 0x00800000,
-    UNIT_FLAG_PLAYER_CONTROLLED     = 0x01000000,           // used in spell Eyes of the Beast for pet... let attack by controlled creature
-    UNIT_FLAG_NOT_SELECTABLE        = 0x02000000,
-    UNIT_FLAG_SKINNABLE             = 0x04000000,
-    UNIT_FLAG_MOUNT                 = 0x08000000,
+    UNIT_FLAG_SERVER_CONTROLLED             = 0x00000001,           // Set only when unit movement is controlled by server - by SPLINE/MONSTER_MOVE packets, together with UNIT_FLAG_STUNNED; only set to units controlled by client; client function CGUnit_C::IsClientControlled returns false when set for owner
+    UNIT_FLAG_NON_ATTACKABLE                = 0x00000002,           // Not attackable
+    UNIT_FLAG_REMOVE_CLIENT_CONTROL         = 0x00000004,           // This is a legacy flag used to disable player's movement while controlling other units, SMSG_CLIENT_CONTROL replaces this functionality client side now. CONFUSED and FLEEING flags have the same effect on client movement as DISABLE_MOVE_CONTROL in addition to preventing spell casts/auto-attack (they all allow climbing steeper hills and emotes while moving)
+    UNIT_FLAG_PVP_ATTACKABLE                = 0x00000008,           // Allow apply PvP rules to attackable state in addition to faction dependent state
+    UNIT_FLAG_RENAME                        = 0x00000010,
+    UNIT_FLAG_PREPARATION                   = 0x00000020,           // Don't take reagents for spells with SPELL_ATTR5_NO_REAGENT_WHILE_PREP
+    UNIT_FLAG_UNK_6                         = 0x00000040,
+    UNIT_FLAG_NOT_ATTACKABLE_1              = 0x00000080,           // ?? (UNIT_FLAG_PVP_ATTACKABLE | UNIT_FLAG_NOT_ATTACKABLE_1) is NON_PVP_ATTACKABLE
+    UNIT_FLAG_IMMUNE_TO_PC                  = 0x00000100,           // Disables combat/assistance with PlayerCharacters (PC) - see Unit::_IsValidAttackTarget, Unit::_IsValidAssistTarget
+    UNIT_FLAG_IMMUNE_TO_NPC                 = 0x00000200,           // Disables combat/assistance with NonPlayerCharacters (NPC) - see Unit::_IsValidAttackTarget, Unit::_IsValidAssistTarget
+    UNIT_FLAG_LOOTING                       = 0x00000400,           // Loot animation
+    UNIT_FLAG_PET_IN_COMBAT                 = 0x00000800,           // In combat?, 2.0.8
+    UNIT_FLAG_PVP                           = 0x00001000,           // Changed in 3.0.3
+    UNIT_FLAG_SILENCED                      = 0x00002000,           // Silenced, 2.1.1
+    UNIT_FLAG_CANNOT_SWIM                   = 0x00004000,           // 2.0.8
+    UNIT_FLAG_UNK_15                        = 0x00008000,
+    UNIT_FLAG_UNK_16                        = 0x00010000,
+    UNIT_FLAG_PACIFIED                      = 0x00020000,           // 3.0.3 ok
+    UNIT_FLAG_STUNNED                       = 0x00040000,           // 3.0.3 ok
+    UNIT_FLAG_IN_COMBAT                     = 0x00080000,
+    UNIT_FLAG_TAXI_FLIGHT                   = 0x00100000,           // Disable casting at client side spell not allowed by taxi flight (mounted?), probably used with 0x4 flag
+    UNIT_FLAG_DISARMED                      = 0x00200000,           // 3.0.3, disable melee spells casting..., "Required melee weapon" added to melee spells tooltip
+    UNIT_FLAG_CONFUSED                      = 0x00400000,
+    UNIT_FLAG_FLEEING                       = 0x00800000,
+    UNIT_FLAG_PLAYER_CONTROLLED             = 0x01000000,           // Used in spell Eyes of the Beast for pet... let attack by controlled creature
+    UNIT_FLAG_NOT_SELECTABLE                = 0x02000000,
+    UNIT_FLAG_SKINNABLE                     = 0x04000000,
+    UNIT_FLAG_MOUNT                         = 0x08000000,
     UNIT_FLAG_PREVENT_KNEELING_WHEN_LOOTING = 0x10000000,
-    UNIT_FLAG_PREVENT_EMOTES        = 0x20000000,           // used in Feing Death spell
-    UNIT_FLAG_SHEATHE               = 0x40000000,
-    UNIT_FLAG_UNK_31                = 0x80000000
+    UNIT_FLAG_PREVENT_EMOTES                = 0x20000000,           // Used in Feing Death spell
+    UNIT_FLAG_SHEATHE                       = 0x40000000,
+    UNIT_FLAG_UNK_31                        = 0x80000000
 };
 
 // Value masks for UNIT_FIELD_FLAGS_2
 enum UnitFlags2 : uint32
 {
-    UNIT_FLAG2_NONE                         = 0x00000000,
-    UNIT_FLAG2_FEIGN_DEATH                  = 0x00000001,
-    UNIT_FLAG2_UNK1                         = 0x00000002,   // Hide unit model (show only player equip)
-    UNIT_FLAG2_IGNORE_REPUTATION            = 0x00000004,
-    UNIT_FLAG2_COMPREHEND_LANG              = 0x00000008,
-    UNIT_FLAG2_MIRROR_IMAGE                 = 0x00000010,
-    UNIT_FLAG2_INSTANTLY_APPEAR_MODEL       = 0x00000020,   // Unit model instantly appears when summoned (does not fade in)
-    UNIT_FLAG2_FORCE_MOVEMENT               = 0x00000040,
-    UNIT_FLAG2_DISARM_OFFHAND               = 0x00000080,
-    UNIT_FLAG2_DISABLE_PRED_STATS           = 0x00000100,   // Player has disabled predicted stats (Used by raid frames)
-    UNIT_FLAG2_ALLOW_CHANGING_TALENTS       = 0x00000200,   // Allows changing talents outside rest area
-    UNIT_FLAG2_DISARM_RANGED                = 0x00000400,   // this does not disable ranged weapon display (maybe additional flag needed?)
-    UNIT_FLAG2_REGENERATE_POWER             = 0x00000800,
-    UNIT_FLAG2_RESTRICT_PARTY_INTERACTION   = 0x00001000,   // Restrict interaction to party or raid
-    UNIT_FLAG2_PREVENT_SPELL_CLICK          = 0x00002000,   // Prevent spellclick
-    UNIT_FLAG2_ALLOW_ENEMY_INTERACT         = 0x00004000,
-    UNIT_FLAG2_DISABLE_TURN                 = 0x00008000,
-    UNIT_FLAG2_UNK2                         = 0x00010000,
-    UNIT_FLAG2_PLAY_DEATH_ANIM              = 0x00020000,   // Plays special death animation upon death
-    UNIT_FLAG2_ALLOW_CHEAT_SPELLS           = 0x00040000,
-    UNIT_FLAG2_UNK3                         = 0x00080000,
-    UNIT_FLAG2_UNK4                         = 0x00100000,
-    UNIT_FLAG2_UNK5                         = 0x00200000,
-    UNIT_FLAG2_UNK6                         = 0x00400000,
-    UNIT_FLAG2_NO_ACTIONS                   = 0x00800000,
-    UNIT_FLAG2_SWIM_PREVENT                 = 0x01000000,
-    UNIT_FLAG2_HIDE_IN_COMBAT_LOG           = 0x02000000,
-    UNIT_FLAG2_PREVENT_SELECT_NPC           = 0x04000000,
+    UNIT_FLAG2_NONE                                = 0x00000000,
+    UNIT_FLAG2_FEIGN_DEATH                         = 0x00000001,
+    UNIT_FLAG2_HIDE_BODY                           = 0x00000002,   // Hide unit model (show only player equip)
+    UNIT_FLAG2_IGNORE_REPUTATION                   = 0x00000004,
+    UNIT_FLAG2_COMPREHEND_LANG                     = 0x00000008,
+    UNIT_FLAG2_MIRROR_IMAGE                        = 0x00000010,
+    UNIT_FLAG2_INSTANTLY_APPEAR_MODEL              = 0x00000020,   // Unit model instantly appears when summoned (does not fade in)
+    UNIT_FLAG2_FORCE_MOVEMENT                      = 0x00000040,
+    UNIT_FLAG2_DISARM_OFFHAND                      = 0x00000080,
+    UNIT_FLAG2_DISABLE_PRED_STATS                  = 0x00000100,   // Player has disabled predicted stats (Used by raid frames)
+    UNIT_FLAG2_ALLOW_CHANGING_TALENTS              = 0x00000200,   // Allows changing talents outside rest area
+    UNIT_FLAG2_DISARM_RANGED                       = 0x00000400,   // This does not disable ranged weapon display (maybe additional flag needed?)
+    UNIT_FLAG2_REGENERATE_POWER                    = 0x00000800,
+    UNIT_FLAG2_RESTRICT_PARTY_INTERACTION          = 0x00001000,   // Restrict interaction to party or raid
+    UNIT_FLAG2_PREVENT_SPELL_CLICK                 = 0x00002000,   // Prevent spellclick
+    UNIT_FLAG2_ALLOW_ENEMY_INTERACT                = 0x00004000,
+    UNIT_FLAG2_DISABLE_TURN                        = 0x00008000,
+    UNIT_FLAG2_UNK1                                = 0x00010000,
+    UNIT_FLAG2_PLAY_DEATH_ANIM                     = 0x00020000,   // Plays special death animation upon death
+    UNIT_FLAG2_ALLOW_CHEAT_SPELLS                  = 0x00040000,
+    UNIT_FLAG2_UNK2                                = 0x00080000,
+    UNIT_FLAG2_UNK3                                = 0x00100000,
+    UNIT_FLAG2_UNK4                                = 0x00200000,
+    UNIT_FLAG2_UNK5                                = 0x00400000,
+    UNIT_FLAG2_NO_ACTIONS                          = 0x00800000,
+    UNIT_FLAG2_SWIM_PREVENT                        = 0x01000000,
+    UNIT_FLAG2_HIDE_IN_COMBAT_LOG                  = 0x02000000,
+    UNIT_FLAG2_PREVENT_SELECT_NPC                  = 0x04000000,
     UNOT_FLAG2_IGNORE_SPELL_MIN_RANGE_RESTRICTIONS = 0x08000000,
-    UNIT_FLAG2_UNK7                         = 0x40000000,
+    UNIT_FLAG2_UNK6                                = 0x40000000,
 };
 
 enum UnitFlags3 : uint32
 {
     UNIT_FLAG3_UNK0                         = 0x00000001,
     UNIT_FLAG3_UNK1                         = 0x00000002,
-    UNIT_FLAG3_NOT_CHECK_MOUNT              = 0x00000004, // Disable remove mount wher cast and other check
+    UNIT_FLAG3_NOT_CHECK_MOUNT              = 0x00000004, // Disable remove mount where cast and other check
     UNIT_FLAG3_UNK3                         = 0x00000008,
     UNIT_FLAG3_UNK4                         = 0x00000010,
     UNIT_FLAG3_UNK5                         = 0x00000020,
@@ -223,12 +223,12 @@ enum NPCFlags : uint64
     UNIT_NPC_FLAG_VENDOR                = 0x00000080,       // 7 100%
     UNIT_NPC_FLAG_VENDOR_AMMO           = 0x00000100,       // 8 100%, general goods vendor
     UNIT_NPC_FLAG_VENDOR_FOOD           = 0x00000200,       // 9 100%
-    UNIT_NPC_FLAG_VENDOR_POISON         = 0x00000400,       // 10 guessed
+    UNIT_NPC_FLAG_VENDOR_POISON         = 0x00000400,       // 10 Guessed
     UNIT_NPC_FLAG_VENDOR_REAGENT        = 0x00000800,       // 11 100%
     UNIT_NPC_FLAG_REPAIR                = 0x00001000,       // 12 100%
     UNIT_NPC_FLAG_FLIGHTMASTER          = 0x00002000,       // 13 100%
-    UNIT_NPC_FLAG_SPIRITHEALER          = 0x00004000,       // 14 guessed
-    UNIT_NPC_FLAG_SPIRITGUIDE           = 0x00008000,       // 15 guessed
+    UNIT_NPC_FLAG_SPIRITHEALER          = 0x00004000,       // 14 Guessed
+    UNIT_NPC_FLAG_SPIRITGUIDE           = 0x00008000,       // 15 Guessed
     UNIT_NPC_FLAG_INNKEEPER             = 0x00010000,       // 16 100%
     UNIT_NPC_FLAG_BANKER                = 0x00020000,       // 17 100%
     UNIT_NPC_FLAG_PETITIONER            = 0x00040000,       // 18 100% 0xC0000 = guild petitions, 0x40000 = arena team petitions
@@ -236,15 +236,15 @@ enum NPCFlags : uint64
     UNIT_NPC_FLAG_BATTLEMASTER          = 0x00100000,       // 20 100%
     UNIT_NPC_FLAG_AUCTIONEER            = 0x00200000,       // 21 100%
     UNIT_NPC_FLAG_STABLEMASTER          = 0x00400000,       // 22 100%
-    UNIT_NPC_FLAG_GUILD_BANKER          = 0x00800000,       // 23 cause client to send 997 opcode
-    UNIT_NPC_FLAG_SPELLCLICK            = 0x01000000,       // 24 cause client to send 1015 opcode (spell click)
-    UNIT_NPC_FLAG_PLAYER_VEHICLE        = 0x02000000,       // 25 players with mounts that have vehicle data should have it set
+    UNIT_NPC_FLAG_GUILD_BANKER          = 0x00800000,       // 23 Cause client to send 997 opcode
+    UNIT_NPC_FLAG_SPELLCLICK            = 0x01000000,       // 24 Cause client to send 1015 opcode (spell click)
+    UNIT_NPC_FLAG_PLAYER_VEHICLE        = 0x02000000,       // 25 Players with mounts that have vehicle data should have it set
     UNIT_NPC_FLAG_MAILBOX               = 0x04000000,       // 26 NPC will act like a mailbox (opens mailbox with right-click)
-    UNIT_NPC_FLAG_ARTIFACT_POWER_RESPEC = 0x08000000,       // 27 artifact powers reset
-    UNIT_NPC_FLAG_TRANSMOGRIFIER        = 0x10000000,       // 28 transmogrification
-    UNIT_NPC_FLAG_VAULTKEEPER           = 0x20000000,       // 29 void storage
-    UNIT_NPC_FLAG_WILD_BATTLE_PET       = 0x40000000,       // 30 wild battle pet
-    UNIT_NPC_FLAG_BLACK_MARKET          = 0x80000000,       // 31 black market
+    UNIT_NPC_FLAG_ARTIFACT_POWER_RESPEC = 0x08000000,       // 27 Artifact powers reset
+    UNIT_NPC_FLAG_TRANSMOGRIFIER        = 0x10000000,       // 28 Transmogrification
+    UNIT_NPC_FLAG_VAULTKEEPER           = 0x20000000,       // 29 Void storage
+    UNIT_NPC_FLAG_WILD_BATTLE_PET       = 0x40000000,       // 30 Wild battle pet
+    UNIT_NPC_FLAG_BLACK_MARKET          = 0x80000000,       // 31 Black market
 };
 
 enum NPCFlags2
@@ -277,7 +277,7 @@ enum MovementFlags : uint32
     MOVEMENTFLAG_WALKING               = 0x00000100,               // Walking
     MOVEMENTFLAG_DISABLE_GRAVITY       = 0x00000200,
     MOVEMENTFLAG_ROOT                  = 0x00000400,               // Must not be set along with MOVEMENTFLAG_MASK_MOVING
-    MOVEMENTFLAG_FALLING               = 0x00000800,               // damage dealt on that type of falling
+    MOVEMENTFLAG_FALLING               = 0x00000800,               // Damage dealt on that type of falling
     MOVEMENTFLAG_FALLING_FAR           = 0x00001000,
     MOVEMENTFLAG_PENDING_STOP          = 0x00002000,
     MOVEMENTFLAG_PENDING_STRAFE_STOP   = 0x00004000,
@@ -286,15 +286,15 @@ enum MovementFlags : uint32
     MOVEMENTFLAG_PENDING_STRAFE_LEFT   = 0x00020000,
     MOVEMENTFLAG_PENDING_STRAFE_RIGHT  = 0x00040000,
     MOVEMENTFLAG_PENDING_ROOT          = 0x00080000,
-    MOVEMENTFLAG_SWIMMING              = 0x00100000,               // appears with fly flag also
-    MOVEMENTFLAG_ASCENDING             = 0x00200000,               // press "space" when flying
+    MOVEMENTFLAG_SWIMMING              = 0x00100000,               // Appears with fly flag also
+    MOVEMENTFLAG_ASCENDING             = 0x00200000,               // Press "space" when flying
     MOVEMENTFLAG_DESCENDING            = 0x00400000,
     MOVEMENTFLAG_CAN_FLY               = 0x00800000,               // Appears when unit can fly AND also walk
-    MOVEMENTFLAG_FLYING                = 0x01000000,               // unit is actually flying.
-    MOVEMENTFLAG_SPLINE_ELEVATION      = 0x02000000,               // used for flight paths
-    MOVEMENTFLAG_WATERWALKING          = 0x04000000,               // prevent unit from falling through water
-    MOVEMENTFLAG_FEATHER_FALL          = 0x08000000,               // active rogue safe fall spell (passive)
-    MOVEMENTFLAG_HOVER                 = 0x10000000,               // hover, cannot jump
+    MOVEMENTFLAG_FLYING                = 0x01000000,               // Unit is actually flying.
+    MOVEMENTFLAG_SPLINE_ELEVATION      = 0x02000000,               // Used for flight paths
+    MOVEMENTFLAG_WATERWALKING          = 0x04000000,               // Prevent unit from falling through water
+    MOVEMENTFLAG_FEATHER_FALL          = 0x08000000,               // Active rogue safe fall spell (passive)
+    MOVEMENTFLAG_HOVER                 = 0x10000000,               // Hover, cannot jump
     MOVEMENTFLAG_DISABLE_COLLISION     = 0x20000000,
 
     // TODO: Check if PITCH_UP and PITCH_DOWN really belong here..

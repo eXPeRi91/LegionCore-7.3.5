@@ -120,7 +120,7 @@ struct boss_star_augur_etraeus : BossAI
         PhaseID = Phase0;
         me->SetUnitMovementFlags(MOVEMENTFLAG_DISABLE_GRAVITY | MOVEMENTFLAG_ROOT);
         me->SetAnimKitId(1626);
-        me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_UNK5);
+        me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_REGENERATE_POWER | UNIT_FLAG2_UNK4);
         me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_REMOVE_CLIENT_CONTROL); // hack btw
         me->SetReactState(REACT_DEFENSIVE);
 
