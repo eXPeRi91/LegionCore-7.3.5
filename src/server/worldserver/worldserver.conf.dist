@@ -1128,6 +1128,62 @@ AccountInstancesPerHour = 5
 MaxAccountsOnline = 1000
 
 #
+#   ChatLevelReq.Channel
+#        Description: Level required in order to use chat channels.
+#        Default:     1
+
+ChatLevelReq.Channel = 1
+
+#
+#   ChatLevelReq.Whisper
+#        Description: Level required in order to whisper.
+#        Default:     1
+
+ChatLevelReq.Whisper = 1
+
+#
+#   ChatLevelReq.Say
+#        Description: Level required in order to speak in local chat.
+#        Default:     1
+
+ChatLevelReq.Say = 1
+
+#
+#   LevelReq.Trade
+#        Description: Level required in order to trade.
+#        Default:     1
+
+LevelReq.Trade = 1
+
+#
+#   LevelReq.Ticket
+#        Description: Level required in order to create tickets.
+#        Default:     1
+
+LevelReq.Ticket = 1
+
+#
+#   LevelReq.Auction
+#        Description: Level required in order to use the auction house.
+#        Default:     1
+
+LevelReq.Auction = 1
+
+#
+#   LevelReq.Mail
+#        Description: Level required in order to send mail.
+#        Default:     1
+
+LevelReq.Mail = 1
+
+#
+#   LevelGoldReq.Mail
+#        Description: Level required in order to send gold through mail.
+#        Default:     15
+
+LevelGoldReq.Mail = 15
+
+#
 ###################################################################################################
 
 ###################################################################################################
