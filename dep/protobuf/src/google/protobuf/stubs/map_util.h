@@ -117,7 +117,7 @@ FindOrDieNoPrint(Collection& collection,  // NOLINT
 // example: if you have a map with string values, and you pass a char*
 // as the default "value," either use the returned value immediately
 // or store it in a string (not string&).
-// Details: http://go/findwithdefault
+// Details: https://go/findwithdefault
 template <class Collection>
 const typename Collection::value_type::second_type&
 FindWithDefault(const Collection& collection,

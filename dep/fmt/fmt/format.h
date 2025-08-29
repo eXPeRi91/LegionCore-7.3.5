@@ -181,7 +181,7 @@ typedef __int64          intmax_t;
 
 #ifndef FMT_USE_VARIADIC_TEMPLATES
 // Variadic templates are available in GCC since version 4.4
-// (http://gcc.gnu.org/projects/cxx0x.html) and in Visual C++
+// (https://gcc.gnu.org/projects/cxx0x.html) and in Visual C++
 // since version 2013.
 # define FMT_USE_VARIADIC_TEMPLATES \
    (FMT_HAS_FEATURE(cxx_variadic_templates) || \
@@ -1019,7 +1019,7 @@ typedef BasicData<> Data;
 // Returns the number of decimal digits in n. Leading zeros are not counted
 // except for n == 0 in which case count_digits returns 1.
 inline unsigned count_digits(uint64_t n) {
-  // Based on http://graphics.stanford.edu/~seander/bithacks.html#IntegerLog10
+  // Based on https://graphics.stanford.edu/~seander/bithacks.html#IntegerLog10
   // and the benchmark https://github.com/localvoid/cxx-benchmark-count-digits.
   int t = (64 - FMT_BUILTIN_CLZLL(n | 1)) * 1233 >> 12;
   return to_unsigned(t) - (n < Data::POWERS_OF_10_64[t]) + 1;
@@ -1634,7 +1634,7 @@ class ArgList {
 /**
   \rst
   An argument visitor based on the `curiously recurring template pattern
-  <http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_.
+  <https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_.
 
   To use `~fmt::ArgVisitor` define a subclass that implements some or all of the
   visit methods with the same signatures as the methods in `~fmt::ArgVisitor`,
@@ -2240,7 +2240,7 @@ class FormatterBase {
 /**
   \rst
   An argument formatter based on the `curiously recurring template pattern
-  <http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_.
+  <https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_.
 
   To use `~fmt::BasicArgFormatter` define a subclass that implements some or
   all of the visit methods with the same signatures as the methods in

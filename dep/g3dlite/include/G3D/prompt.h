@@ -1,7 +1,7 @@
 /** 
  @file prompt.h
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  @cite   Windows GUI code by Max McGuire
 
  @created 2001-08-26

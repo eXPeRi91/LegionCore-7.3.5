@@ -1,7 +1,7 @@
 /** 
   @file Color4uint8.h
  
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   @created 2003-04-07
   @edited  2010-03-24

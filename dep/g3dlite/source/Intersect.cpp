@@ -1,7 +1,7 @@
 /**
 @file Intersect.cpp
 
-@maintainer Morgan McGuire, http://graphics.cs.williams.edu
+@maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
 @created 2009-06-29
 @edited  2009-06-29
@@ -10,7 +10,7 @@ Copyright 2000-2009, Morgan McGuire.
 All rights reserved.
 
 From the G3D Innovation Engine
-http://g3d.sf.net
+https://g3d.sf.net
 */
 #include "G3D/Intersect.h"
 

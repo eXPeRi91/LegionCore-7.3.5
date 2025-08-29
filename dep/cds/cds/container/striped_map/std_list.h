@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -159,7 +159,7 @@ namespace cds { namespace intrusive { namespace striped_set {
 #       if !defined(CDS_STD_LIST_SIZE_CXX11_CONFORM)
             // GCC C++ lib bug:
             // In GCC (at least up to 4.7.x), the complexity of std::list::size() is O(N)
-            // (see http://gcc.gnu.org/bugzilla/show_bug.cgi?id=49561)
+            // (see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=49561)
             // Fixed in GCC 5
             size_t          m_nSize ;   // list size
 #       endif

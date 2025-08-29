@@ -1,7 +1,7 @@
 /**
  \file FileSystem.cpp
  
- \author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, https://graphics.cs.williams.edu
  
  \author  2002-06-06
  \edited  2010-10-10
@@ -158,7 +158,7 @@ FileSystem::Dir& FileSystem::getContents(const std::string& path, bool forceUpda
         // Out of date: update
         dir.lastChecked = now;
 #       ifdef G3D_WINDOWS
-            // On windows, we have to use GetFileAttributes (http://msdn.microsoft.com/en-us/library/aa364944(v=vs.85).aspx) instead of 
+            // On windows, we have to use GetFileAttributes (https://msdn.microsoft.com/en-us/library/aa364944(v=vs.85).aspx) instead of 
             // stat in order to work with network shares
             const DWORD st = GetFileAttributesA(key.c_str());
             const bool exists = (st != INVALID_FILE_ATTRIBUTES);
@@ -208,7 +208,7 @@ FileSystem::Dir& FileSystem::getContents(const std::string& path, bool forceUpda
 
 #                           ifdef _DIRENT_HAVE_D_TYPE
                                 // Not all POSIX systems support this field
-                                // http://www.delorie.com/gnu/docs/glibc/libc_270.html
+                                // https://www.delorie.com/gnu/docs/glibc/libc_270.html
                                 switch (entry->d_type) {
                                 case DT_DIR:
                                     e.type = DIR_TYPE;
@@ -673,7 +673,7 @@ void FileSystem::_list(const std::string& _spec, Array<std::string>& result, con
 #ifdef G3D_WINDOWS
 const Array<std::string>& FileSystem::_drives() {
     if (m_winDrive.length() == 0) {
-        // See http://msdn.microsoft.com/en-us/library/aa364975(VS.85).aspx
+        // See https://msdn.microsoft.com/en-us/library/aa364975(VS.85).aspx
         static const size_t bufSize = 5000;
         char bufData[bufSize];
         GetLogicalDriveStringsA(bufSize, bufData);

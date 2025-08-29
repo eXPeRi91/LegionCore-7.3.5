@@ -1,7 +1,7 @@
 /**
  @file uint128.cpp
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  @author Kyle Whitson
  
  @created 2008-07-17

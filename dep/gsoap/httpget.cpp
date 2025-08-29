@@ -15,7 +15,7 @@ gSOAP public license.
 The contents of this file are subject to the gSOAP Public License Version 1.3
 (the "License"); you may not use this file except in compliance with the
 License. You may obtain a copy of the License at
-http://www.cs.fsu.edu/~engelen/soaplicense.html
+https://www.cs.fsu.edu/~engelen/soaplicense.html
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 for the specific language governing rights and limitations under the License.
@@ -86,7 +86,7 @@ compiling, linking, and/or using OpenSSL is allowed.
     This will garble soap->path, which contains the HTTP path of the form:
     /path?query
     where path and/or ?query may be absent. The path info is obtained from
-    the HTTP request URL: http://domain/path?query
+    the HTTP request URL: https://domain/path?query
     The URL should not exceed the length of SOAP_TAGLEN. Adjust SOAP_TAGLEN
     in stdsoap2.h if necessary.
 
@@ -115,7 +115,7 @@ compiling, linking, and/or using OpenSSL is allowed.
     soap_done(&soap);
 
     Note that the endpoint URL may contain a query string with key-value
-    pairs to pass to the server, e.g.: http://domain/path?key=val&key=val
+    pairs to pass to the server, e.g.: https://domain/path?key=val&key=val
 
     To use general HTTP GET, for example to retrieve an HTML document, use:
 

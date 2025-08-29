@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_FORMULAS_H
@@ -52,7 +52,7 @@ namespace Trinity
         {
             float honor = multiplier * level * 1.55f;
             sScriptMgr->OnHonorCalculation(honor, level, multiplier);
-            return honor * 2.4; // http://www.wowwiki.com/Honorable_kill#Honorable_kills 1 old points = 0.024 new points
+            return honor * 2.4; // https://www.wowwiki.com/Honorable_kill#Honorable_kills 1 old points = 0.024 new points
         }
 
         inline uint32 hk_honor_at_level(uint8 level, float multiplier = 1.0f)

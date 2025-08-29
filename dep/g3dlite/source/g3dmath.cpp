@@ -17,7 +17,7 @@ namespace G3D {
 
 float gaussRandom(float mean, float stdev) {
 
-    // Using Box-Mueller method from http://www.taygeta.com/random/gaussian.html
+    // Using Box-Mueller method from https://www.taygeta.com/random/gaussian.html
     // Modified to specify standard deviation and mean of distribution
     float w, x1, x2;
 

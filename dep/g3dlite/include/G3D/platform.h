@@ -3,7 +3,7 @@
 
  \#defines for platform specific issues.
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  Copyright 2000-2012, Morgan McGuire.
  All rights reserved.
@@ -186,8 +186,8 @@ These control the version of Winsock used by G3D.
     // defines to force correct linking.  
     //
     // For documentation on compiler options, see:
-    //  http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/_core_.2f.md.2c_2f.ml.2c_2f.mt.2c_2f.ld.asp
-    //  http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore98/HTML/_core_Compiler_Reference.asp
+    //  https://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/_core_.2f.md.2c_2f.ml.2c_2f.mt.2c_2f.ld.asp
+    //  https://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore98/HTML/_core_Compiler_Reference.asp
     //
 
     // DLL runtime
@@ -316,10 +316,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw) {\
     \#pragma may not appear inside a macro, so this uses the pragma operator 
     to create an equivalent statement.*/
 #ifdef _MSC_VER
-// Microsoft's version http://msdn.microsoft.com/en-us/library/d9x1s805.aspx
+// Microsoft's version https://msdn.microsoft.com/en-us/library/d9x1s805.aspx
 #    define PRAGMA(x) __pragma(x)
 #else
-// C99 standard http://www.delorie.com/gnu/docs/gcc/cpp_45.html
+// C99 standard https://www.delorie.com/gnu/docs/gcc/cpp_45.html
 #    define PRAGMA(x) _Pragma(#x)
 #endif
 
@@ -409,7 +409,7 @@ namespace G3D {
     }
 }
 
-// See http://stackoverflow.com/questions/2670816/how-can-i-use-the-compile-time-constant-line-in-a-string
+// See https://stackoverflow.com/questions/2670816/how-can-i-use-the-compile-time-constant-line-in-a-string
 // For use primarily with NUMBER_TO_STRING(__LINE__)
 #define NUMBER_TO_STRING(x) NUMBER_TO_STRING2(x)
 #define NUMBER_TO_STRING2(x) #x

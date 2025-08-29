@@ -3,7 +3,7 @@
 
   Templated hash table class.
 
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
   @created 2001-04-22
   @edited  2013-01-22
   Copyright 2000-2013, Morgan McGuire.

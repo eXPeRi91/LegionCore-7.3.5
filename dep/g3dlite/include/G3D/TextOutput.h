@@ -1,7 +1,7 @@
 /**
   \file G3D/TextOutput.h
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
   \created 2004-06-21
   \edited  2011-05-24
 

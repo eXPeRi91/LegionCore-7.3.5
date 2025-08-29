@@ -3,7 +3,7 @@
  
  Line class
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  @created 2001-06-02
  @edited  2006-02-28
@@ -89,7 +89,7 @@ public:
         
         @param minDist Returns the minimum distance between the lines.
 
-        @cite http://objectmix.com/graphics/133793-coordinates-closest-points-pair-skew-lines.html
+        @cite https://objectmix.com/graphics/133793-coordinates-closest-points-pair-skew-lines.html
     */
     Vector3 closestPoint(const Line& B, float& minDist) const;
 

@@ -1,7 +1,7 @@
 /**
  \file G3D/units.h
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2009-08-21
  \edited  2011-07-08
@@ -15,7 +15,7 @@ namespace G3D {
 /** Use <code>using namespace G3D::units;</code> to include all units
  into your program.  The units system is specifically designed not to
  be general but to support commonly used units efficiently and
- clearly.  See http://en.wikipedia.org/wiki/SI_prefix for interesting facts
+ clearly.  See https://en.wikipedia.org/wiki/SI_prefix for interesting facts
  about SI/metric units and full definitions.*/
 namespace units {
 

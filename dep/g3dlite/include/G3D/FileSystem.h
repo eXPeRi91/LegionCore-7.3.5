@@ -1,7 +1,7 @@
 /**
  \file FileSystem.h
  
- \author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, https://graphics.cs.williams.edu
  
  \author  2002-06-06
  \edited  2012-03-26

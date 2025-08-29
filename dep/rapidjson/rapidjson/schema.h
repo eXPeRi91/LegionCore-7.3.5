@@ -5,7 +5,7 @@
 // Licensed under the MIT License (the "License"); you may not use this file except
 // in compliance with the License-> You may obtain a copy of the License at
 //
-// http://opensource->org/licenses/MIT
+// https://opensource->org/licenses/MIT
 //
 // Unless required by applicable law or agreed to in writing, software distributed 
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
@@ -235,7 +235,7 @@ private:
     bool WriteNumber(const Number& n) { return WriteBuffer(kNumberType, &n, sizeof(n)); }
     
     bool WriteBuffer(Type type, const void* data, size_t len) {
-        // FNV-1a from http://isthe.com/chongo/tech/comp/fnv/
+        // FNV-1a from https://isthe.com/chongo/tech/comp/fnv/
         uint64_t h = Hash(RAPIDJSON_UINT64_C2(0x84222325, 0xcbf29ce4), type);
         const unsigned char* d = static_cast<const unsigned char*>(data);
         for (size_t i = 0; i < len; i++)

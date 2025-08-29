@@ -1,7 +1,7 @@
 /**
  @file Crypto.cpp
 
- @author Morgan McGuire, http://graphics.cs.williams.edu
+ @author Morgan McGuire, https://graphics.cs.williams.edu
 
 
  @created 2006-03-28
@@ -20,7 +20,7 @@ int Crypto::smallPrime(int n) {
     debugAssert(n < numSmallPrimes() && n >= 0);
 
     // From:
-    // http://primes.utm.edu/lists/small/1000.txt
+    // https://primes.utm.edu/lists/small/1000.txt
 
     static const int table[] = {
           2,      3,      5,      7,     11,     13,     17,     19,     23,     29, 

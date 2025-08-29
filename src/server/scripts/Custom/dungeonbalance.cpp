@@ -1,9 +1,9 @@
 /*
 * Copyright (C) 2024 SoulSeekkor <https://www.soulseekkor.com>
-* Copyright (C) 2012 CVMagic <http://www.trinitycore.org/f/topic/6551-vas-autobalance/>
-* Copyright (C) 2008-2010 TrinityCore <http://www.trinitycore.org/>
+* Copyright (C) 2012 CVMagic <https://www.trinitycore.org/f/topic/6551-vas-autobalance/>
+* Copyright (C) 2008-2010 TrinityCore <https://www.trinitycore.org/>
 * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
-* Copyright (C) 1985-2010 {VAS} KalCorp  <http://vasserver.dyndns.org/>
+* Copyright (C) 1985-2010 {VAS} KalCorp  <https://vasserver.dyndns.org/>
 *
 * This file is part of the TrinityCore Project. See AUTHORS file for Copyright information
 *
@@ -18,7 +18,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 * Script Name: DungeonBalance
 * Original Authors: SoulSeekkor (based on KalCorp and Vaughner's work)
 * Maintainer(s): SoulSeekkor

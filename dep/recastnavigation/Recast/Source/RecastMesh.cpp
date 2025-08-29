@@ -35,7 +35,7 @@ static bool buildMeshAdjacency(unsigned short* polys, const int npolys,
                                const int nverts, const int vertsPerPoly)
 {
     // Based on code by Eric Lengyel from:
-    // http://www.terathon.com/code/edges.php
+    // https://www.terathon.com/code/edges.php
     
     int maxEdgeCount = npolys*vertsPerPoly;
     unsigned short* firstEdge = (unsigned short*)rcAlloc(sizeof(unsigned short)*(nverts + maxEdgeCount), RC_ALLOC_TEMP);

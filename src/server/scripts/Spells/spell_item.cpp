@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -73,7 +73,7 @@ class spell_item_trigger_spell : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=6522 Deviate Fish
+// https://www.wowhead.com/item=6522 Deviate Fish
 // 8063 Deviate Fish
 enum DeviateFishSpells
 {
@@ -125,7 +125,7 @@ class spell_item_deviate_fish : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=47499 Flask of the North
+// https://www.wowhead.com/item=47499 Flask of the North
 // 67019 Flask of the North
 enum FlaskOfTheNorthSpells
 {
@@ -195,7 +195,7 @@ class spell_item_flask_of_the_north : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=10645 Gnomish Death Ray
+// https://www.wowhead.com/item=10645 Gnomish Death Ray
 // 13280 Gnomish Death Ray
 enum GnomishDeathRay
 {
@@ -243,7 +243,7 @@ class spell_item_gnomish_death_ray : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=27388 Mr. Pinchy
+// https://www.wowhead.com/item=27388 Mr. Pinchy
 // 33060 Make a Wish
 enum MakeAWish
 {
@@ -301,7 +301,7 @@ class spell_item_make_a_wish : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=32686 Mingo's Fortune Giblets
+// https://www.wowhead.com/item=32686 Mingo's Fortune Giblets
 // 40802 Mingo's Fortune Generator
 class spell_item_mingos_fortune_generator : public SpellScriptLoader
 {
@@ -357,7 +357,7 @@ class spell_item_mingos_fortune_generator : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=10720 Gnomish Net-o-Matic Projector
+// https://www.wowhead.com/item=10720 Gnomish Net-o-Matic Projector
 // 13120 Net-o-Matic
 enum NetOMaticSpells
 {
@@ -409,7 +409,7 @@ class spell_item_net_o_matic : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=8529 Noggenfogger Elixir
+// https://www.wowhead.com/item=8529 Noggenfogger Elixir
 // 16589 Noggenfogger Elixir
 enum NoggenfoggerElixirSpells
 {
@@ -464,7 +464,7 @@ class spell_item_noggenfogger_elixir : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=6657 Savory Deviate Delight
+// https://www.wowhead.com/item=6657 Savory Deviate Delight
 // 8213 Savory Deviate Delight
 enum SavoryDeviateDelight
 {
@@ -522,7 +522,7 @@ class spell_item_savory_deviate_delight : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=7734 Six Demon Bag
+// https://www.wowhead.com/item=7734 Six Demon Bag
 // 14537 Six Demon Bag
 enum SixDemonBagSpells
 {
@@ -593,7 +593,7 @@ class spell_item_six_demon_bag : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/item=44012 Underbelly Elixir
+// https://www.wowhead.com/item=44012 Underbelly Elixir
 // 59640 Underbelly Elixir
 enum UnderbellyElixirSpells
 {
@@ -2320,7 +2320,7 @@ class spell_item_book_of_the_ages : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/spell=87649 Item: Chocolate Cookie
+// https://www.wowhead.com/spell=87649 Item: Chocolate Cookie
 class spell_item_chocolate_cookie : public SpellScriptLoader
 {
 public:

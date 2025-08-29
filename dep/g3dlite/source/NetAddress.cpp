@@ -1,7 +1,7 @@
 /**
  \file NetAddress.cpp
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  \created 2005-02-06
  \edited  2013-03-17
  */

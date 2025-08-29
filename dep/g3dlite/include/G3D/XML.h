@@ -50,7 +50,7 @@ end with "-->" e.g.,
   <!-- a comment -->
 </pre>
 
-\sa G3D::Any, http://www.grinninglizard.com/tinyxml/
+\sa G3D::Any, https://www.grinninglizard.com/tinyxml/
 
 \htmlonly
 <pre>

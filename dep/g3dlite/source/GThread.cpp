@@ -79,7 +79,7 @@ int GThread::numCores() {
 }
 
 #ifdef G3D_WINDOWS
-// From http://msdn.microsoft.com/en-us/library/xcb2z8hs.aspx
+// From https://msdn.microsoft.com/en-us/library/xcb2z8hs.aspx
 const DWORD MS_VC_EXCEPTION=0x406D1388;
 
 #pragma pack(push,8)

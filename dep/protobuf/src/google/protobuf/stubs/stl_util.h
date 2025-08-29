@@ -77,7 +77,7 @@ inline void STLStringResizeUninitialized(string* s, size_t new_size) {
 //
 // As of 2006-04, there is no standard-blessed way of getting a
 // mutable reference to a string's internal buffer. However, issue 530
-// (http://www.open-std.org/JTC1/SC22/WG21/docs/lwg-active.html#530)
+// (https://www.open-std.org/JTC1/SC22/WG21/docs/lwg-active.html#530)
 // proposes this as the method. According to Matt Austern, this should
 // already work on all current implementations.
 inline char* string_as_array(string* str) {

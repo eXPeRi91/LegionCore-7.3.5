@@ -1,7 +1,7 @@
 /**
  @file Crypto_md5.cpp
 
- @author Morgan McGuire, http://graphics.cs.williams.edu
+ @author Morgan McGuire, https://graphics.cs.williams.edu
  Copyright 2006-2007, Morgan McGuire.  All rights reserved.
 
  @created 2006-03-28
@@ -100,7 +100,7 @@ MD5Hash Crypto::md5(const void* data, size_t n) {
 
   This code implements the MD5 Algorithm defined in RFC 1321, whose
   text is available at
-    http://www.ietf.org/rfc/rfc1321.txt
+    https://www.ietf.org/rfc/rfc1321.txt
   The code is derived from the text of the RFC, including the test suite
   (section A.5) but excluding the rest of Appendix A.  It does not include
   any code or documentation that is identified in the RFC as being

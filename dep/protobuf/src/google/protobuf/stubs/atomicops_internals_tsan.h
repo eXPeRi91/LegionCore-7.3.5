@@ -29,7 +29,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file is an internal atomic implementation for compiler-based
-// ThreadSanitizer (http://clang.llvm.org/docs/ThreadSanitizer.html).
+// ThreadSanitizer (https://clang.llvm.org/docs/ThreadSanitizer.html).
 // Use atomicops.h instead.
 
 #ifndef GOOGLE_PROTOBUF_ATOMICOPS_INTERNALS_TSAN_H_

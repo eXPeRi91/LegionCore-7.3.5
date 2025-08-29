@@ -1,7 +1,7 @@
 /** 
   \file Pointer.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   \created 2007-05-16
   \edited  2012-10-06

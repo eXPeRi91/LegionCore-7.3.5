@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -89,7 +89,7 @@ namespace cds { namespace intrusive {
 
     /// Vyukov's MPMC bounded queue
     /** @ingroup cds_intrusive_queue
-        This algorithm is developed by Dmitry Vyukov (see http://www.1024cores.net)
+        This algorithm is developed by Dmitry Vyukov (see https://www.1024cores.net)
 
         Implementation of intrusive version is based on container::VyukovMPMCCycleQueue.
 

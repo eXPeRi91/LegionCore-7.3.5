@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -72,7 +72,7 @@ namespace cds { namespace container {
 
         Source:
             - [2010] N.Bronson, J.Casper, H.Chafi, K.Olukotun "A Practical Concurrent Binary Search Tree"
-            - <a href="http://github.com/nbronson/snaptree">Java implementation</a>
+            - <a href="https://github.com/nbronson/snaptree">Java implementation</a>
 
         This is a concurrent AVL tree algorithm that uses hand-over-hand optimistic validation,
         a concurrency control mechanism for searching and navigating a binary search tree.

@@ -4,7 +4,7 @@
  This header includes all of the G3D libraries in
  appropriate namespaces.
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2001-08-25
  \edited  2013-03-24

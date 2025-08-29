@@ -1,4 +1,4 @@
-// Version 2012-02-20 (http://github.com/ITikhonov/captcha/tree/bbbaaa33ad3f94ce3f091badba51b44a231f12fd)
+// Version 2012-02-20 (https://github.com/ITikhonov/captcha/tree/bbbaaa33ad3f94ce3f091badba51b44a231f12fd)
 // zlib/libpng license is at the end of this file
 
 const int gifsize;
@@ -232,7 +232,7 @@ int main() {
 
 
 /*
-  http://brokestream.com/captcha.html
+  https://brokestream.com/captcha.html
 
   Copyright (C) 2009 Ivan Tikhonov
 

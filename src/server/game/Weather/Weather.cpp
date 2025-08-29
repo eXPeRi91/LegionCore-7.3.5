@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** \file
@@ -82,7 +82,7 @@ bool Weather::ReGenerate()
     float old_grade = m_grade;
 
     //78 days between January 1st and March 20nd; 365/4=91 days by season
-    // season source http://aa.usno.navy.mil/data/docs/EarthSeasons.html
+    // season source https://aa.usno.navy.mil/data/docs/EarthSeasons.html
     time_t gtime = sWorld->GetGameTime();
     struct tm ltime;
     localtime_r(&gtime, &ltime);

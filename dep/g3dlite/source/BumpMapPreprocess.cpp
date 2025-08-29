@@ -1,7 +1,7 @@
 /**
   \file BumpMapPreprocess.cpp
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2010-01-28
   \edited  2010-01-28

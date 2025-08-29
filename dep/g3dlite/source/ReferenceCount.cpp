@@ -3,9 +3,9 @@
 
   Reference Counting Garbage Collector for C++
 
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
   @cite Adapted and extended from Justin Miller's "RGC" class that appeared in BYTE magazine.
-  @cite See also http://www.jelovic.com/articles/cpp_without_memory_errors_slides.htm
+  @cite See also https://www.jelovic.com/articles/cpp_without_memory_errors_slides.htm
 
   @created 2001-10-23
   @edited  2009-04-25

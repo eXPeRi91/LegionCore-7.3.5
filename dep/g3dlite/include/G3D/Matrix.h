@@ -1,6 +1,6 @@
 /**
   @file Matrix.h
-  @author Morgan McGuire, http://graphics.cs.williams.edu
+  @author Morgan McGuire, https://graphics.cs.williams.edu
 
   @created 2005-10-23
   @edited  2007-07-18
@@ -505,7 +505,7 @@ public:
             (A<SUP>T</SUP>A)<SUP>-1</SUP>A<SUP>T</SUP>).  The SVD method is used
             for performance when the matrix has more than four rows or columns
 
-            \cite http://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse
+            \cite https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse
 
             \param tolerance Use -1 for automatic tolerance.
      */

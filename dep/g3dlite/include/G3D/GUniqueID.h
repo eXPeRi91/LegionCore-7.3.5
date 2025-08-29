@@ -1,6 +1,6 @@
 /**
   \file G3D/GUniqueID.h
-  \author Morgan McGuire, http://graphics.cs.williams.edu
+  \author Morgan McGuire, https://graphics.cs.williams.edu
  */
 #ifndef G3D_GUniqueID_h
 #define G3D_GUniqueID_h

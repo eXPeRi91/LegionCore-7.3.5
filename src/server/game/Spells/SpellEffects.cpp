@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AccountMgr.h"
@@ -2608,7 +2608,7 @@ void Spell::EffectHeal(SpellEffIndex effIndex)
         // Mogu'Shan Vault
         if (caster->HasAura(116161) || unitTarget->HasAura(116161)) // SPELL_CROSSED_OVER
         {
-            // http://fr.wowhead.com/spell=117549#english-comments
+            // https://fr.wowhead.com/spell=117549#english-comments
             // uint32 targetSpec = unitTarget->ToPlayer()->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
 
             if (unitTarget == caster)

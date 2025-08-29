@@ -1,7 +1,7 @@
 /**
   \file G3D/source/Matrix4.cpp 
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2003-10-02
   \edited  2012-02-19
@@ -162,8 +162,8 @@ Matrix4 Matrix4::orthogonalProjection(
     float            farval,
     float            upDirection) {
 
-    // Adapted from Mesa.  Note that Microsoft (http://msdn.microsoft.com/library/default.asp?url=/library/en-us/opengl/glfunc03_8qnj.asp) 
-    // and Linux (http://www.xfree86.org/current/glOrtho.3.html) have different matrices shown in their documentation.
+    // Adapted from Mesa.  Note that Microsoft (https://msdn.microsoft.com/library/default.asp?url=/library/en-us/opengl/glfunc03_8qnj.asp) 
+    // and Linux (https://www.xfree86.org/current/glOrtho.3.html) have different matrices shown in their documentation.
 
     float x, y, z;
     float tx,  ty, tz;

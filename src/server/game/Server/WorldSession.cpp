@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** \file
@@ -227,7 +227,7 @@ void WorldSession::SendPacket(WorldPacket const* packet, bool forced /*= false*/
     uint32 start_time = getMSTime();
     const_cast<WorldPacket*>(packet)->FlushBits();
 
-    if (m_Socket[conIdx]) // http://pastebin.com/8ntVgj49
+    if (m_Socket[conIdx]) // https://pastebin.com/8ntVgj49
         m_Socket[conIdx]->SendPacket(*packet);
 
     if ((getMSTime() - start_time) > 50)

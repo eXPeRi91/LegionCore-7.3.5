@@ -1,7 +1,7 @@
 /** 
   \file G3D/WrapMode.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   \created 2007-04-17
   \edited  2010-04-17
@@ -50,7 +50,7 @@ namespace G3D {
   according to the class used.  For example, with a G3D::Texture, ZERO = Color4(0,0,0,0).
 
   Uses the "Intelligent Enum" design pattern 
-  http://www.codeguru.com/cpp/cpp/cpp_mfc/article.php/c4001/
+  https://www.codeguru.com/cpp/cpp/cpp_mfc/article.php/c4001/
  */ 
 class WrapMode {
 public:

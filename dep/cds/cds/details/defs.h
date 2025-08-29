@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -172,9 +172,9 @@
    \par Windows build
 
    Prerequisites: for building <b>cds</b> library and test suite you need:
-    - <a href="http://www.activestate.com/activeperl/downloads">perl</a> installed; \p PATH environment variable
+    - <a href="https://www.activestate.com/activeperl/downloads">perl</a> installed; \p PATH environment variable
         should contain full path to Perl binary. Perl is used to generate large dictionary for testing purpose;
-    - <a href="http://www.boost.org/">boost library</a> 1.51 and above. You should create environment variable
+    - <a href="https://www.boost.org/">boost library</a> 1.51 and above. You should create environment variable
         \p BOOST_PATH containing full path to \p boost root directory (for example, <tt>C:\\libs\\boost_1_57_0</tt>).
 
    Open solution file <tt>cds\projects\vc14\cds.sln</tt> with Microsoft VisualStudio 2015.

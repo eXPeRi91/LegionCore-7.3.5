@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -44,7 +44,7 @@ namespace cds {
       your compiler invocation, for example, for gcc specify \p -DCDS_USE_BOOST_ATOMIC
       in command line
     - \p libcds implementation of atomic operation according to C++11 standard as
-      specified in <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf">N3242, p.29</a>.
+      specified in <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf">N3242, p.29</a>.
       \p libcds implementation is not the full standard compliant, it provides only C++ part of standard,
       for example, \p libcds has no static initialization of the atomic variables and some other C features.
       However, that imlementation is enough for the library purposes. Supported architecture: x86, amd64,

@@ -83,7 +83,7 @@
 
 //-----------------------------------------------------------------------------
 // In-memory structures
-// See http://pxr.dk/wowdev/wiki/index.php?title=CASC for more information
+// See https://pxr.dk/wowdev/wiki/index.php?title=CASC for more information
 
 struct TFileStream;
 
@@ -141,7 +141,7 @@ typedef struct _CASC_FILE_FRAME
 // * Table B header
 // * Table B entries
 // * String block #2
-// http://pxr.dk/wowdev/wiki/index.php?title=CASC#Key_CASC_Files
+// https://pxr.dk/wowdev/wiki/index.php?title=CASC#Key_CASC_Files
 typedef struct _CASC_ENCODING_HEADER
 {
     BYTE Magic[2];                                  // "EN"

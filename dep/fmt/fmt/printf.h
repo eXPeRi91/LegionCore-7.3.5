@@ -202,7 +202,7 @@ class WidthHandler : public ArgVisitor<WidthHandler, unsigned> {
 /**
   \rst
   A ``printf`` argument formatter based on the `curiously recurring template
-  pattern <http://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_.
+  pattern <https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern>`_.
 
   To use `~fmt::BasicPrintfArgFormatter` define a subclass that implements some
   or all of the visit methods with the same signatures as the methods in

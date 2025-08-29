@@ -1,7 +1,7 @@
 /**
   \file Rect2D.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   \created 2003-11-13
   \created 2011-06-16

@@ -1,7 +1,7 @@
 /**
  \file G3D/BinaryInput.h
  
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2001-08-09
  \edited  2013-01-03

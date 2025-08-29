@@ -1,7 +1,7 @@
 /**
  \file G3D/Spline.h
 
- \author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, https://graphics.cs.williams.edu
  */
 
 #ifndef G3D_Spline_h
@@ -349,7 +349,7 @@ public:
         debugAssertM(control.size() == time.size(), "Corrupt spline: wrong number of control points.");
 
         /*
-        @cite http://www.gamedev.net/reference/articles/article1497.asp 
+        @cite https://www.gamedev.net/reference/articles/article1497.asp 
         Derivation of basis matrix follows.
         
         Given control points with positions p[i] at times t[i], 0 <= i <= 3, find the position 

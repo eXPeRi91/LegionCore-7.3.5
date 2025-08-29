@@ -1,6 +1,6 @@
 /**
   @file GImage_ppm.cpp
-  @author Morgan McGuire, http://graphics.cs.williams.edu
+  @author Morgan McGuire, https://graphics.cs.williams.edu
   @created 2002-05-27
   @edited  2006-05-10
  */
@@ -61,7 +61,7 @@ void GImage::encodePPMASCII(
 void GImage::encodePPM(
     BinaryOutput&       out) const {
 
-    // http://netpbm.sourceforge.net/doc/ppm.html
+    // https://netpbm.sourceforge.net/doc/ppm.html
     if (m_channels == 3) {
         std::string header = format("P6 %d %d 255 ", m_width, m_height);
         out.writeBytes(header.c_str(), header.size());

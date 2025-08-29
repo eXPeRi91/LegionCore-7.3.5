@@ -1,7 +1,7 @@
 /**
   \file G3D.lib/source/AABox.cpp
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2004-01-10
   \edited  2013-06-11

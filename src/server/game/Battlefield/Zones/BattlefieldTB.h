@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2012 Haloperidolum <http://wow-mig.ru/>
+ * Copyright (C) 2011-2012 Haloperidolum <https://wow-mig.ru/>
  * This is private source based on TrinityCore
  * for WoW-Mig project
  * This is no GPL code.

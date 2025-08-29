@@ -1,6 +1,6 @@
 /*
-* Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
-* Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+* Copyright (C) 2008-2014 TrinityCore <https://www.trinitycore.org/>
+* Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "WorldSocket.h"
@@ -554,7 +554,7 @@ void WorldSocket::SendPacket(WorldPacket const& packet)
 
     // uint32 opcode = packet.GetOpcode();
     uint32 packetSize = packet.size();
-    if (packetSize > 0x7FFFFFF) // If packet size bugget, don`t send it http://pastebin.com/Q0xG8aGp
+    if (packetSize > 0x7FFFFFF) // If packet size bugget, don`t send it https://pastebin.com/Q0xG8aGp
         return;
 
     sPacketLog->LogPacket(packet, SERVER_TO_CLIENT, GetRemoteIpAddress(), GetRemotePort(), GetConnectionType());

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
+ * Copyright (C) 2005-2011 MaNGOS <https://www.getmangos.com/>
  *
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 Trinity <https://www.trinitycore.org/>
  *
- * Copyright (C) 2010-2011 Project SkyFire <http://www.projectskyfire.org/>
+ * Copyright (C) 2010-2011 Project SkyFire <https://www.projectskyfire.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

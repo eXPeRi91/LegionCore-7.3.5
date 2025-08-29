@@ -27,7 +27,7 @@ target_compile_options(trinity-warning-interface
 
 if(PLATFORM EQUAL 64)
   # This definition is necessary to work around a bug with Intellisense described
-  # here: http://tinyurl.com/2cb428.  Syntax highlighting is important for proper
+  # here: https://tinyurl.com/2cb428.  Syntax highlighting is important for proper
   # debugger functionality.
   target_compile_definitions(trinity-compile-option-interface
     INTERFACE
@@ -80,7 +80,7 @@ endif()
 # When you specify Zc:throwingNew on the command line, it instructs the compiler to assume
 # that the program will eventually be linked with a conforming operator new implementation,
 # and can omit all of these extra null checks from your program.
-# http://blogs.msdn.com/b/vcblog/archive/2015/08/06/new-in-vs-2015-zc-throwingnew.aspx
+# https://blogs.msdn.com/b/vcblog/archive/2015/08/06/new-in-vs-2015-zc-throwingnew.aspx
 if(NOT (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.0.23026.0))
   # makes this flag a requirement to build TC at all
   target_compile_options(trinity-compile-option-interface
