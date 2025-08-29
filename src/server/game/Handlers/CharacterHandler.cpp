@@ -2062,7 +2062,7 @@ void WorldSession::HandleLogoutRequest(WorldPackets::Character::LogoutRequest& /
         return;
     }
 
-    // instant logout in taverns/cities or on taxi or for admins, gm's, mod's if its enabled in worldserver.conf
+    // instant logout in taverns/cities or on taxi or for admins, GMs, mods if its enabled in worldserver.conf
     if (instantLogout)
     {
         // LogoutPlayer(true);

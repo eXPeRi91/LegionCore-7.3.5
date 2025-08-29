@@ -26721,7 +26721,7 @@ void Player::Whisper(std::string const& text, uint32 language, ObjectGuid receiv
     if (_text.empty())
         return;
 
-    // when player you are whispering to is dnd, he cannot receive your message, unless you are in gm mode
+    // when player you are whispering to is DND, he cannot receive your message, unless you are in GM mode
     if (!rPlayer->isDND() || isGameMaster())
     {
         WorldPackets::Chat::Chat packet;
@@ -26732,7 +26732,7 @@ void Player::Whisper(std::string const& text, uint32 language, ObjectGuid receiv
         packet.Initialize(CHAT_MSG_WHISPER_INFORM, static_cast<Language>(language), rPlayer, rPlayer, _text);
         SendDirectMessage(packet.Write());
     }
-    else // announce to player that player he is whispering to is dnd and cannot receive his message
+    else // announce to player that player he is whispering to is DND and cannot receive his message
         ChatHandler(this).PSendSysMessage(LANG_PLAYER_DND, rPlayer->GetName(), rPlayer->dndMsg.c_str());
 
     if (!isAcceptWhispers() && !isGameMaster() && !rPlayer->isGameMaster())
@@ -26741,11 +26741,11 @@ void Player::Whisper(std::string const& text, uint32 language, ObjectGuid receiv
         ChatHandler(this).SendSysMessage(LANG_COMMAND_WHISPERON);
     }
 
-    // announce to player that player he is whispering to is afk
+    // announce to player that player he is whispering to is AFK
     if (rPlayer->isAFK())
         ChatHandler(this).PSendSysMessage(LANG_PLAYER_AFK, rPlayer->GetName(), rPlayer->afkMsg.c_str());
 
-    // if player whisper someone, auto turn of dnd to be able to receive an answer
+    // if player whisper someone, auto turn off DND to be able to receive an answer
     if (isDND() && !rPlayer->isGameMaster())
         ToggleDND();
 }
