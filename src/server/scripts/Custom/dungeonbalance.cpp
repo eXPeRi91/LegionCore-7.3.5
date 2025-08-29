@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2024 SoulSeekkor <https://www.soulseekkor.com>
+* Copyright (C) 2024 SoulSeekkor <https://github.com/SoulSeekkor/>
 * Copyright (C) 2012 CVMagic <https://www.trinitycore.org/f/topic/6551-vas-autobalance/>
 * Copyright (C) 2008-2010 TrinityCore <https://www.trinitycore.org/>
 * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
