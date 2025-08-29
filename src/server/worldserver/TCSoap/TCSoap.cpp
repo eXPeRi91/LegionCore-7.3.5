@@ -162,10 +162,10 @@ void SOAPCommand::commandFinished(void* soapconnection, bool success)
 
 struct Namespace namespaces[] =
 { 
-    { "SOAP-ENV",   "https://schemas.xmlsoap.org/soap/envelope/",    nullptr,                                    nullptr }, // must be first
-    { "SOAP-ENC",   "https://schemas.xmlsoap.org/soap/encoding/",    nullptr,                                    nullptr }, // must be second
-    { "xsi",        "https://www.w3.org/1999/XMLSchema-instance",    "https://www.w3.org/*/XMLSchema-instance",   nullptr },
-    { "xsd",        "https://www.w3.org/1999/XMLSchema",             "https://www.w3.org/*/XMLSchema",            nullptr },
+    { "SOAP-ENV",   "https://schemas.xmlsoap.org/soap/envelope/",   nullptr,                                    nullptr }, // must be first
+    { "SOAP-ENC",   "https://schemas.xmlsoap.org/soap/encoding/",   nullptr,                                    nullptr }, // must be second
+    { "xsi",        "https://www.w3.org/1999/XMLSchema-instance",   "https://www.w3.org/*/XMLSchema-instance",  nullptr },
+    { "xsd",        "https://www.w3.org/1999/XMLSchema",            "https://www.w3.org/*/XMLSchema",           nullptr },
     { "ns1",        "urn:TC",                                       nullptr,                                    nullptr }, // "ns1" namespace prefix
     { nullptr,      nullptr,                                        nullptr,                                    nullptr }
 };

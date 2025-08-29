@@ -324,11 +324,11 @@ unsigned short errno;
 #endif
 
 #ifndef PALM_1
-static const char soap_env1[42] = "https://schemas.xmlsoap.org/soap/envelope/";
-static const char soap_enc1[42] = "https://schemas.xmlsoap.org/soap/encoding/";
-static const char soap_env2[40] = "https://www.w3.org/2003/05/soap-envelope";
-static const char soap_enc2[40] = "https://www.w3.org/2003/05/soap-encoding";
-static const char soap_rpc[35] = "https://www.w3.org/2003/05/soap-rpc";
+static const char soap_env1[43] = "https://schemas.xmlsoap.org/soap/envelope/";
+static const char soap_enc1[43] = "https://schemas.xmlsoap.org/soap/encoding/";
+static const char soap_env2[41] = "https://www.w3.org/2003/05/soap-envelope";
+static const char soap_enc2[41] = "https://www.w3.org/2003/05/soap-encoding";
+static const char soap_rpc[36] = "https://www.w3.org/2003/05/soap-rpc";
 #endif
 
 #ifndef PALM_1
