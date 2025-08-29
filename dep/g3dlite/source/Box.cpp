@@ -2,7 +2,7 @@
   \file G3D.lib/source/Box.cpp
   Box class
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu, Michael Mara
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu, Michael Mara
 
   \created 2001-06-02
   \edited  2013-04-13

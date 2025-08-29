@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -21,61 +21,61 @@
 
 enum Spells
 {
-    //< http://www.wowhead.com/npc=81750/bloodmaul-ogron
+    //< https://www.wowhead.com/npc=81750/bloodmaul-ogron
     SPELL_COLOSAL_ROAR              = 164582,
     SPELL_MASSIVE_STOMP             = 164587,
 
-    //< http://www.wowhead.com/npc=81767/bloodmaul-flamespeaker
+    //< https://www.wowhead.com/npc=81767/bloodmaul-flamespeaker
     SPELL_EXPLODING_FLAMES          = 164617,
     SPELL_CHANEL_FLAMES             = 164615, //< Area Trigger (2593)
     SPELL_CHANEL_FLAMES_2           = 164616,
 
-    //< http://www.wowhead.com/npc=75194/gnasher
+    //< https://www.wowhead.com/npc=75194/gnasher
     SPELL_FURIOUS_SWIPES            = 164624,
     SPELL_RENDING_CHARGE            = 164641,
 
-    //< http://www.wowhead.com/npc=75211/magma-lord
+    //< https://www.wowhead.com/npc=75211/magma-lord
     SPELL_FIREBALL                  = 152427,
     SPELL_PILAR_OF_FLAMES           = 151623,
 
-    //< http://www.wowhead.com/npc=74349/bloodmaul-magma-binder
+    //< https://www.wowhead.com/npc=74349/bloodmaul-magma-binder
     SPELL_LAVA_BURST                = 151558,
     SPELL_MOLTEN_BINDING            = 151566,
 
-    //< http://www.wowhead.com/npc=75406/slagna
+    //< https://www.wowhead.com/npc=75406/slagna
     SPELL_LAVA_SPIT                 = 152183,
 
-    //< http://www.wowhead.com/npc=75209/molten-earth-elemental
+    //< https://www.wowhead.com/npc=75209/molten-earth-elemental
     SPELL_LAVA_ARC                  = 151720,
 
-    //< http://www.wowhead.com/npc=75210/bloodmaul-warder
+    //< https://www.wowhead.com/npc=75210/bloodmaul-warder
     SPELL_CLEAVE                    = 40505,
     SPELL_FRIGHTENING_ROAR          = 151545,
 
-    //< http://www.wowhead.com/npc=75272/bloodmaul-ogre-mage
+    //< https://www.wowhead.com/npc=75272/bloodmaul-ogre-mage
     SPELL_BLOOD_RAGE                = 151548,
 
-    //< http://www.wowhead.com/npc=75426/bloodmaul-overseer
+    //< https://www.wowhead.com/npc=75426/bloodmaul-overseer
     SPELL_SUBJUGATE                 = 151697,
     SPELL_SUPPRESSION_FIELD         = 151581,
 
-    //< http://www.wowhead.com/npc=84978/bloodmaul-enforcer
+    //< https://www.wowhead.com/npc=84978/bloodmaul-enforcer
     SPELL_BEATDOWN                  = 151415,
     SPELL_CRUSH                     = 151447,
     SPELL_LUMBERING_LEAP            = 151542,
 
-    //< http://www.wowhead.com/npc=75191/bloodmaul-slaver
+    //< https://www.wowhead.com/npc=75191/bloodmaul-slaver
     SPELL_CHAIN_GRIP                = 151990,
     SPELL_SHOCK_BOLA                = 152073,
     SPELL_SLAVERS_RAGE              = 151965,
     SPELL_VICIOUS_SLASH             = 152043,
 
-    //< http://www.wowhead.com/npc=75820/vengeful-magma-elemental
+    //< https://www.wowhead.com/npc=75820/vengeful-magma-elemental
     SPELL_ARMOR_DENT                = 151685,
     SPELL_CINDER_SPLASH             = 152298,
     SPELL_FIREBALL_2                = 77508,
     
-    //< http://www.wowhead.com/npc=75198/bloodmaul-geomancer
+    //< https://www.wowhead.com/npc=75198/bloodmaul-geomancer
     SPELL_STONE_BOLT                = 164592,
     SPELL_STONE_BULWARK             = 164597,
 };

@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -33,13 +33,13 @@
 
 #include <cds/algo/base.h>
 
-    // Source: http://stackoverflow.com/questions/746171/best-algorithm-for-bit-reversal-from-msb-lsb-to-lsb-msb-in-c
+    // Source: https://stackoverflow.com/questions/746171/best-algorithm-for-bit-reversal-from-msb-lsb-to-lsb-msb-in-c
 namespace cds { namespace algo {
 
     /// Bit reversal algorithms
     namespace bit_reversal {
 
-        /// SWAR algorithm (source: http://aggregate.org/MAGIC/#Bit%20Reversal)
+        /// SWAR algorithm (source: https://aggregate.org/MAGIC/#Bit%20Reversal)
         struct swar {
             /// 32bit
             uint32_t operator()( uint32_t x ) const

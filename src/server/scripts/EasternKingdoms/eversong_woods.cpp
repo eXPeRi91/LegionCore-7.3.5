@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -149,13 +149,13 @@ public:
                   timerJustice    = 500;
               break;
               case CHAMPION_SWIFTBLADE:
-                  spellJudLight   = false;  // Misses Script Effect // http://www.wowhead.com/?spell=20271
+                  spellJudLight   = false;  // Misses Script Effect // https://www.wowhead.com/?spell=20271
                   timerJudLight   = 500;
               break;
               case CHAMPION_SUNSTRIKER:
                   spellFlashLight = true;
-                  spellJudLight   = false;  // Misses Script Effect // http://www.wowhead.com/?spell=20271
-                  spellCommand    = false;  // Misses Dummy // http://www.wowhead.com/?spell=20375
+                  spellJudLight   = false;  // Misses Script Effect // https://www.wowhead.com/?spell=20271
+                  spellCommand    = false;  // Misses Dummy // https://www.wowhead.com/?spell=20375
                   timerFlashLight = 3225;
                   timerJudLight   = 500;
                   timerCommand    = 1500;

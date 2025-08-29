@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Garrison.h"
@@ -1458,7 +1458,7 @@ void Garrison::AddFollower(uint32 garrFollowerId)
     _owner->UpdateForQuestWorldObjects();
 }
 
-//! basic follower has rand 4.  for shaman look at http://ru.wowhead.com/champion=608#english-comments
+//! basic follower has rand 4.  for shaman look at https://ru.wowhead.com/champion=608#english-comments
 void Garrison::CheckBasicRequirements()
 {
     for (uint16 i = 0; i < MAX_QUEST_LOG_SIZE; ++i)

@@ -1,7 +1,7 @@
 /**
  @file stringutils.h
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  @author  2000-09-09
  @edited  2010-03-05

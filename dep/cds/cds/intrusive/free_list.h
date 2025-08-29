@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -42,7 +42,7 @@ namespace cds { namespace intrusive {
         this avoids the overhead of \p malloc(), and also avoids its worst-case behavior of taking an operating system lock.
         So, the free list can be considered as a specialized allocator for objects of some type.
 
-        The algorithm is taken from <a href="http://moodycamel.com/blog/2014/solving-the-aba-problem-for-lock-free-free-lists">this article</a>.
+        The algorithm is taken from <a href="https://moodycamel.com/blog/2014/solving-the-aba-problem-for-lock-free-free-lists">this article</a>.
         The algo does not require any SMR like Hazard Pointer to prevent ABA problem.
 
         There is \ref TaggedFreeList "tagged pointers" variant of free list for processors with double-width CAS support.

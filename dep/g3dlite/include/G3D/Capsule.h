@@ -1,7 +1,7 @@
 /**
  @file Capsule.h
   
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
   
  @created 2003-02-07
  @edited  2005-08-20

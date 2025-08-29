@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ArenaAll.h"
@@ -817,7 +817,7 @@ uint16 BattlegroundMgr::GetBattleMasterBG(uint32 entry) const
 void BattlegroundMgr::LoadPvpRewards()
 {
     /*
-    http://www.mmo-champion.com/content/6046-Oct-19-Hotfixes-7-1-PvP-Reward-Changes-Blue-Posts-BlizzCon-Virtual-Ticket-Hosts#71pvprewards
+    https://www.mmo-champion.com/content/6046-Oct-19-Hotfixes-7-1-PvP-Reward-Changes-Blue-Posts-BlizzCon-Virtual-Ticket-Hosts#71pvprewards
 
     Activity                            Honor      Artifact Power
     Rated BG Win (First of the Day)     600        800

@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -139,7 +139,7 @@ namespace cds { namespace container {
 
     /// Vyukov's MPMC bounded queue
     /** @ingroup cds_nonintrusive_queue
-        This algorithm is developed by Dmitry Vyukov (see http://www.1024cores.net)
+        This algorithm is developed by Dmitry Vyukov (see https://www.1024cores.net)
         It's multi-producer multi-consumer (MPMC), array-based, fails on overflow, does not require GC, w/o priorities, causal FIFO,
         blocking producers and consumers queue. The algorithm is pretty simple and fast. It's not lock-free in the official meaning,
         just implemented by means of atomic RMW operations w/o mutexes.
@@ -152,7 +152,7 @@ namespace cds { namespace container {
         that supports \p front() and \p pop_front() functions.
 
         Source:
-            - http://www.1024cores.net/home/lock-free-algorithms/queues/bounded-mpmc-queue
+            - https://www.1024cores.net/home/lock-free-algorithms/queues/bounded-mpmc-queue
 
         Template parameters
         - \p T - type stored in queue.
@@ -173,7 +173,7 @@ namespace cds { namespace container {
             \endcode
 
         \par License
-            Simplified BSD license by Dmitry Vyukov (http://www.1024cores.net/site/1024cores/home/code-license)
+            Simplified BSD license by Dmitry Vyukov (https://www.1024cores.net/site/1024cores/home/code-license)
     */
     template <typename T, typename Traits = vyukov_queue::traits >
     class VyukovMPMCCycleQueue : public cds::bounded_container

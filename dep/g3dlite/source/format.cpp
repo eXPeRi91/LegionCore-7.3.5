@@ -18,7 +18,7 @@
 #endif // _MSC_VER
 
 // If your platform does not have vsnprintf, you can find a
-// implementation at http://www.ijs.si/software/snprintf/
+// implementation at https://www.ijs.si/software/snprintf/
 
 namespace G3D {
 

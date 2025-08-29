@@ -4,7 +4,7 @@
 
   Moving collision detection for simple primitives.
 
-  @author Morgan McGuire, http://graphics.cs.williams.edu
+  @author Morgan McGuire, https://graphics.cs.williams.edu
   @cite Spherical collision based on Paul Nettle's
   ftp://ftp.3dmaileffects.com/pub/FluidStudios/CollisionDetection/Fluid_Studios_Generic_Collision_Detection_for_Games_Using_Ellipsoids.pdf
   and comments by Max McGuire.  Ray-sphere intersection by Eric Haines.
@@ -205,8 +205,8 @@ public:
 
       @cite dobted from David Eberly's papers, variables used in this function
       correspond to variables used in pages 6 and 7 in the pdf
-      http://www.magic-software.com/Intersection.html
-      http://www.magic-software.com/Documentation/DynamicCollisionDetection.pdf
+      https://www.magic-software.com/Intersection.html
+      https://www.magic-software.com/Documentation/DynamicCollisionDetection.pdf
 
       @note Links are out-dated. (Kept to preserve origin and authorship)
 
@@ -262,8 +262,8 @@ public:
 
       @cite Adobted from David Eberly's papers, variables used in this function
       correspond to variables used in pages 6 and 7 in the pdf
-      http://www.magic-software.com/Intersection.html
-      http://www.magic-software.com/Documentation/DynamicCollisionDetection.pdf
+      https://www.magic-software.com/Intersection.html
+      https://www.magic-software.com/Documentation/DynamicCollisionDetection.pdf
 
        @param box1                Box 1.
        @param box2                Box 2.
@@ -290,7 +290,7 @@ public:
       zero or inifinity.
 
       @cite variables and algorithm based on derivation at the following website:
-              http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm
+              https://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm
 
       @param line1        Line 1.
       @param line2        Line 2.
@@ -323,8 +323,8 @@ public:
 
       @cite adobted from David Eberly's papers, variables used in this function
       correspond to variables used in pages 6 and 7 in the pdf
-      http://www.magic-software.com/Intersection.html
-      http://www.magic-software.com/Documentation/DynamicCollisionDetection.pdf
+      https://www.magic-software.com/Intersection.html
+      https://www.magic-software.com/Documentation/DynamicCollisionDetection.pdf
 
       @param box1                Box 1
       @param box2                Box 2
@@ -386,7 +386,7 @@ public:
          - Point is vertex of penetration.
 
       @cite Adapted from Jim Arvo's method in Graphics Gems
-      See also http://www.win.tue.nl/~gino/solid/gdc2001depth.pdf
+      See also https://www.win.tue.nl/~gino/solid/gdc2001depth.pdf
 
       @param sphere            Fixed Sphere.
       @param box            Fixed Box.
@@ -605,7 +605,7 @@ public:
      @cite Andrew Woo, from "Graphics Gems", Academic Press, 1990
        @cite Optimized code by Pierre Terdiman, 2000 (~20-30% faster on Celeron 500)
      @cite Epsilon value added by Klaus Hartmann
-     @cite http://www.codercorner.com/RayAABB.cpp
+     @cite https://www.codercorner.com/RayAABB.cpp
      */
     static float collisionTimeForMovingPointFixedAABox(
         const Vector3&            point,

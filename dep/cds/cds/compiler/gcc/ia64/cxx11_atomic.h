@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -33,8 +33,8 @@
 
 /*
     Source:
-        1. load/store: http://www.decadent.org.uk/pipermail/cpp-threads/2008-December/001932.html
-        2. Mapping to C++ Memory Model: http://www.cl.cam.ac.uk/~pes20/cpp/cpp0xmappings.html
+        1. load/store: https://www.decadent.org.uk/pipermail/cpp-threads/2008-December/001932.html
+        2. Mapping to C++ Memory Model: https://www.cl.cam.ac.uk/~pes20/cpp/cpp0xmappings.html
 */
 
 #include <cstdint>

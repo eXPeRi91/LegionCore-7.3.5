@@ -1,7 +1,7 @@
 /**
   @file GCamera.h
 
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   @created 2005-07-20
   @edited  2009-04-20
@@ -39,7 +39,7 @@ class Any;
   All viewport arguments are the pixel bounds of the viewport-- e.g.,
   RenderDevice::viewport().
 
-  See http://bittermanandy.wordpress.com/2009/04/10/a-view-to-a-thrill-part-one-camera-concepts/
+  See https://bittermanandy.wordpress.com/2009/04/10/a-view-to-a-thrill-part-one-camera-concepts/
   for a nice introduction to camera transformations.
  */
 class GCamera  {

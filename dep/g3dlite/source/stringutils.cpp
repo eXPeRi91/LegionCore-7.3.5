@@ -1,7 +1,7 @@
 /**
  \file stringutils.cpp
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2000-09-09
  \edited  2011-08-20

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Battlefield.h"
@@ -5786,7 +5786,7 @@ void Spell::TakeCastItem()
     if (m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_CURRENCY) || m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_REPUTATION) || m_spellInfo->HasEffect(SPELL_EFFECT_ADD_GARRISON_FOLLOWER) || m_spellInfo->HasEffect(SPELL_EFFECT_LEARN_GARRISON_BUILDING))
         alwaysDestroy = true;
 
-    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example http://pastebin.com/bvcaFJyA
+    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example https://pastebin.com/bvcaFJyA
         return;
 
     uint32 itemId = m_CastItem->GetEntry();
@@ -5864,7 +5864,7 @@ bool Spell::CanDestoyCastItem()
     if (m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_CURRENCY) || m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_REPUTATION) || m_spellInfo->HasEffect(SPELL_EFFECT_ADD_GARRISON_FOLLOWER) || m_spellInfo->HasEffect(SPELL_EFFECT_LEARN_GARRISON_BUILDING))
         alwaysDestroy = true;
 
-    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example http://pastebin.com/bvcaFJyA
+    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example https://pastebin.com/bvcaFJyA
         return false;
 
     uint32 itemId = m_CastItem->GetEntry();

@@ -1,7 +1,7 @@
 /**
  \file G3D/Triangle.h
   
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2003-04-05
  \edited  2011-06-20

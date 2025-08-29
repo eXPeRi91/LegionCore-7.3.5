@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Containers.h"
@@ -1051,14 +1051,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
             {
                 // class halls. mage.
                 case 131:
-                    //http://ru.wowhead.com/order-advancement=384/elemental-power
+                    //https://ru.wowhead.com/order-advancement=384/elemental-power
                     if (itr2->second->GarrFollowerID == 769 && !g->hasTalent(384))
                         continue;
                     if (itr2->second->GarrFollowerID == 660 && g->hasTalent(384))
                         continue;
                     break;
                 case 132:
-                    //http://www.wowhead.com/order-advancement=385/higher-learning
+                    //https://www.wowhead.com/order-advancement=385/higher-learning
                     if (itr2->second->GarrFollowerID == 769 && !g->hasTalent(385))
                         continue;
                     if (itr2->second->GarrFollowerID == 659 && g->hasTalent(385))
@@ -1067,7 +1067,7 @@ uint32 GarrShipment::selectShipment(Player* p) const
                 // class hall. Dk
                 case 134:
                 {
-                    //if tallent http://www.wowhead.com/order-advancement=428/construct-quarter
+                    //if tallent https://www.wowhead.com/order-advancement=428/construct-quarter
                     if (itr2->second->GarrFollowerID == 664 && !g->hasTalent(428))
                         continue;
                     if (itr2->second->GarrFollowerID == 662 && g->hasTalent(428))
@@ -1075,7 +1075,7 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 }
                 case 135:
-                    //http://www.wowhead.com/order-advancement=429/live-by-the-sword
+                    //https://www.wowhead.com/order-advancement=429/live-by-the-sword
                     if (itr2->second->GarrFollowerID == 894 && !g->hasTalent(429))
                         continue;
                     if (itr2->second->GarrFollowerID == 663 && g->hasTalent(429))
@@ -1083,14 +1083,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. warrior.
                 case 158:
-                //http://www.wowhead.com/order-advancement=406/trial-by-fire
+                //https://www.wowhead.com/order-advancement=406/trial-by-fire
                     if (itr2->second->GarrFollowerID == 688 && !g->hasTalent(406))
                         continue;
                     if (itr2->second->GarrFollowerID == 686 && g->hasTalent(406))
                         continue;
                     break;
                 case 159:
-                    //http://www.wowhead.com/order-advancement=407/ascension
+                    //https://www.wowhead.com/order-advancement=407/ascension
                     if (itr2->second->GarrFollowerID == 852 && !g->hasTalent(407))
                         continue;
                     if (itr2->second->GarrFollowerID == 687 && g->hasTalent(407))
@@ -1098,14 +1098,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. druid.
                 case 140:
-                    //http://www.wowhead.com/order-advancement=351/laughing-sisters
+                    //https://www.wowhead.com/order-advancement=351/laughing-sisters
                     if (itr2->second->GarrFollowerID == 668 && !g->hasTalent(351))
                         continue;
                     if (itr2->second->GarrFollowerID == 763 && g->hasTalent(351))
                         continue;
                     break;
                 case 141:
-                    //http://www.wowhead.com/order-advancement=352/force-of-the-forest
+                    //https://www.wowhead.com/order-advancement=352/force-of-the-forest
                     if (itr2->second->GarrFollowerID == 670 && !g->hasTalent(352))
                         continue;
                     if (itr2->second->GarrFollowerID == 669 && g->hasTalent(352))
@@ -1113,7 +1113,7 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                // class halls. prist.
                 case 149:
-                    //http://www.wowhead.com/order-advancement=450/inquisition
+                    //https://www.wowhead.com/order-advancement=450/inquisition
                     if (itr2->second->GarrFollowerID == 678 && !g->hasTalent(450))
                         continue;
                     if (itr2->second->GarrFollowerID == 677 && g->hasTalent(450))
@@ -1128,14 +1128,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. monk.
                 case 124:
-                    //http://www.wowhead.com/order-advancement=250/path-of-the-ox
+                    //https://www.wowhead.com/order-advancement=250/path-of-the-ox
                     if (itr2->second->GarrFollowerID == 627 && !g->hasTalent(250))
                         continue;
                     if (itr2->second->GarrFollowerID == 622 && g->hasTalent(250))
                         continue;
                     break;
                 case 125:
-                    //http://www.wowhead.com/order-advancement=251/path-of-the-tiger
+                    //https://www.wowhead.com/order-advancement=251/path-of-the-tiger
                     if (itr2->second->GarrFollowerID == 630 && !g->hasTalent(251))
                         continue;
                     if (itr2->second->GarrFollowerID == 629 && g->hasTalent(251))
@@ -1143,14 +1143,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. hunter.
                 case 143:
-                    //http://www.wowhead.com/order-advancement=373/keen-eye
+                    //https://www.wowhead.com/order-advancement=373/keen-eye
                     if (itr2->second->GarrFollowerID == 799 && !g->hasTalent(373))
                         continue;
                     if (itr2->second->GarrFollowerID == 671 && g->hasTalent(373))
                         continue;
                     break;
                 case 144:
-                    //http://www.wowhead.com/order-advancement=374/wild-calling
+                    //https://www.wowhead.com/order-advancement=374/wild-calling
                     if (itr2->second->GarrFollowerID == 800 && !g->hasTalent(374))
                         continue;
                     if (itr2->second->GarrFollowerID == 672 && g->hasTalent(374))
@@ -1158,14 +1158,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. paladin.
                 case 146:
-                    //http://www.wowhead.com/order-advancement=395/as-one
+                    //https://www.wowhead.com/order-advancement=395/as-one
                     if (itr2->second->GarrFollowerID == 770 && !g->hasTalent(395))
                         continue;
                     if (itr2->second->GarrFollowerID == 674 && g->hasTalent(395))
                         continue;
                     break;
                 case 147:
-                    //http://www.wowhead.com/order-advancement=396/templar-of-the-silver-hand
+                    //https://www.wowhead.com/order-advancement=396/templar-of-the-silver-hand
                     if (itr2->second->GarrFollowerID == 771 && !g->hasTalent(396))
                         continue;
                     if (itr2->second->GarrFollowerID == 675 && g->hasTalent(396))
@@ -1173,14 +1173,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. rogue
                 case 152:
-                    //http://www.wowhead.com/order-advancement=439/defiant-legacy
+                    //https://www.wowhead.com/order-advancement=439/defiant-legacy
                     if (itr2->second->GarrFollowerID == 681 && !g->hasTalent(439))
                         continue;
                     if (itr2->second->GarrFollowerID == 680 && g->hasTalent(439))
                         continue;
                     break;
                 case 153:
-                    //http://www.wowhead.com/order-advancement=440/crimson-sails
+                    //https://www.wowhead.com/order-advancement=440/crimson-sails
                     if (itr2->second->GarrFollowerID == 907 && !g->hasTalent(440))
                         continue;
                     if (itr2->second->GarrFollowerID == 682 && g->hasTalent(440))
@@ -1195,7 +1195,7 @@ uint32 GarrShipment::selectShipment(Player* p) const
                         continue;
                     break;
                 case 128:
-                    //http://www.wowhead.com/order-advancement=365/grimoire-of-servitude
+                    //https://www.wowhead.com/order-advancement=365/grimoire-of-servitude
                     if (itr2->second->GarrFollowerID == 767 && !g->hasTalent(365))
                         continue;
                     if (itr2->second->GarrFollowerID == 741 && g->hasTalent(365))
@@ -1203,14 +1203,14 @@ uint32 GarrShipment::selectShipment(Player* p) const
                     break;
                 // class halls. demon hunter.
                 case 137:
-                    //http://www.wowhead.com/order-advancement=417/naga-myrmidons
+                    //https://www.wowhead.com/order-advancement=417/naga-myrmidons
                     if (itr2->second->GarrFollowerID == 876 && !g->hasTalent(417))
                         continue;
                     if (itr2->second->GarrFollowerID == 665 && g->hasTalent(417))
                         continue;
                     break;
                 case 138:
-                    //http://www.wowhead.com/order-advancement=418/demonic-power
+                    //https://www.wowhead.com/order-advancement=418/demonic-power
                     if (itr2->second->GarrFollowerID == 877 && !g->hasTalent(418))
                         continue;
                     if (itr2->second->GarrFollowerID == 666 && g->hasTalent(418))

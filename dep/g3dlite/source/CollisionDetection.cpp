@@ -1,7 +1,7 @@
 /**
   @file CollisionDetection.cpp
   
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   @cite Bounce direction based on Paul Nettle's ftp://ftp.3dmaileffects.com/pub/FluidStudios/CollisionDetection/Fluid_Studios_Generic_Collision_Detection_for_Games_Using_Ellipsoids.pdf and comments by Max McGuire.  Ray-sphere code by Eric Haines.
 
@@ -1334,7 +1334,7 @@ float CollisionDetection::collisionTimeForMovingPointFixedRectangle(
 }
 
 /** Used by findRayCapsuleIntersection.
-    @cite From magic software http://www.magic-software.com/Source/Intersection3D/MgcIntr3DLinCap.cpp */
+    @cite From magic software https://www.magic-software.com/Source/Intersection3D/MgcIntr3DLinCap.cpp */
 static int findRayCapsuleIntersectionAux(
     const Vector3&        rkOrigin,
     const Vector3&        rkDirection,
@@ -1508,7 +1508,7 @@ static int findRayCapsuleIntersectionAux(
 
 
 /** Used by collisionTimeForMovingPointFixedCapsule.
-    @cite From magic software http://www.magic-software.com/Source/Intersection3D/MgcIntr3DLinCap.cpp
+    @cite From magic software https://www.magic-software.com/Source/Intersection3D/MgcIntr3DLinCap.cpp
     
     @param rkRay      The ray
     @param rkCapsule  The capsule
@@ -2275,7 +2275,7 @@ bool CollisionDetection::fixedSolidSphereIntersectsFixedTriangle(
 
 ////////////////////////////////////////////////////////////////////////////////
 // AABB-triangle overlap test code based on Tomas Akenine-MÅˆller's
-// http://www.cs.lth.se/home/Tomas_Akenine_Moller/code/tribox3.txt
+// https://www.cs.lth.se/home/Tomas_Akenine_Moller/code/tribox3.txt
 // Ported 2008-12-28
 
 #define X 0

@@ -3,15 +3,15 @@
 
   See G3D::GImage for details.
 
-  @cite JPEG compress/decompressor is the <A HREF="http://www.ijg.org/files/">IJG library</A>, used in accordance with their license.
+  @cite JPEG compress/decompressor is the <A HREF="https://www.ijg.org/files/">IJG library</A>, used in accordance with their license.
   @cite JPG code by John Chisholm, using the IJG Library
   @cite TGA code by Morgan McGuire
   @cite BMP code by John Chisholm, based on code by Edward "CGameProgrammer" Resnick <A HREF="mailto:cgp@gdnmail.net">mailto:cgp@gdnmail.net</A> at <A HREF="ftp://ftp.flipcode.com/cotd/LoadPicture.txt">ftp://ftp.flipcode.com/cotd/LoadPicture.txt</A>
-  @cite PCX format described in the ZSOFT PCX manual http://www.nist.fss.ru/hr/doc/spec/pcx.htm#2
-  @cite PNG compress/decompressor is the <A HREF="http://www.libpng.org/pub/png/libpng.html">libpng library</A>, used in accordance with their license.
-  @cite PPM code by Morgan McGuire based on http://netpbm.sourceforge.net/doc/ppm.html
+  @cite PCX format described in the ZSOFT PCX manual https://www.nist.fss.ru/hr/doc/spec/pcx.htm#2
+  @cite PNG compress/decompressor is the <A HREF="https://www.libpng.org/pub/png/libpng.html">libpng library</A>, used in accordance with their license.
+  @cite PPM code by Morgan McGuire based on https://netpbm.sourceforge.net/doc/ppm.html
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2002-05-27
   \edited  2010-01-04
@@ -73,12 +73,12 @@ class BinaryOutput;
   \endverbatim
 
   The free Image Magick Magick Wand API 
-  (http://www.imagemagick.org/www/api/magick_wand.html) provides a more powerful
+  (https://www.imagemagick.org/www/api/magick_wand.html) provides a more powerful
   API for image manipulation and wider set of image load/save formats.  It is 
   recommended over GImage (we don't include it directly in G3D because their license
   is more restrictive than the BSD one).
 
-  \cite http://tfcduke.developpez.com/tutoriel/format/tga/fichiers/tga_specs.pdf
+  \cite https://tfcduke.developpez.com/tutoriel/format/tga/fichiers/tga_specs.pdf
 
   \sa Image3, Image3uint8, Image4, Image4uint8, Image1, Image1uint8, Texture, Map2D
 

@@ -538,7 +538,7 @@ void PetBattleAura::Apply(PetBattle* petBattle)
         petBattle->SetPetState(CasterPetID, TargetPetID, 0, v->BattlePetStateID, value, false, flags);
     }
 
-    if (AbilityID == 577)   ///< Healthy http://www.wowhead.com/petability=576/perk-up
+    if (AbilityID == 577)   ///< Healthy https://www.wowhead.com/petability=576/perk-up
     {
         auto pet = petBattle->Pets[TargetPetID];
 
@@ -566,7 +566,7 @@ void PetBattleAura::Remove(PetBattle* petBattle)
         if (v->BattlePetAbilityID == AbilityID)
             petBattle->SetPetState(CasterPetID, TargetPetID, 0, v->BattlePetStateID, petBattle->Pets[TargetPetID]->States[v->BattlePetStateID] - v->Value);
 
-    if (AbilityID == 577)   ///< Healthy http://www.wowhead.com/petability=576/perk-up
+    if (AbilityID == 577)   ///< Healthy https://www.wowhead.com/petability=576/perk-up
     {
         auto pet = petBattle->Pets[TargetPetID];
 

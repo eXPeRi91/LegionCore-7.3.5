@@ -1,7 +1,7 @@
 /**
   @file MeshAlg.cpp
 
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
   @created 2003-09-14
   @edited  2008-09-03
 
@@ -585,7 +585,7 @@ void MeshAlg::computeTangentSpaceBasis(
         const Vector2& t1 = texCoordArray[i1];
         const Vector2& t2 = texCoordArray[i2];
 
-        // See http://www.terathon.com/code/tangent.html for a derivation of the following code
+        // See https://www.terathon.com/code/tangent.html for a derivation of the following code
 
         // vertex edges
         Vector3 ve1 = v1 - v0;

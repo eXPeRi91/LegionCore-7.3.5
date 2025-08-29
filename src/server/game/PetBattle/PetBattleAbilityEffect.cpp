@@ -600,14 +600,14 @@ bool PetBattleAbilityEffect::SetHealth(uint32 target, int32 value)
 
     if (!(Flags & FailFlags))
     {
-        if (value <= 0 && !GetAura(target, 284))    ///< Buff : Suvival http://www.wowhead.com/petability=283/survival
+        if (value <= 0 && !GetAura(target, 284))    ///< Buff : Suvival https://www.wowhead.com/petability=283/survival
         {
             Flags |= PETBATTLE_EVENT_FLAG_UNK_KILL;
 
             if (!GetState(target, BATTLEPET_STATE_Is_Dead))
                 PetBattleInstance->SetPetState(Caster, target, EffectInfo->ID, BATTLEPET_STATE_Internal_HealthBeforeInstakill, PetBattleInstance->Pets[target]->Health);
         }
-        else if (value <= 0 && GetAura(target, 284))    ///< Buff : Suvival http://www.wowhead.com/petability=283/survival
+        else if (value <= 0 && GetAura(target, 284))    ///< Buff : Suvival https://www.wowhead.com/petability=283/survival
             value = 1;
 
         PetBattleInstance->Pets[target]->Health = value;
@@ -826,7 +826,7 @@ bool PetBattleAbilityEffect::HandleWitchingDamage()
 
     if (EffectInfo->Param[2] && casterHealPct < EffectInfo->Param[2])
         damage *= 2;
-    else if (GetHealth(Target) > GetHealth(Caster))                     ///< http://fr.wowhead.com/petability=253/repliquer
+    else if (GetHealth(Target) > GetHealth(Caster))                     ///< https://fr.wowhead.com/petability=253/repliquer
         damage *= 2;
 
     return Damage(Target, CalculateDamage(damage));
@@ -1014,8 +1014,8 @@ bool PetBattleAbilityEffect::HandleHealPetType()
 {
     /// Handle only first effect of this type
     /// Don't know how to handle it properly
-    /// http://wowhead.com/petability=533
-    /// http://wowhead.com/petability=922
+    /// https://wowhead.com/petability=533
+    /// https://wowhead.com/petability=922
     if (EffectInfo->OrderIndex != 2)
         return true;
 
@@ -1242,7 +1242,7 @@ bool PetBattleAbilityEffect::HandleHealPercent()
     CalculateHit(EffectInfo->Param[1]);
 
     /// No sure if all ability should not use spell power on this effect
-    /// Passive humanoid http://wowhead.com/petability=726
+    /// Passive humanoid https://wowhead.com/petability=726
     if (AbilityID == 726)
     {
         int32 modPct = 1;
@@ -1486,7 +1486,7 @@ bool PetBattleAbilityEffect::HandleHealthConsume()
 {
     int32 healthConsumePct = EffectInfo->Param[0];
 
-    /// Hotfix for http://wowhead.com/petability=758
+    /// Hotfix for https://wowhead.com/petability=758
     if (AbilityID == 758)
         healthConsumePct = 50;
 

@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -36,7 +36,7 @@
 namespace cds { namespace sync {
     /**
         @page cds_sync_monitor Synchronization monitor
-        A <a href="http://en.wikipedia.org/wiki/Monitor_%28synchronization%29">monitor</a> is synchronization construction
+        A <a href="https://en.wikipedia.org/wiki/Monitor_%28synchronization%29">monitor</a> is synchronization construction
         that allows threads to have both mutual exclusion and the ability to wait (block) for a certain condition to become true.
         Some blocking data structure algoritms like the trees require per-node locking.
         For huge trees containing millions of nodes it can be very inefficient to inject

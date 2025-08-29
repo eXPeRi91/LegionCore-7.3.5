@@ -1,7 +1,7 @@
 /**
    \file PointHashGrid.h
 
-   \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+   \maintainer Morgan McGuire, https://graphics.cs.williams.edu
    \created 2008-07-01
    \edited  2010-11-28
 

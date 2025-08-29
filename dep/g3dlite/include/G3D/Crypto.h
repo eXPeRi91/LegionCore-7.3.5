@@ -1,7 +1,7 @@
 /** 
   \file G3D/Crypto.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
 
   \created 2006-03-29
@@ -100,13 +100,13 @@ public:
 
      This implementation is compatible with PKZIP and GZIP.
 
-     Based on http://www.gamedev.net/reference/programming/features/crc32/
+     Based on https://www.gamedev.net/reference/programming/features/crc32/
     */
     static uint32 crc32(const void* bytes, size_t numBytes);
 
     /**
      Computes the MD5 hash (message digest) of a byte stream, as defined by
-     http://www.ietf.org/rfc/rfc1321.txt.
+     https://www.ietf.org/rfc/rfc1321.txt.
 
      @cite Based on implementation by L. Peter Deutsch, ghost@aladdin.com
      */

@@ -31,7 +31,7 @@
  include the size of the header itself.  The minimum message is 9
  bytes:a 4-byte type, a 4-byte header equal to "1", and one byte of data.
 
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  @created 2002-11-22
  @edited  2006-11-25
  */
@@ -138,7 +138,7 @@ typedef shared_ptr<class ReliableConduit> ReliableConduitRef;
 #ifdef __GNUC__
 // Workaround for a known bug in gcc 4.x where htonl produces 
 // a spurrious warning.
-// http://gcc.gnu.org/ml/gcc-bugs/2005-10/msg03270.html
+// https://gcc.gnu.org/ml/gcc-bugs/2005-10/msg03270.html
 uint32 gcchtonl(uint32);
 #endif
 
@@ -592,7 +592,7 @@ public:
    This assumes that the underlying WinSock/BSD sockets implementation
    is thread safe.  That is not guaranteed, but in practice seems
    to always be true (see
-   http://tangentsoft.net/wskfaq/intermediate.html#threadsafety)
+   https://tangentsoft.net/wskfaq/intermediate.html#threadsafety)
 
    <hr> 
 

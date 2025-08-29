@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 //TODO: Harpoon event is automated needs to be checked
@@ -563,7 +563,7 @@ public:
                         uiPhase = 4;
                         break;
                     case 4:
-                        // Disable, crashed http://pastebin.com/RFR5bsAt
+                        // Disable, crashed https://pastebin.com/RFR5bsAt
                         for (uint8 n = 0; n < 2; ++n)
                             if (Creature* engineer = ObjectAccessor::GetCreature(*me, engineerGuid[n]))
                                 engineer->SetUInt32Value(UNIT_FIELD_EMOTE_STATE, EMOTE_STATE_USE_STANDING);

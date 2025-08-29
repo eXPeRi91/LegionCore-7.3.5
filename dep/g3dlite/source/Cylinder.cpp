@@ -1,7 +1,7 @@
 /**
  @file Cylinder.cpp
   
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  @created 2003-02-07
  @edited  2006-02-18
@@ -114,7 +114,7 @@ void Cylinder::getRandomSurfacePoint(Vector3& p, Vector3& N) const {
     if (r1 < capRelArea * 2) {
 
         // Select a point uniformly at random on a disk
-        // @cite http://mathworld.wolfram.com/DiskPointPicking.html
+        // @cite https://mathworld.wolfram.com/DiskPointPicking.html
         float a = uniformRandom(0, (float)twoPi());
         float r2 = sqrt(uniformRandom(0, 1)) * r;
         p.x = cos(a) * r2;
@@ -158,7 +158,7 @@ Vector3 Cylinder::randomInteriorPoint() const {
     // Create a random point in a standard cylinder and then rotate to the global frame.
 
     // Select a point uniformly at random on a disk
-    // @cite http://mathworld.wolfram.com/DiskPointPicking.html
+    // @cite https://mathworld.wolfram.com/DiskPointPicking.html
     float a = uniformRandom(0, (float)twoPi());
     float r2 = sqrt(uniformRandom(0, 1)) * r;
 

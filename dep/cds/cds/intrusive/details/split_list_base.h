@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -247,7 +247,7 @@ namespace cds { namespace intrusive {
                 \p cds::algo::bit_reversal::lookup is the best general purpose one.
 
                 There are more efficient bit reversal algoritm for particular processor architecture,
-                for example, based on x86 SIMD/AVX instruction set, see <a href="http://stackoverflow.com/questions/746171/best-algorithm-for-bit-reversal-from-msb-lsb-to-lsb-msb-in-c">here</a>
+                for example, based on x86 SIMD/AVX instruction set, see <a href="https://stackoverflow.com/questions/746171/best-algorithm-for-bit-reversal-from-msb-lsb-to-lsb-msb-in-c">here</a>
             */
             typedef cds::algo::bit_reversal::lookup bit_reversal;
 

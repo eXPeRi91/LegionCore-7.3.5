@@ -811,7 +811,7 @@ endif()
 
 #======================
 # Systematically build up the Boost ABI tag
-# http://boost.org/doc/libs/1_41_0/more/getting_started/windows.html#library-naming
+# https://boost.org/doc/libs/1_41_0/more/getting_started/windows.html#library-naming
 set( _boost_RELEASE_ABI_TAG "-")
 set( _boost_DEBUG_ABI_TAG   "-")
 # Key       Use this library when:
@@ -857,7 +857,7 @@ endif()
 #TODO: fix this when CMake is updated
 #======================
 # Systematically build up the Boost architecture and address model tag
-# http://www.boost.org/doc/libs/1_66_0/more/getting_started/windows.html#library-naming
+# https://www.boost.org/doc/libs/1_66_0/more/getting_started/windows.html#library-naming
 set( _boost_AAM_TAG "-x")
 # Key       Use this library when:
 #  32       32-bit address model

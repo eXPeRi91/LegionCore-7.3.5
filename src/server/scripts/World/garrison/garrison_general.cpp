@@ -18,7 +18,7 @@ Position const hearhstoneAlliance[3] = {
     {1947.0f, 324.88f, 90.28f, 118.664f},        // Alliance lvl3
 };
 
-//http://www.wowhead.com/spell=171253/garrison-hearthstone
+//https://www.wowhead.com/spell=171253/garrison-hearthstone
 class spell_garrison_hearthstone : public SpellScriptLoader
 {
 public:
@@ -61,7 +61,7 @@ public:
     }
 };
 
-//http://www.wowhead.com/spell=173847/loot
+//https://www.wowhead.com/spell=173847/loot
 //! HORDE Q: 34824 ALLIANCE Q: 35176
 class spell_garrison_cache_loot : public SpellScriptLoader
 {

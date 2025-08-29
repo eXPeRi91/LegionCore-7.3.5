@@ -1,6 +1,6 @@
 /**
  @file Matrix.cpp
- @author Morgan McGuire, http://graphics.cs.williams.edu
+ @author Morgan McGuire, https://graphics.cs.williams.edu
  */
 #include "G3D/Matrix.h"
 #include "G3D/TextOutput.h"
@@ -896,7 +896,7 @@ Matrix Matrix::pseudoInverse(float tolerance) const {
     Public function for testing purposes only. Use pseudoInverse(), as it contains optimizations for 
     nonsingular matrices with at least one small (<5) dimension.
 */
-// See http://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse
+// See https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_pseudoinverse
 Matrix Matrix::svdPseudoInverse(float tolerance) const {
     if (cols() > rows()) {
         return transpose().svdPseudoInverse(tolerance).transpose();
@@ -1129,7 +1129,7 @@ Matrix Matrix::col2PseudoInverse(const Matrix& B) const {
         return svdPseudoInverse();
 
     } else {
-        // invert using formula at http://www.netsoc.tcd.ie/~jgilbert/maths_site/applets/algebra/matrix_inversion.html
+        // invert using formula at https://www.netsoc.tcd.ie/~jgilbert/maths_site/applets/algebra/matrix_inversion.html
 
         // Multiply by Binv * A'
         Matrix X(cols(), rows());
@@ -1242,7 +1242,7 @@ Matrix Matrix::row2PseudoInverse(const Matrix& B) const {
         return svdPseudoInverse();
 
     } else {
-        // invert using formula at http://www.netsoc.tcd.ie/~jgilbert/maths_site/applets/algebra/matrix_inversion.html
+        // invert using formula at https://www.netsoc.tcd.ie/~jgilbert/maths_site/applets/algebra/matrix_inversion.html
 
         // Multiply by Binv * A'
         Matrix X(cols(), rows());
@@ -1330,7 +1330,7 @@ Matrix Matrix::row4PseudoInverse(const Matrix& B) const {
 }
 
 // Uses the block matrix pseudoinverse to compute the pseudoinverse of a full-rank mxn matrix with m >= n
-// http://en.wikipedia.org/wiki/Block_matrix_pseudoinverse
+// https://en.wikipedia.org/wiki/Block_matrix_pseudoinverse
 Matrix Matrix::partitionPseudoInverse() const {
 
     // Logic:

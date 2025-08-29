@@ -3,7 +3,7 @@
  
  Ray class
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  @created 2002-07-12
  @edited  2009-06-29
@@ -162,8 +162,8 @@ public:
 
      /**
      Ray-triangle intersection for a 1-sided triangle.  Fastest version.
-       @cite http://www.acm.org/jgt/papers/MollerTrumbore97/
-       http://www.graphics.cornell.edu/pubs/1997/MT97.html
+       @cite https://www.acm.org/jgt/papers/MollerTrumbore97/
+       https://www.graphics.cornell.edu/pubs/1997/MT97.html
      */
     float intersectionTime(
         const Point3& vert0,

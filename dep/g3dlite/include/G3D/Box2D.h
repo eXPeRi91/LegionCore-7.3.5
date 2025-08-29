@@ -1,7 +1,7 @@
 /**
   @file Box2D.h
  
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   @created 2001-06-02
   @edited  2008-12-27
@@ -25,7 +25,7 @@ typedef class Rect2D AABox2D;
 
 /**
    2D oriented box
-   @cite http://www.flipcode.com/archives/2D_OBB_Intersection.shtml
+   @cite https://www.flipcode.com/archives/2D_OBB_Intersection.shtml
  */
 class Box2D {
 private:

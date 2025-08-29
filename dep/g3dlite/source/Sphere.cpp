@@ -3,7 +3,7 @@
  
  Sphere class
  
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2001-04-17
  \edited  2011-02-10

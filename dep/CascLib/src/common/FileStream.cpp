@@ -573,7 +573,7 @@ static void BaseMap_Init(TFileStream * pStream)
 static const TCHAR * BaseHttp_ExtractServerName(const TCHAR * szFileName, TCHAR * szServerName)
 {
     // Check for HTTP
-    if(!_tcsnicmp(szFileName, _T("http://"), 7))
+    if(!_tcsnicmp(szFileName, _T("https://"), 7))
         szFileName += 7;
 
     // Cut off the server name
@@ -722,7 +722,7 @@ static bool BaseHttp_Read(
         if(hRequest != NULL)
         {
             // Add range request to the HTTP headers
-            // http://www.clevercomponents.com/articles/article015/resuming.asp
+            // https://www.clevercomponents.com/articles/article015/resuming.asp
             _stprintf(szRangeRequest, _T("Range: bytes=%u-%u"), (unsigned int)dwStartOffset, (unsigned int)dwEndOffset);
             HttpAddRequestHeaders(hRequest, szRangeRequest, 0xFFFFFFFF, HTTP_ADDREQ_FLAG_ADD_IF_NEW);
 
@@ -999,7 +999,7 @@ static TFileStream * AllocateFileStream(
     assert(StreamSize != 0);
 
     // The caller can specify chain of files in the following form:
-    // C:\archive.MPQ*http://www.server.com/MPQs/archive-server.MPQ
+    // C:\archive.MPQ*https://www.server.com/MPQs/archive-server.MPQ
     // In that case, we use the part after "*" as master file name
     while(szNextFile[0] != 0 && szNextFile[0] != _T('*'))
         szNextFile++;
@@ -1818,7 +1818,7 @@ static const char * szKeyTemplate = "expand 32-byte k000000000000000000000000000
 static const char * AuthCodeArray[] =
 {
     // Starcraft II (Heart of the Swarm)
-    // Authentication code URL: http://dist.blizzard.com/mediakey/hots-authenticationcode-bgdl.txt
+    // Authentication code URL: https://dist.blizzard.com/mediakey/hots-authenticationcode-bgdl.txt
     //                                                                                          -0C-    -1C--08-    -18--04-    -14--00-    -10-
     "S48B6CDTN5XEQAKQDJNDLJBJ73FDFM3U",         // SC2 Heart of the Swarm-all : "expand 32-byte kQAKQ0000FM3UN5XE000073FD6CDT0000LJBJS48B0000DJND"
 
@@ -1826,7 +1826,7 @@ static const char * AuthCodeArray[] =
     // Address of decryption routine: 00502b00
     // Pointer to decryptor object: ECX
     // Pointer to key: ECX+0x5C
-    // Authentication code URL: http://dist.blizzard.com/mediakey/d3-authenticationcode-enGB.txt
+    // Authentication code URL: https://dist.blizzard.com/mediakey/d3-authenticationcode-enGB.txt
     //                                                                                           -0C-    -1C--08-    -18--04-    -14--00-    -10-
     "UCMXF6EJY352EFH4XFRXCFH2XC9MQRZK",         // Diablo III Installer (deDE): "expand 32-byte kEFH40000QRZKY3520000XC9MF6EJ0000CFH2UCMX0000XFRX"
     "MMKVHY48RP7WXP4GHYBQ7SL9J9UNPHBP",         // Diablo III Installer (enGB): "expand 32-byte kXP4G0000PHBPRP7W0000J9UNHY4800007SL9MMKV0000HYBQ"
@@ -1847,7 +1847,7 @@ static const char * AuthCodeArray[] =
     // Address of decryption routine: 0053A3D0
     // Pointer to decryptor object: ECX
     // Pointer to key: ECX+0x5C
-    // Authentication code URL: http://dist.blizzard.com/mediakey/sc2-authenticationcode-enUS.txt
+    // Authentication code URL: https://dist.blizzard.com/mediakey/sc2-authenticationcode-enUS.txt
     //                                                                                          -0C-    -1C--08-    -18--04-    -14--00-    -10-
     "Y45MD3CAK4KXSSXHYD9VY64Z8EKJ4XFX",         // SC2 Wings of Liberty (deDE): "expand 32-byte kSSXH00004XFXK4KX00008EKJD3CA0000Y64ZY45M0000YD9V"
     "G8MN8UDG6NA2ANGY6A3DNY82HRGF29ZH",         // SC2 Wings of Liberty (enGB): "expand 32-byte kANGY000029ZH6NA20000HRGF8UDG0000NY82G8MN00006A3D"
@@ -2503,7 +2503,7 @@ size_t FileStream_Prefix(const TCHAR * szFileName, DWORD * pdwProvider)
         // Only accept stream provider if we recognized the base provider
         if(nPrefixLength2 != 0)
         {
-            // It is also allowed to put "//" after the base provider, e.g. "file://", "http://"
+            // It is also allowed to put "//" after the base provider, e.g. "file://", "https://"
             if(szFileName[nPrefixLength1+nPrefixLength2] == '/' && szFileName[nPrefixLength1+nPrefixLength2+1] == '/')
                 nPrefixLength2 += 2;
 

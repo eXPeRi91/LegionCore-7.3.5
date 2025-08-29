@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -865,7 +865,7 @@ namespace cds { namespace algo {
 }} // namespace cds::algo
 
 /*
-  CppMem model  (http://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/)
+  CppMem model  (https://svr-pes20-cppmem.cl.cam.ac.uk/cppmem/)
 
   // Combiner thread - slave (waiting) thread
 int main() {

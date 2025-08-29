@@ -1,7 +1,7 @@
 /**
   \file G3D/Frustum.h
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2005-07-20
   \edited  2013-06-11

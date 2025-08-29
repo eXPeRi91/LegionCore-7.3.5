@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AccountMgr.h"
@@ -3819,7 +3819,7 @@ void Player::SetXP(uint32 xp)
 }
 
 // Give xp when gathering herbalism and mininh
-// Formulas found here : http://www.wowwiki.com/Formulas:Gather_XP
+// Formulas found here : https://www.wowwiki.com/Formulas:Gather_XP
 void Player::GiveGatheringXP()
 {
     uint32 level = getLevel();
@@ -8849,7 +8849,7 @@ void Player::RewardReputation(Unit* victim, float rate, bool killer)
 
     if (GetChampioningFaction())
     {
-        // support for: Championing - http://www.wowwiki.com/Championing
+        // support for: Championing - https://www.wowwiki.com/Championing
 
         Map const* map = GetMap();
         if (map && map->IsDungeon())

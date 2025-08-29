@@ -7,7 +7,7 @@
   \created 2001-03-11
   \edited  2013-01-28
 
-  Copyright 2000-2012, Morgan McGuire, http://graphics.cs.williams.edu
+  Copyright 2000-2012, Morgan McGuire, https://graphics.cs.williams.edu
   All rights reserved.
  */
 
@@ -1107,7 +1107,7 @@ return( lhs < rhs? true : false );
     //}
     template<class LessThan>
     void sort(const LessThan& lessThan) {
-        // Using std::sort, which according to http://www.open-std.org/JTC1/SC22/WG21/docs/D_4.cpp
+        // Using std::sort, which according to https://www.open-std.org/JTC1/SC22/WG21/docs/D_4.cpp
         // was 2x faster than qsort for arrays around size 2000 on intel core2 with gcc
         std::sort(data, data + num, lessThan);
     }

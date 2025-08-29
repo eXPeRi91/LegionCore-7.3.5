@@ -1,7 +1,7 @@
 /**
  \file Random.cpp
  
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2009-01-02
  \edited  2012-03-29
@@ -49,7 +49,7 @@ Random::~Random() {
 
 
 uint32 Random::bits() {
-    // See http://en.wikipedia.org/wiki/Mersenne_twister
+    // See https://en.wikipedia.org/wiki/Mersenne_twister
 
     // Make a local copy of the index variable to ensure that it
     // is not out of bounds
@@ -138,7 +138,7 @@ int Random::integer(int low, int high) {
     
 float Random::gaussian(float mean, float stdev) {
 
-    // Using Box-Mueller method from http://www.taygeta.com/random/gaussian.html
+    // Using Box-Mueller method from https://www.taygeta.com/random/gaussian.html
     // Modified to specify standard deviation and mean of distribution
     float w, x1, x2;
 

@@ -3,7 +3,7 @@
 
  Color class.
 
- \author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2007-01-30
  \edited  2011-08-27

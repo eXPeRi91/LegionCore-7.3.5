@@ -1,7 +1,7 @@
 /**
   \file G3D/ImageFormat.h
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2003-05-23
   \edited  2013-06-06

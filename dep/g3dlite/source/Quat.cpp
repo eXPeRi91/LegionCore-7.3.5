@@ -172,7 +172,7 @@ Quat Quat::slerp
     // is a common practice.
 
     // See also:
-    // http://number-none.com/product/Understanding%20Slerp,%20Then%20Not%20Using%20It/index.html
+    // https://number-none.com/product/Understanding%20Slerp,%20Then%20Not%20Using%20It/index.html
 
     const Quat& quat0 = *this;
     Quat quat1 = _quat1;
