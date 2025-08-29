@@ -10060,7 +10060,6 @@ void Player::UpdateArea(uint32 newArea)
 
     CheckSeamlessTeleport(newArea, true);
 
-
     uint32 newAreaForUpdate = m_areaId;
     AddDelayedEvent(100, [=]() -> void
     {
@@ -15459,7 +15458,7 @@ Item* Player::StoreNewItem(ItemPosCountVec const& dest, uint32 itemID, bool upda
         AddDelayedEvent(3000, [this, itemGUID]() -> void
         {
             if (Item* item = GetItemByGuid(itemGUID))
-                UnLockThirdSocketIfNeed(item);
+                UnlockThirdSocketIfNeed(item);
         });
     }
 
@@ -21234,7 +21233,7 @@ void Player::SetQuestObjectiveData(Quest const* quest, QuestObjective const* obj
     if (status->Status == QUEST_STATUS_INCOMPLETE || status->Status == QUEST_STATUS_COMPLETE)
     {
         // Update quest fields
-        // Negative index  - hiden
+        // Negative index  - hidden
         uint16 log_slot = FindQuestSlot(quest->GetQuestId());
         if (log_slot < MAX_QUEST_LOG_SIZE)
         {
@@ -22941,7 +22940,7 @@ void Player::_LoadInventory(PreparedQueryResult result, PreparedQueryResult arti
                     AddDelayedEvent(3000, [this, itemGUID]() -> void
                     {
                         if (Item* item = GetItemByGuid(itemGUID))
-                            UnLockThirdSocketIfNeed(item);
+                            UnlockThirdSocketIfNeed(item);
                     });
                 }
  
@@ -36932,7 +36931,7 @@ void Player::AddNonVisibleItemToCollect()
     }
 }
 
-void Player::UnLockThirdSocketIfNeed(Item* item)
+void Player::UnlockThirdSocketIfNeed(Item* item)
 {
     // Artifact Knowledge
     if (getLevel() == MAX_LEVEL)
@@ -36959,7 +36958,7 @@ void Player::UnLockThirdSocketIfNeed(Item* item)
         return;
 
     uint32 bonusID = unlock->ItemBonusListID;
-    uint32 questID = GetQuestForUnLockThirdSocket();
+    uint32 questID = GetQuestForUnlockThirdSocket();
 
 
     if (item->GetTotalPurchasedArtifactPowers() > 35 && !item->GetModifier(ITEM_MODIFIER_ARTIFACT_TIER) && sWorld->getBoolConfig(CONFIG_ARTIFACT_TIER_ENABLE))
@@ -38348,7 +38347,7 @@ void Player::ClearWorldQuest()
     m_worldquests.clear();
 }
 
-uint32 Player::GetQuestForUnLockThirdSocket()
+uint32 Player::GetQuestForUnlockThirdSocket()
 {
     uint32 questID = 0;
 
@@ -38665,7 +38664,7 @@ void Player::PrintPlayerSize()
     ChatHandler(this).PSendSysMessage("Player All size %u", size);
 }
 
-uint32 Player::GetQuestForUnLockSecondTier()
+uint32 Player::GetQuestForUnlockSecondTier()
 {
     uint32 questID = 0;
 

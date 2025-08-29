@@ -3187,9 +3187,9 @@ class Player : public Unit, public GridObject<Player>
         /*********************************************************/
         CollectionMgr* GetCollectionMgr() const { return _collectionMgr; }
         void AddNonVisibleItemToCollect();
-        void UnLockThirdSocketIfNeed(Item* item);
-        uint32 GetQuestForUnLockThirdSocket();
-        uint32 GetQuestForUnLockSecondTier();
+        void UnlockThirdSocketIfNeed(Item* item);
+        uint32 GetQuestForUnlockThirdSocket();
+        uint32 GetQuestForUnlockSecondTier();
 
         void ScheduleDelayedOperation(uint32 operation);
 
