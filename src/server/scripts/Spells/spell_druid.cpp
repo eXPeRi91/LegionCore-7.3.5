@@ -521,7 +521,7 @@ class spell_dru_frenzied_regeneration : public AuraScript
     {
         if (Unit* caster = GetCaster())
         {
-            float bp0 = caster->CanPvPScalar() ? GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster) / 2 : GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster);
+            float bp0 = caster->CanPvpScalar() ? GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster) / 2 : GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster);
             int32 heal = int32(CalculatePct(caster->GetMaxHealth(), GetSpellInfo()->Effects[EFFECT_3]->CalcValue(caster)));
             int32 damageTaken = caster->GetDamageTakenInPastSecs(GetSpellInfo()->Effects[EFFECT_2]->CalcValue(caster), true, true);
             if (damageTaken > 3)
@@ -1273,8 +1273,8 @@ class spell_dru_rake : public SpellScriptLoader
                 if (Unit* caster = GetCaster())
                 {
                     int32 bp = GetSpellInfo()->Effects[EFFECT_3]->CalcValue(caster);
-                    if (caster->CanPvPScalar()) // hack, why doesn't it work PvPMultiplier?!
-                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvPMultiplier;
+                    if (caster->CanPvpScalar()) // hack, why doesn't it work PvpMultiplier?!
+                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvpMultiplier;
 
                     if (caster->HasAura(231052) && (GetSpell()->GetCastedFromStealth() || caster->HasAura(102543)))
                         SetHitDamage(GetHitDamage() + CalculatePct(GetHitDamage(), bp));
@@ -1673,8 +1673,8 @@ class spell_dru_shred : public SpellScriptLoader
                 {
                     int32 damage = GetHitDamage();
                     int32 bp = GetSpellInfo()->Effects[EFFECT_3]->CalcValue(caster);
-                    if (caster->CanPvPScalar()) // hack, why doesn't it work PvPMultiplier?!
-                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvPMultiplier;
+                    if (caster->CanPvpScalar()) // hack, why doesn't it work PvpMultiplier?!
+                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvpMultiplier;
 
                     if (caster->HasAura(231057) && (GetSpell()->GetCastedFromStealth() || caster->HasAura(102543)))
                         AddPct(damage, bp);
@@ -2052,13 +2052,13 @@ class spell_dru_regrowth : public SpellScript
 {
     PrepareSpellScript(spell_dru_regrowth);
 
-    bool haspvptal = false;
+    bool hasPvpTal = false;
 
     uint32 CallSpecialFunction(uint32 /*Num*/) override
     {
         if (Unit* caster = GetCaster())
         {
-            if (haspvptal)
+            if (hasPvpTal)
             {
                 if (Unit* target = GetExplTargetUnit())
                     if (caster != target)
@@ -2073,7 +2073,7 @@ class spell_dru_regrowth : public SpellScript
         if (Unit* caster = GetCaster())
         {
             if (caster->HasAura(209730)) // Protector of the Grove (PvP Talent)
-                haspvptal = true;
+                hasPvpTal = true;
         }
     }
     void HandleOnHit(SpellEffIndex /*effIndex*/)
@@ -2083,7 +2083,7 @@ class spell_dru_regrowth : public SpellScript
             return;
 
         if (Unit* caster = GetCaster())
-            if (haspvptal)
+            if (hasPvpTal)
                 if (caster != target)
                     caster->CastSpell(caster, 209731, true);
     }

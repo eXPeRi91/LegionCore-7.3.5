@@ -846,9 +846,9 @@ void Battleground::EndBattleground(uint32 winner)
         }
     }
 
-    WorldPackets::Battleground::PVPLogData pvpLogData;
-    BuildPvPLogDataPacket(pvpLogData);
-    SendPacketToAll(pvpLogData.Write());
+    WorldPackets::Battleground::PvpLogData PvpLogData;
+    BuildPvpLogDataPacket(PvpLogData);
+    SendPacketToAll(PvpLogData.Write());
 
     SendBroadcastText(broadcastID, CHAT_MSG_BG_SYSTEM_NEUTRAL);
 }
@@ -1164,14 +1164,14 @@ void Battleground::PlayerReward(Player* player, bool isWinner)
     uint32 needLevel = reward->BaseLevel;
 
     if ((IsArena() || IsRBG()) && !IsSkirmish())
-        player->GetPvPRatingAndLevel(reward, type, rating, needLevel, true);
+        player->GetPvpRatingAndLevel(reward, type, rating, needLevel, true);
 
     if ((IsBattleground() || IsSkirmish()) && roll_chance_f(reward->ChanceBonusLevel))
         needLevel += reward->BonusBaseLevel;
 
     sLog->outArena(0, "PlayerReward: player (%s) (%s) itemId %u PvPtype %u", player->GetName(), player->GetGUID().ToString().c_str(), itemId, type);
 
-    std::vector<uint32> itemModifiers = player->GetPvPRewardItem(itemId, type, rating, (IsArena() || IsRBG()) && !IsSkirmish(), needLevel);
+    std::vector<uint32> itemModifiers = player->GetPvpRewardItem(itemId, type, rating, (IsArena() || IsRBG()) && !IsSkirmish(), needLevel);
     if (itemId)
     {
         ItemPosCountVec dest;
@@ -1718,7 +1718,7 @@ bool Battleground::HasFreeSlots() const
     return _players.size() < GetMaxPlayers();
 }
 
-void Battleground::BuildPvPLogDataPacket(WorldPackets::Battleground::PVPLogData& packet)
+void Battleground::BuildPvpLogDataPacket(WorldPackets::Battleground::PvpLogData& packet)
 {
     uint8 bType = MS::Battlegrounds::GetBracketByJoinType(GetJoinType());
 
@@ -1731,7 +1731,7 @@ void Battleground::BuildPvPLogDataPacket(WorldPackets::Battleground::PVPLogData&
         if (!IsPlayerInBattleground(score.first))
             continue;
 
-        WorldPackets::Battleground::PVPLogData::PlayerData playerData;
+        WorldPackets::Battleground::PvpLogData::PlayerData playerData;
 
         playerData.PlayerGUID = score.second->PlayerGuid;
         playerData.Kills = score.second->KillingBlows;
@@ -2224,9 +2224,9 @@ void Battleground::PlayerAddedToBGCheckIfBGIsRunning(Player* player)
 
     BlockMovement(player);
 
-    WorldPackets::Battleground::PVPLogData pvpLogData;
-    BuildPvPLogDataPacket(pvpLogData);
-    player->SendDirectMessage(pvpLogData.Write());
+    WorldPackets::Battleground::PvpLogData PvpLogData;
+    BuildPvpLogDataPacket(PvpLogData);
+    player->SendDirectMessage(PvpLogData.Write());
 
     auto queueTypeID = MS::Battlegrounds::GetBgQueueTypeIdByBgTypeID(GetTypeID(), GetJoinType());
 
@@ -2355,7 +2355,7 @@ uint16 Battleground::GetTypeID(bool GetRandom) const
     return GetRandom ? m_RandomTypeID : m_TypeID;
 }
 
-void Battleground::SetBracket(PVPDifficultyEntry const* bracketEntry)
+void Battleground::SetBracket(PvpDifficultyEntry const* bracketEntry)
 {
     m_BracketId = bracketEntry->RangeIndex;
     SetLevelRange(bracketEntry->MinLevel, bracketEntry->MaxLevel);

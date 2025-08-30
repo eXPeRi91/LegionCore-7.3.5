@@ -20,7 +20,7 @@
 
 #define OUTDOORPVP_OBJECTIVE_UPDATE_INTERVAL 1000
 
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 
 class Player;
 class GameObject;
@@ -28,50 +28,50 @@ class Creature;
 class ZoneScript;
 struct GossipMenuItems;
 
-struct OutdoorPvPData
+struct OutdoorPvpData
 {
-    OutdoorPvPTypes TypeId;
+    OutdoorPvpTypes TypeId;
     uint32 ScriptId;
 };
 
 // class to handle player enter / leave / areatrigger / GO use events
-class OutdoorPvPMgr
+class OutdoorPvpMgr
 {
-        OutdoorPvPMgr();
-        ~OutdoorPvPMgr() {}
+        OutdoorPvpMgr();
+        ~OutdoorPvpMgr() {}
 
     public:
-        static OutdoorPvPMgr* instance();
+        static OutdoorPvpMgr* instance();
 
-        // create outdoor pvp events
-        void InitOutdoorPvP();
+        // create outdoor PvP events
+        void InitOutdoorPvp();
 
         // cleanup
         void Die();
 
-        // called when a player enters an outdoor pvp area
+        // called when a player enters an outdoor PvP area
         void HandlePlayerEnterZone(ObjectGuid guid, uint32 areaflag);
 
-        // called when player leaves an outdoor pvp area
+        // called when player leaves an outdoor PvP area
         void HandlePlayerLeaveZone(ObjectGuid guid, uint32 areaflag);
 
-        // called when a player enters an outdoor pvp map
+        // called when a player enters an outdoor PvP map
         void HandlePlayerEnterMap(ObjectGuid guid, uint32 zoneID);
 
-        // called when a player leaves an outdoor pvp map
+        // called when a player leaves an outdoor PvP map
         void HandlePlayerLeaveMap(ObjectGuid guid, uint32 zoneID);
 
-        // called when a player enters an outdoor pvp area
+        // called when a player enters an outdoor PvP area
         void HandlePlayerEnterArea(ObjectGuid guid, uint32 aeaID);
 
-        // called when a player leaves an outdoor pvp area
+        // called when a player leaves an outdoor PvP area
         void HandlePlayerLeaveArea(ObjectGuid guid, uint32 aeaID);
 
         // called when player resurrects
         void HandlePlayerResurrects(Player* player, uint32 areaflag);
 
-        // return assigned outdoor pvp
-        OutdoorPvP* GetOutdoorPvPToZoneId(uint32 zoneid);
+        // return assigned outdoor PvP
+        OutdoorPvp* GetOutdoorPvpToZoneId(uint32 zoneid);
 
         // handle custom (non-exist in dbc) spell if registered
         bool HandleCustomSpell(Player* player, uint32 spellId, GameObject* go);
@@ -81,9 +81,9 @@ class OutdoorPvPMgr
 
         ZoneScript* GetZoneScript(uint32 zoneId);
 
-        void AddZone(uint32 zoneid, OutdoorPvP* handle);
+        void AddZone(uint32 zoneid, OutdoorPvp* handle);
 
-        std::set<OutdoorPvP*>* GetOutdoorPvPMap(uint32 MapID);
+        std::set<OutdoorPvp*>* GetOutdoorPvpMap(uint32 MapID);
 
         void Update(uint32 diff);
 
@@ -95,30 +95,30 @@ class OutdoorPvPMgr
 
         void HandleGameEventStart(uint32 event);
 
-        OutdoorPvPData* GetOutdoorPvPData(OutdoorPvPTypes type) { return m_OutdoorPvPDatas[type]; }
-        void AddOutdoorPvP(OutdoorPvP* pvp) { m_OutdoorPvPSet.push_back(pvp); }
+        OutdoorPvpData* GetOutdoorPvpData(OutdoorPvpTypes type) { return m_OutdoorPvpDatas[type]; }
+        void AddOutdoorPvp(OutdoorPvp* pvp) { m_OutdoorPvpSet.push_back(pvp); }
     private:
-        typedef std::vector<OutdoorPvP*> OutdoorPvPSet;
-        typedef std::map<uint32 /* zoneid */, OutdoorPvP*> OutdoorPvPZone;
-        typedef std::map<uint32 /* mapId */, std::set<OutdoorPvP*>> OutdoorPvPMap;
-        typedef std::map<OutdoorPvPTypes, OutdoorPvPData*> OutdoorPvPDataMap;
+        typedef std::vector<OutdoorPvp*> OutdoorPvpSet;
+        typedef std::map<uint32 /* zoneid */, OutdoorPvp*> OutdoorPvpZone;
+        typedef std::map<uint32 /* mapId */, std::set<OutdoorPvp*>> OutdoorPvpMap;
+        typedef std::map<OutdoorPvpTypes, OutdoorPvpData*> OutdoorPvpDataMap;
 
-        // contains all initiated outdoor pvp events
+        // contains all initiated outdoor PvP events
         // used when initing / cleaning up
-        OutdoorPvPSet  m_OutdoorPvPSet;
+        OutdoorPvpSet  m_OutdoorPvpSet;
 
-        // maps the zone ids to an outdoor pvp event
+        // maps the zone ids to an outdoor PvP event
         // used in player event handling
-        OutdoorPvPZone m_OutdoorPvPZone;
-        OutdoorPvPMap m_OutdoorPvPMap;
+        OutdoorPvpZone m_OutdoorPvpZone;
+        OutdoorPvpMap m_OutdoorPvpMap;
 
         // Holds the outdoor PvP templates
-        OutdoorPvPDataMap m_OutdoorPvPDatas;
+        OutdoorPvpDataMap m_OutdoorPvpDatas;
 
         // update interval
         uint32 m_UpdateTimer;
 };
 
-#define sOutdoorPvPMgr OutdoorPvPMgr::instance()
+#define sOutdoorPvpMgr OutdoorPvpMgr::instance()
 
 #endif /*OUTDOOR_PVP_MGR_H_*/

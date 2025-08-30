@@ -83,7 +83,7 @@ struct WorldQuestTemplate
     uint8 Max = 0;
     uint8 AllMax = 0;
     bool HasArmor = false;
-    bool IsPvP = false;
+    bool IsPvp = false;
 };
 
 struct WorldQuestUpdate

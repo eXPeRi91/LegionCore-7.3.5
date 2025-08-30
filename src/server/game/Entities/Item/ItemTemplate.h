@@ -741,8 +741,8 @@ struct ItemTemplate
     int32 GetMaterial() const { return ExtendedData->Material; }
     uint32 GetMinReputation() const { return ExtendedData->MinReputation; }
     uint32 GetMinFactionID() const { return ExtendedData->MinFactionID; }
-    uint32 GetRequiredPVPMedal() const { return ExtendedData->RequiredPVPMedal; }
-    uint32 GetRequiredPVPRank() const { return ExtendedData->RequiredPVPRank; }
+    uint32 GetRequiredPvpMedal() const { return ExtendedData->RequiredPvpMedal; }
+    uint32 GetRequiredPvpRank() const { return ExtendedData->RequiredPvpRank; }
     uint32 GetRequiredAbility() const { return ExtendedData->RequiredAbility; }
     uint32 GetTotemCategoryID() const { return ExtendedData->TotemCategoryID; }
     uint32 GetBagFamily() const { return ExtendedData->BagFamily; }

@@ -1,5 +1,5 @@
 #include "Scenario.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "AccountMgr.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 
@@ -2890,7 +2890,7 @@ struct npc_temporal_anomaly : ScriptedAI
                     {
                         use = true;
 
-                        auto outdoor = players->GetOutdoorPvP();
+                        auto outdoor = players->GetOutdoorPvp();
                         if (outdoor && outdoor->GetTypeId() == OUTDOOR_PVP_ARGUS_INVASION)
                             outdoor->HandleKill(players, me);
                     }
@@ -2942,7 +2942,7 @@ struct npc_demon_hunter_val : ScriptedAI
                     {
                         use = true;
 
-                        auto outdoor = players->GetOutdoorPvP();
+                        auto outdoor = players->GetOutdoorPvp();
                         if (outdoor && outdoor->GetTypeId() == OUTDOOR_PVP_ARGUS_INVASION)
                             outdoor->HandleKill(players, me);
                     }
@@ -4102,7 +4102,7 @@ std::map<uint32, std::vector<uint32>> zonesByEvents {
 
 uint32 ListBossIds[13] = { 125666, 125527, 125655, 125148, 125634, 125252, 125137, 125280, 125587, 125272, 125483, 125578, 125314 };
 
-class OutdoorPVPArgusInvasion : public OutdoorPvP
+class OutdoorPVPArgusInvasion : public OutdoorPvp
 {
 public:
     OutdoorPVPArgusInvasion()
@@ -4116,7 +4116,7 @@ public:
             delete pair.second;
     }
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         for (auto zone : { 9126, 9102, 9100, 9180, 9127, 9128 })
             RegisterZone(zone);
@@ -4155,7 +4155,7 @@ public:
         if (scenarioId)
         {
             m_scenarios[zoneId] = new Scenario(m_map, scenarioId);
-            m_scenarios[zoneId]->SetOutdoorPvP(this, zoneId);
+            m_scenarios[zoneId]->SetOutdoorPvp(this, zoneId);
 
             if (!m_players[zoneId].empty())
                 m_scenarios[zoneId]->SetCurrentStep(0);
@@ -4170,7 +4170,7 @@ public:
 
     void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerEnterZone(guid, zone);
+        OutdoorPvp::HandlePlayerEnterZone(guid, zone);
 
         Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
         if (!player)
@@ -4251,7 +4251,7 @@ public:
 
     void HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerLeaveZone(guid, zone);
+        OutdoorPvp::HandlePlayerLeaveZone(guid, zone);
         Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
         if (!player)
             return;
@@ -4890,12 +4890,12 @@ private:
     std::map<uint32, int32> m_timerSpell{};
 };
 
-class OutdoorPvP_ArgusInvasion : public OutdoorPvPScript
+class OutdoorPvp_ArgusInvasion : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_ArgusInvasion() : OutdoorPvPScript("outdoorpvp_argus") {}
+    OutdoorPvp_ArgusInvasion() : OutdoorPvpScript("outdoorpvp_argus") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
         return new OutdoorPVPArgusInvasion();
     }
@@ -4962,6 +4962,6 @@ void AddSC_invasion_point_argus()
     RegisterAuraScript(spell_narcolepsy);
     RegisterAuraScript(spell_surging_blood);
     RegisterAuraScript(spell_flash_freeze);
-    new OutdoorPvP_ArgusInvasion();
+    new OutdoorPvp_ArgusInvasion();
     new eventobject_braziers_warmth();
 }

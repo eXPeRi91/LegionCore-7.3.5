@@ -85,8 +85,8 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvP.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvp.h"
+#include "OutdoorPvpMgr.h"
 #include "Pet.h"
 #include "PetBattle.h"
 #include "PetBattleSystem.h"
@@ -364,7 +364,7 @@ m_achievementMgr(sf::safe_ptr<AchievementMgr<Player>>(this))
     m_movedPlayer = this;
     m_seer = this;
 
-    m_contestedPvPTimer = 0;
+    m_contestedPvpTimer = 0;
     m_pvpAuraCheckTimer = 3000;
 
     m_declinedname = NULL;
@@ -1469,9 +1469,9 @@ void Player::Update(uint32 p_time)
         _wargameRequest = nullptr;
     }
 
-    UpdatePvPFlag(now);
+    UpdatePvpFlag(now);
 
-    UpdateContestedPvP(p_time);
+    UpdateContestedPvp(p_time);
 
     UpdateDuelFlag(p_time);
 
@@ -1656,7 +1656,7 @@ void Player::Update(uint32 p_time)
                 bool hasTemplate = HasAura(SPELL_PRINCIPLES_OF_WAR);
 
                 if ((hasTemplate && !HasPvpStatsScalingEnabled()) || (!hasTemplate && HasPvpStatsScalingEnabled()))
-                    sWorld->AddPvPMysticCount(); // for debug
+                    sWorld->AddPvpMysticCount(); // for debug
 
                 if (map->IsBattlegroundOrArena())
                 {
@@ -2266,7 +2266,7 @@ bool Player::SafeTeleport(uint32 mapid, float x, float y, float z, float orienta
 
             SetSelection(ObjectGuid::Empty);
             CombatStop();
-            ResetContestedPvP();
+            ResetContestedPvp();
 
             // remove player from battleground on far teleport (when changing maps)
             if (Battleground const* bg = GetBattleground())
@@ -2278,9 +2278,9 @@ bool Player::SafeTeleport(uint32 mapid, float x, float y, float z, float orienta
                     LeaveBattleground(false);                   // don't teleport to entry point
             }
 
-            sOutdoorPvPMgr->HandlePlayerLeaveZone(GetGUID(), GetCurrentZoneID());
+            sOutdoorPvpMgr->HandlePlayerLeaveZone(GetGUID(), GetCurrentZoneID());
             sBattlefieldMgr->HandlePlayerLeaveZone(GetGUID(), GetCurrentZoneID());
-            sOutdoorPvPMgr->HandlePlayerLeaveArea(GetGUID(), m_areaId);
+            sOutdoorPvpMgr->HandlePlayerLeaveArea(GetGUID(), m_areaId);
 
             // remove arena spell coldowns/buffs now to also remove pet's cooldowns before it's temporarily unsummoned
             if (mEntry->IsBattleArena())
@@ -2469,7 +2469,7 @@ void Player::TeleportToChallenge(uint32 mapid, float x, float y, float z, float 
 
     SetSelection(ObjectGuid::Empty);
     CombatStop();
-    ResetContestedPvP();
+    ResetContestedPvp();
 
     UnsummonPetTemporaryIfAny();
     UnsummonCurrentBattlePetIfAny(true);
@@ -2551,12 +2551,12 @@ void Player::ZoneTeleport(uint32 zoneId)
 
     SetSelection(ObjectGuid::Empty);
     CombatStop();
-    ResetContestedPvP();
+    ResetContestedPvp();
 
-    sOutdoorPvPMgr->HandlePlayerLeaveZone(GetGUID(), GetCurrentZoneID());
+    sOutdoorPvpMgr->HandlePlayerLeaveZone(GetGUID(), GetCurrentZoneID());
     sBattlefieldMgr->HandlePlayerLeaveZone(GetGUID(), GetCurrentZoneID());
-    sOutdoorPvPMgr->HandlePlayerLeaveArea(GetGUID(), m_areaId);
-    sOutdoorPvPMgr->HandlePlayerLeaveMap(GetGUID(), GetCurrentZoneID());
+    sOutdoorPvpMgr->HandlePlayerLeaveArea(GetGUID(), m_areaId);
+    sOutdoorPvpMgr->HandlePlayerLeaveMap(GetGUID(), GetCurrentZoneID());
 
     if (InstanceScript* data_s = GetInstanceScript())
         data_s->OnPlayerLeaveForScript(this);
@@ -2676,7 +2676,7 @@ void Player::ZoneTeleport(uint32 zoneId)
                 player->SetChangeMap(false);
                 player->m_Teleports = false;
 
-                sOutdoorPvPMgr->HandlePlayerEnterZone(player->GetGUID(), player->GetZoneId());
+                sOutdoorPvpMgr->HandlePlayerEnterZone(player->GetGUID(), player->GetZoneId());
                 sBattlefieldMgr->HandlePlayerEnterZone(player->GetGUID(), player->GetZoneId());
             });
         }
@@ -2819,10 +2819,10 @@ void Player::ProcessDelayedOperations()
             PetBattleRequest request;
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdynamic-class-memaccess"
-            memcpy(&request, &battle->PvPMatchMakingRequest, sizeof(PetBattleRequest)); //@TODO check that
+            memcpy(&request, &battle->PvpMatchMakingRequest, sizeof(PetBattleRequest)); //@TODO check that
 #pragma GCC diagnostic pop
 
-            auto& matchMakingRequest = battle->PvPMatchMakingRequest;
+            auto& matchMakingRequest = battle->PvpMatchMakingRequest;
 
             if (teamID == PETBATTLE_TEAM_2)
                 std::swap(request.TeamPosition[PETBATTLE_TEAM_1], request.TeamPosition[PETBATTLE_TEAM_2]);
@@ -2835,10 +2835,10 @@ void Player::ProcessDelayedOperations()
             SetFacingTo(GetAngle(matchMakingRequest.TeamPosition[!teamID].GetPositionX(), matchMakingRequest.TeamPosition[!teamID].GetPositionY()));
             SetRooted(true);
 
-            if (!matchMakingRequest.IsPvPReady[teamID])
-                matchMakingRequest.IsPvPReady[teamID] = true;
+            if (!matchMakingRequest.IsPvpReady[teamID])
+                matchMakingRequest.IsPvpReady[teamID] = true;
 
-            if (matchMakingRequest.IsPvPReady[PETBATTLE_TEAM_1] == true && matchMakingRequest.IsPvPReady[PETBATTLE_TEAM_2] == true)
+            if (matchMakingRequest.IsPvpReady[PETBATTLE_TEAM_1] == true && matchMakingRequest.IsPvpReady[PETBATTLE_TEAM_2] == true)
                 battle->Begin();
         }
     }
@@ -2880,9 +2880,9 @@ void Player::RemoveFromWorld()
         StopCastingBindSight();
         UnsummonPetTemporaryIfAny();
         UnsummonCurrentBattlePetIfAny(true);
-        sOutdoorPvPMgr->HandlePlayerLeaveZone(GetGUID(), m_zoneId);
+        sOutdoorPvpMgr->HandlePlayerLeaveZone(GetGUID(), m_zoneId);
         sBattlefieldMgr->HandlePlayerLeaveZone(GetGUID(), m_zoneId);
-        sOutdoorPvPMgr->HandlePlayerLeaveArea(GetGUID(), m_areaId);
+        sOutdoorPvpMgr->HandlePlayerLeaveArea(GetGUID(), m_areaId);
 
         if (m_zoneId)
             m_oldZoneId = m_zoneId; //fix returning to wg
@@ -3398,7 +3398,7 @@ void Player::SetGameMaster(bool on)
 
         RemoveByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
         SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
-        ResetContestedPvP();
+        ResetContestedPvp();
 
         getHostileRefManager().setOnlineOfflineState(false);
         CombatStopWithPets();
@@ -3420,7 +3420,7 @@ void Player::SetGameMaster(bool on)
         }
 
         // restore FFA PvP Server state
-        if (sWorld->IsFFAPvPRealm())
+        if (sWorld->IsFFAPvpRealm())
         {
             SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
             SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
@@ -3615,7 +3615,7 @@ void Player::SetSpectate(bool on)
             RemovePet(pet);
 
         UnsummonPetTemporaryIfAny();
-        ResetContestedPvP();
+        ResetContestedPvp();
 
         getHostileRefManager().setOnlineOfflineState(false);
         CombatStopWithPets();
@@ -4044,7 +4044,7 @@ void Player::RemoveTalent(TalentEntry const* talent, bool isDelete, bool sendMes
     }
 }
 
-void Player::RemovePvPTalent(uint32 spellID, uint8 group, bool isDelete /*= true*/, bool sendMessage /*= true*/)
+void Player::RemovePvpTalent(uint32 spellID, uint8 group, bool isDelete /*= true*/, bool sendMessage /*= true*/)
 {
     auto const& talentEntry = sDB2Manager.GetPvpTalentBySpellID(spellID);
     if (!talentEntry)
@@ -4070,20 +4070,20 @@ void Player::RemovePvPTalent(uint32 spellID, uint8 group, bool isDelete /*= true
 
     if (isDelete)
     {
-        auto const& plrTalent = GetPvPTalentMap(group)->find(talentEntry->SpellID);
-        if (plrTalent != GetPvPTalentMap(group)->end())
+        auto const& plrTalent = GetPvpTalentMap(group)->find(talentEntry->SpellID);
+        if (plrTalent != GetPvpTalentMap(group)->end())
             plrTalent->second = PLAYERSPELL_REMOVED;
     }
 }
 
-void Player::RemoveAllPvPTalent(bool isDelete)
+void Player::RemoveAllPvpTalent(bool isDelete)
 {
     for (uint8 group = 0; group < MAX_SPECIALIZATIONS; ++group)
     {
-        PlayerPvPTalentMap* talentPvps = GetPvPTalentMap(group);
-        for (PlayerPvPTalentMap::iterator itr = talentPvps->begin(); itr != talentPvps->end();)
+        PlayerPvpTalentMap* talentPvps = GetPvpTalentMap(group);
+        for (PlayerPvpTalentMap::iterator itr = talentPvps->begin(); itr != talentPvps->end();)
         {
-            RemovePvPTalent(itr->first, group, isDelete, false);
+            RemovePvpTalent(itr->first, group, isDelete, false);
             ++itr;
         }
     }
@@ -4094,7 +4094,7 @@ void Player::TogglePvpTalents(bool enable)
     if (getLevel() < 110 || (GetMap()->IsDungeon() && enable && !sWorld->getBoolConfig(CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME)))
         return;
 
-    for (auto const& v : *GetPvPTalentMap(GetActiveTalentGroup()))
+    for (auto const& v : *GetPvpTalentMap(GetActiveTalentGroup()))
     {
         auto pvpTalentInfo = sDB2Manager.GetPvpTalentBySpellID(v.first);
         if (!pvpTalentInfo)
@@ -4166,7 +4166,7 @@ bool Player::IsAreaThatActivatesPvpTalents(uint32 areaID) const
         if (area->IsSanctuary())
             return false;
 
-        if (const_cast<Player*>(this)->InFFAPvPArea())
+        if (const_cast<Player*>(this)->InFFAPvpArea())
             return true;
 
         if (!area->ActivatesPvpTalents())
@@ -4267,7 +4267,7 @@ void Player::DisablePvpRules(bool recalcItems /*= true*/, bool checkZone/* = tru
 
 bool Player::HasPvpRulesEnabled()
 {
-    for (auto const& v : *GetPvPTalentMap(GetActiveTalentGroup()))
+    for (auto const& v : *GetPvpTalentMap(GetActiveTalentGroup()))
         if (v.second != PLAYERSPELL_REMOVED && HasSpell(v.first))
             return true;
 
@@ -4785,7 +4785,7 @@ bool Player::AddTalent(TalentEntry const* talent, uint8 index, bool learning)
     return true;
 }
 
-bool Player::AddPvPTalent(PvpTalentEntry const* talent, uint8 index)
+bool Player::AddPvpTalent(PvpTalentEntry const* talent, uint8 index)
 {
     if (!talent)
         return false;
@@ -4807,11 +4807,11 @@ bool Player::AddPvPTalent(PvpTalentEntry const* talent, uint8 index)
         return false;
     }
 
-    auto const& itr = GetPvPTalentMap(index)->find(talent->SpellID);
-    if (itr != GetPvPTalentMap(index)->end())
+    auto const& itr = GetPvpTalentMap(index)->find(talent->SpellID);
+    if (itr != GetPvpTalentMap(index)->end())
         itr->second = PLAYERSPELL_UNCHANGED;
     else
-        (*GetPvPTalentMap(index))[talent->SpellID] = PLAYERSPELL_NEW;
+        (*GetPvpTalentMap(index))[talent->SpellID] = PLAYERSPELL_NEW;
 
     return true;
 }
@@ -6133,7 +6133,7 @@ bool Player::ResetTalents(bool no_cost)
         if (talentInfo->ClassID == getClass() && talentInfo->SpellID)
             RemoveTalent(talentInfo, true, true, true);
 
-    RemoveAllPvPTalent();
+    RemoveAllPvpTalent();
 
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     _SaveTalents(trans);
@@ -6444,9 +6444,9 @@ bool Player::HasTalent(uint32 spell, uint8 index) const
     return (itr != GetTalentMap(index)->end() && itr->second != PLAYERSPELL_REMOVED);
 }
 
-bool Player::HasPvPTalent(uint32 spellID) const
+bool Player::HasPvpTalent(uint32 spellID) const
 {
-    for (auto const& v : *GetPvPTalentMap(GetActiveTalentGroup()))
+    for (auto const& v : *GetPvpTalentMap(GetActiveTalentGroup()))
         if (v.second != PLAYERSPELL_REMOVED && v.first == spellID)
             return true;
 
@@ -7051,7 +7051,7 @@ void Player::ResurrectPlayer(float restore_percent, bool applySickness)
     uint32 newzone, newarea;
     GetZoneAndAreaId(newzone, newarea);
     UpdateZone(newzone, newarea);
-    sOutdoorPvPMgr->HandlePlayerResurrects(this, newzone);
+    sOutdoorPvpMgr->HandlePlayerResurrects(this, newzone);
 
     if (InBattleground())
     {
@@ -7115,7 +7115,7 @@ void Player::KillPlayer()
     // 6 minutes until repop at graveyard
     m_deathTimer = 6 * MINUTE * IN_MILLISECONDS;
 
-    UpdateCorpseReclaimDelay();                             // dependent at use SetDeathPvP() call before kill
+    UpdateCorpseReclaimDelay();                             // dependent at use SetDeathPvp() call before kill
     SendCorpseReclaimDelay();
 
     // don't create corpse at this moment, player might be falling
@@ -7132,7 +7132,7 @@ void Player::CreateCorpse()
     SpawnCorpseBones();
 
     Corpse* corpse = new Corpse((m_ExtraFlags & PLAYER_EXTRA_PVP_DEATH) ? CORPSE_RESURRECTABLE_PVP : CORPSE_RESURRECTABLE_PVE);
-    SetPvPDeath(false);
+    SetPvpDeath(false);
 
     if (!corpse->Create(sObjectMgr->GetGenerator<HighGuid::Corpse>()->Generate(), this))
     {
@@ -7150,11 +7150,11 @@ void Player::CreateCorpse()
     corpse->SetUInt32Value(CORPSE_FIELD_BYTES_2, uint32((face) | (hairstyle << 8) | (haircolor << 16) | (facialhair << 24)));
 
     uint32 flags = 0;
-    if (IsPvP())
+    if (IsPvp())
         flags |= CORPSE_FLAG_PVP;
     if (InBattleground() && !InArena())
         flags |= CORPSE_FLAG_SKINNABLE;                      // to be able to remove insignia
-    if (IsFFAPvP())
+    if (IsFFAPvp())
         flags |= CORPSE_FLAG_FFA_PVP;
     if (HasAura(261228)) //Argus: phase 4 - IsAllowingRelease
         flags |= CORPSE_FLAG_HIDE_MODEL;
@@ -7469,10 +7469,10 @@ void Player::RepopAtGraveyard(bool outInstance /*= false*/)
 
         if (Battlefield* bf = sBattlefieldMgr->GetBattlefieldToZoneId(GetCurrentZoneID()))
             ClosestGrave = bf->GetClosestGraveYard(this);
-        else if (sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetCurrentZoneID()) != nullptr && sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetCurrentZoneID())->GetClosestGraveyard(this) != nullptr)
+        else if (sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetCurrentZoneID()) != nullptr && sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetCurrentZoneID())->GetClosestGraveyard(this) != nullptr)
         {
-            if (OutdoorPvP* outdoorPvP = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetCurrentZoneID()))
-                ClosestGrave = outdoorPvP->GetClosestGraveyard(this);
+            if (OutdoorPvp* outdoorPvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetCurrentZoneID()))
+                ClosestGrave = outdoorPvp->GetClosestGraveyard(this);
         }
         else
             ClosestGrave = sObjectMgr->GetClosestGraveYard(GetPositionX(), GetPositionY(), GetPositionZ(), GetMapId(), GetTeam());
@@ -7773,7 +7773,7 @@ void Player::UpdateRating(CombatRating cr)
             }
         }
 
-        CalcPvPTemplate(SPELL_AURA_MOD_RATING, amount, otherMod, [cr](AuraEffect const* aurEff) -> bool
+        CalcPvpTemplate(SPELL_AURA_MOD_RATING, amount, otherMod, [cr](AuraEffect const* aurEff) -> bool
         {
             if ((aurEff->GetMiscValue() & (1 << cr)) != 0)
                 return true;
@@ -7879,8 +7879,8 @@ void Player::UpdateItemLevels()
 {
     SetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + PlayerAvgItemLevelOffsets::EquippedAvgItemLevel, GetAverageItemLevelEquipped());
     SetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + PlayerAvgItemLevelOffsets::TotalAvgItemLevel, GetAverageItemLevelTotal());
-    SetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + PlayerAvgItemLevelOffsets::NonPvPAvgItemLevel, GetAverageItemLevelTotalWithOrWithoutPvPBonus(false));
-    SetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + PlayerAvgItemLevelOffsets::PvPAvgItemLevel, GetAverageItemLevelTotalWithOrWithoutPvPBonus(true));
+    SetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + PlayerAvgItemLevelOffsets::NonPvpAvgItemLevel, GetAverageItemLevelTotalWithOrWithoutPvpBonus(false));
+    SetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + PlayerAvgItemLevelOffsets::PvpAvgItemLevel, GetAverageItemLevelTotalWithOrWithoutPvpBonus(true));
 
     if (HasPvpStatsScalingEnabled())
     {
@@ -9100,7 +9100,7 @@ bool Player::RewardHonor(Unit* victim, uint32 groupsize, int32 honor, bool pvpto
 
         if (Player* plrVictim = victim->ToPlayer())
         {
-            if (GetTeam() == plrVictim->GetTeam() && (!sWorld->IsFFAPvPRealm() && !(InBattleground() && sWorld->getBoolConfig(CONFIG_CROSSFACTIONBG))))
+            if (GetTeam() == plrVictim->GetTeam() && (!sWorld->IsFFAPvpRealm() && !(InBattleground() && sWorld->getBoolConfig(CONFIG_CROSSFACTIONBG))))
                 return false;
 
             uint8 k_level = getLevelForTarget(victim);
@@ -9232,7 +9232,7 @@ bool Player::RewardHonor(Unit* victim, uint32 groupsize, int32 honor, bool pvpto
 
     honor *= GetTotalAuraMultiplier(SPELL_AURA_SPELL_AURA_MOD_HONOR_POINTS_GAIN);
 
-    WorldPackets::Combat::PvPCredit credit;
+    WorldPackets::Combat::PvpCredit credit;
     credit.Honor = honor;
     credit.Rank = victimRank;
     credit.Target = victimGuid;
@@ -9255,11 +9255,11 @@ bool Player::RewardHonor(Unit* victim, uint32 groupsize, int32 honor, bool pvpto
         {
             // Check if allowed to receive it in current map
             uint8 MapType = sWorld->getIntConfig(CONFIG_PVP_TOKEN_MAP_TYPE);
-            if ((MapType == 1 && !InBattleground() && !IsFFAPvP()) || (MapType == 2 && !IsFFAPvP()) || (MapType == 3 && !InBattleground()))
+            if ((MapType == 1 && !InBattleground() && !IsFFAPvp()) || (MapType == 2 && !IsFFAPvp()) || (MapType == 3 && !InBattleground()))
                 return true;
 
-            if (GetOutdoorPvP())
-                GetOutdoorPvP()->HandleRewardHonor(this);
+            if (GetOutdoorPvp())
+                GetOutdoorPvp()->HandleRewardHonor(this);
 
             if (AddItem(sWorld->getIntConfig(CONFIG_PVP_TOKEN_ID), sWorld->getIntConfig(CONFIG_PVP_TOKEN_COUNT)))
                 ChatHandler(this).PSendSysMessage("You have been awarded a token for slaying another player.");
@@ -9379,7 +9379,7 @@ void Player::ModifyCurrencyFlag(uint32 id, uint8 flag)
 void Player::SendPvpRewards()
 {
     bool isAlliance = GetTeam() == ALLIANCE;
-    WorldPackets::Battleground::RequestPVPRewardsResponse rewardsResponse;
+    WorldPackets::Battleground::RequestPvpRewardsResponse rewardsResponse;
 
     if (PvpReward* reward = sBattlegroundMgr->GetPvpReward(PvpReward_BG))
     {
@@ -10069,7 +10069,7 @@ void Player::UpdateArea(uint32 newArea)
 
     UpdateAreaQuestTasks(newArea, m_areaId);
 
-    // FFA_PVP flags are area and not zone id dependent
+    // FFA_PvP flags are area and not zone id dependent
     // so apply them accordingly
     if (m_areaId)
         m_oldAreaId = m_areaId;
@@ -10081,8 +10081,8 @@ void Player::UpdateArea(uint32 newArea)
 
     if (m_oldAreaId != m_areaId)
     {
-        sOutdoorPvPMgr->HandlePlayerLeaveArea(GetGUID(), m_oldAreaId);
-        sOutdoorPvPMgr->HandlePlayerEnterArea(GetGUID(), m_areaId);
+        sOutdoorPvpMgr->HandlePlayerLeaveArea(GetGUID(), m_oldAreaId);
+        sOutdoorPvpMgr->HandlePlayerEnterArea(GetGUID(), m_areaId);
 
         if (m_oldAreaId)
             RemovePlayerFromArea(m_oldAreaId);
@@ -10095,9 +10095,9 @@ void Player::UpdateArea(uint32 newArea)
         GetPhaseMgr().AddUpdateFlag(PHASE_UPDATE_FLAG_AREA_UPDATE);
     });
 
-    pvpInfo.inFFAPvPArea = area && (area->Flags[0] & AREA_FLAG_ARENA);
+    pvpInfo.inFFAPvpArea = area && (area->Flags[0] & AREA_FLAG_ARENA);
 
-    UpdatePvPState(true);
+    UpdatePvpState(true);
 
     //Hack OO: Galakras. Fix me
     if (GetMapId() == 1136)
@@ -10121,11 +10121,11 @@ void Player::UpdateArea(uint32 newArea)
     PrepareAreaQuest(newArea);
 
     // previously this was in UpdateZone (but after UpdateArea) so nothing will break
-    pvpInfo.inNoPvPArea = false;
-    if (area && area->IsSanctuary() && !InFFAPvPArea())    // in sanctuary
+    pvpInfo.inNoPvpArea = false;
+    if (area && area->IsSanctuary() && !InFFAPvpArea())    // in sanctuary
     {
         SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_SANCTUARY);
-        pvpInfo.inNoPvPArea = true;
+        pvpInfo.inNoPvpArea = true;
         CombatStopWithPets();
     }
     else
@@ -10134,7 +10134,7 @@ void Player::UpdateArea(uint32 newArea)
     if(m_serverSideVisibility.GetValue(SERVERSIDE_VISIBILITY_DUEL) > 0)
     {
         SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_SANCTUARY);
-        pvpInfo.inNoPvPArea = true;
+        pvpInfo.inNoPvpArea = true;
         CombatStopWithPets();
     }
 
@@ -10197,8 +10197,8 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
             }
         }
 
-        sOutdoorPvPMgr->HandlePlayerLeaveZone(GetGUID(), m_zoneId);
-        sOutdoorPvPMgr->HandlePlayerEnterZone(GetGUID(), newZone);
+        sOutdoorPvpMgr->HandlePlayerLeaveZone(GetGUID(), m_zoneId);
+        sOutdoorPvpMgr->HandlePlayerEnterZone(GetGUID(), newZone);
         sBattlefieldMgr->HandlePlayerLeaveZone(GetGUID(), m_zoneId);
         sBattlefieldMgr->HandlePlayerEnterZone(GetGUID(), newZone);
 
@@ -10248,14 +10248,14 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
     switch (zone->FactionGroupMask)
     {
         case AREATEAM_ALLY:
-            pvpInfo.inHostileArea = GetTeam() != ALLIANCE && (sWorld->IsPvPRealm() || zone->Flags[0] & AREA_FLAG_CAPITAL);
+            pvpInfo.inHostileArea = GetTeam() != ALLIANCE && (sWorld->IsPvpRealm() || zone->Flags[0] & AREA_FLAG_CAPITAL);
             break;
         case AREATEAM_HORDE:
-            pvpInfo.inHostileArea = GetTeam() != HORDE && (sWorld->IsPvPRealm() || zone->Flags[0] & AREA_FLAG_CAPITAL);
+            pvpInfo.inHostileArea = GetTeam() != HORDE && (sWorld->IsPvpRealm() || zone->Flags[0] & AREA_FLAG_CAPITAL);
             break;
         case AREATEAM_NONE:
             // overwrite for battlegrounds, maybe batter some zone flags but current known not 100% fit to this
-            pvpInfo.inHostileArea = sWorld->IsPvPRealm() || InBattleground() || zone->Flags[0] & AREA_FLAG_WINTERGRASP;
+            pvpInfo.inHostileArea = sWorld->IsPvpRealm() || InBattleground() || zone->Flags[0] & AREA_FLAG_WINTERGRASP;
             break;
         default:                                            // 6 in fact
             pvpInfo.inHostileArea = false;
@@ -10270,7 +10270,7 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
             SetRestType(REST_TYPE_IN_CITY);
             InnEnter(time(0), GetMapId(), 0, 0, 0);
         }
-        pvpInfo.inNoPvPArea = true;
+        pvpInfo.inNoPvpArea = true;
     }
     else
     {
@@ -10293,7 +10293,7 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
         }
     }
 
-    UpdatePvPState();
+    UpdatePvpState();
 
     // remove items with area/map limitations (delete only for alive player to allow back in ghost mode)
     // if player resurrected at teleport this will be applied in resurrect code
@@ -10318,10 +10318,10 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
     });
 }
 
-bool Player::IsOutdoorPvPActive()
+bool Player::IsOutdoorPvpActive()
 {
     return true;
-    //return isAlive() && !HasInvisibilityAura() && !HasStealthAura() && IsPvP() && !HasUnitMovementFlag(MOVEMENTFLAG_FLYING) && !isInFlight();
+    //return isAlive() && !HasInvisibilityAura() && !HasStealthAura() && IsPvp() && !HasUnitMovementFlag(MOVEMENTFLAG_FLYING) && !isInFlight();
 }
 
 //If players are too far away from the duel flag... they lose the duel
@@ -10404,9 +10404,9 @@ void Player::DuelComplete(DuelCompleteType type)
             }
             else
             {
-                if (!IsPvP())
+                if (!IsPvp())
                     AttackStop();
-                if (!dueler->IsPvP())
+                if (!dueler->IsPvp())
                     dueler->AttackStop();
             }
 
@@ -11947,9 +11947,9 @@ void Player::SendLoot(ObjectGuid guid, LootType loot_type, bool AoeLoot, uint8 p
 
         loot = &personalLoot[guid];
 
-        if (auto outdoorPvP = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetCurrentZoneID()))
-            if (outdoorPvP->GetTypeId() == OutdoorPvPTypes::OUTDOOR_PVP_ASHRAN)
-                outdoorPvP->FillCustomPvPLoots(this, *loot, bones->GetOwnerGUID());
+        if (auto outdoorPvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetCurrentZoneID()))
+            if (outdoorPvp->GetTypeId() == OutdoorPvpTypes::OUTDOOR_PVP_ASHRAN)
+                outdoorPvp->FillCustomPvpLoots(this, *loot, bones->GetOwnerGUID());
 
         if (!bones->lootForBody)
         {
@@ -12276,7 +12276,7 @@ void Player::SendInitWorldStates(uint32 zoneid, uint32 areaid)
     if (auto bf = sBattlefieldMgr->GetBattlefieldByBattleId(BATTLEFIELD_BATTLEID_TB))
         bf->FillInitialWorldStates(packet);
     
-    if (auto pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(zoneid))
+    if (auto pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(zoneid))
         pvp->FillInitialWorldStates(packet);
         
     if (auto bg = GetBattleground())
@@ -17446,7 +17446,7 @@ void Player::TradeCancel(bool sendback)
     }
 }
 
-void Player::RecalculatePvPAmountOfAuras()
+void Player::RecalculatePvpAmountOfAuras()
 {
     for (AuraApplicationMap::iterator iter = m_appliedAuras.begin(); iter != m_appliedAuras.end();)
     {
@@ -17462,7 +17462,7 @@ void Player::RecalculatePvPAmountOfAuras()
                     if (spellInfo->EffectMask < uint32(1 << i))
                         break;
 
-                    if (spellInfo->Effects[i]->PvPMultiplier && spellInfo->Effects[i]->PvPMultiplier != 1.f)
+                    if (spellInfo->Effects[i]->PvpMultiplier && spellInfo->Effects[i]->PvpMultiplier != 1.f)
                     {
                         if (AuraEffect* eff = aura->GetEffect(i))
                         {
@@ -18238,7 +18238,7 @@ void Player::PrepareGossipMenu(WorldObject* source, uint32 menuId /*= 0*/, bool 
                 case GOSSIP_OPTION_MAILBOX:
                     break;                                  // no checks
                 case GOSSIP_OPTION_OUTDOORPVP:
-                    if (!sOutdoorPvPMgr->CanTalkTo(this, creature, itr->second))
+                    if (!sOutdoorPvpMgr->CanTalkTo(this, creature, itr->second))
                         canTalk = false;
                     break;
                 case GOSSIP_OPTION_GARRISON_SHIPMENT:
@@ -18436,7 +18436,7 @@ void Player::OnGossipSelect(WorldObject* source, uint32 gossipListId, uint32 men
             break;
         }
         case GOSSIP_OPTION_OUTDOORPVP:
-            sOutdoorPvPMgr->HandleGossipOption(this, source->GetGUID(), gossipListId);
+            sOutdoorPvpMgr->HandleGossipOption(this, source->GetGUID(), gossipListId);
             break;
         case GOSSIP_OPTION_SPIRITHEALER:
             if (isDead())
@@ -21433,7 +21433,7 @@ void Player::SendQuestUpdateAddPlayer(Quest const* quest, uint16 old_count, uint
 {
     ASSERT(old_count + add_count < 65536 && "player count store in 16 bits");
 
-    WorldPackets::Quest::QuestUpdateAddPvPCredit credit;
+    WorldPackets::Quest::QuestUpdateAddPvpCredit credit;
     credit.QuestID = quest->GetQuestId();
     credit.Count = old_count + add_count;
     SendDirectMessage(credit.Write());
@@ -26368,33 +26368,33 @@ void Player::UpdateAfkReport(time_t currTime)
     }
 }
 
-void Player::UpdateContestedPvP(uint32 diff)
+void Player::UpdateContestedPvp(uint32 diff)
 {
-    if (!m_contestedPvPTimer || isInCombat())
+    if (!m_contestedPvpTimer || isInCombat())
         return;
 
-    if (m_contestedPvPTimer != -1 && m_contestedPvPTimer <= static_cast<int32>(diff))
-        ResetContestedPvP();
+    if (m_contestedPvpTimer != -1 && m_contestedPvpTimer <= static_cast<int32>(diff))
+        ResetContestedPvp();
     else
-        m_contestedPvPTimer -= diff;
+        m_contestedPvpTimer -= diff;
 }
 
-void Player::ResetContestedPvP()
+void Player::ResetContestedPvp()
 {
     ClearUnitState(UNIT_STATE_ATTACK_PLAYER);
     RemoveFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_CONTESTED_PVP);
-    m_contestedPvPTimer = 0;
+    m_contestedPvpTimer = 0;
 }
 
-void Player::UpdatePvPFlag(time_t currTime)
+void Player::UpdatePvpFlag(time_t currTime)
 {
-    if (!IsPvP() || InBattleground() || InArena())
+    if (!IsPvp() || InBattleground() || InArena())
         return;
 
     if (pvpInfo.endTimer == 0 || currTime < (pvpInfo.endTimer + 300) || pvpInfo.inHostileArea)
         return;
 
-    UpdatePvP(false);
+    UpdatePvp(false);
 }
 
 // initiator of duel trigger real started of duel
@@ -28545,20 +28545,20 @@ void Player::UpdateHomebindTime(uint32 time)
     }
 }
 
-void Player::UpdatePvPState(bool onlyFFA)
+void Player::UpdatePvpState(bool onlyFFA)
 {
-    if (InFFAPvPArea())
+    if (InFFAPvpArea())
     {
-        pvpInfo.inFFAPvPArea = true;
+        pvpInfo.inFFAPvpArea = true;
         pvpInfo.inHostileArea = true;
-        pvpInfo.inNoPvPArea = false;
+        pvpInfo.inNoPvpArea = false;
     }
 
     // TODO: should we always synchronize UNIT_FIELD_BYTES_2, 1 of controller and controlled?
     // no, we shouldn't, those are checked for affecting player by client
-    if (!pvpInfo.inNoPvPArea && !isGameMaster() && !IsSpectator() && (pvpInfo.inFFAPvPArea || sWorld->IsFFAPvPRealm()))
+    if (!pvpInfo.inNoPvpArea && !isGameMaster() && !IsSpectator() && (pvpInfo.inFFAPvpArea || sWorld->IsFFAPvpRealm()))
     {
-        if (!IsFFAPvP())
+        if (!IsFFAPvp())
         {
             SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
             SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
@@ -28567,7 +28567,7 @@ void Player::UpdatePvPState(bool onlyFFA)
                     unit->SetByteValue(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
         }
     }
-    else if (IsFFAPvP())
+    else if (IsFFAPvp())
     {
         RemoveByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
         SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
@@ -28581,27 +28581,27 @@ void Player::UpdatePvPState(bool onlyFFA)
 
     if (pvpInfo.inHostileArea)                               // in hostile area
     {
-        if (!IsPvP() || pvpInfo.endTimer != 0)
-            UpdatePvP(true, true);
+        if (!IsPvp() || pvpInfo.endTimer != 0)
+            UpdatePvp(true, true);
     }
     else                                                    // in friendly area
     {
-        if (IsPvP() && !HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP) && pvpInfo.endTimer == 0)
+        if (IsPvp() && !HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP) && pvpInfo.endTimer == 0)
             pvpInfo.endTimer = time(0);                     // start toggle-off
     }
 }
 
-void Player::SetPvP(bool state)
+void Player::SetPvp(bool state)
 {
-    Unit::SetPvP(state);
+    Unit::SetPvp(state);
     for (ControlList::iterator itr = m_Controlled.begin(); itr != m_Controlled.end(); ++itr)
         if(Unit* unit = ObjectAccessor::GetUnit(*this, *itr))
-            unit->SetPvP(state);
+            unit->SetPvp(state);
 }
 
-void Player::UpdatePvP(bool state, bool override)
+void Player::UpdatePvp(bool state, bool override)
 {
-    SetPvP(state);
+    SetPvp(state);
     if (!state || override)
         pvpInfo.endTimer = 0;
     else
@@ -29330,7 +29330,7 @@ bool Player::CanReportAfkDueToLimit()
 
 void Player::ReportedAfkBy(Player* reporter)
 {
-    WorldPackets::Battleground::ReportPvPPlayerAFKResult reportAfkResult;
+    WorldPackets::Battleground::ReportPvpPlayerAFKResult reportAfkResult;
     reportAfkResult.Offender = GetGUID();
     Battleground* bg = GetBattleground();
     if (!bg || bg != reporter->GetBattleground() || GetTeam() != reporter->GetTeam() || bg->GetStatus() != STATUS_IN_PROGRESS)
@@ -29347,7 +29347,7 @@ void Player::ReportedAfkBy(Player* reporter)
             CastSpell(this, 43680, true);
             reportAfkResult.NumBlackMarksOnOffender = m_bgData.BgAfkReporter.size();
             reportAfkResult.NumPlayersIHaveReported = reporter->m_bgData.BgAfkReportedCount;
-            reportAfkResult.Result = WorldPackets::Battleground::ReportPvPPlayerAFKResult::PVP_REPORT_AFK_SUCCESS;
+            reportAfkResult.Result = WorldPackets::Battleground::ReportPvpPlayerAFKResult::PVP_REPORT_AFK_SUCCESS;
 
             m_bgData.BgAfkReporter.clear();
         }
@@ -33267,82 +33267,82 @@ bool Player::LearnTalent(uint32 talentId)
 
 bool Player::LearnPvpTalent(uint16 talentID)
 {
-    WorldPackets::Talent::LearnPvPTalentFailed failed;
-    failed.PvPTalent.SpecID = GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
-    failed.PvPTalent.TalentIDs.push_back(talentID);
+    WorldPackets::Talent::LearnPvpTalentFailed failed;
+    failed.PvpTalent.SpecID = GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
+    failed.PvpTalent.TalentIDs.push_back(talentID);
     auto talentInfo = sPvpTalentStore.LookupEntry(talentID);
     if (!talentInfo)
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantRemoveTalent;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantRemoveTalent;
         SendDirectMessage(failed.Write());
         return false;
     }
 
     if (isInCombat())
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::AffectingCombat;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::AffectingCombat;
         SendDirectMessage(failed.Write());
         return false;
     }
 
     if (!GetPrestigeLevel() && sDB2Manager.GetRequiredHonorLevelForPvpTalent(talentInfo) > m_honorInfo.HonorLevel)
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::NotEnoughTalentInPrimaryTree;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::NotEnoughTalentInPrimaryTree;
         SendDirectMessage(failed.Write());
         return false;
     }
 
     if (talentInfo->SpecID && talentInfo->SpecID != GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID))
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
         SendDirectMessage(failed.Write());
         return false;
     }
 
     if (talentInfo->ClassID && talentInfo->ClassID != getClass())
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
         SendDirectMessage(failed.Write());
         return false;
     }
 
     for (uint32 c = 0; c < MAX_TALENT_COLUMNS; ++c)
         for (auto const& talent : sDB2Manager.GetPvpTalentByPosition(getClass(), talentInfo->TierID, c))
-            if (HasPvPTalent(talent->SpellID))
+            if (HasPvpTalent(talent->SpellID))
             {
                 if (!HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING) && !HasFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_ALLOW_CHANGING_TALENTS))
                 {
-                    failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
+                    failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
                     SendDirectMessage(failed.Write());
                     return false;
                 }
 
                 if (HasSpellCooldown(talent->SpellID))
                 {
-                    failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantRemoveTalent;
+                    failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantRemoveTalent;
                     SendDirectMessage(failed.Write());
                     return false;
                 }
-                RemovePvPTalent(talent->SpellID, GetActiveTalentGroup(), true, false);
+                RemovePvpTalent(talent->SpellID, GetActiveTalentGroup(), true, false);
             }
 
     if (!talentInfo->SpellID)
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantRemoveTalent;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantRemoveTalent;
         SendDirectMessage(failed.Write());
         return false;
     }
 
     if (HasAura(ChallengeSpells::ChallengersBurden))
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::ChallengeModeActive;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::ChallengeModeActive;
         SendDirectMessage(failed.Write());
         return false;
     }
 
-    if (!AddPvPTalent(talentInfo, GetActiveTalentGroup()))
+    if (!AddPvpTalent(talentInfo, GetActiveTalentGroup()))
     {
-        failed.PvPTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
+        failed.PvpTalent.Reason = WorldPackets::Talent::LearnTalentReasons::CantDoThatRightNow;
         SendDirectMessage(failed.Write());
         return false;
     }
@@ -33355,9 +33355,9 @@ bool Player::LearnPvpTalent(uint16 talentID)
         learnSpell(talentInfo->SpellID, true);
     }
 
-    // Remove Hunter's Wild Protector buff if pet is active and player has changed pvp talent
+    // Remove Hunter's Wild Protector buff if pet is active and player has changed PvP talent
     if(GetSpecializationId() == SPEC_HUNTER_BEASTMASTER && GetEffectiveLevel() >= 110)
-        if (!HasPvPTalent(204190))
+        if (!HasPvpTalent(204190))
             if (Pet* pet = GetPet())
                 pet->RemoveAurasDueToSpell(204358);
 
@@ -33373,7 +33373,7 @@ void Player::ResetTalentSpecialization()
                 for (TalentEntry const* talent : sDB2Manager._talentByPos[class_][t][c])
                     RemoveTalent(talent, true, true, true);
 
-    RemoveAllPvPTalent();
+    RemoveAllPvpTalent();
     RemoveSpecializationSpells();
 
     if (getLevel() < 10)
@@ -33501,10 +33501,10 @@ void Player::SendTalentsInfoData(bool pet)
         groupInfoPkt.TalentIDs.push_back(uint16(v.first));
     }
 
-    for (auto const& v : *GetPvPTalentMap(GetActiveTalentGroup()))
+    for (auto const& v : *GetPvpTalentMap(GetActiveTalentGroup()))
         if (v.second != PLAYERSPELL_REMOVED)
             if (auto const& talentEntry = sDB2Manager.GetPvpTalentBySpellID(v.first))
-                groupInfoPkt.PvPTalentIDs.push_back(uint16(talentEntry->ID));
+                groupInfoPkt.PvpTalentIDs.push_back(uint16(talentEntry->ID));
 
     packet.Info.TalentGroups.push_back(groupInfoPkt);
 
@@ -33793,7 +33793,7 @@ void Player::_LoadTalents(PreparedQueryResult result, PreparedQueryResult result
     {
         do
             if (auto const& talentEntry = sDB2Manager.GetPvpTalentBySpellID((*result2)[0].GetUInt32()))
-                AddPvPTalent(talentEntry, (*result2)[1].GetUInt8());
+                AddPvpTalent(talentEntry, (*result2)[1].GetUInt8());
         while (result2->NextRow());
     }
 }
@@ -33831,8 +33831,8 @@ void Player::_SaveTalents(SQLTransaction& trans)
 
     for (uint8 group = 0; group < MAX_SPECIALIZATIONS; ++group)
     {
-        PlayerPvPTalentMap* talentPvps = GetPvPTalentMap(group);
-        for (PlayerPvPTalentMap::iterator itr = talentPvps->begin(); itr != talentPvps->end();)
+        PlayerPvpTalentMap* talentPvps = GetPvpTalentMap(group);
+        for (PlayerPvpTalentMap::iterator itr = talentPvps->begin(); itr != talentPvps->end();)
         {
             if (itr->second == PLAYERSPELL_REMOVED)
             {
@@ -33884,7 +33884,7 @@ void Player::ActivateTalentGroup(ChrSpecializationEntry const* spec)
         if (talentInfo->ClassID == getClass() && talentInfo->SpellID)
             RemoveTalent(talentInfo, false, false);
 
-    RemoveAllPvPTalent(false);
+    RemoveAllPvpTalent(false);
 
     if (const std::vector<SpellTalentLinked> *spell_triggered = sSpellMgr->GetSpelltalentLinked(0))
     {
@@ -34804,7 +34804,7 @@ float Player::GetAverageItemLevelTotal(bool needCalculate, bool onlyFromScan) co
     return sum / float(count);
 }
 
-float Player::GetAverageItemLevelTotalWithOrWithoutPvPBonus(bool /*pvp*/) const
+float Player::GetAverageItemLevelTotalWithOrWithoutPvpBonus(bool /*pvp*/) const
 {
     uint32 equipItemLevel[EQUIPMENT_SLOT_END];
     for (uint32 i = EQUIPMENT_SLOT_START; i < EQUIPMENT_SLOT_END; ++i)
@@ -35680,7 +35680,7 @@ void Player::PvpRatedQuestReward(uint32 quest_id)
     uint32 needLevel = std::get<1>(data);
     uint32 itemId = 0;
 
-    std::vector<uint32> itemModifiers = GetPvPRewardItem(itemId, type, rating, true, needLevel);
+    std::vector<uint32> itemModifiers = GetPvpRewardItem(itemId, type, rating, true, needLevel);
     if (itemId)
     {
         ItemPosCountVec dest;
@@ -35695,11 +35695,11 @@ void Player::PvpRatedQuestReward(uint32 quest_id)
     }
 }
 
-void Player::GetPvPRatingAndLevel(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit)
+void Player::GetPvpRatingAndLevel(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit)
 {
     if (sWorld->getBoolConfig(CONFIG_PVP_LEVEL_ENABLE))
     {
-        GetPvPRatingAndLevelOld(reward, type, rating, needLevel, elit);
+        GetPvpRatingAndLevelOld(reward, type, rating, needLevel, elit);
         return;
     }
 
@@ -35765,7 +35765,7 @@ void Player::GetPvPRatingAndLevel(PvpReward* reward, uint8 type, uint32& rating,
     needLevel += levelBonus;
 }
 
-void Player::GetPvPRatingAndLevelOld(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit)
+void Player::GetPvpRatingAndLevelOld(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit)
 {
     needLevel = reward->BaseLevel;
 
@@ -35829,7 +35829,7 @@ void Player::GetPvPRatingAndLevelOld(PvpReward* reward, uint8 type, uint32& rati
     needLevel += levelBonus;
 }
 
-std::vector<uint32> Player::GetPvPRewardItem(uint32& itemID, uint8 type, uint32 rating, bool elit, uint32 needLevel)
+std::vector<uint32> Player::GetPvpRewardItem(uint32& itemID, uint8 type, uint32 rating, bool elit, uint32 needLevel)
 {
     PvpReward* reward = sBattlegroundMgr->GetPvpReward((PvpRewardTypes)type);
     if (!reward)
@@ -37064,7 +37064,7 @@ void Player::CheckSeamlessTeleport(uint32 newZoneOrArea, bool isArea)
     }
 }
 
-bool Player::InFFAPvPArea()
+bool Player::InFFAPvpArea()
 {
     switch (m_areaId)
     {

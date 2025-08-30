@@ -461,7 +461,7 @@ struct PetBattleRequest
     Position PetBattleCenterPosition;
     uint32 LocationResult = false;
     PetBattleType RequestType = PETBATTLE_TYPE_PVE;
-    bool IsPvPReady[MAX_PETBATTLE_TEAM] = { };
+    bool IsPvpReady[MAX_PETBATTLE_TEAM] = { };
 };
 
 class PetBattleAura
@@ -577,7 +577,7 @@ public:
     PvePetBattleType PveBattleType;                                         ///< PVE battle type (PVE_PETBATTLE_WILD / PVE_PETBATTLE_TRAINER)
     uint32 Turn;                                                            ///< Battle current turn id
     PetBattleResult CombatResult;                                           ///< Combat result (PETBATTLE_RESULT_WON, PETBATTLE_RESULT_LOOSE, PETBATTLE_RESULT_ABANDON)
-    PetBattleRequest PvPMatchMakingRequest;                                 ///< PVP request
+    PetBattleRequest PvpMatchMakingRequest;                                 ///< PvP request
 
     uint32 BattleStatus;                                                    ///< PETBATTLE_STATUS_CREATION / PETBATTLE_STATUS_RUNNING / PETBATTLE_STATUS_FINISHED
 

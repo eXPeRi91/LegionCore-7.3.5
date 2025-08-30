@@ -516,7 +516,7 @@ PersistentCharacterCleanFlags = 0
 #                     4  - (NORMAL)
 #                     6  - (RP)
 #                     8  - (RPPVP)
-#                     16 - (FFA_PVP, Free for all pvp mode like arena PvP in all zones except rest
+#                     16 - (FFA_PVP, Free for all PvP mode like arena PvP in all zones except rest
 #                          activated places and sanctuaries)
 
 GameType = 0
@@ -2319,11 +2319,11 @@ Arena.ArenaStartMatchmakerRating = 1500
 ArenaLog.ExtendedInfo = 0
 
 #
-#    PVP.ItemLevelCap
+#    PvP.ItemLevelCap
 #        Description: Limit for bg and arena for item level
 #        Default:     1000 is the max itemlevel of legion.
 
-PVP.ItemLevelCap = 1000
+PvP.ItemLevelCap = 1000
 
 #
 ###################################################################################################
@@ -3027,7 +3027,7 @@ Appenders=Console World Pdump Errors DBErrors
 #                        11 - Pool system
 #                        12 - Auction house
 #                        13 - Arena's and battlegrounds
-#                        14 - Outdoor PVP
+#                        14 - Outdoor PvP
 #                        15 - Chat system
 #                        16 - LFG system
 #                        17 - Maps, instances (not scripts),

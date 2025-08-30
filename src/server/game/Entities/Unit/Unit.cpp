@@ -53,7 +53,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "PartyPackets.h"
 #include "PassiveAI.h"
 #include "Pet.h"
@@ -5616,7 +5616,7 @@ void Unit::RemoveAurasAllDots()
     RemoveAurasByType(SPELL_AURA_PERIODIC_LEECH);
 }
 
-void Unit::RecalcArenaAuras(bool hasPvPScaling)
+void Unit::RecalcArenaAuras(bool hasPvpScaling)
 {
     for (AuraApplicationMap::iterator iter = m_appliedAuras.begin(); iter != m_appliedAuras.end();)
     {
@@ -5627,7 +5627,7 @@ void Unit::RecalcArenaAuras(bool hasPvPScaling)
                 if ((spellInfo->HasAttribute(SPELL_ATTR8_NOT_IN_BG_OR_ARENA) || spellInfo->HasAttribute(SPELL_ATTR4_NOT_USABLE_IN_ARENA_OR_RATED_BG)) && !aura->GetCastItemGUID())
                 {
                     aura->RecalculateAmountOfEffects(true);
-                    aura->SetAuraAttribute(AURA_ATTR_IS_NOT_ACTIVE, hasPvPScaling);
+                    aura->SetAuraAttribute(AURA_ATTR_IS_NOT_ACTIVE, hasPvpScaling);
                 }
             }
         }
@@ -11198,12 +11198,12 @@ ReputationRank Unit::GetReactionTo(Unit const* target) const
             // however client seems to allow mixed group parties, because in 13850 client it works like:
             // return GetFactionReactionTo(getFactionTemplateEntry(), target);
 
-            if (selfPlayerOwner->IsFFAPvP() && targetPlayerOwner->IsFFAPvP())
+            if (selfPlayerOwner->IsFFAPvp() && targetPlayerOwner->IsFFAPvp())
                 return REP_HOSTILE;
         }
 
         // check FFA_PVP
-        if (IsFFAPvP() && target->IsFFAPvP())
+        if (IsFFAPvp() && target->IsFFAPvp())
             return REP_HOSTILE;
 
         if (selfPlayerOwner)
@@ -12129,7 +12129,7 @@ void Unit::SetCharm(Unit* charm, bool apply)
             charm->m_ControlledByPlayer = true;
             charm->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE);
             charm->RemoveByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_UNK1);
-            charm->ToPlayer()->UpdatePvPState();
+            charm->ToPlayer()->UpdatePvpState();
         }
         else if (Player* player = charm->GetCharmerOrOwnerPlayerOrPlayerItself())
         {
@@ -12824,8 +12824,8 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
         }
     }
 
-    if (effectInfo->PvPMultiplier && CanPvPScalar())
-        DoneTotalMod *= effectInfo->PvPMultiplier;
+    if (effectInfo->PvpMultiplier && CanPvpScalar())
+        DoneTotalMod *= effectInfo->PvpMultiplier;
 
     tmpDamage = (int32(pdamage) + DoneTotal) * DoneTotalMod;
 
@@ -12844,7 +12844,7 @@ uint32 Unit::SpellDamageBonusDone(Unit* victim, SpellInfo const* spellProto, uin
     return uint32(std::max(tmpDamage, 0.0f));
 }
 
-bool Unit::CanPvPScalar()
+bool Unit::CanPvpScalar()
 {
     if (Player* player = ToPlayer())
         if (player->HasPvpRulesEnabled())
@@ -13354,7 +13354,7 @@ bool Unit::isSpellCrit(Unit* victim, SpellInfo const* spellProto, SpellSchoolMas
                                 if (spell && (spell->GetCastedFromStealth() || HasAura(102543)))
                                     crit_chance *= 2.0f;
                                 break;
-                            case 1822: // Fresh Wounds PVP Honor Talent Feral Spec
+                            case 1822: // Fresh Wounds PvP Honor Talent Feral Spec
                                 if(victim)
                                     if (spell)
                                         if (Aura* aura = GetAura(203224))
@@ -13667,8 +13667,8 @@ uint32 Unit::SpellHealingBonusDone(Unit* victim, SpellInfo const* spellProto, ui
     // use float as more appropriate for negative values and percent applying
     float heal = float(int32(healamount) + DoneTotal) * DoneTotalMod;
 
-    if (effectInfo->PvPMultiplier && CanPvPScalar())
-        heal *= effectInfo->PvPMultiplier;
+    if (effectInfo->PvpMultiplier && CanPvpScalar())
+        heal *= effectInfo->PvpMultiplier;
 
     // apply spellmod to Done amount
     if (damagetype != DOT)
@@ -14127,8 +14127,8 @@ uint32 Unit::MeleeDamageBonusDone(Unit* victim, uint32 pdamage, WeaponAttackType
         AddPct(DoneTotalMod, owner->GetTotalAuraModifier(SPELL_AURA_PET_DAMAGE_DONE_PCT));
 
     if (spellProto)
-        if (auto scalar = spellProto->GetEffect(effIndex, m_spawnMode)->PvPMultiplier)
-            if (CanPvPScalar())
+        if (auto scalar = spellProto->GetEffect(effIndex, m_spawnMode)->PvpMultiplier)
+            if (CanPvpScalar())
                 DoneTotalMod *= scalar;
 
     float tmpDamage = float(int32(pdamage) + DoneFlatBenefit) * DoneTotalMod;
@@ -14671,7 +14671,7 @@ MountCapabilityEntry const* Unit::GetMountCapability(uint32 mountType) const
 void Unit::SetInCombatWith(Unit* enemy)
 {
     Unit* eOwner = enemy->GetCharmerOrOwnerOrSelf();
-    if (eOwner->IsPvP() || eOwner->IsFFAPvP())
+    if (eOwner->IsPvp() || eOwner->IsFFAPvp())
     {
         SetInCombatState(enemy, true);
         return;
@@ -14713,17 +14713,17 @@ void Unit::CombatStart(Unit* target, bool initialAggro)
 
     Unit* who = target->GetCharmerOrOwnerOrSelf();
     if (who->IsPlayer())
-        SetContestedPvP(who->ToPlayer());
+        SetContestedPvp(who->ToPlayer());
 
     Player* me = GetCharmerOrOwnerPlayerOrPlayerItself();
-    if (me && who->IsPvP() && (!who->IsPlayer() || !me->duel || me->duel->opponent != who->GetGUID()))
+    if (me && who->IsPvp() && (!who->IsPlayer() || !me->duel || me->duel->opponent != who->GetGUID()))
     {
-        me->UpdatePvP(true);
+        me->UpdatePvp(true);
         me->RemoveAurasWithInterruptFlags(AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT);
     }
 }
 
-void Unit::SetInCombatState(Unit* enemy, bool PvP)
+void Unit::SetInCombatState(Unit* enemy, bool pvp)
 {
     // only alive units can be in combat
     if (!isAlive())
@@ -14741,7 +14741,7 @@ void Unit::SetInCombatState(Unit* enemy, bool PvP)
             }
             else
             {
-                if (PvP)
+                if (pvp)
                     player->EnablePvpRules();
             }
         }
@@ -14781,7 +14781,7 @@ void Unit::SetInCombatState(Unit* enemy, bool PvP)
     {
         if(Unit* unit = ObjectAccessor::GetUnit(*this, guid))
         {
-            unit->SetInCombatState(enemy, PvP);
+            unit->SetInCombatState(enemy, pvp);
             unit->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PET_IN_COMBAT);
         }
     }
@@ -14793,7 +14793,7 @@ void Unit::ClearInCombat()
     UpdatePowerState(false);
     RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_IN_COMBAT);
 
-    // Player's state will be cleared in Player::UpdateContestedPvP
+    // Player's state will be cleared in Player::UpdateContestedPvp
     if (Creature* creature = ToCreature())
     {
         if (creature->GetCreatureTemplate() && creature->GetCreatureTemplate()->unit_flags & UNIT_FLAG_IMMUNE_TO_PC)
@@ -14960,24 +14960,24 @@ bool Unit::_IsValidAttackTarget(Unit const* target, SpellInfo const* bySpell, Wo
             return true;
 
     // PvP case - can't attack when attacker or target are in sanctuary
-    // however, 13850 client doesn't allow to attack when one of the unit's has sanctuary flag and is pvp
+    // however, 13850 client doesn't allow to attack when one of the unit's has sanctuary flag and is PvP
     if (target->HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE) && HasFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE)
         && ((target->GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_SANCTUARY) || (GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_SANCTUARY)))
         return false;
 
-    if (!sWorld->IsPvPRealm() && !IsFFAPvP() && !target->IsFFAPvP() && !GetMap()->IsBattlegroundOrArena())
+    if (!sWorld->IsPvpRealm() && !IsFFAPvp() && !target->IsFFAPvp() && !GetMap()->IsBattlegroundOrArena())
         if (Player const* player = GetAffectingPlayer())
             if (Player const* playerTarget = target->GetAffectingPlayer())
-                if ((playerTarget->IsPvP() && !player->IsPvP()) || (!playerTarget->IsPvP() && player->IsPvP()))
+                if ((playerTarget->IsPvp() && !player->IsPvp()) || (!playerTarget->IsPvp() && player->IsPvp()))
                     return false;
 
     // additional checks - only PvP case
     if (playerAffectingAttacker && playerAffectingTarget)
     {
-        if (target->IsPvP())
+        if (target->IsPvp())
             return true;
 
-        if (IsFFAPvP() && target->IsFFAPvP())
+        if (IsFFAPvp() && target->IsFFAPvp())
             return true;
 
         return (GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_UNK1) || (target->GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_UNK1);
@@ -15059,12 +15059,12 @@ bool Unit::_IsValidAssistTarget(Unit const* target, SpellInfo const* bySpell) co
                 if (selfPlayerOwner != targetPlayerOwner && targetPlayerOwner->duel) // can't assist player which is dueling someone
                     return false;
 
-            // can't assist player in ffa_pvp zone from outside
+            // can't assist player in FFA_PVP zone from outside
             if (!bySpell || !(bySpell->HasAttribute(SPELL_ATTR2_CAN_TARGET_NOT_IN_LOS)))
-                if (target->IsFFAPvP() && !IsFFAPvP())
+                if (target->IsFFAPvp() && !IsFFAPvp())
                     return false;
 
-            // can't assist player out of sanctuary from sanctuary if has pvp enabled
+            // can't assist player out of sanctuary from sanctuary if has PvP enabled
             if (target->GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_PVP)
                 if ((GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_SANCTUARY) && !(target->GetByteValue(UNIT_FIELD_BYTES_2, 1) & UNIT_BYTE2_FLAG_SANCTUARY))
                     return false;
@@ -16540,7 +16540,7 @@ float Unit::ApplyDiminishingToDuration(DiminishingGroup group, int32 &duration, 
     Unit const* targetOwner = GetCharmerOrOwner();
     Unit const* casterOwner = caster->GetCharmerOrOwner();
 
-    // Duration of crowd control abilities on pvp target is limited by 10 sec. (2.2.0)
+    // Duration of crowd control abilities on PvP target is limited by 10 sec. (2.2.0)
     if (limitduration > 0 && duration > limitduration)
     {
         Unit const* target = targetOwner ? targetOwner : this;
@@ -17301,7 +17301,7 @@ inline float GetGameTableColumnForCombatRating(GtCombatRatingsEntry const* row, 
         case CR_MASTERY:
             return row->Mastery;
         case CR_PVP_POWER:
-            return row->PvPPower;
+            return row->PvpPower;
         case CR_CLEAVE:
             return row->Cleave;
         case CR_VERSATILITY_DAMAGE_DONE:
@@ -19143,7 +19143,7 @@ float Unit::GetAPMultiplier(WeaponAttackType attType, bool normalized)
     return float(GetAttackTime(attType)) / 1000.0f;
 }
 
-void Unit::SetContestedPvP(Player* attackedPlayer /*= nullptr*/, bool forceByAura /*= false*/)
+void Unit::SetContestedPvp(Player* attackedPlayer /*= nullptr*/, bool forceByAura /*= false*/)
 {
     Player* player = GetCharmerOrOwnerPlayerOrPlayerItself();
     if (!player || (!forceByAura || (attackedPlayer && (attackedPlayer == player || (player->duel && player->duel->opponent == attackedPlayer->GetGUID())))))
@@ -19153,7 +19153,7 @@ void Unit::SetContestedPvP(Player* attackedPlayer /*= nullptr*/, bool forceByAur
     if (forceByAura)
         duration = GetTotalAuraDurationByType(SPELL_AURA_CONTESTED_PVP, true);
     
-    player->SetContestedPvPTimer(duration);
+    player->SetContestedPvpTimer(duration);
 
     if (forceByAura)
         SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_CONTESTED_PVP);
@@ -19172,11 +19172,11 @@ void Unit::SetContestedPvP(Player* attackedPlayer /*= nullptr*/, bool forceByAur
     UpdateObjectVisibility();
 }
 
-OutdoorPvP* Unit::GetOutdoorPvP() const
+OutdoorPvp* Unit::GetOutdoorPvp() const
 {
-    if (OutdoorPvP* pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetCurrentZoneID()))
+    if (OutdoorPvp* pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetCurrentZoneID()))
         return pvp;
-    if (OutdoorPvP* pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetCurrentAreaID()))
+    if (OutdoorPvp* pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetCurrentAreaID()))
         return pvp;
     return nullptr;
 }
@@ -22121,7 +22121,7 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
     {
         // remember victim PvP death for corpse type and corpse reclaim delay
         // at original death (not at SpiritOfRedemtionTalent timeout)
-        plrVictim->SetPvPDeath(player != nullptr);
+        plrVictim->SetPvpDeath(player != nullptr);
 
         // only if not player and not controlled by player pet. And not at BG
         if ((durabilityLoss && !player && !victim->ToPlayer()->InBattleground()) || (player && sWorld->getBoolConfig(CONFIG_DURABILITY_LOSS_IN_PVP)))
@@ -22226,25 +22226,25 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
     if (m_attackers.empty())
         SetCombatTimer(0);
 
-    // outdoor pvp things, do these after setting the death state, else the player activity notify won't work... doh...
+    // outdoor PvP things, do these after setting the death state, else the player activity notify won't work... doh...
     // handle player kill only if not suicide (spirit of redemption for example)
     if (this != victim)
     {
         if (player)
         {
-            if (OutdoorPvP* pvp = player->GetOutdoorPvP())
+            if (OutdoorPvp* pvp = player->GetOutdoorPvp())
                 pvp->HandleKill(player, victim);
 
             if (Battlefield* bf = sBattlefieldMgr->GetBattlefieldToZoneId(player->GetCurrentZoneID()))
                 bf->HandleKill(player, victim);
         }
 
-        if (OutdoorPvP* pvp = GetOutdoorPvP())
+        if (OutdoorPvp* pvp = GetOutdoorPvp())
             pvp->HandleKill(this, victim);
     }
 
     //if (victim->IsPlayer())
-    //    if (OutdoorPvP* pvp = victim->ToPlayer()->GetOutdoorPvP())
+    //    if (OutdoorPvp* pvp = victim->ToPlayer()->GetOutdoorPvp())
     //        pvp->HandlePlayerActivityChangedpVictim->ToPlayer();
 
     // battleground things (do this at the end, so the death state flag will be properly set to handle in the bg->handlekill)
@@ -22260,8 +22260,8 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
     }
 
     if (this != victim && victim->IsPlayer())
-        if (auto outdoorPvP = victim->ToPlayer()->GetOutdoorPvP())
-            outdoorPvP->HandlePlayerKilled(victim->ToPlayer());
+        if (auto outdoorPvp = victim->ToPlayer()->GetOutdoorPvp())
+            outdoorPvp->HandlePlayerKilled(victim->ToPlayer());
 
     // achievement stuff
     if (victim->IsPlayer())
@@ -22272,11 +22272,11 @@ void Unit::Kill(Unit* victim, bool durabilityLoss, SpellInfo const* spellProto)
             victim->ToPlayer()->UpdateAchievementCriteria(CRITERIA_TYPE_KILLED_BY_PLAYER, 1, ToPlayer()->GetTeam());
     }
 
-    // Hook for OnPVPKill Event
+    // Hook for OnPvpKill Event
     if (Player* killerPlr = ToPlayer())
     {
         if (Player* killedPlr = victim->ToPlayer())
-            sScriptMgr->OnPVPKill(killerPlr, killedPlr);
+            sScriptMgr->OnPvpKill(killerPlr, killedPlr);
         else if (Creature* killedCre = victim->ToCreature())
             sScriptMgr->OnCreatureKill(killerPlr, killedCre);
     }
@@ -23008,17 +23008,17 @@ bool Unit::IsContestedGuard() const
     return false;
 }
 
-bool Unit::IsPvP() const
+bool Unit::IsPvp() const
 {
     return HasByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_PVP);
 }
 
-bool Unit::IsFFAPvP() const
+bool Unit::IsFFAPvp() const
 {
     return HasByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
 }
 
-void Unit::SetPvP(bool state)
+void Unit::SetPvp(bool state)
 {
     if (state)
         SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_PVP);
@@ -24205,7 +24205,7 @@ bool Unit::HandleSpellClick(Unit* clicker, int8 seatId)
         creature->AI()->OnSpellClick(clicker);
 
     if (Player* player = clicker->ToPlayer())
-        if (OutdoorPvP* pvp = player->GetOutdoorPvP())
+        if (OutdoorPvp* pvp = player->GetOutdoorPvp())
             pvp->HandleSpellClick(player, this);
 
     if (!res)

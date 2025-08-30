@@ -1,7 +1,7 @@
 /*
 */
 
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "Packets/WorldStatePackets.h"
 #include "World.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
@@ -15,17 +15,17 @@ enum Misc
     EVENT_WINNER_TEAM           = 306
 };
 
-class OutdoorPvPSilithus : public OutdoorPvP
+class OutdoorPvpSilithus : public OutdoorPvp
 {
 public:
-    OutdoorPvPSilithus()
+    OutdoorPvpSilithus()
     {
         m_TypeId = OUTDOOR_PVP_SILITHUS;
     }
 
-    ~OutdoorPvPSilithus() = default;
+    ~OutdoorPvpSilithus() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         for (auto zone : { 5695, 1377 })
             RegisterZone(zone);
@@ -50,7 +50,7 @@ public:
 
     void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerEnterZone(guid, zone);
+        OutdoorPvp::HandlePlayerEnterZone(guid, zone);
 
         if (m_stage != EVENT_ACTIVE)
             return;
@@ -68,7 +68,7 @@ public:
 
     void HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerLeaveZone(guid, zone);
+        OutdoorPvp::HandlePlayerLeaveZone(guid, zone);
 
         Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
         if (!player)
@@ -200,14 +200,14 @@ private:
     bool b_winner = false;
 };
 
-class OutdoorPvP_Silithus : public OutdoorPvPScript
+class OutdoorPvp_Silithus : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_Silithus() : OutdoorPvPScript("outdoorpvp_silithus") {}
+    OutdoorPvp_Silithus() : OutdoorPvpScript("outdoorpvp_silithus") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPSilithus();
+        return new OutdoorPvpSilithus();
     }
 };
 
@@ -350,7 +350,7 @@ class spell_silithyst : public AuraScript
 
 void AddSC_CallOfTheScarab()
 {
-    //new OutdoorPvP_Silithus();
+    //new OutdoorPvp_Silithus();
     new go_wind_stone();
     RegisterCreatureAI(npc_sillithis_colossus);
     RegisterAuraScript(spell_silithyst);

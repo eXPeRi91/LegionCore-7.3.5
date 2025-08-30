@@ -35,7 +35,7 @@
 #include "Map.h"
 #include "MapManager.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "Player.h"
 #include "ScriptMgr.h"
 #include "ScriptsData.h"
@@ -317,7 +317,7 @@ void ScriptMgr::Unload()
     SCR_CLEAR(AreaTriggerScript);
     SCR_CLEAR(SceneTriggerScript);
     SCR_CLEAR(BattlegroundScript);
-    SCR_CLEAR(OutdoorPvPScript);
+    SCR_CLEAR(OutdoorPvpScript);
     SCR_CLEAR(CommandScript);
     SCR_CLEAR(WeatherScript);
     SCR_CLEAR(AuctionHouseScript);
@@ -1026,12 +1026,12 @@ Battleground* ScriptMgr::CreateBattleground(uint16 /*typeId*/)
     return nullptr;
 }
 
-OutdoorPvP* ScriptMgr::CreateOutdoorPvP(OutdoorPvPData const* data)
+OutdoorPvp* ScriptMgr::CreateOutdoorPvp(OutdoorPvpData const* data)
 {
     ASSERT(data);
 
-    GET_SCRIPT_RET(OutdoorPvPScript, data->ScriptId, tmpscript, NULL);
-    return tmpscript->GetOutdoorPvP();
+    GET_SCRIPT_RET(OutdoorPvpScript, data->ScriptId, tmpscript, NULL);
+    return tmpscript->GetOutdoorPvp();
 }
 
 std::vector<ChatCommand> ScriptMgr::GetChatCommands()
@@ -1231,9 +1231,9 @@ uint32 ScriptMgr::OnSelectItemReward(AchievementReward const* data, Player* sour
 }
 
 // Player
-void ScriptMgr::OnPVPKill(Player* killer, Player* killed)
+void ScriptMgr::OnPvpKill(Player* killer, Player* killed)
 {
-    FOREACH_SCRIPT(PlayerScript)->OnPVPKill(killer, killed);
+    FOREACH_SCRIPT(PlayerScript)->OnPvpKill(killer, killed);
 }
 
 void ScriptMgr::OnCreatureKill(Player* killer, Creature* killed)
@@ -1618,9 +1618,9 @@ BattlegroundScript::BattlegroundScript(std::string name) : ScriptObject(name)
     ScriptRegistry<BattlegroundScript>::AddScript(this);
 }
 
-OutdoorPvPScript::OutdoorPvPScript(std::string name) : ScriptObject(name)
+OutdoorPvpScript::OutdoorPvpScript(std::string name) : ScriptObject(name)
 {
-    ScriptRegistry<OutdoorPvPScript>::AddScript(this);
+    ScriptRegistry<OutdoorPvpScript>::AddScript(this);
 }
 
 CommandScript::CommandScript(std::string name) : ScriptObject(name)
@@ -1728,7 +1728,7 @@ template class ScriptRegistry<GuildScript>;
 template class ScriptRegistry<InstanceMapScript>;
 template class ScriptRegistry<ItemScript>;
 template class ScriptRegistry<UnitScript>;
-template class ScriptRegistry<OutdoorPvPScript>;
+template class ScriptRegistry<OutdoorPvpScript>;
 template class ScriptRegistry<PlayerScript>;
 template class ScriptRegistry<SceneTriggerScript>;
 template class ScriptRegistry<SessionScript>;

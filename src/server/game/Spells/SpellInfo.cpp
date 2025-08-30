@@ -382,7 +382,7 @@ SpellImplicitTargetInfo::StaticData  SpellImplicitTargetInfo::_data[TOTAL_SPELL_
 
 SpellEffectInfo::SpellEffectInfo() : _spellInfo{nullptr}, Effect{0}, EffectIndex{0}, ApplyAuraName{0}, ApplyAuraPeriod{0}, DieSides{0}, RealPointsPerLevel{0}, BasePoints{0}, PointsPerResource{0},
 Amplitude{0}, ChainAmplitude{0}, BonusCoefficient{0}, MiscValue{0}, MiscValueB{0}, Mechanic{}, RadiusEntry{nullptr}, MaxRadiusEntry{nullptr}, ChainTargets{0},
-ItemType{0}, TriggerSpell{0}, ImplicitTargetConditions{nullptr}, BonusCoefficientFromAP{0}, PvPMultiplier{0}, SpellEffectGroupSizeCoefficient{0}
+ItemType{0}, TriggerSpell{0}, ImplicitTargetConditions{nullptr}, BonusCoefficientFromAP{0}, PvpMultiplier{0}, SpellEffectGroupSizeCoefficient{0}
 {
 }
 
@@ -412,7 +412,7 @@ SpellEffectInfo::SpellEffectInfo(SpellInfo const* spellInfo, uint8 effIndex, Spe
     TriggerSpell = _effect ? _effect->EffectTriggerSpell : 0;
     SpellClassMask = _effect ? _effect->EffectSpellClassMask : flag128(0);
     BonusCoefficientFromAP = _effect ? _effect->BonusCoefficientFromAP : 0.0f;
-    PvPMultiplier = _effect ? _effect->PvpMultiplier : 0.0f;
+    PvpMultiplier = _effect ? _effect->PvpMultiplier : 0.0f;
     ImplicitTargetConditions = nullptr;
 
     Scaling.Coefficient = _effect ? _effect->Coefficient : 0.0f;
@@ -678,8 +678,8 @@ float SpellEffectInfo::CalcValue(Unit const* caster, float const* bp, Unit const
         }
 
         // if (caster->ToPlayer() && caster->ToPlayer()->HasPvpRulesEnabled())
-            // if (PvPMultiplier)
-                // amount *= PvPMultiplier;
+            // if (PvpMultiplier)
+                // amount *= PvpMultiplier;
     }
 
     return value;

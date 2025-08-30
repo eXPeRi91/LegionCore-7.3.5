@@ -100,7 +100,7 @@ enum SheathState : uint8
 };
 
 // byte (1 from 0..3) of UNIT_FIELD_BYTES_2
-enum UnitPVPStateFlags : uint8
+enum UnitPvpStateFlags : uint8
 {
     UNIT_BYTE2_FLAG_PVP         = 0x01,
     UNIT_BYTE2_FLAG_UNK1        = 0x02,

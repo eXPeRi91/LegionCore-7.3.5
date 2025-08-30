@@ -4090,7 +4090,7 @@ struct OverrideSpellDataMeta
     }
 };
 
-struct PVPBracketTypesMeta
+struct PvpBracketTypesMeta
 {
     static DB2Meta const* Instance()
     {
@@ -4101,7 +4101,7 @@ struct PVPBracketTypesMeta
     }
 };
 
-struct PVPDifficultyMeta
+struct PvpDifficultyMeta
 {
     static DB2Meta const* Instance()
     {
@@ -4112,7 +4112,7 @@ struct PVPDifficultyMeta
     }
 };
 
-struct PVPItemMeta
+struct PvpItemMeta
 {
     static DB2Meta const* Instance()
     {
@@ -6686,7 +6686,7 @@ struct WorldStateZoneSoundsMeta
     }
 };
 
-struct World_PVP_AreaMeta
+struct World_Pvp_AreaMeta
 {
     static DB2Meta const* Instance()
     {

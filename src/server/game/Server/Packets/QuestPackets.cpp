@@ -716,7 +716,7 @@ void WorldPackets::Quest::QueryAdventureMapPOI::Read()
     _worldPacket >> AdventureMapPOIID;
 }
 
-WorldPacket const* WorldPackets::Quest::QuestUpdateAddPvPCredit::Write()
+WorldPacket const* WorldPackets::Quest::QuestUpdateAddPvpCredit::Write()
 {
     _worldPacket << QuestID;
     _worldPacket << Count;

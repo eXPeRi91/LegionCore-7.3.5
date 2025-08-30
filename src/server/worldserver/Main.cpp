@@ -42,7 +42,7 @@
 #include "MapManager.h"
 #include "ObjectAccessor.h"
 #include "OpenSSLCrypto.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "ProcessPriority.h"
 #include "RASession.h"
 #include "RealmList.h"
@@ -317,7 +317,7 @@ extern int main(int argc, char **argv)
 
     sObjectAccessor->UnloadAll();             // unload 'i_player2corpse' storage and remove from world
     sScriptMgr->Unload();
-    sOutdoorPvPMgr->Die();
+    sOutdoorPvpMgr->Die();
 
     cds::threading::Manager::detachThread();
     cds::Terminate();

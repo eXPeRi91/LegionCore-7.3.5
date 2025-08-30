@@ -51,7 +51,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "Pet.h"
 #include "PetBattle.h"
 #include "Player.h"
@@ -2823,7 +2823,7 @@ void Spell::EffectHealthLeech(SpellEffIndex effIndex)
     {
         float pct = m_spellInfo->Effects[EFFECT_1]->BasePoints;
 
-        if (m_caster->CanPvPScalar())
+        if (m_caster->CanPvpScalar())
             pct *= 0.5f;
 
         if (unitTarget->HasAuraWithMechanic((1 << MECHANIC_STUN)))
@@ -3155,8 +3155,8 @@ void Spell::EffectEnergize(SpellEffIndex effIndex)
     if (unitTarget->GetMaxPower(power) == 0)
         return;
 
-    if (float scalar = m_spellInfo->GetEffect(effIndex, m_diffMode)->PvPMultiplier)
-        if (unitTarget->CanPvPScalar())
+    if (float scalar = m_spellInfo->GetEffect(effIndex, m_diffMode)->PvpMultiplier)
+        if (unitTarget->CanPvpScalar())
             damage *= scalar;
 
     // Some level depends spells
@@ -3524,15 +3524,15 @@ void Spell::EffectOpenLock(SpellEffIndex effIndex)
             return;
         }
         // TODO: Add script for spell 41920 - Filling, becouse server it freze when use this spell
-        // handle outdoor pvp object opening, return true if go was registered for handling
+        // handle outdoor Pvp object opening, return true if go was registered for handling
         // these objects must have been spawned by outdoorpvp!
         else if (goInfo->type == GAMEOBJECT_TYPE_DOOR)
         {
             gameObjTarget->UseDoorOrButton(0, false, player);
             player->GetMap()->ScriptsStart(sGameObjectScripts, gameObjTarget->GetDBTableGUIDLow(), player, gameObjTarget);
         }
-        else if ((gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_GOOBER && sOutdoorPvPMgr->HandleOpenGo(player, gameObjTarget->GetGUID())) ||
-            (gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_NEW_FLAG_DROP && sOutdoorPvPMgr->HandleOpenGo(player, gameObjTarget->GetGUID())))
+        else if ((gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_GOOBER && sOutdoorPvpMgr->HandleOpenGo(player, gameObjTarget->GetGUID())) ||
+            (gameObjTarget->GetGOInfo()->type == GAMEOBJECT_TYPE_NEW_FLAG_DROP && sOutdoorPvpMgr->HandleOpenGo(player, gameObjTarget->GetGUID())))
             return;
 
         lockId = goInfo->GetLockId();
@@ -4998,7 +4998,7 @@ void Spell::EffectWeaponDmg(SpellEffIndex effIndex)
         }
         case 49998: // Death Strike
         {
-            float pctDamage = m_caster->CanPvPScalar() ? m_spellInfo->GetEffect(EFFECT_2, m_diffMode)->CalcValue(_caster) / 2 : m_spellInfo->GetEffect(EFFECT_2, m_diffMode)->CalcValue(_caster);
+            float pctDamage = m_caster->CanPvpScalar() ? m_spellInfo->GetEffect(EFFECT_2, m_diffMode)->CalcValue(_caster) / 2 : m_spellInfo->GetEffect(EFFECT_2, m_diffMode)->CalcValue(_caster);
             int32 lastTime = m_spellInfo->GetEffect(EFFECT_3, m_diffMode)->CalcValue(_caster);
             int32 pctHeal = m_spellInfo->GetEffect(EFFECT_4, m_diffMode)->CalcValue(_caster);
             float bp = _caster->CountPctFromMaxHealth(pctHeal) + CalculatePct(_caster->GetDamageTakenInPastSecs(lastTime, true, true), pctDamage);

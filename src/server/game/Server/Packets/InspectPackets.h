@@ -75,7 +75,7 @@ namespace WorldPackets
             std::vector<InspectItemData> Items;
             std::vector<uint16> Glyphs;
             std::vector<uint16> Talents;
-            std::vector<uint16> PvPTalents;
+            std::vector<uint16> PvpTalents;
             ObjectGuid InspecteeGUID;
             int32 ClassID = CLASS_NONE;
             int32 SpecializationID = 0;
@@ -106,10 +106,10 @@ namespace WorldPackets
             uint8 LifetimeMaxRank = 0;
         };
 
-        class InspectPVPRequest final : public ClientPacket
+        class InspectPvpRequest final : public ClientPacket
         {
         public:
-            InspectPVPRequest(WorldPacket&& packet) : ClientPacket(CMSG_INSPECT_PVP, std::move(packet)) { }
+            InspectPvpRequest(WorldPacket&& packet) : ClientPacket(CMSG_INSPECT_PVP, std::move(packet)) { }
 
             void Read() override;
 
@@ -117,7 +117,7 @@ namespace WorldPackets
             uint32 InspectRealmAddress = 0;
         };
 
-        struct PVPBracketData
+        struct PvpBracketData
         {
             int32 Rating = 0;
             int32 Rank = 0;
@@ -130,14 +130,14 @@ namespace WorldPackets
             uint8 Bracket = 0;
         };
 
-        class InspectPVPResponse final : public ServerPacket
+        class InspectPvpResponse final : public ServerPacket
         {
         public:
-            InspectPVPResponse() : ServerPacket(SMSG_INSPECT_PVP, 17) { }
+            InspectPvpResponse() : ServerPacket(SMSG_INSPECT_PVP, 17) { }
 
             WorldPacket const* Write() override;
 
-            std::vector<PVPBracketData> Bracket;
+            std::vector<PvpBracketData> Bracket;
             ObjectGuid ClientGUID;
         };
 

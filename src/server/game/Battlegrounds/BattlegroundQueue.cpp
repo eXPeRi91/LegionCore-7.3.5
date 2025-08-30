@@ -166,7 +166,7 @@ bool BattlegroundQueue::SelectionPool::AddGroup(GroupQueueInfo* ginfo, uint32 de
     return PlayerCount < desiredCount;
 }
 
-GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* grp, uint16 BgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 JoinType, bool isRated, bool isPremade, WorldPackets::Battleground::IgnorMapInfo ignore, uint32 mmr, uint32 _team /*= 0*/)
+GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* grp, uint16 BgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 JoinType, bool isRated, bool isPremade, WorldPackets::Battleground::IgnorMapInfo ignore, uint32 mmr, uint32 _team /*= 0*/)
 {
     uint8 bracket = MS::Battlegrounds::GetBracketByJoinType(JoinType);
 
@@ -1209,7 +1209,7 @@ void BattlegroundQueue::BattlegroundQueueUpdate(uint32 /*diff*/, uint16 bgTypeId
         return;
     }
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketById(bg_template->GetMapId(), bracketID);
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketById(bg_template->GetMapId(), bracketID);
     if (!bracketEntry)
     {
         TC_LOG_ERROR(LOG_FILTER_BATTLEGROUND, "Battleground: Update: bg bracket entry not found for map %u bracket id %u", bg_template->GetMapId(), bracketID);

@@ -163,7 +163,7 @@ void WorldPackets::Party::PartyMemberStatseUpdate::Initialize(Player* player)
         MemberState.Status = boost::in_place();
         int16 memberStatus = MEMBER_STATUS_ONLINE;
 
-        if (player->IsPvP())
+        if (player->IsPvp())
             memberStatus |= MEMBER_STATUS_PVP;
 
         if (!player->isAlive())
@@ -174,7 +174,7 @@ void WorldPackets::Party::PartyMemberStatseUpdate::Initialize(Player* player)
                 memberStatus |= MEMBER_STATUS_DEAD;
         }
 
-        if (player->IsFFAPvP())
+        if (player->IsFFAPvp())
             memberStatus |= MEMBER_STATUS_PVP_FFA;
 
         if (player->isAFK())
@@ -739,7 +739,7 @@ void WorldPackets::Party::PartyMemberStats::Initialize(Player* player)
     // Status
     MemberStats.Status = MEMBER_STATUS_ONLINE;
 
-    if (player->IsPvP())
+    if (player->IsPvp())
         MemberStats.Status |= MEMBER_STATUS_PVP;
 
     if (!player->isAlive())
@@ -750,7 +750,7 @@ void WorldPackets::Party::PartyMemberStats::Initialize(Player* player)
             MemberStats.Status |= MEMBER_STATUS_DEAD;
     }
 
-    if (player->IsFFAPvP())
+    if (player->IsFFAPvp())
         MemberStats.Status |= MEMBER_STATUS_PVP_FFA;
 
     if (player->isAFK())

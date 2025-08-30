@@ -9,8 +9,8 @@
 #ifndef ASHRAN_MGR_HPP_ASHRAN
 # define ASHRAN_MGR_HPP_ASHRAN
 
-# include "OutdoorPvP.h"
-# include "OutdoorPvPMgr.h"
+# include "OutdoorPvp.h"
+# include "OutdoorPvpMgr.h"
 # include "AshranDatas.hpp"
 # include "ScriptMgr.h"
 # include "ScriptedCreature.h"
@@ -29,18 +29,18 @@
 # include "MapManager.h"
 #include "SpellAuraEffects.h"
 
-class OutdoorPvPAshran;
+class OutdoorPvpAshran;
 
 class OutdoorGraveyardAshran : public OutdoorGraveyard
 {
 public:
-    explicit OutdoorGraveyardAshran(OutdoorPvPAshran* p_OutdoorPvP);
+    explicit OutdoorGraveyardAshran(OutdoorPvpAshran* p_OutdoorPvp);
 };
 
-class OPvPCapturePoint_Middle : public OPvPCapturePoint
+class OPvpCapturePoint_Middle : public OPvpCapturePoint
 {
 public:
-    OPvPCapturePoint_Middle(OutdoorPvP* outdoor, eBattleType type, uint8 p_Faction);
+    OPvpCapturePoint_Middle(OutdoorPvp* outdoor, eBattleType type, uint8 p_Faction);
 
     void ChangeState() override;
 
@@ -61,10 +61,10 @@ protected:
     uint32 m_BattleFaction;
 };
 
-class OPvPCapturePoint_Graveyard : public OPvPCapturePoint
+class OPvpCapturePoint_Graveyard : public OPvpCapturePoint
 {
 public:
-    explicit OPvPCapturePoint_Graveyard(OutdoorPvP* outdoor);
+    explicit OPvpCapturePoint_Graveyard(OutdoorPvp* outdoor);
 
     void ChangeState() override;
 
@@ -89,7 +89,7 @@ protected:
     uint32 m_ControlTime;
 };
 
-class OutdoorPvPAshran : public OutdoorPvP
+class OutdoorPvpAshran : public OutdoorPvp
 {
     using PlayerTimerMap = std::map<ObjectGuid, uint32>;
     using PlayerCurrencyLoot = std::map<ObjectGuid, uint32>;
@@ -97,9 +97,9 @@ class OutdoorPvPAshran : public OutdoorPvP
     using ActiveCaptains = std::set<uint32>;
 
 public:
-    OutdoorPvPAshran();
+    OutdoorPvpAshran();
 
-    bool SetupOutdoorPvP() override;
+    bool SetupOutdoorPvp() override;
 
     void Initialize(uint32 zone) override;
 
@@ -116,7 +116,7 @@ public:
     static bool IsFactionGuard(Unit* p_Unit);
     void SpawnGladiators(uint8 teamID = TEAM_NEUTRAL, bool p_Spawn = true);
 
-    void FillCustomPvPLoots(Player* looter, Loot& loot, ObjectGuid container) override;
+    void FillCustomPvpLoots(Player* looter, Loot& loot, ObjectGuid container) override;
 
     bool Update(uint32 p_Diff) override;
     void ScheduleNextBattle(uint32 p_Diff);
@@ -160,7 +160,7 @@ public:
     void HandleFactionBossDeath(uint8 p_Faction);
     void HandleCaptainDeath(uint32 type);
 
-    OPvPCapturePoint_Middle* GetCapturePoint(uint8 p_Index) const;
+    OPvpCapturePoint_Middle* GetCapturePoint(uint8 p_Index) const;
 
     WorldSafeLocsEntry const* GetClosestGraveyard(Player* player) override;
     static uint8 GetSpiritGraveyardID(uint32 areaID, TeamId p_Team);
@@ -183,8 +183,8 @@ public:
 
 private:
 
-    OPvPCapturePoint_Graveyard* m_GraveYard;
-    OPvPCapturePoint_Middle* m_ControlPoints[MaxBattleType];
+    OPvpCapturePoint_Graveyard* m_GraveYard;
+    OPvpCapturePoint_Middle* m_ControlPoints[MaxBattleType];
     ObjectGuid m_GenericMoPGuids[MaxBattleType];
     ObjectGuid m_FactionGenericMoP[TEAM_NEUTRAL];
     uint32 m_InitPointsTimer;
@@ -195,7 +195,7 @@ private:
     ObjectGuid m_HeraldGuid;
     ObjectGuid m_HighWarlordVolrath;
     ObjectGuid m_GrandMasrhalTremblade;
-    uint32 m_WorldPvPAreaId;
+    uint32 m_WorldPvpAreaId;
 
     GuidSet m_PlayersInWar[TEAM_NEUTRAL];
     PlayerTimerMap m_InvitedPlayers[TEAM_NEUTRAL];

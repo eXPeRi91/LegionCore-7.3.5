@@ -2604,7 +2604,7 @@ void Item::SetChildItem(ObjectGuid childItem)
     m_childItem = childItem;
 }
 
-uint32 Item::GetItemLevel(uint8 ownerLevel, bool isPvP) const
+uint32 Item::GetItemLevel(uint8 ownerLevel, bool isPvp) const
 {
     ItemTemplate const* stats = GetTemplate();
     if (!stats)
@@ -2641,7 +2641,7 @@ uint32 Item::GetItemLevel(uint8 ownerLevel, bool isPvP) const
     if (ItemUpgradeEntry const* upgrade = sItemUpgradeStore.LookupEntry(GetModifier(ITEM_MODIFIER_UPGRADE_ID)))
         itemLevel += upgrade->ItemLevelIncrement;
 
-    // if (!isPvP)
+    // if (!isPvp)
         for (auto gemItemLevelBonus : _bonusData.GemItemLevelBonus)
             itemLevel += gemItemLevelBonus;
 
@@ -2705,10 +2705,10 @@ void Item::GetDamage(float& minDamage, float& maxDamage) const
     GetTemplate()->GetDamage(GetItemLevel(GetOwnerLevel()), minDamage, maxDamage);
 }
 
-int32 Item::GetItemStatValue(uint32 index, bool isPvP) const
+int32 Item::GetItemStatValue(uint32 index, bool isPvp) const
 {
     ASSERT(index < MAX_ITEM_PROTO_STATS);
-    uint32 itemLevel = GetItemLevel(GetOwnerLevel(), isPvP);
+    uint32 itemLevel = GetItemLevel(GetOwnerLevel(), isPvp);
 
     if (float randomPropPoints = GetRandomPropertyPoints(itemLevel, GetQuality(), GetTemplate()->GetInventoryType(), GetTemplate()->GetSubClass()))
     {

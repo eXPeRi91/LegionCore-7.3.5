@@ -72,9 +72,9 @@ WorldPacket const* WorldPackets::System::FeatureSystemStatus::Write()
     _worldPacket << float(QuickJoinConfig.ThrottleDecayTime);
     _worldPacket << float(QuickJoinConfig.ThrottlePrioritySpike);
     _worldPacket << float(QuickJoinConfig.ThrottleMinThreshold);
-    _worldPacket << float(QuickJoinConfig.ThrottlePvPPriorityNormal);
-    _worldPacket << float(QuickJoinConfig.ThrottlePvPPriorityLow);
-    _worldPacket << float(QuickJoinConfig.ThrottlePvPHonorThreshold);
+    _worldPacket << float(QuickJoinConfig.ThrottlePvpPriorityNormal);
+    _worldPacket << float(QuickJoinConfig.ThrottlePvpPriorityLow);
+    _worldPacket << float(QuickJoinConfig.ThrottlePvpHonorThreshold);
     _worldPacket << float(QuickJoinConfig.ThrottleLfgListPriorityDefault);
     _worldPacket << float(QuickJoinConfig.ThrottleLfgListPriorityAbove);
     _worldPacket << float(QuickJoinConfig.ThrottleLfgListPriorityBelow);

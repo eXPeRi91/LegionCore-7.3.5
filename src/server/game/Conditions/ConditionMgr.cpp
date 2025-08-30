@@ -2981,7 +2981,7 @@ bool ConditionMgr::IsPlayerMeetingCondition(Unit* unit, PlayerConditionEntry con
     if (player && condition->PvpMedal && !((1 << (condition->PvpMedal - 1)) & player->GetUInt32Value(PLAYER_FIELD_PVP_MEDALS)))
         return false;
 
-    if (player && condition->LifetimeMaxPVPRank && player->GetLifetimeMaxPvPRankValue() != condition->LifetimeMaxPVPRank)
+    if (player && condition->LifetimeMaxPvpRank && player->GetLifetimeMaxPvpRankValue() != condition->LifetimeMaxPvpRank)
         return false;
 
     if (player && condition->PartyStatus)

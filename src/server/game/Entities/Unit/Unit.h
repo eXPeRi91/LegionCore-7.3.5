@@ -1324,9 +1324,9 @@ class Unit : public WorldObject
         void GetRaidMembers(std::list<Unit*> &tagUnitMap);
         bool IsContestedGuard() const;
 
-        bool IsPvP() const;
-        bool IsFFAPvP() const;
-        virtual void SetPvP(bool state);
+        bool IsPvp() const;
+        bool IsFFAPvp() const;
+        virtual void SetPvp(bool state);
         uint32 GetCreatureType() const;
         uint32 GetCreatureTypeMask() const;
 
@@ -1443,7 +1443,7 @@ class Unit : public WorldObject
         bool isInCombat() const;
 
         void CombatStart(Unit* target, bool initialAggro = true);
-        void SetInCombatState(Unit* enemy = nullptr, bool PvP = false);
+        void SetInCombatState(Unit* enemy = nullptr, bool pvp = false);
         void SetInCombatWith(Unit* enemy);
         void ClearInCombat();
         uint32 GetCombatTimer() const { return m_CombatTimer; }
@@ -1726,7 +1726,7 @@ class Unit : public WorldObject
         void RemoveAllAurasExceptType(AuraType type);
         void RemoveAllAurasByType(AuraType type);
         void DelayOwnedAuras(uint32 spellId, ObjectGuid caster, int32 delaytime);
-        void RecalcArenaAuras(bool hasPvPScaling);
+        void RecalcArenaAuras(bool hasPvpScaling);
         void RemoveAurasAllDots();
         void RemoveAurasAllNotOwned(ObjectGuid caster);
 
@@ -2120,7 +2120,7 @@ class Unit : public WorldObject
         int32 SpellBaseHealingBonusTaken(SpellSchoolMask schoolMask);
         uint32 SpellHealingBonusDone(Unit* victim, SpellInfo const *spellProto, uint32 healamount, DamageEffectType damagetype, SpellEffIndex effIndex = EFFECT_0, uint32 stack = 1);
         uint32 SpellHealingBonusTaken(Unit* caster, SpellInfo const *spellProto, uint32 healamount, DamageEffectType damagetype, SpellEffIndex effIndex = EFFECT_0, uint32 stack = 1);
-        bool CanPvPScalar();
+        bool CanPvpScalar();
         float GetProcStatsMultiplier(uint32 spellId) const;
 
         uint32 MeleeDamageBonusDone(Unit *victim, uint32 damage, WeaponAttackType attType, SpellInfo const *spellProto = nullptr, uint32 effIndex = 0);
@@ -2138,8 +2138,8 @@ class Unit : public WorldObject
         uint32 SpellCriticalHealingBonus(SpellInfo const* spellProto, uint32 damage);
         float SpellCriticalDamageBonus(SpellInfo const* spellProto, Unit* victim);
 
-        void SetContestedPvP(Player* attackedPlayer = nullptr, bool forceByAura = false);
-        OutdoorPvP* GetOutdoorPvP() const;
+        void SetContestedPvp(Player* attackedPlayer = nullptr, bool forceByAura = false);
+        OutdoorPvp* GetOutdoorPvp() const;
 
         uint32 GetCastingTimeForBonus(SpellInfo const* spellProto, DamageEffectType damagetype, uint32 CastingTime) const;
         float CalculateDefaultCoefficient(SpellInfo const *spellInfo, DamageEffectType damagetype) const;

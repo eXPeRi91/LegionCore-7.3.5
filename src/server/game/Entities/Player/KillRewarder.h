@@ -54,7 +54,7 @@ private:
     uint8 _maxLevel;
     bool _isBattleGround;
     bool _isFullXP;
-    bool _isPvP;
+    bool _isPvp;
 };
 
 #endif // KillRewarder_h__

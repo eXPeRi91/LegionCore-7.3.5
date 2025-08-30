@@ -1,20 +1,20 @@
 /*
 */
 
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "QuestData.h"
 
-class OutdoorPvPThousandNeedles : public OutdoorPvP
+class OutdoorPvpThousandNeedles : public OutdoorPvp
 {
 public:
-    OutdoorPvPThousandNeedles()
+    OutdoorPvpThousandNeedles()
     {
         m_TypeId = OUTDOOR_PVP_THOUSAND_NEEDLES;
     }
 
-    ~OutdoorPvPThousandNeedles() = default;
+    ~OutdoorPvpThousandNeedles() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         RegisterZone(400);
         return true;
@@ -70,14 +70,14 @@ private:
     ZLiquidStatus Zliquid_status;
 };
 
-class OutdoorPvP_ThousandNeedles : public OutdoorPvPScript
+class OutdoorPvp_ThousandNeedles : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_ThousandNeedles() : OutdoorPvPScript("outdoorpvp_thousandneedles") {}
+    OutdoorPvp_ThousandNeedles() : OutdoorPvpScript("outdoorpvp_thousandneedles") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPThousandNeedles();
+        return new OutdoorPvpThousandNeedles();
     }
 };
 
@@ -320,7 +320,7 @@ struct npc_ilthine_sunsong : ScriptedAI
 void AddSC_ThousandBoatBash()
 {
     new sceneTrigger_beach_ball();
-    //new OutdoorPvP_ThousandNeedles();
+    //new OutdoorPvp_ThousandNeedles();
     RegisterAuraScript(spell_bating);
     RegisterAuraScript(spell_boat_day);
     RegisterCreatureAI(npc_fizzle_brassbolts);

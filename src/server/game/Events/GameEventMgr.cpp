@@ -32,7 +32,7 @@
 #include "DatabaseEnv.h"
 #include "QuestData.h"
 #include "WorldStateMgr.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 
 static uint32 timerConstant = 946684800; // 01/01/2000 00:00:00
 
@@ -177,7 +177,7 @@ bool GameEventMgr::StartEvent(uint16 event_id, bool overwrite)
             break;
         }
 
-        sOutdoorPvPMgr->HandleGameEventStart(event_id);
+        sOutdoorPvpMgr->HandleGameEventStart(event_id);
         return false;
     }
     if (data.state == GAMEEVENT_WORLD_INACTIVE)
@@ -199,7 +199,7 @@ bool GameEventMgr::StartEvent(uint16 event_id, bool overwrite)
     if (overwrite && conditions_met)
         sWorld->ForceGameEventUpdate();
 
-    sOutdoorPvPMgr->HandleGameEventStart(event_id);
+    sOutdoorPvpMgr->HandleGameEventStart(event_id);
 
     // temporally. delete after new year event end
     switch (event_id)

@@ -1,7 +1,7 @@
 #include "sentinax.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "GameEventMgr.h"
 
 class spell_sentinax_call_portal : public SpellScriptLoader
@@ -25,7 +25,7 @@ public:
             if (sGameEventMgr->IsActiveEvent(153))
                 return SPELL_FAILED_CANT_DO_THAT_RIGHT_NOW;
             
-            if (ZoneScript* zone_script = sOutdoorPvPMgr->GetZoneScript(player->GetCurrentZoneID()))
+            if (ZoneScript* zone_script = sOutdoorPvpMgr->GetZoneScript(player->GetCurrentZoneID()))
             {
                 if (!zone_script->GetData(true)) // limit of portals
                     return SPELL_FAILED_CANT_DO_THAT_RIGHT_NOW;
@@ -275,7 +275,7 @@ public:
                 second_wave = true;
                 me->RemoveAura(SPELL_NOT_FREE_PORTAL);
                 
-                if (ZoneScript* zone_script = sOutdoorPvPMgr->GetZoneScript(me->GetCurrentZoneID()))
+                if (ZoneScript* zone_script = sOutdoorPvpMgr->GetZoneScript(me->GetCurrentZoneID()))
                     zone_script->SetData(0, 1);
                 return;
             }
@@ -283,7 +283,7 @@ public:
             _action = action;
             second_wave = false;
             
-            if (ZoneScript* zone_script = sOutdoorPvPMgr->GetZoneScript(me->GetCurrentZoneID()))
+            if (ZoneScript* zone_script = sOutdoorPvpMgr->GetZoneScript(me->GetCurrentZoneID()))
             {
                 switch (action)
                 {
@@ -600,18 +600,18 @@ public:
     }
 };
 
-class OutdoorPvP_Sentinax : public OutdoorPvPScript
+class OutdoorPvP_Sentinax : public OutdoorPvpScript
 {
     public:
 
         OutdoorPvP_Sentinax()
-            : OutdoorPvPScript("outdoorpvp_sentinax")
+            : OutdoorPvpScript("outdoorpvp_sentinax")
         {
         }
 
-        OutdoorPvP* GetOutdoorPvP() const override
+        OutdoorPvp* GetOutdoorPvp() const override
         {
-            return new OutdoorPVPSentinax();
+            return new OutdoorPvpSentinax();
         }
 };
 

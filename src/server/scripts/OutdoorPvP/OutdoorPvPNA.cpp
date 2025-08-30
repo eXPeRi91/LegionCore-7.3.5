@@ -16,21 +16,21 @@
  */
 
 #include "ScriptMgr.h"
-#include "OutdoorPvPNA.h"
+#include "OutdoorPvpNA.h"
 #include "Player.h"
 #include "PlayerDefines.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "Packets/WorldStatePackets.h"
 #include "Language.h"
 #include "World.h"
 
-OutdoorPvPNA::OutdoorPvPNA(): m_obj{nullptr}
+OutdoorPvpNA::OutdoorPvpNA(): m_obj{nullptr}
 {
     m_TypeId = OUTDOOR_PVP_NA;
 }
 
-void OutdoorPvPNA::HandleKillImpl(Player* player, Unit* killed)
+void OutdoorPvpNA::HandleKillImpl(Player* player, Unit* killed)
 {
     if (killed->GetTypeId() == TYPEID_PLAYER && player->GetTeam() != killed->ToPlayer()->GetTeam())
     {
@@ -42,7 +42,7 @@ void OutdoorPvPNA::HandleKillImpl(Player* player, Unit* killed)
     }
 }
 
-uint32 OPvPCapturePointNA::GetAliveGuardsCount()
+uint32 OPvpCapturePointNA::GetAliveGuardsCount()
 {
     uint32 cnt = 0;
     for (std::map<uint32, ObjectGuid>::iterator itr = m_Creatures.begin(); itr != m_Creatures.end(); ++itr)
@@ -75,12 +75,12 @@ uint32 OPvPCapturePointNA::GetAliveGuardsCount()
     return cnt;
 }
 
-uint32 OPvPCapturePointNA::GetControllingFaction() const
+uint32 OPvpCapturePointNA::GetControllingFaction() const
 {
     return m_ControllingFaction;
 }
 
-void OPvPCapturePointNA::SpawnNPCsForTeam(uint32 team)
+void OPvpCapturePointNA::SpawnNPCsForTeam(uint32 team)
 {
     const creature_type * creatures = NULL;
     if (team == ALLIANCE)
@@ -93,13 +93,13 @@ void OPvPCapturePointNA::SpawnNPCsForTeam(uint32 team)
         AddCreature(i, creatures[i].entry, creatures[i].teamval, creatures[i].map, creatures[i].x, creatures[i].y, creatures[i].z, creatures[i].o, 1000000);
 }
 
-void OPvPCapturePointNA::DeSpawnNPCs()
+void OPvpCapturePointNA::DeSpawnNPCs()
 {
     for (int i = 0; i < NA_CONTROL_NPC_NUM; ++i)
         DelCreature(i);
 }
 
-void OPvPCapturePointNA::SpawnGOsForTeam(uint32 team)
+void OPvpCapturePointNA::SpawnGOsForTeam(uint32 team)
 {
     const go_type * gos = NULL;
     if (team == ALLIANCE)
@@ -123,7 +123,7 @@ void OPvPCapturePointNA::SpawnGOsForTeam(uint32 team)
     }
 }
 
-void OPvPCapturePointNA::DeSpawnGOs()
+void OPvpCapturePointNA::DeSpawnGOs()
 {
     for (int i = 0; i < NA_CONTROL_GO_NUM; ++i)
     {
@@ -131,7 +131,7 @@ void OPvPCapturePointNA::DeSpawnGOs()
     }
 }
 
-void OPvPCapturePointNA::FactionTakeOver(uint32 team)
+void OPvpCapturePointNA::FactionTakeOver(uint32 team)
 {
     if (m_ControllingFaction)
         sObjectMgr->RemoveGraveYardLink(NA_HALAA_GRAVEYARD, NA_HALAA_GRAVEYARD_ZONE, m_ControllingFaction, false);
@@ -156,10 +156,10 @@ void OPvPCapturePointNA::FactionTakeOver(uint32 team)
         m_WyvernStateNorth = WYVERN_NEU_HORDE;
         m_WyvernStateEast = WYVERN_NEU_HORDE;
         m_WyvernStateWest = WYVERN_NEU_HORDE;
-        m_PvP->TeamApplyBuff(TEAM_ALLIANCE, NA_CAPTURE_BUFF);
-        m_PvP->SendUpdateWorldState(NA_UI_HORDE_GUARDS_SHOW, 0);
-        m_PvP->SendUpdateWorldState(NA_UI_ALLIANCE_GUARDS_SHOW, 1);
-        m_PvP->SendUpdateWorldState(NA_UI_GUARDS_LEFT, m_GuardsAlive);
+        m_Pvp->TeamApplyBuff(TEAM_ALLIANCE, NA_CAPTURE_BUFF);
+        m_Pvp->SendUpdateWorldState(NA_UI_HORDE_GUARDS_SHOW, 0);
+        m_Pvp->SendUpdateWorldState(NA_UI_ALLIANCE_GUARDS_SHOW, 1);
+        m_Pvp->SendUpdateWorldState(NA_UI_GUARDS_LEFT, m_GuardsAlive);
         sWorld->SendZoneText(NA_HALAA_GRAVEYARD_ZONE, sObjectMgr->GetTrinityStringForDBCLocale(LANG_OPVP_NA_CAPTURE_A));
     }
     else
@@ -168,10 +168,10 @@ void OPvPCapturePointNA::FactionTakeOver(uint32 team)
         m_WyvernStateNorth = WYVERN_NEU_ALLIANCE;
         m_WyvernStateEast = WYVERN_NEU_ALLIANCE;
         m_WyvernStateWest = WYVERN_NEU_ALLIANCE;
-        m_PvP->TeamApplyBuff(TEAM_HORDE, NA_CAPTURE_BUFF);
-        m_PvP->SendUpdateWorldState(NA_UI_HORDE_GUARDS_SHOW, 1);
-        m_PvP->SendUpdateWorldState(NA_UI_ALLIANCE_GUARDS_SHOW, 0);
-        m_PvP->SendUpdateWorldState(NA_UI_GUARDS_LEFT, m_GuardsAlive);
+        m_Pvp->TeamApplyBuff(TEAM_HORDE, NA_CAPTURE_BUFF);
+        m_Pvp->SendUpdateWorldState(NA_UI_HORDE_GUARDS_SHOW, 1);
+        m_Pvp->SendUpdateWorldState(NA_UI_ALLIANCE_GUARDS_SHOW, 0);
+        m_Pvp->SendUpdateWorldState(NA_UI_GUARDS_LEFT, m_GuardsAlive);
         sWorld->SendZoneText(NA_HALAA_GRAVEYARD_ZONE, sObjectMgr->GetTrinityStringForDBCLocale(LANG_OPVP_NA_CAPTURE_H));
     }
     UpdateWyvernRoostWorldState(NA_ROOST_S);
@@ -180,9 +180,9 @@ void OPvPCapturePointNA::FactionTakeOver(uint32 team)
     UpdateWyvernRoostWorldState(NA_ROOST_E);
 }
 
-bool OPvPCapturePointNA::HandlePlayerEnter(Player* player)
+bool OPvpCapturePointNA::HandlePlayerEnter(Player* player)
 {
-    if (OPvPCapturePoint::HandlePlayerEnter(player))
+    if (OPvpCapturePoint::HandlePlayerEnter(player))
     {
         player->SendUpdateWorldState(NA_UI_TOWER_SLIDER_DISPLAY, 1);
         uint32 phase = (uint32)ceil((m_value + m_maxValue) / (2 * m_maxValue) * 100.0f);
@@ -193,39 +193,39 @@ bool OPvPCapturePointNA::HandlePlayerEnter(Player* player)
     return false;
 }
 
-void OPvPCapturePointNA::HandlePlayerLeave(Player* player)
+void OPvpCapturePointNA::HandlePlayerLeave(Player* player)
 {
     player->SendUpdateWorldState(NA_UI_TOWER_SLIDER_DISPLAY, 0);
-    OPvPCapturePoint::HandlePlayerLeave(player);
+    OPvpCapturePoint::HandlePlayerLeave(player);
 }
 
-OPvPCapturePointNA::OPvPCapturePointNA(OutdoorPvP* pvp) :
-OPvPCapturePoint(pvp), m_capturable(true), m_GuardsAlive(0), m_ControllingFaction(0),
+OPvpCapturePointNA::OPvpCapturePointNA(OutdoorPvp* Pvp) :
+OPvpCapturePoint(Pvp), m_capturable(true), m_GuardsAlive(0), m_ControllingFaction(0),
 m_WyvernStateNorth(0), m_WyvernStateSouth(0), m_WyvernStateEast(0), m_WyvernStateWest(0),
 m_HalaaState(HALAA_N), m_RespawnTimer(NA_RESPAWN_TIME), m_GuardCheckTimer(NA_GUARD_CHECK_TIME)
 {
     SetCapturePointData(182210, 530, -1572.57f, 7945.3f, -22.475f, 2.05949f, 0.0f, 0.0f, 0.857167f, 0.515038f);
 }
 
-bool OutdoorPvPNA::SetupOutdoorPvP()
+bool OutdoorPvpNA::SetupOutdoorPvp()
 {
 //    m_TypeId = OUTDOOR_PVP_NA; _MUST_ be set in ctor, because of spawns cleanup
-    // add the zones affected by the pvp buff
+    // add the zones affected by the PvP buff
     RegisterZone(NA_BUFF_ZONE);
 
     return true;
 }
 
-void OutdoorPvPNA::Initialize(uint32 zone)
+void OutdoorPvpNA::Initialize(uint32 zone)
 {
     // halaa
-    m_obj = new OPvPCapturePointNA(this);
+    m_obj = new OPvpCapturePointNA(this);
     if (!m_obj)
         return;
     AddCapturePoint(m_obj);
 }
 
-void OutdoorPvPNA::HandlePlayerEnterZone(ObjectGuid guid, uint32 zone)
+void OutdoorPvpNA::HandlePlayerEnterZone(ObjectGuid guid, uint32 zone)
 {
     Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
     if (!player)
@@ -234,10 +234,10 @@ void OutdoorPvPNA::HandlePlayerEnterZone(ObjectGuid guid, uint32 zone)
     // add buffs
     if (player->GetTeam() == m_obj->GetControllingFaction())
         player->CastSpell(player, NA_CAPTURE_BUFF, true);
-    OutdoorPvP::HandlePlayerEnterZone(guid, zone);
+    OutdoorPvp::HandlePlayerEnterZone(guid, zone);
 }
 
-void OutdoorPvPNA::HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone)
+void OutdoorPvpNA::HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone)
 {
     Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
     if (!player)
@@ -245,15 +245,15 @@ void OutdoorPvPNA::HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone)
 
     // remove buffs
     player->RemoveAurasDueToSpell(NA_CAPTURE_BUFF);
-    OutdoorPvP::HandlePlayerLeaveZone(guid, zone);
+    OutdoorPvp::HandlePlayerLeaveZone(guid, zone);
 }
 
-void OutdoorPvPNA::FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet)
+void OutdoorPvpNA::FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet)
 {
     m_obj->FillInitialWorldStates(packet);
 }
 
-void OPvPCapturePointNA::FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet)
+void OPvpCapturePointNA::FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& packet)
 {
     if (m_ControllingFaction == ALLIANCE)
     {
@@ -305,7 +305,7 @@ void OPvPCapturePointNA::FillInitialWorldStates(WorldPackets::WorldState::InitWo
     packet.Worldstates.emplace_back(NA_MAP_HALAA_ALLIANCE, bool(m_HalaaState & HALAA_A));
 }
 
-void OutdoorPvPNA::SendRemoveWorldStates(Player* player)
+void OutdoorPvpNA::SendRemoveWorldStates(Player* player)
 {
     player->SendUpdateWorldState(NA_UI_HORDE_GUARDS_SHOW, 0);
     player->SendUpdateWorldState(NA_UI_ALLIANCE_GUARDS_SHOW, 0);
@@ -337,12 +337,12 @@ void OutdoorPvPNA::SendRemoveWorldStates(Player* player)
     player->SendUpdateWorldState(NA_MAP_HALAA_ALLIANCE, 0);
 }
 
-bool OutdoorPvPNA::Update(uint32 diff)
+bool OutdoorPvpNA::Update(uint32 diff)
 {
     return m_obj->Update(diff);
 }
 
-bool OPvPCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameObject* /*go*/)
+bool OPvpCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameObject* /*go*/)
 {
     std::vector<uint32> nodes;
     nodes.resize(2);
@@ -354,7 +354,7 @@ bool OPvPCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameO
         nodes[1] = FlightPathEndNodes[NA_ROOST_N];
         player->ActivateTaxiPathTo(nodes);
         player->SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
-        player->UpdatePvP(true, true);
+        player->UpdatePvp(true, true);
         retval = true;
         break;
     case NA_SPELL_FLY_SOUTH:
@@ -362,7 +362,7 @@ bool OPvPCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameO
         nodes[1] = FlightPathEndNodes[NA_ROOST_S];
         player->ActivateTaxiPathTo(nodes);
         player->SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
-        player->UpdatePvP(true, true);
+        player->UpdatePvp(true, true);
         retval = true;
         break;
     case NA_SPELL_FLY_WEST:
@@ -370,7 +370,7 @@ bool OPvPCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameO
         nodes[1] = FlightPathEndNodes[NA_ROOST_W];
         player->ActivateTaxiPathTo(nodes);
         player->SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
-        player->UpdatePvP(true, true);
+        player->UpdatePvp(true, true);
         retval = true;
         break;
     case NA_SPELL_FLY_EAST:
@@ -378,7 +378,7 @@ bool OPvPCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameO
         nodes[1] = FlightPathEndNodes[NA_ROOST_E];
         player->ActivateTaxiPathTo(nodes);
         player->SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
-        player->UpdatePvP(true, true);
+        player->UpdatePvp(true, true);
         retval = true;
         break;
     default:
@@ -414,9 +414,9 @@ bool OPvPCapturePointNA::HandleCustomSpell(Player* player, uint32 spellId, GameO
     return false;
 }
 
-int32 OPvPCapturePointNA::HandleOpenGo(Player* player, ObjectGuid guid)
+int32 OPvpCapturePointNA::HandleOpenGo(Player* player, ObjectGuid guid)
 {
-    int32 retval = OPvPCapturePoint::HandleOpenGo(player, guid);
+    int32 retval = OPvpCapturePoint::HandleOpenGo(player, guid);
     if (retval >= 0)
     {
         const go_type * gos = NULL;
@@ -536,7 +536,7 @@ int32 OPvPCapturePointNA::HandleOpenGo(Player* player, ObjectGuid guid)
     return -1;
 }
 
-bool OPvPCapturePointNA::Update(uint32 diff)
+bool OPvpCapturePointNA::Update(uint32 diff)
 {
     // let the controlling faction advance in phase
     bool capturable = false;
@@ -555,7 +555,7 @@ bool OPvPCapturePointNA::Update(uint32 diff)
             if (m_GuardsAlive == 0)
                 m_capturable = true;
             // update the guard count for the players in zone
-            m_PvP->SendUpdateWorldState(NA_UI_GUARDS_LEFT, m_GuardsAlive);
+            m_Pvp->SendUpdateWorldState(NA_UI_GUARDS_LEFT, m_GuardsAlive);
         }
     } else m_GuardCheckTimer -= diff;
 
@@ -570,12 +570,12 @@ bool OPvPCapturePointNA::Update(uint32 diff)
             m_RespawnTimer = NA_RESPAWN_TIME;
         } else m_RespawnTimer -= diff;
 
-        return OPvPCapturePoint::Update(diff);
+        return OPvpCapturePoint::Update(diff);
     }
     return false;
 }
 
-void OPvPCapturePointNA::ChangeState()
+void OPvpCapturePointNA::ChangeState()
 {
     uint32 artkit = 21;
     switch (m_State)
@@ -615,7 +615,7 @@ void OPvPCapturePointNA::ChangeState()
     UpdateHalaaWorldState();
 }
 
-void OPvPCapturePointNA::SendChangePhase()
+void OPvpCapturePointNA::SendChangePhase()
 {
     // send this too, sometimes the slider disappears, dunno why :(
     SendUpdateWorldState(NA_UI_TOWER_SLIDER_DISPLAY, 1);
@@ -625,62 +625,62 @@ void OPvPCapturePointNA::SendChangePhase()
     SendUpdateWorldState(NA_UI_TOWER_SLIDER_N, m_neutralValuePct);
 }
 
-void OPvPCapturePointNA::UpdateHalaaWorldState()
+void OPvpCapturePointNA::UpdateHalaaWorldState()
 {
-    m_PvP->SendUpdateWorldState(NA_MAP_HALAA_NEUTRAL, uint32(bool(m_HalaaState & HALAA_N)));
-    m_PvP->SendUpdateWorldState(NA_MAP_HALAA_NEU_A, uint32(bool(m_HalaaState & HALAA_N_A)));
-    m_PvP->SendUpdateWorldState(NA_MAP_HALAA_NEU_H, uint32(bool(m_HalaaState & HALAA_N_H)));
-    m_PvP->SendUpdateWorldState(NA_MAP_HALAA_HORDE, uint32(bool(m_HalaaState & HALAA_H)));
-    m_PvP->SendUpdateWorldState(NA_MAP_HALAA_ALLIANCE, uint32(bool(m_HalaaState & HALAA_A)));
+    m_Pvp->SendUpdateWorldState(NA_MAP_HALAA_NEUTRAL, uint32(bool(m_HalaaState & HALAA_N)));
+    m_Pvp->SendUpdateWorldState(NA_MAP_HALAA_NEU_A, uint32(bool(m_HalaaState & HALAA_N_A)));
+    m_Pvp->SendUpdateWorldState(NA_MAP_HALAA_NEU_H, uint32(bool(m_HalaaState & HALAA_N_H)));
+    m_Pvp->SendUpdateWorldState(NA_MAP_HALAA_HORDE, uint32(bool(m_HalaaState & HALAA_H)));
+    m_Pvp->SendUpdateWorldState(NA_MAP_HALAA_ALLIANCE, uint32(bool(m_HalaaState & HALAA_A)));
 }
 
-void OPvPCapturePointNA::UpdateWyvernRoostWorldState(uint32 roost)
+void OPvpCapturePointNA::UpdateWyvernRoostWorldState(uint32 roost)
 {
     switch (roost)
     {
     case NA_ROOST_S:
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_NEU_H, uint32(bool(m_WyvernStateSouth & WYVERN_NEU_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_NEU_A, uint32(bool(m_WyvernStateSouth & WYVERN_NEU_ALLIANCE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_H, uint32(bool(m_WyvernStateSouth & WYVERN_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_A, uint32(bool(m_WyvernStateSouth & WYVERN_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_NEU_H, uint32(bool(m_WyvernStateSouth & WYVERN_NEU_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_NEU_A, uint32(bool(m_WyvernStateSouth & WYVERN_NEU_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_H, uint32(bool(m_WyvernStateSouth & WYVERN_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_SOUTH_A, uint32(bool(m_WyvernStateSouth & WYVERN_ALLIANCE)));
         break;
     case NA_ROOST_N:
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_NEU_H, uint32(bool(m_WyvernStateNorth & WYVERN_NEU_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_NEU_A, uint32(bool(m_WyvernStateNorth & WYVERN_NEU_ALLIANCE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_H, uint32(bool(m_WyvernStateNorth & WYVERN_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_A, uint32(bool(m_WyvernStateNorth & WYVERN_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_NEU_H, uint32(bool(m_WyvernStateNorth & WYVERN_NEU_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_NEU_A, uint32(bool(m_WyvernStateNorth & WYVERN_NEU_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_H, uint32(bool(m_WyvernStateNorth & WYVERN_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_NORTH_A, uint32(bool(m_WyvernStateNorth & WYVERN_ALLIANCE)));
         break;
     case NA_ROOST_W:
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_WEST_NEU_H, uint32(bool(m_WyvernStateWest & WYVERN_NEU_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_WEST_NEU_A, uint32(bool(m_WyvernStateWest & WYVERN_NEU_ALLIANCE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_WEST_H, uint32(bool(m_WyvernStateWest & WYVERN_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_WEST_A, uint32(bool(m_WyvernStateWest & WYVERN_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_WEST_NEU_H, uint32(bool(m_WyvernStateWest & WYVERN_NEU_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_WEST_NEU_A, uint32(bool(m_WyvernStateWest & WYVERN_NEU_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_WEST_H, uint32(bool(m_WyvernStateWest & WYVERN_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_WEST_A, uint32(bool(m_WyvernStateWest & WYVERN_ALLIANCE)));
         break;
     case NA_ROOST_E:
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_EAST_NEU_H, uint32(bool(m_WyvernStateEast & WYVERN_NEU_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_EAST_NEU_A, uint32(bool(m_WyvernStateEast & WYVERN_NEU_ALLIANCE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_EAST_H, uint32(bool(m_WyvernStateEast & WYVERN_HORDE)));
-        m_PvP->SendUpdateWorldState(NA_MAP_WYVERN_EAST_A, uint32(bool(m_WyvernStateEast & WYVERN_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_EAST_NEU_H, uint32(bool(m_WyvernStateEast & WYVERN_NEU_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_EAST_NEU_A, uint32(bool(m_WyvernStateEast & WYVERN_NEU_ALLIANCE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_EAST_H, uint32(bool(m_WyvernStateEast & WYVERN_HORDE)));
+        m_Pvp->SendUpdateWorldState(NA_MAP_WYVERN_EAST_A, uint32(bool(m_WyvernStateEast & WYVERN_ALLIANCE)));
         break;
     }
 }
 
-class OutdoorPvP_nagrand : public OutdoorPvPScript
+class OutdoorPvp_nagrand : public OutdoorPvpScript
 {
     public:
 
-        OutdoorPvP_nagrand()
-            : OutdoorPvPScript("outdoorpvp_na")
+        OutdoorPvp_nagrand()
+            : OutdoorPvpScript("outdoorpvp_na")
         {
         }
 
-        OutdoorPvP* GetOutdoorPvP() const override
+        OutdoorPvp* GetOutdoorPvp() const override
         {
-            return new OutdoorPvPNA();
+            return new OutdoorPvpNA();
         }
 };
 
 void AddSC_outdoorpvp_na()
 {
-    new OutdoorPvP_nagrand();
+    new OutdoorPvp_nagrand();
 }

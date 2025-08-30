@@ -266,7 +266,7 @@ class spell_sha_of_anger_aggressive_behaviour : public SpellScriptLoader
                     if (!target->ToPlayer())
                         return;
                     
-                    target->SetPvP(true);
+                    target->SetPvp(true);
                     target->setFaction(16);
                     target->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_PLAYER_CONTROLLED);
                 }

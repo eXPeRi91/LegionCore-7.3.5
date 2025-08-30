@@ -28,12 +28,12 @@ WorldPacket const* WorldPackets::Talent::UpdateTalentData::Write()
         _worldPacket << talentGroupInfo.SpecID;
 
         _worldPacket << static_cast<uint32>(talentGroupInfo.TalentIDs.size());
-        _worldPacket << static_cast<uint32>(talentGroupInfo.PvPTalentIDs.size());
+        _worldPacket << static_cast<uint32>(talentGroupInfo.PvpTalentIDs.size());
 
         for (uint16 talentID : talentGroupInfo.TalentIDs)
             _worldPacket << talentID;
 
-        for (uint16 talentID : talentGroupInfo.PvPTalentIDs)
+        for (uint16 talentID : talentGroupInfo.PvpTalentIDs)
             _worldPacket << talentID;
     }
 
@@ -73,9 +73,9 @@ WorldPacket const* WorldPackets::Talent::LearnTalentFailed::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::Talent::LearnPvPTalentFailed::Write()
+WorldPacket const* WorldPackets::Talent::LearnPvpTalentFailed::Write()
 {
-    _worldPacket << PvPTalent;
+    _worldPacket << PvpTalent;
 
     return &_worldPacket;
 }

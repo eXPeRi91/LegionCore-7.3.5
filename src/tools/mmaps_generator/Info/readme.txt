@@ -34,7 +34,7 @@ Generator command line args
 
                                     true: skip junk maps (default)
 
---skipBattlegrounds [true|false]    does not include PVP arenas
+--skipBattlegrounds [true|false]    does not include PvP arenas
 
                                     false: skip battlegrounds (default)
 

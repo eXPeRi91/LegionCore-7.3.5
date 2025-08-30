@@ -58,7 +58,7 @@ class DynamicObject;
 class Garrison;
 class Group;
 class Guild;
-class OutdoorPvP;
+class OutdoorPvp;
 class Pet;
 class PhaseMgr;
 class PlayerMenu;
@@ -226,7 +226,7 @@ enum SceneEventStatus
 };
 
 typedef std::unordered_map<uint32, PlayerSpellState> PlayerTalentMap;
-typedef std::unordered_map<uint32, PlayerSpellState> PlayerPvPTalentMap;
+typedef std::unordered_map<uint32, PlayerSpellState> PlayerPvpTalentMap;
 typedef cds::container::FeldmanHashMap< cds::gc::HP, uint32, PlayerSpell, uint32Traits > PlayerSpellMap;
 typedef std::list<SpellModifier*> SpellModList;
 typedef std::list<uint32> ItemSpellList;
@@ -379,13 +379,13 @@ struct PlayerInfo
     PlayerLevelInfo* levelInfo;                             //[level-1] 0..MaxPlayerLevel-1
 };
 
-struct PvPInfo
+struct PvpInfo
 {
-    PvPInfo() : inHostileArea(false), inNoPvPArea(false), inFFAPvPArea(false), endTimer(0) {}
+    PvpInfo() : inHostileArea(false), inNoPvpArea(false), inFFAPvpArea(false), endTimer(0) {}
 
     bool inHostileArea;
-    bool inNoPvPArea;
-    bool inFFAPvPArea;
+    bool inNoPvpArea;
+    bool inFFAPvpArea;
     time_t endTimer;
 };
 
@@ -532,8 +532,8 @@ enum PlayerAvgItemLevelOffsets
 {
     TotalAvgItemLevel       = 0,
     EquippedAvgItemLevel    = 1,
-    NonPvPAvgItemLevel      = 2,
-    PvPAvgItemLevel         = 3,
+    NonPvpAvgItemLevel      = 2,
+    PvpAvgItemLevel         = 3,
 
     MaxAvgItemLevel
 };
@@ -1243,7 +1243,7 @@ struct SpecializationInfo
     { }
 
     PlayerTalentMap Talents[MAX_SPECIALIZATIONS];
-    PlayerPvPTalentMap PvPTalents[MAX_SPECIALIZATIONS];
+    PlayerPvpTalentMap PvpTalents[MAX_SPECIALIZATIONS];
     std::vector<uint32> Glyphs[MAX_SPECIALIZATIONS];
     uint32 ResetTalentsCost;
     time_t ResetTalentsTime;
@@ -1556,7 +1556,7 @@ class Player : public Unit, public GridObject<Player>
         void SetTaxiCheater(bool on) { if (on) m_ExtraFlags |= PLAYER_EXTRA_TAXICHEAT; else m_ExtraFlags &= ~PLAYER_EXTRA_TAXICHEAT; }
         bool isGMVisible() const { return !(m_ExtraFlags & PLAYER_EXTRA_GM_INVISIBLE); }
         void SetGMVisible(bool on);
-        void SetPvPDeath(bool on) { if (on) m_ExtraFlags |= PLAYER_EXTRA_PVP_DEATH; else m_ExtraFlags &= ~PLAYER_EXTRA_PVP_DEATH; }
+        void SetPvpDeath(bool on) { if (on) m_ExtraFlags |= PLAYER_EXTRA_PVP_DEATH; else m_ExtraFlags &= ~PLAYER_EXTRA_PVP_DEATH; }
         bool HasPlayerExtraFlag(uint32 flag);
         void SetPlayerExtraFlag(uint32 flag, bool addFlag = true);
         bool InvisibleStatusRatingRequirements();
@@ -1877,7 +1877,7 @@ class Player : public Unit, public GridObject<Player>
         TradeData* GetTradeData() const;
         void TradeCancel(bool sendback);
 
-        void RecalculatePvPAmountOfAuras();
+        void RecalculatePvpAmountOfAuras();
         void RecalculateAmountAllAuras();
 
         void UpdateEnchantTime(uint32 time);
@@ -2220,10 +2220,10 @@ class Player : public Unit, public GridObject<Player>
 
         // PvP talents
         bool LearnPvpTalent(uint16 talentID);
-        bool AddPvPTalent(PvpTalentEntry const* talent, uint8 index);
-        bool HasPvPTalent(uint32 spellID) const;
-        void RemovePvPTalent(uint32 spellID, uint8 group, bool isDelete = true, bool sendMessage = true);
-        void RemoveAllPvPTalent(bool isDelete = true);
+        bool AddPvpTalent(PvpTalentEntry const* talent, uint8 index);
+        bool HasPvpTalent(uint32 spellID) const;
+        void RemovePvpTalent(uint32 spellID, uint8 group, bool isDelete = true, bool sendMessage = true);
+        void RemoveAllPvpTalent(bool isDelete = true);
         void TogglePvpTalents(bool enable);
         void TogglePvpStatsScaling(bool enable);
         bool IsAreaThatActivatesPvpTalents(uint32 areaID) const;
@@ -2233,8 +2233,8 @@ class Player : public Unit, public GridObject<Player>
         bool HasPvpStatsScalingEnabled() const;
         bool HasPvpRulesTimer() const;
         void SetPvpRulesTimer(bool enable);
-        bool GetCustomPvPMods(float& val, uint32 type, uint32 specID) const;
-        void CalcPvPTemplate(AuraType auratype, float& templateMod, float& otherMod, std::function<bool(AuraEffect const*)> const& predicate);
+        bool GetCustomPvpMods(float& val, uint32 type, uint32 specID) const;
+        void CalcPvpTemplate(AuraType auratype, float& templateMod, float& otherMod, std::function<bool(AuraEffect const*)> const& predicate);
 
         void ActivateTalentGroup(ChrSpecializationEntry const* spec);
         void ForceChangeTalentGroup(uint32 specId);
@@ -2249,8 +2249,8 @@ class Player : public Unit, public GridObject<Player>
 
         PlayerTalentMap const* GetTalentMap(uint8 index) const { return &_specializationInfo.Talents[index]; }
         PlayerTalentMap* GetTalentMap(uint8 index) { return &_specializationInfo.Talents[index]; }
-        PlayerPvPTalentMap const* GetPvPTalentMap(uint8 spec) const { return &_specializationInfo.PvPTalents[spec]; }
-        PlayerPvPTalentMap* GetPvPTalentMap(uint8 spec) { return &_specializationInfo.PvPTalents[spec]; }
+        PlayerPvpTalentMap const* GetPvpTalentMap(uint8 spec) const { return &_specializationInfo.PvpTalents[spec]; }
+        PlayerPvpTalentMap* GetPvpTalentMap(uint8 spec) { return &_specializationInfo.PvpTalents[spec]; }
         std::vector<uint32> const& GetGlyphs(uint8 spec) const { return _specializationInfo.Glyphs[spec]; }
         std::vector<uint32>& GetGlyphs(uint8 spec) { return _specializationInfo.Glyphs[spec]; }
         uint32 GetSpecializationId() const { return GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID); }
@@ -2365,25 +2365,25 @@ class Player : public Unit, public GridObject<Player>
 
         int8 GetFreeActionButton();
 
-        PvPInfo pvpInfo;
-        void UpdatePvPState(bool onlyFFA = false);
-        void SetPvP(bool state) override;
-        void UpdatePvP(bool state, bool override=false);
+        PvpInfo pvpInfo;
+        void UpdatePvpState(bool onlyFFA = false);
+        void SetPvp(bool state) override;
+        void UpdatePvp(bool state, bool override=false);
         void UpdateZone(uint32 newZone, uint32 newArea);
         void UpdateArea(uint32 newArea);
         void CheckSeamlessTeleport(uint32 newZoneOrArea, bool isArea = false);
         void ZoneTeleport(uint32 zoneId);
-        bool InFFAPvPArea();
+        bool InFFAPvpArea();
 
         void UpdateZoneDependentAuras(uint32 zone_id);    // zones
         void UpdateAreaDependentAuras(uint32 area_id);    // subzones
         void UpdateAreaQuestTasks(uint32 newAreaId, uint32 oldAreaId);
 
         void UpdateAfkReport(time_t currTime);
-        void UpdatePvPFlag(time_t currTime);
-        void UpdateContestedPvP(uint32 currTime);
-        void SetContestedPvPTimer(int32 newTime) {m_contestedPvPTimer = newTime;}
-        void ResetContestedPvP();
+        void UpdatePvpFlag(time_t currTime);
+        void UpdateContestedPvp(uint32 currTime);
+        void SetContestedPvpTimer(int32 newTime) {m_contestedPvpTimer = newTime;}
+        void ResetContestedPvp();
 
         /** todo: -maybe move UpdateDuelFlag+DuelComplete to independent DuelHandler.. **/
         DuelInfo* duel;
@@ -2639,7 +2639,7 @@ class Player : public Unit, public GridObject<Player>
         void ResetLootCooldown();
 
         /*********************************************************/
-        /***                  PVP SYSTEM                       ***/
+        /***                  PvP SYSTEM                       ***/
         /*********************************************************/
         void UpdateHonorFields(bool loading = false);
         bool RewardHonor(Unit* victim, uint32 groupsize, int32 honor = -1, bool pvptoken = false);
@@ -2667,7 +2667,7 @@ class Player : public Unit, public GridObject<Player>
 
         uint8 GetRafGrantableLevelValue() const { return GetByteValue(PLAYER_FIELD_BYTES_4, PLAYER_BYTES_4_RAF_GRANTABLE_LEVEL); }
         uint8 GetActionBarTogglesValue() const { return GetByteValue(PLAYER_FIELD_BYTES_4, PLAYER_BYTES_4_ACTION_BAR_TOGGLES); }
-        uint8 GetLifetimeMaxPvPRankValue() const { return GetByteValue(PLAYER_FIELD_BYTES_4, PLAYER_BYTES_4_LIFETIME_MAX_PVP_RANK); }
+        uint8 GetLifetimeMaxPvpRankValue() const { return GetByteValue(PLAYER_FIELD_BYTES_4, PLAYER_BYTES_4_LIFETIME_MAX_PVP_RANK); }
 
         uint8 GetAuraVisionValue() const { return GetByteValue(PLAYER_FIELD_BYTES_7, PLAYER_BYTES_5_AURA_VISION); }
         uint8 GetOverrideSpellsValue() const { return GetByteValue(PLAYER_FIELD_BYTES_5, PLAYER_BYTES_5_OVERRIDE_SPELLS_ID); }
@@ -2807,11 +2807,11 @@ class Player : public Unit, public GridObject<Player>
         void ModifyDeathMatchStats(uint32 kills, uint32 deaths, uint64 damage, int32 rating, uint32 totalKills, uint32 matches = 1);
         DeathMatchScore* getDeathMatchScore() { return &dmScore; }
         /*********************************************************/
-        /***               OUTDOOR PVP SYSTEM                  ***/
+        /***               OUTDOOR PvP SYSTEM                  ***/
         /*********************************************************/
 
-        // returns true if the player is in active state for outdoor pvp objective capturing, false otherwise
-        bool IsOutdoorPvPActive();
+        // returns true if the player is in active state for outdoor PvP objective capturing, false otherwise
+        bool IsOutdoorPvpActive();
 
         /*********************************************************/
         /***                    REST SYSTEM                    ***/
@@ -3112,7 +3112,7 @@ class Player : public Unit, public GridObject<Player>
 
         float GetAverageItemLevelEquipped() const;
         float GetAverageItemLevelTotal(bool needCalculate = true, bool onlyFromScan = false) const;
-        float GetAverageItemLevelTotalWithOrWithoutPvPBonus(bool pvp) const;
+        float GetAverageItemLevelTotalWithOrWithoutPvpBonus(bool pvp) const;
 
         bool isDebugAreaTriggers;
 
@@ -3169,9 +3169,9 @@ class Player : public Unit, public GridObject<Player>
         std::tuple<uint32, uint32> GetItemDataForRatedQuest(uint32 bracketType);
         void SendPvpRatedStats();
         void PvpRatedQuestReward(uint32 quest_id);
-        std::vector<uint32> GetPvPRewardItem(uint32& itemID, uint8 type, uint32 rating, bool elit, uint32 needLevel);
-        void GetPvPRatingAndLevel(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit);
-        void GetPvPRatingAndLevelOld(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit);
+        std::vector<uint32> GetPvpRewardItem(uint32& itemID, uint8 type, uint32 rating, bool elit, uint32 needLevel);
+        void GetPvpRatingAndLevel(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit);
+        void GetPvpRatingAndLevelOld(PvpReward* reward, uint8 type, uint32& rating, uint32& needLevel, bool elit);
 
         /*********************************************************/
         /***              GARRISON SYSTEM                      ***/
@@ -3274,7 +3274,7 @@ class Player : public Unit, public GridObject<Player>
         // Gamemaster whisper whitelist
         GuidList WhisperList;
 
-        int32 m_contestedPvPTimer;
+        int32 m_contestedPvpTimer;
         int32 m_pvpAuraCheckTimer;
         uint16 m_statsUpdateTimer;
         uint32 m_updateStatsMask;

@@ -26,7 +26,7 @@
 #include "LFGMgr.h"
 #include "MiscPackets.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "PlayerDefines.h"
 #include "QuestData.h"
 #include "ScriptMgr.h"
@@ -78,45 +78,45 @@ void WorldSession::HandleLogoutCancel(WorldPackets::Character::LogoutCancel& /*p
     player->PetSpellInitialize();
 }
 
-void WorldSession::HandleTogglePvP(WorldPackets::Misc::TogglePvP& /*packet*/)
+void WorldSession::HandleTogglePvp(WorldPackets::Misc::TogglePvp& /*packet*/)
 {
     Player* player = GetPlayer();
     if (!player)
         return;
 
-    bool inPvP = player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
+    bool inPvp = player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP);
 
-    player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, inPvP ? PLAYER_FLAGS_PVP_TIMER : PLAYER_FLAGS_IN_PVP, inPvP);
+    player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, inPvp ? PLAYER_FLAGS_PVP_TIMER : PLAYER_FLAGS_IN_PVP, inPvp);
 
     if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
     {
-        if (!player->IsPvP() || player->pvpInfo.endTimer)
-            player->UpdatePvP(true, true);
+        if (!player->IsPvp() || player->pvpInfo.endTimer)
+            player->UpdatePvp(true, true);
     }
     else
     {
-        if (!player->pvpInfo.inHostileArea && player->IsPvP())
+        if (!player->pvpInfo.inHostileArea && player->IsPvp())
             player->pvpInfo.endTimer = time(nullptr);
     }
 }
 
-void WorldSession::HandleSetPvP(WorldPackets::Misc::SetPvP& packet)
+void WorldSession::HandleSetPvp(WorldPackets::Misc::SetPvp& packet)
 {
     Player* player = GetPlayer();
-    if (!player || player->IsFFAPvP())
+    if (!player || player->IsFFAPvp())
         return;
 
-    player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, packet.EnablePVP);
-    player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PVP_TIMER, !packet.EnablePVP);
+    player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, packet.EnablePvp);
+    player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PVP_TIMER, !packet.EnablePvp);
 
     if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
     {
-        if (!player->IsPvP() || player->pvpInfo.endTimer)
-            player->UpdatePvP(true, true);
+        if (!player->IsPvp() || player->pvpInfo.endTimer)
+            player->UpdatePvp(true, true);
     }
     else
     {
-        if (!player->pvpInfo.inHostileArea && player->IsPvP())
+        if (!player->pvpInfo.inHostileArea && player->IsPvp())
             player->pvpInfo.endTimer = time(nullptr);
     }
 }
@@ -248,7 +248,7 @@ void WorldSession::HandleAreaTrigger(WorldPackets::Misc::AreaTrigger& packet)
         player->InnEnter(time(nullptr), atEntry->ContinentID, atEntry->Pos.X, atEntry->Pos.Y, atEntry->Pos.Z);
         player->SetRestType(REST_TYPE_IN_TAVERN);
 
-        if (sWorld->IsFFAPvPRealm())
+        if (sWorld->IsFFAPvpRealm())
         {
             player->RemoveByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
             player->SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
@@ -257,7 +257,7 @@ void WorldSession::HandleAreaTrigger(WorldPackets::Misc::AreaTrigger& packet)
         return;
     }
 
-    if (OutdoorPvP* pvp = player->GetOutdoorPvP())
+    if (OutdoorPvp* pvp = player->GetOutdoorPvp())
         pvp->HandleAreaTrigger(_player, packet.AreaTriggerID, packet.Entered);
 
     AreaTriggerStruct const* at = sAreaTriggerDataStore->GetAreaTrigger(packet.AreaTriggerID);

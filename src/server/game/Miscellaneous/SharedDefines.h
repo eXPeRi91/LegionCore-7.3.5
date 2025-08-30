@@ -167,7 +167,7 @@ enum SpecTypes
     TANK_STRENGH        = 6
 };
 
-enum PvPStats : uint32
+enum PvpStats : uint32
 {
     MainStatValue       = 13645,
     StaminaStatValue    = 57874,

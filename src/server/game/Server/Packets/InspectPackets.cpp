@@ -92,7 +92,7 @@ WorldPacket const* WorldPackets::Inspect::InspectResult::Write()
     _worldPacket << static_cast<uint32>(Items.size());
     _worldPacket << static_cast<uint32>(Glyphs.size());
     _worldPacket << static_cast<uint32>(Talents.size());
-    _worldPacket << static_cast<uint32>(PvPTalents.size());
+    _worldPacket << static_cast<uint32>(PvpTalents.size());
 
     _worldPacket << int32(ClassID);
     _worldPacket << int32(SpecializationID);
@@ -104,7 +104,7 @@ WorldPacket const* WorldPackets::Inspect::InspectResult::Write()
     for (uint16 const& talent : Talents)
         _worldPacket << talent;
 
-    for (uint16 const& talent : PvPTalents)
+    for (uint16 const& talent : PvpTalents)
         _worldPacket << talent;
 
     _worldPacket.FlushBits();
@@ -135,13 +135,13 @@ WorldPacket const* WorldPackets::Inspect::InspectHonorStats::Write()
     return &_worldPacket;
 }
 
-void WorldPackets::Inspect::InspectPVPRequest::Read()
+void WorldPackets::Inspect::InspectPvpRequest::Read()
 {
     _worldPacket >> InspectTarget;
     _worldPacket >> InspectRealmAddress;
 }
 
-ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Inspect::PVPBracketData const& bracket)
+ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Inspect::PvpBracketData const& bracket)
 {
     data << int32(bracket.Rating);
     data << int32(bracket.Rank);
@@ -156,7 +156,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Inspect::PVPBracketData c
     return data;
 }
 
-WorldPacket const* WorldPackets::Inspect::InspectPVPResponse::Write()
+WorldPacket const* WorldPackets::Inspect::InspectPvpResponse::Write()
 {
     _worldPacket << ClientGUID;
 

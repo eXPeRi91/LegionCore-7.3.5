@@ -345,7 +345,7 @@ void WorldSession::HandleCharCreateOpcode(WorldPackets::Character::CreateChar& c
             }
         }
 
-        bool allowTwoSideAccounts = !sWorld->IsPvPRealm();
+        bool allowTwoSideAccounts = !sWorld->IsPvpRealm();
         uint32 skipCinematics = sWorld->getIntConfig(CONFIG_SKIP_CINEMATICS);
 
         std::function<void(PreparedQueryResult)> finalizeCharacterCreation = [this, createInfo, SendCharCreate](PreparedQueryResult result)
@@ -720,9 +720,9 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         features.QuickJoinConfig.ThrottleDecayTime = 60;
         features.QuickJoinConfig.ThrottlePrioritySpike = 20;
         features.QuickJoinConfig.ThrottleMinThreshold = 0;
-        features.QuickJoinConfig.ThrottlePvPPriorityNormal = 50;
-        features.QuickJoinConfig.ThrottlePvPPriorityLow = 1;
-        features.QuickJoinConfig.ThrottlePvPHonorThreshold = 10;
+        features.QuickJoinConfig.ThrottlePvpPriorityNormal = 50;
+        features.QuickJoinConfig.ThrottlePvpPriorityLow = 1;
+        features.QuickJoinConfig.ThrottlePvpHonorThreshold = 10;
         features.QuickJoinConfig.ThrottleLfgListPriorityDefault = 50;
         features.QuickJoinConfig.ThrottleLfgListPriorityAbove = 100;
         features.QuickJoinConfig.ThrottleLfgListPriorityBelow = 50;
@@ -767,7 +767,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         pCurrChar->SetGuildLevel(0);
     }
 
-    WorldPackets::Battleground::PVPSeason season;
+    WorldPackets::Battleground::PvpSeason season;
     season.PreviousSeason = sWorld->getIntConfig(CONFIG_ARENA_SEASON_ID) - 1;
     if (sWorld->getBoolConfig(CONFIG_ARENA_SEASON_IN_PROGRESS))
         season.CurrentSeason = sWorld->getIntConfig(CONFIG_ARENA_SEASON_ID);
@@ -892,24 +892,24 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         player->SendOperationsAfterDelay(OAD_LOAD_PET);
 
         // Set FFA PvP for non GM in non-rest mode
-        if (sWorld->IsFFAPvPRealm() && !player->isGameMaster() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING))
+        if (sWorld->IsFFAPvpRealm() && !player->isGameMaster() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING))
         {
             player->SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
             player->SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
         }
 
-        player->UpdatePvPState(true);
+        player->UpdatePvpState(true);
 
-        if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP) && !player->IsFFAPvP())
+        if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP) && !player->IsFFAPvp())
         {
             player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, false);
             player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PVP_TIMER, true);
-            if (!player->pvpInfo.inHostileArea && player->IsPvP())
+            if (!player->pvpInfo.inHostileArea && player->IsPvp())
                 player->pvpInfo.endTimer = time(nullptr);
         }
 
         if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_CONTESTED_PVP))
-            player->SetContestedPvP();
+            player->SetContestedPvp();
 
         // Apply at_login requests
         if (player->HasAtLoginFlag(AT_LOGIN_RESET_SPELLS))

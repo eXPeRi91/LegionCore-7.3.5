@@ -50,7 +50,7 @@ class InstanceMap;
 class InstanceScript;
 class Item;
 class Map;
-class OutdoorPvP;
+class OutdoorPvp;
 class Player;
 class Quest;
 class ScriptMgr;
@@ -70,7 +70,7 @@ struct AuctionEntry;
 struct ConditionSourceInfo;
 struct Condition;
 struct ItemTemplate;
-struct OutdoorPvPData;
+struct OutdoorPvpData;
 
 #define VISIBLE_RANGE       166.0f                          //MAX visible range (size of grid)
 
@@ -498,18 +498,18 @@ class BattlegroundScript : public ScriptObject
         virtual Battleground* GetBattleground() const = 0;
 };
 
-class OutdoorPvPScript : public ScriptObject
+class OutdoorPvpScript : public ScriptObject
 {
     protected:
 
-        OutdoorPvPScript(std::string name);
+        OutdoorPvpScript(std::string name);
 
     public:
 
         bool IsDatabaseBound() const override { return true; }
 
-        // Should return a fully valid OutdoorPvP object for the type ID.
-        virtual OutdoorPvP* GetOutdoorPvP() const = 0;
+        // Should return a fully valid OutdoorPvp object for the type ID.
+        virtual OutdoorPvp* GetOutdoorPvp() const = 0;
 };
 
 class CommandScript : public ScriptObject
@@ -673,7 +673,7 @@ class PlayerScript : public ScriptObject
     public:
 
         // Called when a player kills another player
-        virtual void OnPVPKill(Player* killer, Player* killed)
+        virtual void OnPvpKill(Player* killer, Player* killed)
         {
             uint32 killerlvl = killer->getLevel();
             uint32 killedlvl = killed->getLevel();
@@ -1028,8 +1028,8 @@ class ScriptMgr
         /* BattlegroundScript */
         Battleground* CreateBattleground(uint16 typeId);
 
-        /* OutdoorPvPScript */
-        OutdoorPvP* CreateOutdoorPvP(OutdoorPvPData const* data);
+        /* OutdoorPvpScript */
+        OutdoorPvp* CreateOutdoorPvp(OutdoorPvpData const* data);
 
         /* CommandScript */
         std::vector<ChatCommand> GetChatCommands();
@@ -1070,7 +1070,7 @@ class ScriptMgr
         uint32 OnSelectItemReward(AchievementReward const* data, Player* source);
 
         /* PlayerScript */
-        void OnPVPKill(Player* killer, Player* killed);
+        void OnPvpKill(Player* killer, Player* killed);
         void OnCreatureKill(Player* killer, Creature* killed);
         void OnPlayerKilledByCreature(Creature* killer, Player* killed);
         void OnPlayerLevelChanged(Player* player, uint8 oldLevel);

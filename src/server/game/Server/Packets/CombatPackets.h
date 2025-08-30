@@ -198,10 +198,10 @@ namespace WorldPackets
             ObjectGuid UnitGUID;
         };
 
-        class PvPCredit final : public ServerPacket
+        class PvpCredit final : public ServerPacket
         {
         public:
-            PvPCredit() : ServerPacket(SMSG_PVP_CREDIT, 4 + 4 + 16 + 4) { }
+            PvpCredit() : ServerPacket(SMSG_PVP_CREDIT, 4 + 4 + 16 + 4) { }
 
             WorldPacket const* Write() override;
 

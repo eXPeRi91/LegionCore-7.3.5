@@ -406,9 +406,9 @@ DB2Storage<PositionerStateEntryEntry>           sPositionerStateEntryStore("Posi
 DB2Storage<PowerDisplayEntry>                   sPowerDisplayStore("PowerDisplay.db2", PowerDisplayLoadInfo::Instance());
 DB2Storage<PowerTypeEntry>                      sPowerTypeStore("PowerType.db2", PowerTypeLoadInfo::Instance());
 DB2Storage<PrestigeLevelInfoEntry>              sPrestigeLevelInfoStore("PrestigeLevelInfo.db2", PrestigeLevelInfoLoadInfo::Instance());
-DB2Storage<PVPBracketTypesEntry>                sPvpBracketTypesStore("PvpBracketTypes.db2", PvpBracketTypesLoadInfo::Instance());
-DB2Storage<PVPDifficultyEntry>                  sPvpDifficultyStore("PVPDifficulty.db2", PvpDifficultyLoadInfo::Instance());
-DB2Storage<PVPItemEntry>                        sPvpItemStore("PVPItem.db2", PvpItemLoadInfo::Instance());
+DB2Storage<PvpBracketTypesEntry>                sPvpBracketTypesStore("PvpBracketTypes.db2", PvpBracketTypesLoadInfo::Instance());
+DB2Storage<PvpDifficultyEntry>                  sPvpDifficultyStore("PVPDifficulty.db2", PvpDifficultyLoadInfo::Instance());
+DB2Storage<PvpItemEntry>                        sPvpItemStore("PVPItem.db2", PvpItemLoadInfo::Instance());
 DB2Storage<PvpRewardEntry>                      sPvpRewardStore("PvpReward.db2", PvpRewardLoadInfo::Instance());
 DB2Storage<PvpScalingEffectEntry>               sPvpScalingEffectStore("PvpScalingEffect.db2", PvpScalingEffectLoadInfo::Instance());
 DB2Storage<PvpScalingEffectTypeEntry>           sPvpScalingEffectTypeStore("PvpScalingEffectType.db2", PvpScalingEffectTypeLoadInfo::Instance());
@@ -621,7 +621,7 @@ DB2Storage<WorldSafeLocsEntry>                  sWorldSafeLocsStore("WorldSafeLo
 DB2Storage<WorldStateExpressionEntry>           sWorldStateExpressionStore("WorldStateExpression.db2", WorldStateExpressionLoadInfo::Instance());
 DB2Storage<WorldStateUIEntry>                   sWorldStateUIStore("WorldStateUI.db2", WorldStateUILoadInfo::Instance());
 DB2Storage<WorldStateZoneSoundsEntry>           sWorldStateZoneSoundsStore("WorldStateZoneSounds.db2", WorldStateZoneSoundsLoadInfo::Instance());
-DB2Storage<World_PVP_AreaEntry>                 sWorld_PVP_AreaStore("World_PVP_Area.db2", World_Pvp_AreaLoadInfo::Instance());
+DB2Storage<World_Pvp_AreaEntry>                 sWorld_Pvp_AreaStore("World_PVP_Area.db2", World_Pvp_AreaLoadInfo::Instance());
 DB2Storage<ZoneIntroMusicTableEntry>            sZoneIntroMusicTableStore("ZoneIntroMusicTable.db2", ZoneIntroMusicTableLoadInfo::Instance());
 DB2Storage<ZoneLightEntry>                      sZoneLightStore("ZoneLight.db2", ZoneLightLoadInfo::Instance());
 DB2Storage<ZoneLightPointEntry>                 sZoneLightPointStore("ZoneLightPoint.db2", ZoneLightPointLoadInfo::Instance());
@@ -695,7 +695,7 @@ typedef std::map<uint32, AreaTableEntry const*> AreaEntryContainer;
 typedef std::map<uint32, DungeonEncounterEntry const*> DungeonEncounterByDisplayIDContainer;
 typedef std::unordered_map<uint32, std::vector<QuestLineXQuestEntry const*>> QuestsByQuestLineContainer; 
 typedef std::map<WMOAreaTableTripple, WMOAreaTableEntry const*> WMOAreaInfoByTrippleContainer;
-typedef std::vector<PvpTalentEntry const*> PvPTalentsByPositionContainer[MAX_CLASSES][MAX_TALENT_TIERS][MAX_TALENT_COLUMNS];
+typedef std::vector<PvpTalentEntry const*> PvpTalentsByPositionContainer[MAX_CLASSES][MAX_TALENT_TIERS][MAX_TALENT_COLUMNS];
 typedef std::map<uint32, PvpTalentEntry const*> PvpTalentBySpellIDContainer;
 typedef std::multimap<uint32 /*BuildingTypeID*/, GarrBuildingEntry const*> GarrBuildingTypeMap;
 typedef std::unordered_map<uint16, std::vector<ArtifactAppearanceSetEntry const*>> ArtifactAppearanceSetContainer;
@@ -791,7 +791,7 @@ namespace
     MapChallengeModeEntryContainer _mapChallengeModeEntrybyMap;
     MapChallengeModeListContainer _challengeModeMaps;
     MapChallengeWeightListContainer _challengeWeightMaps;
-    PvPTalentsByPositionContainer _pvpTalentByPos;
+    PvpTalentsByPositionContainer _pvpTalentByPos;
     PvpTalentBySpellIDContainer _pvpTalentBySpellID;
     PvpRewardPackByHonorLevelContainer _rewardPackByHonorLevel;
     RewardPackXItemContainer _rewardPackXItem;
@@ -1562,7 +1562,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
     LOAD_DB2(sWorldStateExpressionStore);
     LOAD_DB2(sWorldStateUIStore);
     //LOAD_DB2(sWorldStateZoneSoundsStore);
-    //LOAD_DB2(sWorld_PVP_AreaStore);
+    //LOAD_DB2(sWorld_Pvp_AreaStore);
     //LOAD_DB2(sZoneIntroMusicTableStore);
     //LOAD_DB2(sZoneLightStore);
     //LOAD_DB2(sZoneLightPointStore);
@@ -1957,7 +1957,7 @@ void DB2Manager::InitDB2CustomStores()
             _defaultChrSpecializationsByClass[chrSpec->ClassID] = chrSpec;
     }
 
-    for (PVPDifficultyEntry const* entry : sPvpDifficultyStore)
+    for (PvpDifficultyEntry const* entry : sPvpDifficultyStore)
     {
         if (entry->RangeIndex >= MS::Battlegrounds::MaxBrackets)
             ASSERT(false && "Need update MS::Battlegrounds::MaxBrackets by db2 data");
@@ -3257,10 +3257,10 @@ std::vector<ItemSpecOverrideEntry const*> const* DB2Manager::GetItemSpecOverride
     return Trinity::Containers::MapGetValuePtr(_itemSpecOverrides, itemId);
 }
 
-PVPDifficultyEntry const* DB2Manager::GetBattlegroundBracketByLevel(uint32 mapID, uint32 level)
+PvpDifficultyEntry const* DB2Manager::GetBattlegroundBracketByLevel(uint32 mapID, uint32 level)
 {
-    PVPDifficultyEntry const* maxEntry = nullptr;
-    for (PVPDifficultyEntry const* entry : sPvpDifficultyStore)
+    PvpDifficultyEntry const* maxEntry = nullptr;
+    for (PvpDifficultyEntry const* entry : sPvpDifficultyStore)
     {
         if (entry->MapID != mapID || entry->MinLevel > level)
             continue;
@@ -3275,9 +3275,9 @@ PVPDifficultyEntry const* DB2Manager::GetBattlegroundBracketByLevel(uint32 mapID
     return maxEntry;
 }
 
-PVPDifficultyEntry const* DB2Manager::GetBattlegroundBracketById(uint32 mapID, uint8 id)
+PvpDifficultyEntry const* DB2Manager::GetBattlegroundBracketById(uint32 mapID, uint8 id)
 {
-    for (PVPDifficultyEntry const* entry : sPvpDifficultyStore)
+    for (PvpDifficultyEntry const* entry : sPvpDifficultyStore)
         if (entry->MapID == mapID && entry->RangeIndex == id)
             return entry;
 

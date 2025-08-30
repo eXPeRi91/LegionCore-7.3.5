@@ -19,12 +19,12 @@
 #define OUTDOOR_PVP_ZM_
 
 #include "Language.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 
-const uint8 OutdoorPvPZMBuffZonesNum = 5;
+const uint8 OutdoorPvpZMBuffZonesNum = 5;
 
 // the buff is cast in these zones
-const uint32 OutdoorPvPZMBuffZones[OutdoorPvPZMBuffZonesNum] = {3521, 3607, 3717, 3715, 3716};
+const uint32 OutdoorPvpZMBuffZones[OutdoorPvpZMBuffZonesNum] = {3521, 3607, 3717, 3715, 3716};
 
 // linked when the central tower is controlled
 const uint32 ZM_GRAVEYARD_ZONE      = 3521;
@@ -32,7 +32,7 @@ const uint32 ZM_GRAVEYARD_ZONE      = 3521;
 // linked when the central tower is controlled
 const uint32 ZM_GRAVEYARD_ID        = 969;
 
-enum OutdoorPvPZMSpells
+enum OutdoorPvpZMSpells
 {
     // cast on the players of the controlling faction
     ZM_CAPTURE_BUFF                 = 33779,  // twin spire blessing
@@ -129,13 +129,13 @@ enum ZM_TowerStateMask
     ZM_TOWERSTATE_H                 = 4
 };
 
-class OutdoorPvPZM;
+class OutdoorPvpZM;
 
-class OPvPCapturePointZM_Beacon : public OPvPCapturePoint
+class OPvpCapturePointZM_Beacon : public OPvpCapturePoint
 {
     public:
 
-        OPvPCapturePointZM_Beacon(OutdoorPvP* pvp, ZM_BeaconType type);
+        OPvpCapturePointZM_Beacon(OutdoorPvp* Pvp, ZM_BeaconType type);
 
         void ChangeState() override;
 
@@ -162,11 +162,11 @@ enum ZM_GraveYardState
     ZM_GRAVEYARD_H          = 4
 };
 
-class OPvPCapturePointZM_GraveYard : public OPvPCapturePoint
+class OPvpCapturePointZM_GraveYard : public OPvpCapturePoint
 {
     public:
 
-        OPvPCapturePointZM_GraveYard(OutdoorPvP* pvp);
+        OPvpCapturePointZM_GraveYard(OutdoorPvp* Pvp);
 
         bool Update(uint32 diff) override;
 
@@ -199,13 +199,13 @@ class OPvPCapturePointZM_GraveYard : public OPvPCapturePoint
         ObjectGuid m_FlagCarrierGUID;
 };
 
-class OutdoorPvPZM : public OutdoorPvP
+class OutdoorPvpZM : public OutdoorPvp
 {
     public:
 
-        OutdoorPvPZM();
+        OutdoorPvpZM();
 
-        bool SetupOutdoorPvP() override;
+        bool SetupOutdoorPvp() override;
         void Initialize(uint32 zone) override;
 
         void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override;
@@ -227,7 +227,7 @@ class OutdoorPvPZM : public OutdoorPvP
 
     private:
 
-        OPvPCapturePointZM_GraveYard * m_GraveYard;
+        OPvpCapturePointZM_GraveYard * m_GraveYard;
 
         uint32 m_AllianceTowersControlled;
         uint32 m_HordeTowersControlled;

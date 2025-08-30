@@ -72,10 +72,10 @@ public:
 
     uint32 GetInstanceId() const;
     Map* GetMap();
-    OutdoorPvP* GetOutdoorPvP();
+    OutdoorPvp* GetOutdoorPvp();
     uint32 GetScenarioId() const;
     uint32 GetCurrentStep() const;
-    uint32 GetOutdoorPvPZone() const;
+    uint32 GetOutdoorPvpZone() const;
 
     void SetStepState(ScenarioStepEntry const* step, ScenarioStepState state);
     ScenarioStepState GetStepState(ScenarioStepEntry const* step);
@@ -102,7 +102,7 @@ public:
     Challenge* GetChallenge();
     sf::contention_free_shared_mutex< > i_updateLock;
 
-    void SetOutdoorPvP(OutdoorPvP* outdoor, uint32 zone);
+    void SetOutdoorPvp(OutdoorPvp* outdoor, uint32 zone);
 
 protected:
     Challenge* _challenge;
@@ -124,8 +124,8 @@ protected:
     bool bonusRewarded;
     bool hasbonus;
 
-    OutdoorPvP* m_outdoorPvp = nullptr;
-    uint32 m_outdoorPvpZone = 0;
+    OutdoorPvp* m_OutdoorPvp = nullptr;
+    uint32 m_OutdoorPvpZone = 0;
 };
 
 #endif

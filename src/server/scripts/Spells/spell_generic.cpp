@@ -795,7 +795,7 @@ class spell_creature_permanent_feign_death : public SpellScriptLoader
         }
 };
 
-enum PvPTrinketTriggeredSpells
+enum PvpTrinketTriggeredSpells
 {
     SPELL_WILL_OF_THE_FORSAKEN_COOLDOWN_TRIGGER         = 72752,
     SPELL_WILL_OF_THE_FORSAKEN_COOLDOWN_TRIGGER_WOTF    = 72757,
@@ -4695,7 +4695,7 @@ class spell_gen_spec_stat_template : public AuraScript
                 uint32 specId = plr->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
                 float statMod = 0.f;
 
-                if (!plr->GetCustomPvPMods(statMod, _effects[aurEff->GetEffIndex()], specId))
+                if (!plr->GetCustomPvpMods(statMod, _effects[aurEff->GetEffIndex()], specId))
                     statMod = sDB2Manager.GetPvpScalingValueByEffectType(_effects[aurEff->GetEffIndex()], specId);
 
                 switch (aurEff->GetEffIndex())
@@ -6057,7 +6057,7 @@ class spell_gen_cothl : public SpellScript
     {
         if (auto caster = GetCaster())
         {
-            if (!caster->CanPvPScalar())
+            if (!caster->CanPvpScalar())
             {
                 if (AuraEffect const* aurEff = caster->GetAuraEffect(252799, EFFECT_0)) // Shocklight
                 {

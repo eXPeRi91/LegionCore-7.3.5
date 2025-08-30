@@ -23,7 +23,7 @@
 #include "ScenarioPackets.h"
 #include "InstanceScript.h"
 #include "QuestData.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 
 Scenario::Scenario(Map* map, lfg::LFGDungeonData const* _dungeonData, Player* player, bool find) : m_achievementMgr(this)
 {
@@ -250,14 +250,14 @@ Map* Scenario::GetMap()
     return curMap;
 }
 
-OutdoorPvP* Scenario::GetOutdoorPvP()
+OutdoorPvp* Scenario::GetOutdoorPvp()
 {
-    return m_outdoorPvp;
+    return m_OutdoorPvp;
 }
 
-uint32 Scenario::GetOutdoorPvPZone() const
+uint32 Scenario::GetOutdoorPvpZone() const
 {
-    return m_outdoorPvpZone;
+    return m_OutdoorPvpZone;
 }
 
 
@@ -301,8 +301,8 @@ void Scenario::SetCurrentStep(uint8 step)
 
     SendStepUpdate();
 
-    if (OutdoorPvP* outDoorPvP = GetOutdoorPvP())
-        outDoorPvP->SetData(GetOutdoorPvPZone(), currentStep);
+    if (OutdoorPvp* outDoorPvp = GetOutdoorPvp())
+        outDoorPvp->SetData(GetOutdoorPvpZone(), currentStep);
     else if (Map *m = GetMap())
     {
         if (InstanceMap* i = m->ToInstanceMap())
@@ -349,8 +349,8 @@ void Scenario::UpdateCurrentStep(bool loading)
     {
         if (currentStep != 0 && currentStep < steps.size())
         {
-            if (OutdoorPvP* outDoorPvP = GetOutdoorPvP())
-                outDoorPvP->SetData(GetOutdoorPvPZone(), currentStep);
+            if (OutdoorPvp* outDoorPvp = GetOutdoorPvp())
+                outDoorPvp->SetData(GetOutdoorPvpZone(), currentStep);
             else if (Map *m = GetMap())
             {
                 if (InstanceMap* i = m->ToInstanceMap())
@@ -413,7 +413,7 @@ void Scenario::Reward(bool bonus, uint32 rewardStep)
 
     ObjectGuid groupGuid;
     Map* map = GetMap();
-    OutdoorPvP* pvpMap = GetOutdoorPvP();
+    OutdoorPvp* pvpMap = GetOutdoorPvp();
     // map not created? bye-bye reward
     if (!pvpMap && !map)
         return;
@@ -437,9 +437,9 @@ void Scenario::Reward(bool bonus, uint32 rewardStep)
                 data.ScenarioID = scenarioId;
                 player->SendDirectMessage(data.Write());
             }
-        }, GetOutdoorPvPZone());
+        }, GetOutdoorPvpZone());
 
-        pvpMap->SetData(GetOutdoorPvPZone(), 100);
+        pvpMap->SetData(GetOutdoorPvpZone(), 100);
     }
     else if (map)
     {
@@ -630,9 +630,9 @@ void Scenario::SendCriteriaUpdate(CriteriaProgress const* progress, uint32 timeE
 
 void Scenario::BroadCastPacket(const WorldPacket* data)
 {
-    if (m_outdoorPvp)
+    if (m_OutdoorPvp)
     {
-        m_outdoorPvp->BroadcastPacketByZone(*data, m_outdoorPvpZone);
+        m_OutdoorPvp->BroadcastPacketByZone(*data, m_OutdoorPvpZone);
         return;
     }
 
@@ -671,10 +671,10 @@ Challenge* Scenario::GetChallenge()
     return _challenge;
 }
 
-void Scenario::SetOutdoorPvP(OutdoorPvP * outdoor, uint32 zone)
+void Scenario::SetOutdoorPvp(OutdoorPvp* outdoor, uint32 zone)
 {
-    m_outdoorPvp = outdoor;
-    m_outdoorPvpZone = zone;
+    m_OutdoorPvp = outdoor;
+    m_OutdoorPvpZone = zone;
 }
 
 void Scenario::UpdateAchievementCriteria(CriteriaTypes type, uint32 miscValue1 /*= 0*/, uint32 miscValue2 /*= 0*/, uint32 miscValue3 /*= 0*/, Unit* unit /*= NULL*/, Player* referencePlayer /*= NULL*/)

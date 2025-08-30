@@ -49,7 +49,7 @@ enum GoVisualCounter
 typedef std::map<ObjectGuid, uint32/*time*/> lastUserList;
 typedef std::unordered_map<uint32, GameObjectTemplate> GameObjectTemplateContainer;
 
-class OPvPCapturePoint;
+class OPvpCapturePoint;
 struct TransportAnimation;
 
 union GameObjectValue
@@ -69,7 +69,7 @@ union GameObjectValue
     //29 GAMEOBJECT_TYPE_CONTROL_ZONE
     struct
     {
-        OPvPCapturePoint *OPvPObj;
+        OPvpCapturePoint *OPvpObj;
     } ControlZone;
     //33 GAMEOBJECT_TYPE_DESTRUCTIBLE_BUILDING
     struct

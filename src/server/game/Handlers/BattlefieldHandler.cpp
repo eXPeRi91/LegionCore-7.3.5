@@ -35,7 +35,7 @@ void WorldSession::SendBfEntered(uint64 queueID, bool relocated, bool onOffense)
 {
 }
 
-void WorldSession::HandleReportPvPPlayerAFK(WorldPackets::Battleground::ReportPvPPlayerAFK& packet)
+void WorldSession::HandleReportPvpPlayerAFK(WorldPackets::Battleground::ReportPvpPlayerAFK& packet)
 {
     if (Player* reportedPlayer = ObjectAccessor::FindPlayer(packet.Offender))
         reportedPlayer->ReportedAfkBy(_player);

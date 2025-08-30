@@ -178,7 +178,7 @@ void BattlegroundMgr::SendBattlegroundList(Player* player, ObjectGuid const& gui
     if (!bgTemplate)
         return;
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bgTemplate->GetMapId(), player->getLevel());
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bgTemplate->GetMapId(), player->getLevel());
     if (!bracketEntry)
         return;
 
@@ -192,7 +192,7 @@ void BattlegroundMgr::SendBattlegroundList(Player* player, ObjectGuid const& gui
 
     if (bgTypeId != MS::Battlegrounds::BattlegroundTypeId::ArenaAll && bgTypeId != MS::Battlegrounds::BattlegroundTypeId::BrawlArenaAll && bgTypeId != MS::Battlegrounds::BattlegroundTypeId::BattlegroundRatedEyeOfTheStorm && bgTypeId != MS::Battlegrounds::BattlegroundTypeId::BrawlAllSix)
         if (Battleground* bgtemplate_ = GetBattlegroundTemplate(bgTypeId))
-            if (PVPDifficultyEntry const* v = sDB2Manager.GetBattlegroundBracketByLevel(bgtemplate_->GetMapId(), player->getLevel()))
+            if (PvpDifficultyEntry const* v = sDB2Manager.GetBattlegroundBracketByLevel(bgtemplate_->GetMapId(), player->getLevel()))
                 for (auto const& x : _clientBattlegroundIDs[bgTypeId][v->RangeIndex])
                     battlefieldList.Battlefields.push_back(x);
 
@@ -317,7 +317,7 @@ uint32 BattlegroundMgr::CreateClientVisibleInstanceId(uint16 bgTypeId, uint8 bra
     return lastId + 1;
 }
 
-Battleground* BattlegroundMgr::CreateNewBattleground(uint16 bgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType/*=bgTypeId*/, bool useTournamentRules /*= false*/, bool isWarGame /*= false*/)
+Battleground* BattlegroundMgr::CreateNewBattleground(uint16 bgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType/*=bgTypeId*/, bool useTournamentRules /*= false*/, bool isWarGame /*= false*/)
 {
     CreateBattlegroundData const* bgData = GetBattlegroundData(bgTypeId);
     if (!bgData)

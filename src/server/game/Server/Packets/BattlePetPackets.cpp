@@ -327,7 +327,7 @@ WorldPacket const* WorldPackets::BattlePet::FinalizeLocation::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::BattlePet::PVPChallenge::Write()
+WorldPacket const* WorldPackets::BattlePet::PvpChallenge::Write()
 {
     _worldPacket << ChallengerGUID;
     _worldPacket << Location;
@@ -341,7 +341,7 @@ void WorldPackets::BattlePet::RequestWild::Read()
     _worldPacket >> Battle.Location;
 }
 
-void WorldPackets::BattlePet::RequestPVP::Read()
+void WorldPackets::BattlePet::RequestPvp::Read()
 {
     _worldPacket >> Battle.TargetGUID;
     _worldPacket >> Battle.Location;
@@ -539,7 +539,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::BattlePet::PetBattleFullU
 
     data << update.InitialWildPetGUID;
 
-    data.WriteBit(update.IsPVP);
+    data.WriteBit(update.IsPvp);
     data.WriteBit(update.CanAwardXP);
     data.FlushBits();
 

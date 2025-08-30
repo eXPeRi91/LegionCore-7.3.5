@@ -715,8 +715,8 @@ class World
         void ProcessMailboxQueue();
         void Transfer();
 
-        uint32 GetPvPMysticCount() const { return m_pvpMysticCount; }
-        void AddPvPMysticCount() { m_pvpMysticCount++; }
+        uint32 GetPvpMysticCount() const { return m_pvpMysticCount; }
+        void AddPvpMysticCount() { m_pvpMysticCount++; }
 
         /// Security level limitations
         AccountTypes GetPlayerSecurityLimit() const { return m_allowedSecurityLevel; }
@@ -818,8 +818,8 @@ class World
         void LoadWorldStates();
 
         /// Are we on a "Player versus Player" server?
-        bool IsPvPRealm() const;
-        bool IsFFAPvPRealm() const;
+        bool IsPvpRealm() const;
+        bool IsFFAPvpRealm() const;
 
         void KickAll();
         void KickAllLess(AccountTypes sec);

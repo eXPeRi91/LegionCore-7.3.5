@@ -80,7 +80,7 @@
 #include "MMapFactory.h"
 #include "ObjectMgr.h"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "PetBattleSystem.h"
 #include "Player.h"
 #include "PlayerDump.h"
@@ -1509,7 +1509,7 @@ void World::LoadConfigSettings(bool reload)
 
     m_bool_configs[CONFIG_PLAYER_UNLIMITED_LEGION_LEGENDARIES] = sConfigMgr->GetBoolDefault("Player.UnlimitedLegionLegendaries", true);
     m_int_configs[CONFIG_PLAYER_LEGION_LEGENDARY_EQUIP_COUNT] = sConfigMgr->GetIntDefault("Player.LegionLegendaryEquipCount", 0);
-    m_bool_configs[CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME] = sConfigMgr->GetBoolDefault("Player.AllowPVPTalentsAllTheTime", false);
+    m_bool_configs[CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME] = sConfigMgr->GetBoolDefault("Player.AllowPvPTalentsAllTheTime", false);
 
     // Honor for elites and guards
     m_bool_configs[CONFIG_GAIN_HONOR_GUARD] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnGuardKill", true);
@@ -1628,7 +1628,7 @@ void World::SetInitialWorldSettings()
     //No SQL injection as values are treated as integers
 
     // not send custom type REALM_FFA_PVP to realm list
-    uint32 server_type = IsFFAPvPRealm() ? uint32(REALM_TYPE_PVP) : getIntConfig(CONFIG_GAME_TYPE);
+    uint32 server_type = IsFFAPvpRealm() ? uint32(REALM_TYPE_PVP) : getIntConfig(CONFIG_GAME_TYPE);
     uint32 realm_zone = getIntConfig(CONFIG_REALM_ZONE);
 
     LoginDatabase.PExecute("UPDATE realmlist SET icon = %u, timezone = %u WHERE id = '%d'", server_type, realm_zone, realm.Id.Realm);      // One-time query
@@ -2234,9 +2234,9 @@ void World::SetInitialWorldSettings()
     sBattlegroundMgr->InitializeBrawlData();
     CharacterDatabase.Execute("UPDATE `character_battleground_data` SET `team` = 0"); // Need update if crash server
 
-    ///- Initialize outdoor pvp
+    ///- Initialize outdoor Pvp
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Starting Outdoor PvP System");
-    sOutdoorPvPMgr->InitOutdoorPvP();
+    sOutdoorPvpMgr->InitOutdoorPvp();
 
     ///- Initialize Battlefield
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Starting Battlefield System");
@@ -4141,13 +4141,13 @@ void World::LoadWorldStates()
 
 }
 
-bool World::IsPvPRealm() const
+bool World::IsPvpRealm() const
 {
     return (getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_PVP || getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_RPPVP ||
         getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP);
 }
 
-bool World::IsFFAPvPRealm() const
+bool World::IsFFAPvpRealm() const
 {
     return getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP;
 }

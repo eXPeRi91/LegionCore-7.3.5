@@ -706,22 +706,22 @@ namespace WorldPackets
             void Read() override { }
         };
 
-        class TogglePvP final : public ClientPacket
+        class TogglePvp final : public ClientPacket
         {
         public:
-            TogglePvP(WorldPacket&& packet) : ClientPacket(CMSG_TOGGLE_PVP, std::move(packet)) { }
+            TogglePvp(WorldPacket&& packet) : ClientPacket(CMSG_TOGGLE_PVP, std::move(packet)) { }
 
             void Read() override { }
         };
 
-        class SetPvP final : public ClientPacket
+        class SetPvp final : public ClientPacket
         {
         public:
-            SetPvP(WorldPacket&& packet) : ClientPacket(CMSG_SET_PVP, std::move(packet)) { }
+            SetPvp(WorldPacket&& packet) : ClientPacket(CMSG_SET_PVP, std::move(packet)) { }
 
             void Read() override;
 
-            bool EnablePVP = false;
+            bool EnablePvp = false;
         };
 
         class SummonRequest final : public ServerPacket

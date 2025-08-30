@@ -890,7 +890,7 @@ void LFGMgr::UpdateRoleCheck(ObjectGuid gguid, ObjectGuid guid /* = 0 */, uint8 
     Battleground* bg = nullptr;
     GroupQueueInfo* ginfo = nullptr;
     uint32 avgTime = 0;
-    PVPDifficultyEntry const* bracketEntry = nullptr;
+    PvpDifficultyEntry const* bracketEntry = nullptr;
     if (roleCheck.state == LFG_ROLECHECK_FINISHED && roleCheck.bgQueueId)
     {
         bg = sBattlegroundMgr->GetBattlegroundTemplate(roleCheck.bgQueueId);

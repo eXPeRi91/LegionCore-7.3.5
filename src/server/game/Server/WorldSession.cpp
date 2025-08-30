@@ -47,7 +47,7 @@
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "PacketUtilities.h"
 #include "Player.h"
 #include "RealmList.h"
@@ -511,8 +511,8 @@ void WorldSession::LogoutPlayer(bool Save)
 
         if (_player->GetMap())
         {
-            sOutdoorPvPMgr->HandlePlayerLeaveZone(_player->GetGUID(), _player->GetCurrentZoneID());
-            sOutdoorPvPMgr->HandlePlayerLeaveArea(_player->GetGUID(), _player->GetCurrentAreaID());
+            sOutdoorPvpMgr->HandlePlayerLeaveZone(_player->GetGUID(), _player->GetCurrentZoneID());
+            sOutdoorPvpMgr->HandlePlayerLeaveArea(_player->GetGUID(), _player->GetCurrentAreaID());
         }
 
         _player->SetDelete();
@@ -565,7 +565,7 @@ void WorldSession::LogoutPlayer(bool Save)
             if (_killer)
             {
                 _player->RemoveAllAurasOnDeath();
-                _player->SetPvPDeath(!aset.empty());
+                _player->SetPvpDeath(!aset.empty());
                 _player->KillPlayer();
                 _player->BuildPlayerRepop();
                 _player->RepopAtGraveyard();

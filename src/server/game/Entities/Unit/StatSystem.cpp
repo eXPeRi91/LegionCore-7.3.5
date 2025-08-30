@@ -68,7 +68,7 @@ void Player::UpdateStatsByMask()
         UpdateItemLevels();
 
     if (m_operationsAfterDelayMask & OAD_RECALC_PVP_BP)
-        RecalculatePvPAmountOfAuras();
+        RecalculatePvpAmountOfAuras();
 
     if (m_operationsAfterDelayMask & OAD_RECALC_AURAS)
         RecalculateAmountAllAuras();
@@ -194,7 +194,7 @@ float Player::GetTotalStatValue(Stats stat)
 
     if (HasPvpStatsScalingEnabled())
     {
-        CalcPvPTemplate(SPELL_AURA_MOD_STAT, value, otherMod, [stat](AuraEffect const* aurEff) -> bool
+        CalcPvpTemplate(SPELL_AURA_MOD_STAT, value, otherMod, [stat](AuraEffect const* aurEff) -> bool
         {
             return aurEff->GetMiscValue() < 0 || aurEff->GetMiscValue() == stat;
         });
@@ -255,7 +255,7 @@ void Player::ApplySpellPowerBonus(int32 amount, bool apply)
     UpdateSpellDamageAndHealingBonus();
 }
 
-bool Player::GetCustomPvPMods(float& val, uint32 type, uint32 specID) const
+bool Player::GetCustomPvpMods(float& val, uint32 type, uint32 specID) const
 {
     switch (specID)
     {
@@ -544,7 +544,7 @@ bool Player::GetCustomPvPMods(float& val, uint32 type, uint32 specID) const
     return false;
 }
 
-void Player::CalcPvPTemplate(AuraType auratype, float & templateMod, float & otherMod, std::function<bool(AuraEffect const*)> const& predicate)
+void Player::CalcPvpTemplate(AuraType auratype, float & templateMod, float & otherMod, std::function<bool(AuraEffect const*)> const& predicate)
 {
     if (auto const* mTotalAuraList = GetAuraEffectsByType(auratype))
     {

@@ -36,7 +36,7 @@
 #include "MMapManager.h"
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "PlayerDefines.h"
 #include "PoolMgr.h"
 #include "QuestData.h"
@@ -154,7 +154,7 @@ void GameObject::AddToWorld()
             bg->OnGameObjectCreate(this);
 
         // Crashed in OpenPVP update, need rework
-        // if (auto pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetZoneId()))
+        // if (auto pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetZoneId()))
             // pvp->OnGameObjectCreate(this);
 
         sObjectAccessor->AddObject(this);
@@ -2299,7 +2299,7 @@ void GameObject::Use(Unit* user)
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
-        if (!user->IsPlayer() || !sOutdoorPvPMgr->HandleCustomSpell(user->ToPlayer(), spellId, this))
+        if (!user->IsPlayer() || !sOutdoorPvpMgr->HandleCustomSpell(user->ToPlayer(), spellId, this))
             TC_LOG_DEBUG(LOG_FILTER_GENERAL, "WORLD: unknown spell id %u at use action for gameobject (Entry: %u GoType: %u)", spellId, GetEntry(), GetGoType());
         else
             TC_LOG_DEBUG(LOG_FILTER_GENERAL, "WORLD: %u non-dbc spell was handled by OutdoorPvP", spellId);

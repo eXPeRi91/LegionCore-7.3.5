@@ -3486,8 +3486,8 @@ struct ItemSparseEntry
     uint8       OverallQualityID;
     uint8       InventoryType;
     int8        RequiredLevel;
-    uint8       RequiredPVPRank;
-    uint8       RequiredPVPMedal;
+    uint8       RequiredPvpRank;
+    uint8       RequiredPvpMedal;
     uint8       MinReputation;
     uint8       ContainerSlots;
     int8        StatModifierBonusStat[10];
@@ -4578,8 +4578,8 @@ struct PlayerConditionEntry
     uint8       MaxReputation;
     int32       ReputationLogic;
     uint8       CurrentPvpFaction;
-    uint8       MinPVPRank;
-    uint8       MaxPVPRank;
+    uint8       MinPvpRank;
+    uint8       MaxPvpRank;
     uint8       PvpMedal;
     int32       PrevQuestLogic;
     int32       CurrQuestLogic;
@@ -4591,7 +4591,7 @@ struct PlayerConditionEntry
     uint16      WorldStateExpressionID;
     uint8       WeatherID;
     uint8       PartyStatus;
-    uint8       LifetimeMaxPVPRank;
+    uint8       LifetimeMaxPvpRank;
     int32       AchievementLogic;
     int32       LfgLogic;
     int32       AreaLogic;
@@ -4725,7 +4725,7 @@ struct PrestigeLevelInfoEntry
 };
 
 // FileOptions: Index, None
-struct PVPBracketTypesEntry
+struct PvpBracketTypesEntry
 {
     int32       ID;
     uint8       BracketID;
@@ -4733,7 +4733,7 @@ struct PVPBracketTypesEntry
 };
 
 // FileOptions: Index, None
-struct PVPDifficultyEntry
+struct PvpDifficultyEntry
 {
     int32       ID;
     uint8       RangeIndex;
@@ -4743,7 +4743,7 @@ struct PVPDifficultyEntry
 };
 
 // FileOptions: Index, None
-struct PVPItemEntry
+struct PvpItemEntry
 {
     int32       ID;
     int32       ItemID;
@@ -7371,7 +7371,7 @@ struct WorldStateZoneSoundsEntry
 };
 
 // FileOptions: Index, None
-struct World_PVP_AreaEntry
+struct World_Pvp_AreaEntry
 {
     int32       ID;
     uint16      AreaID;

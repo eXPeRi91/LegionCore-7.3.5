@@ -81,12 +81,12 @@ KillRewarder::KillRewarder(Player* killer, Unit* victim, bool isBattleGround)
     _xp = 0;
     _isFullXP = false;
     _isBattleGround = isBattleGround;
-    _isPvP = false;
+    _isPvp = false;
 
     if (victim->IsPlayer())
-        _isPvP = true;
+        _isPvp = true;
     else if (victim->GetCharmerOrOwnerGUID().IsPlayer())
-        _isPvP = !victim->IsVehicle();
+        _isPvp = !victim->IsVehicle();
 
     _InitGroupData();
 }
@@ -137,7 +137,7 @@ inline void KillRewarder::_InitXP(Player* player)
     // * on battlegrounds;
     // * otherwise, not in PvP;
     // * not if killer is on vehicle.
-    if (_victim && (_isBattleGround || (!_isPvP && !_killer->GetVehicle())))
+    if (_victim && (_isBattleGround || (!_isPvp && !_killer->GetVehicle())))
         _xp = Trinity::XP::Gain(player, _victim);
 }
 
@@ -225,7 +225,7 @@ void KillRewarder::_RewardPlayer(Player* player, bool isDungeon)
     }
 
     // Give XP only in PvE or in battlegrounds. Give reputation and kill credit only in PvE.
-    if (!_isPvP || _isBattleGround)
+    if (!_isPvp || _isBattleGround)
     {
         const float rate = _group ? _groupRate * float(player->getLevel()) / _aliveSumLevel : 1.0f;// Group rate depends on summary level. Personal rate is 100%.
         if (_xp)
@@ -253,11 +253,11 @@ void KillRewarder::_RewardGroup()
         // To avoid unnecessary calculations and calls, proceed only if XP is not ZERO or player is not on battleground (battleground rewards only XP, that's why).
         if (!_isBattleGround || _xp)
         {
-            const bool isDungeon = !_isPvP && sMapStore.LookupEntry(_killer->GetMapId())->IsDungeon();
+            const bool isDungeon = !_isPvp && sMapStore.LookupEntry(_killer->GetMapId())->IsDungeon();
             if (!_isBattleGround)
             {
                 // 3.1.2. Alter group rate if group is in raid (not for battlegrounds).
-                const bool isRaid = !_isPvP && sMapStore.LookupEntry(_killer->GetMapId())->IsRaid() && _group->isRaidGroup();
+                const bool isRaid = !_isPvp && sMapStore.LookupEntry(_killer->GetMapId())->IsRaid() && _group->isRaidGroup();
                 _groupRate = Trinity::XP::xp_in_group_rate(_count, isRaid);
             }
 

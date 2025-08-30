@@ -3,7 +3,7 @@
 #include "CombatAI.h"
 #include "custom_events.h"
 #include "GameEventMgr.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "QuestData.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
@@ -2292,17 +2292,17 @@ class spell_new_year_evala_pos_check : public SpellScript
 
 
 //atray
-class OutdoorPvPAB_winter_event : public OutdoorPvP
+class OutdoorPvpAB_winter_event : public OutdoorPvp
 {
 public:
-    OutdoorPvPAB_winter_event()
+    OutdoorPvpAB_winter_event()
     {
         m_TypeId = OUTDOOR_PVP_AB_WINTER_EVENT;
     }
 
-    ~OutdoorPvPAB_winter_event() = default;
+    ~OutdoorPvpAB_winter_event() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         RegisterZone(65);
         return true;
@@ -2420,30 +2420,30 @@ private:
     }
 };
 
-class OutdoorPvP_AB_winter_event : public OutdoorPvPScript
+class OutdoorPvp_AB_winter_event : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_AB_winter_event() : OutdoorPvPScript("outdoorpvp_ab_winter_event") {}
+    OutdoorPvp_AB_winter_event() : OutdoorPvpScript("outdoorpvp_ab_winter_event") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPAB_winter_event();
+        return new OutdoorPvpAB_winter_event();
     }
 };
 
 
 // evala
-class OutdoorPvPAB_winter_event_ev : public OutdoorPvP
+class OutdoorPvpAB_winter_event_ev : public OutdoorPvp
 {
 public:
-    OutdoorPvPAB_winter_event_ev()
+    OutdoorPvpAB_winter_event_ev()
     {
         m_TypeId = OUTDOOR_PVP_AB_WNTR_EVENT_EV;
     }
 
-    ~OutdoorPvPAB_winter_event_ev() = default;
+    ~OutdoorPvpAB_winter_event_ev() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         RegisterZone(618);
         return true;
@@ -2570,14 +2570,14 @@ private:
     }
 };
 
-class OutdoorPvP_AB_winter_event_ev : public OutdoorPvPScript
+class OutdoorPvp_AB_winter_event_ev : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_AB_winter_event_ev() : OutdoorPvPScript("outdoorpvp_ab_winter_event_ev") {}
+    OutdoorPvp_AB_winter_event_ev() : OutdoorPvpScript("outdoorpvp_ab_winter_event_ev") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPAB_winter_event_ev();
+        return new OutdoorPvpAB_winter_event_ev();
     }
 };
 
@@ -5626,6 +5626,6 @@ void AddSC_custom_events()
     new player_monk_quest_43062();
     new player_remove_flight_if_not_mounted();
 
-    new OutdoorPvP_AB_winter_event();
-    new OutdoorPvP_AB_winter_event_ev();
+    new OutdoorPvp_AB_winter_event();
+    new OutdoorPvp_AB_winter_event_ev();
 };

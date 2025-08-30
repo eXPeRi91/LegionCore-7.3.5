@@ -358,7 +358,7 @@ class AuraEffect
         void HandleAuraModMinimumSpeedRate(AuraApplication const* aurApp, uint8 mode, bool apply) const;
         void HandleFixate(AuraApplication const* aurApp, uint8 mode, bool apply) const;
         void HandleModTimeRate(AuraApplication const* aurApp, uint8 mode, bool apply) const;
-        void HandleAuraContestedPvP(AuraApplication const* aurApp, uint8 mode, bool apply) const;
+        void HandleAuraContestedPvp(AuraApplication const* aurApp, uint8 mode, bool apply) const;
         void HandleAuraModCooldownSpeedRate(AuraApplication const* aurApp, uint8 mode, bool apply) const;
         void HandleAuraModCooldownPct(AuraApplication const* aurApp, uint8 mode, bool apply) const;
         void HandleAuraProcOnHpBelow(AuraApplication const* aurApp, uint8 mode, bool apply) const;

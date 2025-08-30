@@ -69,9 +69,9 @@ namespace WorldPackets
                 float ThrottleLfgListPriorityDefault = 0.0f;
                 float ThrottleMinThreshold = 0.0f;
                 float ThrottlePrioritySpike = 0.0f;
-                float ThrottlePvPHonorThreshold = 0.0f;
-                float ThrottlePvPPriorityLow = 0.0f;
-                float ThrottlePvPPriorityNormal = 0.0f;
+                float ThrottlePvpHonorThreshold = 0.0f;
+                float ThrottlePvpPriorityLow = 0.0f;
+                float ThrottlePvpPriorityNormal = 0.0f;
                 float ThrottleRfIlvlScalingAbove = 0.0f;
                 float ThrottleRfPriorityAbove = 0.0f;
                 float ToastDuration = 0.0f;

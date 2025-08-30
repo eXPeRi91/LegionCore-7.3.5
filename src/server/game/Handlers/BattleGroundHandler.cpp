@@ -23,7 +23,7 @@
 #include "DisableMgr.h"
 #include "GameTables.h"
 #include "NPCPackets.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "WowTime.hpp"
 #include "GameEventMgr.h"
 #include "LFGMgr.h"
@@ -79,7 +79,7 @@ void WorldSession::HandleBattlemasterJoin(WorldPackets::Battleground::Join& pack
     if (!bg)
         return;
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
     if (!bracketEntry)
         return;
 
@@ -184,7 +184,7 @@ void WorldSession::HandleBattlemasterJoin(WorldPackets::Battleground::Join& pack
     sBattlegroundMgr->ScheduleQueueUpdate(new QueueSchedulerItem(0, 0, bgQueueTypeId, queueID, bracketEntry->RangeIndex, Roles(packet.RolesMask), bracketEntry->MinLevel));
 }
 
-void WorldSession::HandlePVPLogData(WorldPackets::Battleground::NullCmsg& /*packet*/)
+void WorldSession::HandlePvpLogData(WorldPackets::Battleground::NullCmsg& /*packet*/)
 {
     Player* player = GetPlayer();
     Battleground* bg = player->GetBattleground();
@@ -194,9 +194,9 @@ void WorldSession::HandlePVPLogData(WorldPackets::Battleground::NullCmsg& /*pack
     if (bg->IsArena())
         return;
 
-    WorldPackets::Battleground::PVPLogData pvpLogData;
-    bg->BuildPvPLogDataPacket(pvpLogData);
-    SendPacket(pvpLogData.Write());
+    WorldPackets::Battleground::PvpLogData PvpLogData;
+    bg->BuildPvpLogDataPacket(PvpLogData);
+    SendPacket(PvpLogData.Write());
 }
 
 void WorldSession::HandleBattlefieldList(WorldPackets::Battleground::ListClient& packet)
@@ -290,7 +290,7 @@ void WorldSession::HandleBattleFieldPort(WorldPackets::Battleground::Port& packe
     // get real bg type
     bgTypeId = bg->GetTypeID();
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
     if (!bracketEntry)
         return;
 
@@ -482,7 +482,7 @@ void WorldSession::HandleBattlefieldStatus(WorldPackets::Battleground::NullCmsg&
             if (!bg)
                 continue;
 
-            PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+            PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
             if (!bracketEntry)
                 continue;
 
@@ -676,7 +676,7 @@ void WorldSession::HandleRequestRatedInfo(WorldPackets::Battleground::NullCmsg& 
 
 void WorldSession::HandleRequestPvpOptions(WorldPackets::Battleground::NullCmsg& /*packet*/)
 {
-    WorldPackets::Battleground::PVPOptionsEnabled options;
+    WorldPackets::Battleground::PvpOptionsEnabled options;
     options.RatedArenas = true;
     options.ArenaSkirmish = true;
     options.PugBattlegrounds = true;
@@ -686,7 +686,7 @@ void WorldSession::HandleRequestPvpOptions(WorldPackets::Battleground::NullCmsg&
     SendPacket(options.Write());
 }
 
-void WorldSession::HandleRequestPvpReward(WorldPackets::Battleground::RequestPVPRewards& /*packet*/)
+void WorldSession::HandleRequestPvpReward(WorldPackets::Battleground::RequestPvpRewards& /*packet*/)
 {
     GetPlayer()->SendPvpRewards();
 }
@@ -722,8 +722,8 @@ void WorldSession::HandleAreaSpiritHealerQuery(WorldPackets::Battleground::AreaS
     if (Battlefield* bf = sBattlefieldMgr->GetBattlefieldToZoneId(player->GetCurrentZoneID()))
         bf->SendAreaSpiritHealerQuery(player, packet.HealerGuid);
 
-    if (auto outdoorPvP = player->GetOutdoorPvP())
-        outdoorPvP->SendAreaSpiritHealerQueryOpcode(player, packet.HealerGuid);
+    if (auto outdoorPvp = player->GetOutdoorPvp())
+        outdoorPvp->SendAreaSpiritHealerQueryOpcode(player, packet.HealerGuid);
 }
 
 void WorldSession::HandleAreaSpiritHealerQueue(WorldPackets::Battleground::AreaSpiritHealerQueue& packet)
@@ -748,8 +748,8 @@ void WorldSession::HandleAreaSpiritHealerQueue(WorldPackets::Battleground::AreaS
         bf->AddPlayerToResurrectQueue(packet.HealerGuid, player->GetGUID());
     }
 
-    if (auto outdoorPvP = player->GetOutdoorPvP())
-        outdoorPvP->AddPlayerToResurrectQueue(packet.HealerGuid, player->GetGUID());
+    if (auto outdoorPvp = player->GetOutdoorPvp())
+        outdoorPvp->AddPlayerToResurrectQueue(packet.HealerGuid, player->GetGUID());
 }
 
 void WorldSession::HandleJoinSkirmish(WorldPackets::Battleground::JoinSkirmish& packet)
@@ -773,7 +773,7 @@ void WorldSession::HandleJoinSkirmish(WorldPackets::Battleground::JoinSkirmish& 
     if (player->InBattleground())
         return;
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
     if (!bracketEntry)
         return;
 
@@ -962,7 +962,7 @@ void WorldSession::HandleUpdatePrestigeLevel(WorldPackets::Battleground::NullCms
 
     if (sWorld->getBoolConfig(CONFIG_RESET_PVP_TALENTS_ON_PRESTIGE) == true)
     {
-        player->RemoveAllPvPTalent();
+        player->RemoveAllPvpTalent();
         player->SendTalentsInfoData(false);
     }
 }
@@ -1079,7 +1079,7 @@ void WorldSession::HandleRequstCrowdControlSpell(WorldPackets::Battleground::Req
             {
                 for (auto const& talent : sDB2Manager.GetPvpTalentByPosition(opponent->getClass(), 0, i))
                 {
-                    if (!opponent->HasPvPTalent(talent->SpellID))
+                    if (!opponent->HasPvpTalent(talent->SpellID))
                         continue;
 
                     response.CrowdControlSpellID = talent->SpellID;

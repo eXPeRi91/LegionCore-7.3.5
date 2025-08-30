@@ -79,7 +79,7 @@ struct GtCombatRatingsEntry
     float Expertise = 0.0f;
     float ArmorPenetration = 0.0f;
     float Mastery = 0.0f;
-    float PvPPower = 0.0f;
+    float PvpPower = 0.0f;
     float Cleave = 0.0f;
     float VersatilityDamageDone = 0.0f;
     float VersatilityHealingDone = 0.0f;

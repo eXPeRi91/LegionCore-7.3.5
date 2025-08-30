@@ -570,11 +570,11 @@ bool Group::AddMember(Player* player)
     {
         player->SetGroupInvite(nullptr);
 
-        bool PvPGroup = isBGGroup() || isBFGroup();
+        bool PvpGroup = isBGGroup() || isBFGroup();
 
         if (player->GetGroup())
         {
-            if (PvPGroup) // if player is in group and he is being added to BG raid group, then call SetBattlegroundRaid()
+            if (PvpGroup) // if player is in group and he is being added to BG raid group, then call SetBattlegroundRaid()
                 player->SetBattlegroundOrBattlefieldRaid(this, subGroup);
             else //if player is in bg raid and we are adding him to normal group, then call SetOriginalGroup()
                 player->SetOriginalGroup(this, subGroup);
@@ -582,7 +582,7 @@ bool Group::AddMember(Player* player)
         else //if player is not in group, then call set group
             player->SetGroup(this, subGroup);
 
-        player->SetPartyType(m_groupCategory, PvPGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL);
+        player->SetPartyType(m_groupCategory, PvpGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL);
         player->ResetGroupUpdateSequenceIfNeeded(this);
 
         // if the same group invites the player back, cancel the homebind timer
@@ -1728,8 +1728,8 @@ void Group::SendUpdateToPlayer(ObjectGuid playerGUID, MemberSlot* slot /*= nullp
     }
 
     WorldPackets::Party::PartyUpdate partyUpdate;
-    bool PvPGroup = isBGGroup() || isBFGroup();
-    partyUpdate.PartyType = PvPGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL;
+    bool PvpGroup = isBGGroup() || isBFGroup();
+    partyUpdate.PartyType = PvpGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL;
     partyUpdate.PartyFlags = m_groupFlags;
     partyUpdate.PartyGUID = m_guid;
     partyUpdate.LeaderGUID = GetLeaderGUID();

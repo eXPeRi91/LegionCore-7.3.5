@@ -18,13 +18,13 @@
 #ifndef OUTDOOR_PVP_HP_
 #define OUTDOOR_PVP_HP_
 
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 
-#define OutdoorPvPHPBuffZonesNum 6
+#define OutdoorPvpHPBuffZonesNum 6
                                                          //  HP, citadel, ramparts, blood furnace, shattered halls, mag's lair
-const uint32 OutdoorPvPHPBuffZones[OutdoorPvPHPBuffZonesNum] = { 3483, 3563, 3562, 3713, 3714, 3836 };
+const uint32 OutdoorPvpHPBuffZones[OutdoorPvpHPBuffZonesNum] = { 3483, 3563, 3562, 3713, 3714, 3836 };
 
-enum OutdoorPvPHPSpells
+enum OutdoorPvpHPSpells
 {
     AlliancePlayerKillReward        = 32155,
     HordePlayerKillReward           = 32158,
@@ -32,7 +32,7 @@ enum OutdoorPvPHPSpells
     HordeBuff                       = 32049
 };
 
-enum OutdoorPvPHPTowerType
+enum OutdoorPvpHPTowerType
 {
     HP_TOWER_BROKEN_HILL            = 0,
     HP_TOWER_OVERLOOK               = 1,
@@ -72,11 +72,11 @@ const go_type HPTowerFlags[HP_TOWER_NUM] =
     {183515, 530, -289.610f, 3696.83f, 75.9447f, 3.12414f, 0.0f, 0.0f, 0.999962f, 0.008727f} // 2 stadium
 };
 
-class OPvPCapturePointHP : public OPvPCapturePoint
+class OPvpCapturePointHP : public OPvpCapturePoint
 {
     public:
 
-        OPvPCapturePointHP(OutdoorPvP* pvp, OutdoorPvPHPTowerType type);
+        OPvpCapturePointHP(OutdoorPvp* pvp, OutdoorPvpHPTowerType type);
 
         void ChangeState() override;
 
@@ -90,16 +90,16 @@ class OPvPCapturePointHP : public OPvPCapturePoint
 
     private:
 
-        OutdoorPvPHPTowerType m_TowerType;
+        OutdoorPvpHPTowerType m_TowerType;
 };
 
-class OutdoorPvPHP : public OutdoorPvP
+class OutdoorPvpHP : public OutdoorPvp
 {
     public:
 
-        OutdoorPvPHP();
+        OutdoorPvpHP();
 
-        bool SetupOutdoorPvP() override;
+        bool SetupOutdoorPvp() override;
         void Initialize(uint32 zone) override;
 
         void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override;

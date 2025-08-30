@@ -562,10 +562,10 @@ class Item : public Object
 
         BonusData const* GetBonus() const;
         uint32 GetQuality() const;
-        uint32 GetItemLevel(uint8 ownerLevel = 0, bool isPvP = false) const;
+        uint32 GetItemLevel(uint8 ownerLevel = 0, bool isPvp = false) const;
         int32 GetRequiredLevel() const;
         int32 GetItemStatType(uint32 index) const;
-        int32 GetItemStatValue(uint32 index, bool isPvP = false) const;
+        int32 GetItemStatValue(uint32 index, bool isPvp = false) const;
         uint8 GetSocketColor(uint8 index) const;
         uint32 GetAppearanceModId() const;
         void SetAppearanceModId(uint32 appearanceModId);

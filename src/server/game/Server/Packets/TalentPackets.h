@@ -28,7 +28,7 @@ namespace WorldPackets
         {
             uint32 SpecID = 0;
             std::vector<uint16> TalentIDs;
-            std::vector<uint16> PvPTalentIDs;
+            std::vector<uint16> PvpTalentIDs;
         };
 
         struct TalentInfoUpdate
@@ -98,14 +98,14 @@ namespace WorldPackets
             LearnTalentFailedData Talent;
         };
 
-        class LearnPvPTalentFailed final : public ServerPacket
+        class LearnPvpTalentFailed final : public ServerPacket
         {
         public:
-            LearnPvPTalentFailed() : ServerPacket(SMSG_LEARN_PVP_TALENTS_FAILED, 16) { }
+            LearnPvpTalentFailed() : ServerPacket(SMSG_LEARN_PVP_TALENTS_FAILED, 16) { }
 
             WorldPacket const* Write() override;
 
-            LearnTalentFailedData PvPTalent;
+            LearnTalentFailedData PvpTalent;
         };
 
         struct GlyphBinding

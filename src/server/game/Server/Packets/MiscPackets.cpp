@@ -484,9 +484,9 @@ WorldPacket const* WorldPackets::Misc::SetPlayHoverAnim::Write()
     return &_worldPacket;
 }
 
-void WorldPackets::Misc::SetPvP::Read()
+void WorldPackets::Misc::SetPvp::Read()
 {
-    EnablePVP = _worldPacket.ReadBit();
+    EnablePvp = _worldPacket.ReadBit();
 }
 
 WorldPacket const* WorldPackets::Misc::SummonRequest::Write()

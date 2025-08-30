@@ -51,12 +51,12 @@ void WorldSession::HandleInspect(WorldPackets::Inspect::Inspect& packet)
             if (v.second != PLAYERSPELL_REMOVED)
                 inspectResult.Talents.push_back(v.first);
 
-        for (auto const& v : *player->GetPvPTalentMap(index))
+        for (auto const& v : *player->GetPvpTalentMap(index))
             // if (SpellInfo const* spell = sSpellMgr->GetSpellInfo(v.first))
                 // if (spell->talentId)
-                    // inspectResult.PvPTalents.push_back(spell->talentId);
+                    // inspectResult.PvpTalents.push_back(spell->talentId);
             if (v.second != PLAYERSPELL_REMOVED)
-                inspectResult.PvPTalents.push_back(v.first);
+                inspectResult.PvpTalents.push_back(v.first);
 
         for (auto const& glyph : player->GetGlyphs(index))
             inspectResult.Glyphs.push_back(glyph);
@@ -91,13 +91,13 @@ void WorldSession::HandleRequestHonorStats(WorldPackets::Inspect::RequestHonorSt
     SendPacket(honorStats.Write());
 }
 
-void WorldSession::HandleInspectPVP(WorldPackets::Inspect::InspectPVPRequest& packet)
+void WorldSession::HandleInspectPvp(WorldPackets::Inspect::InspectPvpRequest& packet)
 {
     Player* player = ObjectAccessor::FindPlayer(packet.InspectTarget);
     if (!player)
         return;
 
-    WorldPackets::Inspect::InspectPVPResponse response;
+    WorldPackets::Inspect::InspectPvpResponse response;
     response.ClientGUID = packet.InspectTarget;
 
     for (uint8 i = MS::Battlegrounds::BracketType::Arena2v2; i < MS::Battlegrounds::BracketType::Max; ++i)
@@ -105,7 +105,7 @@ void WorldSession::HandleInspectPVP(WorldPackets::Inspect::InspectPVPRequest& pa
         Bracket* bracket = player->getBracket(i);
         ASSERT(bracket);
 
-        WorldPackets::Inspect::PVPBracketData data;
+        WorldPackets::Inspect::PvpBracketData data;
         data.Rating = bracket->getRating();
         data.Rank = 0;
         data.WeeklyPlayed = bracket->GetBracketInfo(BRACKET_WEEK_GAMES);

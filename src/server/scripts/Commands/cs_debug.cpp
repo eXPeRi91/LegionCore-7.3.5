@@ -35,7 +35,7 @@ EndScriptData */
 #include "MapManager.h"
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "Packets/ChatPackets.h"
 #include "Packets/InstancePackets.h"
 #include "Packets/LfgListPackets.h"
@@ -134,8 +134,8 @@ public:
             { "streamingmovies",SEC_ADMINISTRATOR,  false, &HandleDebugStreamingMoviesCommand,  ""},
             { "movementinfo",   SEC_ADMINISTRATOR,  false, &HandleDebugMovementInfo,           ""},
             { "session",        SEC_ADMINISTRATOR,  false, &HandleDebugSession,                ""},
-            { "pvpstatenable",  SEC_ADMINISTRATOR,  false, &HandleDebugPvPStatEnable,          ""},
-            { "pvpstatdisable", SEC_ADMINISTRATOR,  false, &HandleDebugPvPStatDisable,         ""},
+            { "pvpstatenable",  SEC_ADMINISTRATOR,  false, &HandleDebugPvpStatEnable,          ""},
+            { "pvpstatdisable", SEC_ADMINISTRATOR,  false, &HandleDebugPvpStatDisable,         ""},
             { "challengeloot",  SEC_REALM_LEADER,   false, &HandleDebugChallengeLootCommand,   ""},
             { "group",          SEC_REALM_LEADER,   false, &HandleDebugGroupCommand,           ""},
             { "pvpmystic",      SEC_CONFIRMED_GAMEMASTER, false, &HandleDebugPvpMysticCommand, ""},
@@ -929,7 +929,7 @@ public:
         if (!player)
             return false;
 
-        if (OutdoorPvP* pvp = player->GetOutdoorPvP())
+        if (OutdoorPvp* pvp = player->GetOutdoorPvp())
             pvp->HandleBFMGREntryInviteResponse(true, player);
 
         return true;
@@ -1016,7 +1016,7 @@ public:
         uint8 bgQueueTypeId = MS::Battlegrounds::GetBgQueueTypeIdByBgTypeID(bgTypeId, jointype);
         BattlegroundQueue &bgQueue = sBattlegroundMgr->GetBattlegroundQueue(bgQueueTypeId);
 
-        PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+        PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
         if (!bracketEntry)
             return false;
 
@@ -2068,11 +2068,11 @@ public:
         if (!player)
             player = handler->GetSession()->GetPlayer();
 
-        handler->PSendSysMessage("Pvp mystic Count = %u", sWorld->GetPvPMysticCount());
+        handler->PSendSysMessage("Pvp mystic Count = %u", sWorld->GetPvpMysticCount());
         return true;
     }
 
-    static bool HandleDebugPvPStatEnable(ChatHandler* handler, char const* args)
+    static bool HandleDebugPvpStatEnable(ChatHandler* handler, char const* args)
     {
         Player* player = handler->getSelectedPlayer();
         if (!player)
@@ -2083,7 +2083,7 @@ public:
         return true;
     }
 
-    static bool HandleDebugPvPStatDisable(ChatHandler* handler, char const* args)
+    static bool HandleDebugPvpStatDisable(ChatHandler* handler, char const* args)
     {
         Player* player = handler->getSelectedPlayer();
         if (!player)

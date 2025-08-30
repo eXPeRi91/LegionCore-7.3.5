@@ -126,7 +126,7 @@ void QuestDataStoreMgr::LoadWorldQuestTemplates()
                     wqt.ArmorList.emplace_back(proto);
 
             wqt.MinItemLevel = fields[i++].GetUInt16();
-            wqt.IsPvP = fields[i++].GetBool();
+            wqt.IsPvp = fields[i++].GetBool();
 
             if (!wqt.CurrencyID_A)
                 wqt.CurrencyID_A = wqt.CurrencyID;

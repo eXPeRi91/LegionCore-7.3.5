@@ -94,7 +94,7 @@ public:
 
             player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, true);
             player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PVP_TIMER, false);
-            player->UpdatePvP(true, true);
+            player->UpdatePvp(true, true);
 
             for (TransportHashSet::iterator i = player->GetMap()->m_Transports.begin(); i != player->GetMap()->m_Transports.end(); ++i)
             {

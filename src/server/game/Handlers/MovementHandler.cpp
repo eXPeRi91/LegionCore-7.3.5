@@ -178,8 +178,8 @@ void WorldSession::HandleWorldPortAck()
 
     if (player->pvpInfo.inHostileArea)
         player->CastSpell(player, 2479, true);
-    else if (player->IsPvP() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
-        player->UpdatePvP(false, false);
+    else if (player->IsPvp() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
+        player->UpdatePvp(false, false);
 
     player->ResummonPetTemporaryUnSummonedIfAny();
     player->SummonLastSummonedBattlePet();
@@ -217,8 +217,8 @@ void WorldSession::HandleMoveTeleportAck(WorldPackets::Movement::MoveTeleportAck
         if (plMover->pvpInfo.inHostileArea)
             plMover->CastSpell(plMover, 2479, true);
 
-        else if (plMover->IsPvP() && !plMover->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
-            plMover->UpdatePvP(false, false);
+        else if (plMover->IsPvp() && !plMover->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
+            plMover->UpdatePvp(false, false);
     }
 
     GetPlayer()->ResummonPetTemporaryUnSummonedIfAny();

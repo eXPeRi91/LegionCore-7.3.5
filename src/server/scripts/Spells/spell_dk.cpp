@@ -1569,7 +1569,7 @@ class spell_dk_apocalypse : public SpellScriptLoader
                     if (Aura* aura = target->GetAura(194310, caster->GetGUID()))
                     {
                         int32 count = aura->GetStackAmount();
-                        int8 cap = caster->CanPvPScalar() ? 4 : GetSpellInfo()->Effects[EFFECT_2]->BasePoints;
+                        int8 cap = caster->CanPvpScalar() ? 4 : GetSpellInfo()->Effects[EFFECT_2]->BasePoints;
                         if (count > cap)
                             count = cap;
 

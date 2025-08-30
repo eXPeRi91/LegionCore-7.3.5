@@ -7925,103 +7925,103 @@ void SpellMgr::LoadSpellCustomAttr()
         spellInfo->GetMisc()->MiscData.Attributes[4] |= SPELL_ATTR4_NOT_USABLE_IN_ARENA_OR_RATED_BG;
     });
 
-    // update for custom pvp mods (7.3.5)
+    // update for custom PvP mods (7.3.5)
     ApplySpellFix({ 33763, 202497 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.5f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.5f;
     });
 
     ApplySpellFix({ 200851 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_3]->PvPMultiplier = 0.1f;
-        spellInfo->Effects[EFFECT_4]->PvPMultiplier = 0.1f;
+        spellInfo->Effects[EFFECT_3]->PvpMultiplier = 0.1f;
+        spellInfo->Effects[EFFECT_4]->PvpMultiplier = 0.1f;
     });
 
     ApplySpellFix({ 6807 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.53f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.53f;
     });
 
     ApplySpellFix({ 238122 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.57143f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.57143f;
     });
 
     ApplySpellFix({ 18562 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.4f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.4f;
     });
 
     ApplySpellFix({ 5487, 24858 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_2]->PvPMultiplier = 0.63f;
+        spellInfo->Effects[EFFECT_2]->PvpMultiplier = 0.63f;
     });
 
     ApplySpellFix({ 1178 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.73f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.73f;
     });
 
     ApplySpellFix({ 49998 , 158188 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.5f;
     });
 
     ApplySpellFix({ 32175, 32176, 115357, 115360, 205414, 222029, 201628, 201789, 193455, 212621, 224239, 224266 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = spellInfo->Effects[EFFECT_0]->PvPMultiplier;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = spellInfo->Effects[EFFECT_0]->PvpMultiplier;
     });
 
     ApplySpellFix({ 210042, 198533, 209525 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.8f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.8f;
     });
 
     ApplySpellFix({ 11366 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.7f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.7f;
     });
 
     ApplySpellFix({ 228598 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.2f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.2f;
     });
 
     // Catlike Reflexes
     ApplySpellFix({197241, 210144, 210145, 210147, 210148, 239290, 239291}, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.25f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.25f;
     });
 
     ApplySpellFix({ 195321, 123996, 114089, 114093 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.6f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.6f;
     });
 
     ApplySpellFix({ 202743, 206416 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.5f;
     });
 
     ApplySpellFix({ 8092 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.35f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.35f;
     });
 
     ApplySpellFix({ 15407 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.55f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.55f;
     });
 
     ApplySpellFix({ 130493 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.5f;
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.5f;
     });
 
     ApplySpellFix({ 218571 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.33f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.33f;
     });
 
     ApplySpellFix({238244}, [](SpellInfo* spellInfo)

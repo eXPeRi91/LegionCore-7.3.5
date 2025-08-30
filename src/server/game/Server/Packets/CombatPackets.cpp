@@ -131,7 +131,7 @@ WorldPacket const* WorldPackets::Combat::ThreatClear::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::Combat::PvPCredit::Write()
+WorldPacket const* WorldPackets::Combat::PvpCredit::Write()
 {
     _worldPacket << int32(Honor);
     _worldPacket << int32(Honor);

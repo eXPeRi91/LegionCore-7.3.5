@@ -18,11 +18,11 @@
 #ifndef OUTDOOR_PVP_NA_
 #define OUTDOOR_PVP_NA_
 
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 
 // TODO: "sometimes" set to neutral
 
-enum OutdoorPvPNASpells
+enum OutdoorPvpNASpells
 {
     NA_KILL_TOKEN_ALLIANCE          = 33005,
     NA_KILL_TOKEN_HORDE             = 33004,
@@ -210,13 +210,13 @@ enum HalaaStates
 
 class Unit;
 class Creature;
-class OutdoorPvPNA;
+class OutdoorPvpNA;
 
-class OPvPCapturePointNA : public OPvPCapturePoint
+class OPvpCapturePointNA : public OPvpCapturePoint
 {
     public:
 
-        OPvPCapturePointNA(OutdoorPvP* pvp);
+        OPvpCapturePointNA(OutdoorPvp* Pvp);
 
         bool Update(uint32 diff) override;
 
@@ -271,13 +271,13 @@ class OPvPCapturePointNA : public OPvPCapturePoint
         uint32 m_GuardCheckTimer;
 };
 
-class OutdoorPvPNA : public OutdoorPvP
+class OutdoorPvpNA : public OutdoorPvp
 {
     public:
 
-        OutdoorPvPNA();
+        OutdoorPvpNA();
 
-        bool SetupOutdoorPvP() override;
+        bool SetupOutdoorPvp() override;
 
         void Initialize(uint32 zone) override;
 
@@ -294,7 +294,7 @@ class OutdoorPvPNA : public OutdoorPvP
 
     private:
 
-        OPvPCapturePointNA * m_obj;
+        OPvpCapturePointNA * m_obj;
 };
 
 #endif

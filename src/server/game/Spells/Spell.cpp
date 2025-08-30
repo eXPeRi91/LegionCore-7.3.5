@@ -3076,9 +3076,9 @@ void Spell::DoAllEffectOnTarget(TargetInfoPtr target)
         // Needs to be called after dealing damage/healing to not remove breaking on damage auras
         DoTriggersOnSpellHit(spellHitTarget, mask);
 
-        // if target is fallged for pvp also flag caster if a player
-        if (unit->IsPvP() && m_caster->IsPlayer())
-            m_caster->ToPlayer()->UpdatePvP(true);
+        // if target is fallged for PvP also flag caster if a player
+        if (unit->IsPvp() && m_caster->IsPlayer())
+            m_caster->ToPlayer()->UpdatePvp(true);
 
         CallScriptAfterHitHandlers();
     }
@@ -3186,29 +3186,29 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             // assisting case, healing and resurrection
             if (unit->HasUnitState(UNIT_STATE_ATTACK_PLAYER))
             {
-                m_caster->SetContestedPvP();
+                m_caster->SetContestedPvp();
                 if (m_caster->IsPlayer())
-                    m_caster->ToPlayer()->UpdatePvP(true);
+                    m_caster->ToPlayer()->UpdatePvp(true);
             }
             if (unit->isInCombat() && !m_spellInfo->HasAttribute(SPELL_ATTR3_NO_INITIAL_AGGRO) && !(m_spellInfo->HasAttribute(SPELL_ATTR1_NOT_BREAK_STEALTH) && !m_damage))
             {
-                bool isPvP = false;
+                bool isPvp = false;
 
                 if (map && !map->IsDungeon())
                 {
                     if (Player* plr = unit->ToPlayer())
                     {
                         if (plr->HasPvpRulesEnabled())
-                            isPvP = true;
+                            isPvp = true;
                     }
                     else if (Unit* owner = unit->GetOwner())
                     {
                         if ((plr = owner->ToPlayer()))
                             if (plr->HasPvpRulesEnabled())
-                                isPvP = true;
+                                isPvp = true;
                     }
                 }
-                m_caster->SetInCombatState(unit, isPvP);
+                m_caster->SetInCombatState(unit, isPvp);
                 unit->getHostileRefManager().threatAssist(m_caster, 0.0f);
             }
         }

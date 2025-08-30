@@ -449,7 +449,7 @@ void Battlefield::PlayerAcceptInviteToWar(Player* player)
         if (player->isAFK())
             player->ToggleAFK();
 
-        player->SetPvP(true);
+        player->SetPvp(true);
         OnPlayerJoinWar(player);
     }
 }
@@ -1076,7 +1076,7 @@ bool BfCapturePoint::Update(uint32 diff)
         {
             if (Player* player = ObjectAccessor::FindPlayer(*itr))
             {
-                if (!m_capturePoint->IsWithinDistInMap(player, radius) || !player->IsOutdoorPvPActive())
+                if (!m_capturePoint->IsWithinDistInMap(player, radius) || !player->IsOutdoorPvpActive())
                     itr = HandlePlayerLeave(player);
                 else
                     ++itr;
@@ -1092,7 +1092,7 @@ bool BfCapturePoint::Update(uint32 diff)
     Trinity::VisitNearbyWorldObject(m_capturePoint, radius, searcher);
 
     for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)
-        if ((*itr)->IsOutdoorPvPActive())
+        if ((*itr)->IsOutdoorPvpActive())
             if (m_activePlayers[(*itr)->GetTeamId()].insert((*itr)->GetGUID()).second)
                 HandlePlayerEnter(*itr);
 

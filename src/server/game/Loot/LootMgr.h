@@ -366,7 +366,7 @@ struct Loot
     bool isRareOrGo = false;
     bool isRareNext = false;
     bool _isEmissaryLoot = false;
-    bool _IsPvPLoot = false;
+    bool _IsPvpLoot = false;
     bool _isTokenLoot = false;
     bool _isItemLoot = false;
     bool _isLegendaryLoot = false;
@@ -406,7 +406,7 @@ struct Loot
     void GenerateLootGuid(ObjectGuid __objGuid);
     uint32 ReplaceLootID(uint32 lootId);
     bool IsEmissaryLoot(uint32 lootId, WorldObject const* lootFrom);
-    bool IsPvPLoot(uint32 lootId, WorldObject const* lootFrom);
+    bool IsPvpLoot(uint32 lootId, WorldObject const* lootFrom);
 
     void generateMoneyLoot(uint32 minAmount, uint32 maxAmount, bool isDungeon = false);
     bool FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bool noGroup, bool noEmptyError = false, WorldObject const* lootFrom = nullptr);

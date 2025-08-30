@@ -37,7 +37,7 @@ void AddMaelstromScripts();
 void AddNorthrendScripts();
 void AddOutlandScripts();
 void AddPandariaScripts();
-void AddOutdoorPvPScripts();
+void AddOutdoorPvpScripts();
 void AddScenarioScripts();
 void AddCustomScripts();
 #endif
@@ -64,7 +64,7 @@ void AddScripts()
     AddNorthrendScripts();
     AddOutlandScripts();
     AddPandariaScripts();
-    AddOutdoorPvPScripts();
+    AddOutdoorPvpScripts();
     AddScenarioScripts();
     AddCustomScripts();
 #endif

@@ -18,7 +18,7 @@
 
 #include "DisableMgr.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "SpellMgr.h"
 #include "VMapManager2.h"
 #include "DatabaseEnv.h"
@@ -174,7 +174,7 @@ void LoadDisables()
             case DISABLE_TYPE_OUTDOORPVP:
                 if (entry > MAX_OUTDOORPVP_TYPES)
                 {
-                    TC_LOG_ERROR(LOG_FILTER_SQL, "OutdoorPvPTypes value %u from `disables` is invalid, skipped.", entry);
+                    TC_LOG_ERROR(LOG_FILTER_SQL, "OutdoorPvpTypes value %u from `disables` is invalid, skipped.", entry);
                     continue;
                 }
                 if (flags)

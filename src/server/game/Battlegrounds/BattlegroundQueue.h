@@ -70,7 +70,7 @@ public:
     uint16 GenerateRandomMap(uint16 bgTypeId);
     bool TryChooseCommandWithRoles(uint8 bracketID, uint8 teamId, uint8 healers, uint8 tanks, uint8 dd, uint8 teamIdPool);
     bool CheckSkirmishOrLFGBrawl(uint8 bracketID, bool isSkirmish = true);
-    GroupQueueInfo* AddGroup(Player* leader, Group* group, uint16 bgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 ArenaType = 0, bool isRated = false, bool isPremade = false, WorldPackets::Battleground::IgnorMapInfo ignore = WorldPackets::Battleground::IgnorMapInfo(), uint32 mmr = 0, uint32 _Team = 0);
+    GroupQueueInfo* AddGroup(Player* leader, Group* group, uint16 bgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 ArenaType = 0, bool isRated = false, bool isPremade = false, WorldPackets::Battleground::IgnorMapInfo ignore = WorldPackets::Battleground::IgnorMapInfo(), uint32 mmr = 0, uint32 _Team = 0);
     void RemovePlayer(ObjectGuid guid, bool decreaseInvitedCount);
     void RemovePlayerQueue(ObjectGuid guid, bool decreaseInvitedCount);
     bool IsPlayerInvited(ObjectGuid pl_guid, uint32 const bgInstanceGuid, uint32 const removeTime);

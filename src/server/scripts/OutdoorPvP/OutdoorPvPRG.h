@@ -18,25 +18,25 @@
 #ifndef OUTDOOR_PVP_RG_
 #define OUTDOOR_PVP_RG_
 
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 
-enum OutdoorPvPRGKillCredit
+enum OutdoorPvpRGKillCredit
 {
     RG_KILL_CREDIT          = 106650
 };
 
-enum OutdoorPvPRGArea
+enum OutdoorPvpRGArea
 {
     BLACK_ROOK_RUMBLE_AREA  = 8151
 };
 
-class OutdoorPvPRG : public OutdoorPvP
+class OutdoorPvpRG : public OutdoorPvp
 {
     public:
 
-        OutdoorPvPRG();
+        OutdoorPvpRG();
 
-        bool SetupOutdoorPvP() override;
+        bool SetupOutdoorPvp() override;
 
         bool Update(uint32 diff) override;
 

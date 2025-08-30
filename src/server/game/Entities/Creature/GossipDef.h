@@ -48,7 +48,7 @@ enum Gossip_Option
     GOSSIP_OPTION_ARMORER               = 15,                   //UNIT_NPC_FLAG_ARMORER             (4096)
     GOSSIP_OPTION_UNLEARNTALENTS        = 16,                   //UNIT_NPC_FLAG_TRAINER             (16) (bonus option for GOSSIP_OPTION_TRAINER)
     GOSSIP_OPTION_MAILBOX               = 18,                   //UNIT_NPC_FLAG_MAILBOX
-    GOSSIP_OPTION_OUTDOORPVP            = 19,                   //added by code (option for outdoor pvp creatures)
+    GOSSIP_OPTION_OUTDOORPVP            = 19,                   //added by code (option for outdoor PvP creatures)
     GOSSIP_OPTION_TRANSMOGRIFIER        = 20,                   //UNIT_NPC_FLAG_TRANSMOGRIFIER
     GOSSIP_OPTION_SCENARIO              = 21,                   //UNIT_NPC_FLAG_GOSSIP
     GOSSIP_OPTION_GARRISON_SHIPMENT     = 22,                   //UNIT_NPC_FLAG2_AI_OBSTACLE 

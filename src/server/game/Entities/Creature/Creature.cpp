@@ -44,7 +44,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "Player.h"
 #include "PoolMgr.h"
 #include "QuestData.h"
@@ -800,9 +800,9 @@ bool Creature::UpdateEntry(uint32 entry, uint32 team, const CreatureData* data)
     if (FactionTemplateEntry const* factionTemplate = sFactionTemplateStore.LookupEntry(cInfo->faction))
     {
         if (factionTemplate->Flags & FACTION_TEMPLATE_FLAG_PVP)
-            SetPvP(true);
+            SetPvp(true);
         else
-            SetPvP(false);
+            SetPvp(false);
     }
 
     // trigger creature is always not selectable and can not be attacked

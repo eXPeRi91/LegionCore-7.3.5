@@ -744,10 +744,10 @@ namespace WorldPackets
             bool Result = false;
         };
 
-        class QuestUpdateAddPvPCredit final : public ServerPacket
+        class QuestUpdateAddPvpCredit final : public ServerPacket
         {
         public:
-            QuestUpdateAddPvPCredit() : ServerPacket(SMSG_QUEST_UPDATE_ADD_PVP_CREDIT, 4 + 2) { }
+            QuestUpdateAddPvpCredit() : ServerPacket(SMSG_QUEST_UPDATE_ADD_PVP_CREDIT, 4 + 2) { }
 
             WorldPacket const* Write() override;
 

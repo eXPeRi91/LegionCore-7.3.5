@@ -271,7 +271,7 @@ class spell_ashran_artifacts_collected : public SpellScriptLoader
 
                 if (Creature* l_Caster = GetCaster()->ToCreature())
                 {
-                    ZoneScript* l_ZoneScript = sOutdoorPvPMgr->GetZoneScript(l_Caster->GetZoneId());
+                    ZoneScript* l_ZoneScript = sOutdoorPvpMgr->GetZoneScript(l_Caster->GetZoneId());
                     if (l_ZoneScript == nullptr)
                         return;
 
@@ -308,7 +308,7 @@ class spell_ashran_artifacts_collected : public SpellScriptLoader
                             break;
                     }
 
-                    if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(l_ZoneScript))
+                    if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(l_ZoneScript))
                     {
                         uint32 l_Count = l_Ashran->GetArtifactCollected(l_TeamID, l_Type);
                         p_AurEff->ChangeAmount(l_Count);
@@ -426,11 +426,11 @@ class spell_ashran_pocket_flying_machine : public SpellScriptLoader
 
                 if (Player* l_Player = GetHitUnit()->ToPlayer())
                 {
-                    ZoneScript* l_ZoneScript = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(l_Player->GetZoneId());
+                    ZoneScript* l_ZoneScript = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(l_Player->GetZoneId());
                     if (l_ZoneScript == nullptr)
                         return;
 
-                    if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(l_ZoneScript))
+                    if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(l_ZoneScript))
                     {
                         uint32 artifactCount = l_Player->GetCurrency(CURRENCY_TYPE_ARTIFACT_FRAGMENT);
                         l_Player->ModifyCurrency(CURRENCY_TYPE_ARTIFACT_FRAGMENT, -int32(artifactCount * CURRENCY_PRECISION), false);
@@ -810,8 +810,8 @@ class spell_ashran_ancient_artifact : public SpellScriptLoader
                 AuraRemoveMode l_RemoveMode = GetTargetApplication()->GetRemoveMode();
                 if (Unit* l_Target = GetTarget())
                 {
-                    OutdoorPvP* l_Outdoor = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(l_Target->GetZoneId());
-                    if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(l_Outdoor))
+                    OutdoorPvp* l_Outdoor = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(l_Target->GetZoneId());
+                    if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(l_Outdoor))
                         l_Ashran->HandleArtifactDrop(l_Target, l_RemoveMode == AURA_REMOVE_BY_EXPIRE ? 0 : GetDuration());
                 }
             }

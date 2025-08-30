@@ -25,7 +25,7 @@ EndScriptData */
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "DisableMgr.h"
-#include "OutdoorPvP.h"
+#include "OutdoorPvp.h"
 #include "QuestData.h"
 #include "DatabaseEnv.h"
 
@@ -43,7 +43,7 @@ public:
             { "map",                    SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableMapCommand,                 ""},
             { "battleground",           SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableBattlegroundCommand,        ""},
             { "achievement_criteria",   SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableAchievementCriteriaCommand, ""},
-            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableOutdoorPvPCommand,          ""},
+            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableOutdoorPvpCommand,          ""},
             { "vmap",                   SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableVmapCommand,                ""}
         };
         static std::vector<ChatCommand> addDisableCommandTable =
@@ -53,7 +53,7 @@ public:
             { "map",                    SEC_ADMINISTRATOR,      true,   &HandleAddDisableMapCommand,                    ""},
             { "battleground",           SEC_ADMINISTRATOR,      true,   &HandleAddDisableBattlegroundCommand,           ""},
             { "achievement_criteria",   SEC_ADMINISTRATOR,      true,   &HandleAddDisableAchievementCriteriaCommand,    ""},
-            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleAddDisableOutdoorPvPCommand,             ""},
+            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleAddDisableOutdoorPvpCommand,             ""},
             { "vmap",                   SEC_ADMINISTRATOR,      true,   &HandleAddDisableVmapCommand,                   ""}
         };
         static std::vector<ChatCommand> disableCommandTable =
@@ -232,7 +232,7 @@ public:
         return HandleAddDisables(handler, args, DISABLE_TYPE_CRITERIA);
     }
 
-    static bool HandleAddDisableOutdoorPvPCommand(ChatHandler* handler, char const* args)
+    static bool HandleAddDisableOutdoorPvpCommand(ChatHandler* handler, char const* args)
     {
         if (!*args)
             return false;
@@ -345,7 +345,7 @@ public:
         return HandleRemoveDisables(handler, args, DISABLE_TYPE_CRITERIA);
     }
 
-    static bool HandleRemoveDisableOutdoorPvPCommand(ChatHandler* handler, char const* args)
+    static bool HandleRemoveDisableOutdoorPvpCommand(ChatHandler* handler, char const* args)
     {
         if (!*args)
             return false;

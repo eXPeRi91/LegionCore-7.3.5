@@ -41,7 +41,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "Player.h"
 #include "SharedDefines.h"
 #include "SpellPackets.h"
@@ -3008,7 +3008,7 @@ void WorldObject::SetZoneScript()
             if (Battlefield* bf = sBattlefieldMgr->GetBattlefieldToZoneId(m_zoneId))
                 m_zoneScript = bf;
             else
-                m_zoneScript = sOutdoorPvPMgr->GetZoneScript(m_zoneId);
+                m_zoneScript = sOutdoorPvpMgr->GetZoneScript(m_zoneId);
         }
     }
 }

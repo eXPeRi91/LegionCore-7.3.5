@@ -66,7 +66,7 @@ void BattlegroundDeathMatch::OnPlayerEnter(Player* player)
         player->TeleportTo(entry->MapID, entry->Loc.X, entry->Loc.Y, entry->Loc.Z, entry->Loc.O * M_PI / 180.0f);
     
     player->SetByteValue(PLAYER_FIELD_BYTES_6, PLAYER_BYTES_6_OFFSET_ARENA_FACTION, DMTeam++);
-    player->UpdatePvPState(false);
+    player->UpdatePvpState(false);
     
     strike[player->GetGUID()] = 0;
     temp_strike[player->GetGUID()] = {0,getMSTime()};

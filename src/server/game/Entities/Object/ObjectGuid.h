@@ -105,7 +105,7 @@ enum class HighGuid
     LFGObject       = 37,
     LFGList         = 38,
     UserRouter      = 39,
-    PVPQueueGroup   = 40,
+    PvpQueueGroup   = 40,
     UserClient      = 41,
     PetBattle       = 42,
     UniqUserClient  = 43,

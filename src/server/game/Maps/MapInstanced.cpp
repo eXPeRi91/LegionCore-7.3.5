@@ -489,7 +489,7 @@ ZoneMap* MapInstanced::CreateZoneMap(uint32 zoneId, Player* player)
     map->LoadRespawnTimes();
     m_InstancedMaps[zoneId] = map;
 
-    map->UpdateOutdoorPvPScript();
+    map->UpdateOutdoorPvpScript();
 
     _zoneThreads[zoneId] = new std::thread(&Map::UpdateLoop, map, zoneId);
     return map;

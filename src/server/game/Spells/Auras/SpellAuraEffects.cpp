@@ -32,7 +32,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "Player.h"
 #include "PlayerDefines.h"
 #include "ScriptMgr.h"
@@ -492,7 +492,7 @@ pAuraEffectHandler AuraEffectHandler[TOTAL_AURAS]=
     &AuraEffect::HandleSummonController,                          //428 SPELL_AURA_SUMMON_CONTROLLER
     &AuraEffect::HandleNoImmediateEffect,                         //429 SPELL_AURA_PET_DAMAGE_DONE_PCT implemented in Unit::SpellBaseDamageBonus Unit::MeleeDamageBonusDone
     &AuraEffect::HandleAuraActivateScene,                         //430 SPELL_AURA_ACTIVATE_SCENE
-    &AuraEffect::HandleAuraContestedPvP,                          //431 SPELL_AURA_CONTESTED_PVP
+    &AuraEffect::HandleAuraContestedPvp,                          //431 SPELL_AURA_CONTESTED_PVP
     &AuraEffect::HandleNULL,                                      //432 SPELL_AURA_432
     &AuraEffect::HandleNULL,                                      //433 SPELL_AURA_433
     &AuraEffect::HandleNULL,                                      //434 SPELL_AURA_434
@@ -937,8 +937,8 @@ float AuraEffect::CalculateAmount(Unit* caster)
                     if (spellInfo)
                     {
                         int32 bp = spellInfo->Effects[EFFECT_3]->CalcValue(caster);
-                        if (caster->CanPvPScalar()) // hack, why doesn't it work PvPMultiplier?!
-                            bp *= spellInfo->Effects[EFFECT_3]->PvPMultiplier;
+                        if (caster->CanPvpScalar()) // hack, why doesn't it work PvpMultiplier?!
+                            bp *= spellInfo->Effects[EFFECT_3]->PvpMultiplier;
 
                         if (caster->HasAuraType(SPELL_AURA_MOD_STEALTH) || caster->HasAura(102543))
                             AddPct(m_amount_mod, bp);
@@ -1287,8 +1287,8 @@ float AuraEffect::CalculateAmount(Unit* caster)
         {
             if (caster)
             {
-                if (auto scalar = m_spellInfo->GetEffect(m_effIndex, m_diffMode)->PvPMultiplier)
-                    if (caster && caster->CanPvPScalar())
+                if (auto scalar = m_spellInfo->GetEffect(m_effIndex, m_diffMode)->PvpMultiplier)
+                    if (caster && caster->CanPvpScalar())
                         m_amount_mod *= scalar;
 
                 amount = amount * m_amount_mod;
@@ -1303,8 +1303,8 @@ float AuraEffect::CalculateAmount(Unit* caster)
         {
             if (caster)
             {
-                if (auto scalar = m_spellInfo->GetEffect(m_effIndex, m_diffMode)->PvPMultiplier)
-                    if (caster && caster->CanPvPScalar())
+                if (auto scalar = m_spellInfo->GetEffect(m_effIndex, m_diffMode)->PvpMultiplier)
+                    if (caster && caster->CanPvpScalar())
                         m_amount_mod *= scalar;
 
                 amount = amount * m_amount_mod * caster->GetProcStatsMultiplier(m_spellInfo->Id);
@@ -1347,8 +1347,8 @@ float AuraEffect::CalculateAmount(Unit* caster)
         }
         default:
         {
-            if (auto scalar = m_spellInfo->GetEffect(m_effIndex, m_diffMode)->PvPMultiplier)
-                if (caster && caster->CanPvPScalar())
+            if (auto scalar = m_spellInfo->GetEffect(m_effIndex, m_diffMode)->PvpMultiplier)
+                if (caster && caster->CanPvpScalar())
                     m_amount_mod *= scalar;
 
             amount = amount * m_amount_mod;
@@ -8997,7 +8997,7 @@ void AuraEffect::HandleBattlegroundFlag(AuraApplication const* aurApp, uint8 mod
                 bg->EventPlayerDroppedFlag(target);
         }
         else
-            sOutdoorPvPMgr->HandleDropFlag(target, GetSpellInfo()->Id);
+            sOutdoorPvpMgr->HandleDropFlag(target, GetSpellInfo()->Id);
     }
 }
 
@@ -9433,7 +9433,7 @@ void AuraEffect::HandleEnablePvpStatsScaling(AuraApplication const* auraApp, uin
     }
 }
 
-void AuraEffect::HandleAuraContestedPvP(AuraApplication const* auraApp, uint8 mode, bool apply) const
+void AuraEffect::HandleAuraContestedPvp(AuraApplication const* auraApp, uint8 mode, bool apply) const
 {
     if (!(mode & AURA_EFFECT_HANDLE_REAL))
         return;
@@ -9443,9 +9443,9 @@ void AuraEffect::HandleAuraContestedPvP(AuraApplication const* auraApp, uint8 mo
         return;
 
     if (apply)
-        target->ToPlayer()->SetContestedPvP(nullptr, true);
+        target->ToPlayer()->SetContestedPvp(nullptr, true);
     else
-        target->ToPlayer()->ResetContestedPvP();
+        target->ToPlayer()->ResetContestedPvp();
 }
 
 void AuraEffect::HandleAuraModCooldownSpeedRate(AuraApplication const* auraApp, uint8 mode, bool apply) const

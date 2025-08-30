@@ -39,7 +39,7 @@
 #include "ObjectAccessor.h"
 #include "ObjectGridLoader.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvPMgr.h"
+#include "OutdoorPvpMgr.h"
 #include "ScenarioMgr.h"
 #include "ScriptMgr.h"
 #include "StringFormat.h"
@@ -472,17 +472,17 @@ void Map::UnloadMapImpl(Map* map, int gx, int gy)
     map->GridMaps[gx][gy] = nullptr;
 }
 
-void Map::UpdateOutdoorPvPScript()
+void Map::UpdateOutdoorPvpScript()
 {
     if (!m_parentMap || !CanCreatedZone() || !i_InstanceId)
         return;
 
-    if (!m_parentMap->OutdoorPvPList || m_parentMap->OutdoorPvPList->empty())
+    if (!m_parentMap->OutdoorPvpList || m_parentMap->OutdoorPvpList->empty())
     {
-        if (!sOutdoorPvPMgr->GetOutdoorPvPMap(m_parentMap->GetId()))
+        if (!sOutdoorPvpMgr->GetOutdoorPvpMap(m_parentMap->GetId()))
             return;
 
-        auto set = *sOutdoorPvPMgr->GetOutdoorPvPMap(m_parentMap->GetId()); // we need copy it else we do it twice
+        auto set = *sOutdoorPvpMgr->GetOutdoorPvpMap(m_parentMap->GetId()); // we need copy it else we do it twice
         for (auto itr : set)
             if (itr && itr->ThisZone(i_InstanceId))
             {
@@ -493,10 +493,10 @@ void Map::UpdateOutdoorPvPScript()
                     else
                     {
                         itr->RemoveZone(i_InstanceId);
-                        auto pvp = sScriptMgr->CreateOutdoorPvP(sOutdoorPvPMgr->GetOutdoorPvPData(OutdoorPvPTypes(itr->GetTypeId())));
+                        auto pvp = sScriptMgr->CreateOutdoorPvp(sOutdoorPvpMgr->GetOutdoorPvpData(OutdoorPvpTypes(itr->GetTypeId())));
                         if (pvp)
                         {
-                            sOutdoorPvPMgr->AddOutdoorPvP(pvp);
+                            sOutdoorPvpMgr->AddOutdoorPvp(pvp);
                             pvp->RegisterZone(i_InstanceId);
                         }
                     }
@@ -505,21 +505,21 @@ void Map::UpdateOutdoorPvPScript()
                     itr->RegisterZone(i_InstanceId);
             }
 
-        OutdoorPvPList = sOutdoorPvPMgr->GetOutdoorPvPMap(m_parentMap->GetId());
+        OutdoorPvpList = sOutdoorPvpMgr->GetOutdoorPvpMap(m_parentMap->GetId());
     }
     else
     {
-        auto set = *(m_parentMap->OutdoorPvPList); // we need copy it else we do it twice
+        auto set = *(m_parentMap->OutdoorPvpList); // we need copy it else we do it twice
         for (auto itr : set)
             if (itr && itr->ThisZone(i_InstanceId))
             {
                 if (itr->SizeZones() > 1)
                 {
                     itr->RemoveZone(i_InstanceId);
-                    auto pvp = sScriptMgr->CreateOutdoorPvP(sOutdoorPvPMgr->GetOutdoorPvPData(OutdoorPvPTypes(itr->GetTypeId())));
+                    auto pvp = sScriptMgr->CreateOutdoorPvp(sOutdoorPvpMgr->GetOutdoorPvpData(OutdoorPvpTypes(itr->GetTypeId())));
                     if (pvp)
                     {
-                        sOutdoorPvPMgr->AddOutdoorPvP(pvp);
+                        sOutdoorPvpMgr->AddOutdoorPvp(pvp);
                         pvp->RegisterZone(i_InstanceId);
                     }
                 }
@@ -532,7 +532,7 @@ void Map::UpdateOutdoorPvPScript()
                 }
             }
 
-        OutdoorPvPList = m_parentMap->OutdoorPvPList;
+        OutdoorPvpList = m_parentMap->OutdoorPvpList;
     }
 }
 
@@ -561,7 +561,7 @@ m_activeNonPlayersIter(m_activeNonPlayers.end()), i_grids(), GridMaps()
     i_scriptLock = false;
     b_isMapUnload = false;
     b_isMapStop = false;
-    OutdoorPvPList = nullptr;
+    OutdoorPvpList = nullptr;
     BattlefieldList = nullptr;
 
     if (IsBattlegroundOrArena())
@@ -929,7 +929,7 @@ bool Map::AddPlayerToMap(Player* player, bool initPlayer /*= true*/)
     player->UpdateObjectVisibility(false);
 
     sScriptMgr->OnPlayerEnterMap(this, player);
-    sOutdoorPvPMgr->HandlePlayerEnterMap(player->GetGUID(), player->GetCurrentZoneID());
+    sOutdoorPvpMgr->HandlePlayerEnterMap(player->GetGUID(), player->GetCurrentZoneID());
 
     return true;
 }
@@ -1280,7 +1280,7 @@ void Map::Update(const uint32 t_diff)
     i_timer_op.Update(t_diff);
     if (i_timer_op.Passed())
     {
-        UpdateOutdoorPvP(uint32(i_timer_op.GetCurrent()));
+        UpdateOutdoorPvp(uint32(i_timer_op.GetCurrent()));
         i_timer_op.SetCurrent(0);
     }
 
@@ -1340,15 +1340,15 @@ void Map::UpdateSessions(uint32 diff)
         sLog->outDiff("Map::UpdateSessions mapId %u Update time - %ums diff %u", GetId(), _ms, diff);
 }
 
-void Map::UpdateOutdoorPvP(uint32 diff)
+void Map::UpdateOutdoorPvp(uint32 diff)
 {
     if (b_isMapUnload)
         return;
 
     uint32 _s = getMSTime();
 
-    if (OutdoorPvPList && !OutdoorPvPList->empty())
-        for (auto itr : *OutdoorPvPList)
+    if (OutdoorPvpList && !OutdoorPvpList->empty())
+        for (auto itr : *OutdoorPvpList)
             if (itr && itr->GetMap() == this)
                 itr->Update(diff);
 
@@ -1370,7 +1370,7 @@ uint32 Map::GetCurrentDiff() const
 
 void Map::RemovePlayerFromMap(Player* player, bool remove)
 {
-    sOutdoorPvPMgr->HandlePlayerLeaveMap(player->GetGUID(), player->GetCurrentZoneID());
+    sOutdoorPvpMgr->HandlePlayerLeaveMap(player->GetGUID(), player->GetCurrentZoneID());
 
     if (InstanceScript* data_s = player->GetInstanceScript())
         data_s->OnPlayerLeaveForScript(player);

@@ -507,7 +507,7 @@ Loot::Loot(uint32 _gold): _DifficultyMask(0)
     isBoss = false;
     bonusLoot = false;
     _isEmissaryLoot = false;
-    _IsPvPLoot = false;
+    _IsPvpLoot = false;
     _isTokenLoot = false;
     _isItemLoot = false;
     _specCheck = true;
@@ -578,7 +578,7 @@ bool Loot::IsEmissaryLoot(uint32 lootId, WorldObject const* lootFrom)
     return false;
 }
 
-bool Loot::IsPvPLoot(uint32 lootId, WorldObject const* lootFrom)
+bool Loot::IsPvpLoot(uint32 lootId, WorldObject const* lootFrom)
 {
     if (lootFrom != nullptr) //Item is not worldobject
         return false;
@@ -783,7 +783,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
 
     _DifficultyMask = (1 << (CreatureTemplate::GetDiffFromSpawn(_DifficultyID)));
     _isEmissaryLoot = IsEmissaryLoot(lootId, lootFrom);
-    _IsPvPLoot = IsPvPLoot(lootId, lootFrom);
+    _IsPvpLoot = IsPvpLoot(lootId, lootFrom);
     bool isOploteChest = go && go->GetGOInfo() && go->GetGOInfo()->IsOploteChest();
     rateLegendary = lootOwner->GetRateLegendaryDrop(isBoss, isRareOrGo && !isRareNext, isOploteChest, _isEmissaryLoot || _isTokenLoot, _ExpansionID, _DifficultyID);
 
@@ -839,7 +839,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
 
     if (tab)
     {
-        if (_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvPLoot)
+        if (_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvpLoot)
             tab->ProcessItemLoot(*this);
         else if (isOploteChest)
             tab->ProcessOploteChest(*this);
@@ -925,7 +925,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
         FillNotNormalLootFor(lootOwner, true);
     }
 
-    if (!bonusLoot && ((noGroup && personal) || (_challengeLevel && !isOploteChest)) && !(_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvPLoot)) // Add looters to personal loot
+    if (!bonusLoot && ((noGroup && personal) || (_challengeLevel && !isOploteChest)) && !(_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvpLoot)) // Add looters to personal loot
         FillPersonalLootFor(lootOwner);
 
     if(lootId == 90406 || lootId == 90399 || lootId == 90397 || lootId == 90400 ||  lootId == 90398 || lootId == 90395 || lootId == 90401)
@@ -1055,7 +1055,7 @@ void Loot::clear()
     isOnlyQuest = false;
     isRareOrGo = false;
     _isEmissaryLoot = false;
-    _IsPvPLoot = false;
+    _IsPvpLoot = false;
     _isTokenLoot = false;
     _isItemLoot = false;
     _isLegendaryLoot = false;
@@ -2921,15 +2921,15 @@ void LootTemplate::ProcessItemLoot(Loot& loot) const
     // TC_LOG_DEBUG(LOG_FILTER_LOOT, "ProcessItemLoot Entries %u AutoGroups %u PersonalGroups %u", Entries.size(), AutoGroups.size(), PersonalGroups.size());
 
     Player const* lootOwner = loot.GetLootOwner();
-    if (loot._IsPvPLoot)
+    if (loot._IsPvpLoot)
     {
         if (PvpReward* reward = sBattlegroundMgr->GetPvpReward(PvpReward_Arena_2v2))
         {
             uint32 itemID = 0;
             uint32 rating = 0;
             uint32 needLevel = 0;
-            const_cast<Player*>(lootOwner)->GetPvPRatingAndLevel(reward, PvpReward_Arena_2v2, rating, needLevel, false);
-            std::vector<uint32> bonusListIDs = const_cast<Player*>(lootOwner)->GetPvPRewardItem(itemID, PvpReward_Arena_2v2, rating, false, needLevel);
+            const_cast<Player*>(lootOwner)->GetPvpRatingAndLevel(reward, PvpReward_Arena_2v2, rating, needLevel, false);
+            std::vector<uint32> bonusListIDs = const_cast<Player*>(lootOwner)->GetPvpRewardItem(itemID, PvpReward_Arena_2v2, rating, false, needLevel);
             if (itemID)
             {
                 LootStoreItem item = LootStoreItem(itemID, LOOT_ITEM_TYPE_ITEM, 0.0f, 0, 0, 1, 1);

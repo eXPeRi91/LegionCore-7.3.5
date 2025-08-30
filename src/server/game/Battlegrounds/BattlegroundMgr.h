@@ -151,7 +151,7 @@ public:
     Battleground* GetBattleground(uint32 InstanceID, uint16 bgTypeId);
 
     Battleground* GetBattlegroundTemplate(uint16 bgTypeId);
-    Battleground* CreateNewBattleground(uint16 bgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType = MS::Battlegrounds::BattlegroundTypeId::None, bool useTournamentRules = false, bool isWarGame = false);
+    Battleground* CreateNewBattleground(uint16 bgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType = MS::Battlegrounds::BattlegroundTypeId::None, bool useTournamentRules = false, bool isWarGame = false);
 
     void CreateBattleground(CreateBattlegroundData& data);
 

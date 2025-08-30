@@ -422,7 +422,7 @@ LFGListStatus LFGListMgr::CanQueueFor(LFGListEntry* entry, Player* requestingPla
     return LFGListStatus::None;
 }
 
-bool LFGListMgr::IsActivityPvP(GroupFinderActivityEntry const* activity) const
+bool LFGListMgr::IsActivityPvp(GroupFinderActivityEntry const* activity) const
 {
     if (!activity)
         return false;
@@ -445,7 +445,7 @@ float LFGListMgr::GetPlayerItemLevelForActivity(GroupFinderActivityEntry const* 
     if (player == nullptr)
         return 0.0f;
 
-    return player->GetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + (IsActivityPvP(activity) ? PlayerAvgItemLevelOffsets::PvPAvgItemLevel : PlayerAvgItemLevelOffsets::NonPvPAvgItemLevel));
+    return player->GetFloatValue(PLAYER_FIELD_AVG_ITEM_LEVEL + (IsActivityPvp(activity) ? PlayerAvgItemLevelOffsets::PvpAvgItemLevel : PlayerAvgItemLevelOffsets::NonPvpAvgItemLevel));
 }
 
 float LFGListMgr::GetLowestItemLevelInGroup(LFGListEntry* entry) const

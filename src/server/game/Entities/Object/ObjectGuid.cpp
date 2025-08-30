@@ -73,7 +73,7 @@ namespace
         SET_GUID_NAME(LFGObject);
         SET_GUID_NAME(LFGList);
         SET_GUID_NAME(UserRouter);
-        SET_GUID_NAME(PVPQueueGroup);
+        SET_GUID_NAME(PvpQueueGroup);
         SET_GUID_NAME(UserClient);
         SET_GUID_NAME(PetBattle);
         SET_GUID_NAME(UniqUserClient);
@@ -574,7 +574,7 @@ GLOBAL_GUID_CREATE(HighGuid::RaidGroup)
 GLOBAL_GUID_CREATE(HighGuid::Spell)
 GLOBAL_GUID_CREATE(HighGuid::Mail)
 GLOBAL_GUID_CREATE(HighGuid::UserRouter)
-GLOBAL_GUID_CREATE(HighGuid::PVPQueueGroup)
+GLOBAL_GUID_CREATE(HighGuid::PvpQueueGroup)
 GLOBAL_GUID_CREATE(HighGuid::UserClient)
 GLOBAL_GUID_CREATE(HighGuid::BattlePet)
 GLOBAL_GUID_CREATE(HighGuid::PetBattle)
@@ -604,7 +604,7 @@ MAP_GUID_CREATE(HighGuid::AILock)
 MAP_GUID_CREATE(HighGuid::AILockTicket)
 MAP_GUID_CREATE(HighGuid::Cast)
 MAP_GUID_CREATE(HighGuid::EventObject)
-MAP_GUID_CREATE(HighGuid::PVPQueueGroup)
+MAP_GUID_CREATE(HighGuid::PvpQueueGroup)
 
 ObjectGuid const ObjectGuid::Empty = ObjectGuid();
 ObjectGuid const ObjectGuid::TradeItem = ObjectGuid::Create<HighGuid::Uniq>(uint64(10));
