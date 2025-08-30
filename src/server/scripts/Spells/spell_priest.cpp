@@ -845,7 +845,7 @@ class spell_pri_power_word_shield : public SpellScriptLoader
                     {
                         float critChance = plr->GetFloatValue(PLAYER_FIELD_CRIT_PERCENTAGE);
                         if (roll_chance_f(critChance))
-                            amount *= plr->CanPvPScalar() ? 1.5f : 2.f;
+                            amount *= plr->CanPvpScalar() ? 1.5f : 2.f;
                     }
 
                     if (Unit* target = GetAura()->GetUnitOwner())
@@ -1611,7 +1611,7 @@ class spell_pri_atonement_heal : public SpellScript
 
         if (GetSpell()->IsCritForTarget(target))
         {
-            float mod = caster->CanPvPScalar() ? 0.75f : 0.5f;
+            float mod = caster->CanPvpScalar() ? 0.75f : 0.5f;
             SetHitHeal(GetHitHeal() * mod);
         }
     }
