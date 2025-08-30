@@ -23,7 +23,7 @@
 #include "DisableMgr.h"
 #include "GameTables.h"
 #include "NPCPackets.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "WowTime.hpp"
 #include "GameEventMgr.h"
 #include "LFGMgr.h"

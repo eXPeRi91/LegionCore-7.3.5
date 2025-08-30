@@ -26,7 +26,7 @@
 #include "LFGMgr.h"
 #include "MiscPackets.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "PlayerDefines.h"
 #include "QuestData.h"
 #include "ScriptMgr.h"

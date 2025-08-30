@@ -1,7 +1,7 @@
 /*
 */
 
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "QuestData.h"
 
 class OutdoorPvpThousandNeedles : public OutdoorPvp

@@ -25,7 +25,7 @@ EndScriptData */
 #include "ScriptMgr.h"
 #include "Chat.h"
 #include "DisableMgr.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "QuestData.h"
 #include "DatabaseEnv.h"
 

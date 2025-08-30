@@ -18,7 +18,7 @@
 #ifndef OUTDOOR_PVP_NA_
 #define OUTDOOR_PVP_NA_
 
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 
 // TODO: "sometimes" set to neutral
 

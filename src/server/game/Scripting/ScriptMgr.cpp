@@ -35,7 +35,7 @@
 #include "Map.h"
 #include "MapManager.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "Player.h"
 #include "ScriptMgr.h"
 #include "ScriptsData.h"

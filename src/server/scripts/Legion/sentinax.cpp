@@ -1,7 +1,7 @@
 #include "sentinax.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "GameEventMgr.h"
 
 class spell_sentinax_call_portal : public SpellScriptLoader

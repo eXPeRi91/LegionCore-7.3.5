@@ -39,7 +39,7 @@
 #include "ObjectAccessor.h"
 #include "ObjectGridLoader.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "ScenarioMgr.h"
 #include "ScriptMgr.h"
 #include "StringFormat.h"

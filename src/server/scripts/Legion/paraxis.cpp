@@ -1,5 +1,5 @@
-#include "OutdoorPvp.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvP.h"
+#include "OutdoorPvPMgr.h"
 #include "AreaTrigger.h"
 #include "AreaTriggerAI.h"
 

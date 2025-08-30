@@ -35,7 +35,7 @@ EndScriptData */
 #include "MapManager.h"
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "Packets/ChatPackets.h"
 #include "Packets/InstancePackets.h"
 #include "Packets/LfgListPackets.h"

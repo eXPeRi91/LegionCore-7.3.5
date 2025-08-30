@@ -51,7 +51,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "Pet.h"
 #include "PetBattle.h"
 #include "Player.h"

@@ -1,5 +1,5 @@
 #include "Scenario.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "AccountMgr.h"
 #include "PrecompiledHeaders/ScriptPCH.h"
 

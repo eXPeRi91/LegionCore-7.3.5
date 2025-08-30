@@ -9,8 +9,8 @@
 #ifndef ASHRAN_MGR_HPP_ASHRAN
 # define ASHRAN_MGR_HPP_ASHRAN
 
-# include "OutdoorPvp.h"
-# include "OutdoorPvpMgr.h"
+# include "OutdoorPvP.h"
+# include "OutdoorPvPMgr.h"
 # include "AshranDatas.hpp"
 # include "ScriptMgr.h"
 # include "ScriptedCreature.h"

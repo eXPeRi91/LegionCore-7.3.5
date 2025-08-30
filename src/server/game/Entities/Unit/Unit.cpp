@@ -53,7 +53,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "PartyPackets.h"
 #include "PassiveAI.h"
 #include "Pet.h"

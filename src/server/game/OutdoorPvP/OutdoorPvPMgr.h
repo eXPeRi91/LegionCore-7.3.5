@@ -20,7 +20,7 @@
 
 #define OUTDOORPVP_OBJECTIVE_UPDATE_INTERVAL 1000
 
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 
 class Player;
 class GameObject;

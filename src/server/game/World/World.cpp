@@ -80,7 +80,7 @@
 #include "MMapFactory.h"
 #include "ObjectMgr.h"
 #include "Opcodes.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "PetBattleSystem.h"
 #include "Player.h"
 #include "PlayerDump.h"

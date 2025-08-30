@@ -18,7 +18,7 @@
 
 #include "DisableMgr.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "SpellMgr.h"
 #include "VMapManager2.h"
 #include "DatabaseEnv.h"

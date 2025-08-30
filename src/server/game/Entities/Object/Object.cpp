@@ -41,7 +41,7 @@
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
 #include "Opcodes.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "Player.h"
 #include "SharedDefines.h"
 #include "SpellPackets.h"

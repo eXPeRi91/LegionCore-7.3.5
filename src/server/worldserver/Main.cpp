@@ -42,7 +42,7 @@
 #include "MapManager.h"
 #include "ObjectAccessor.h"
 #include "OpenSSLCrypto.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "ProcessPriority.h"
 #include "RASession.h"
 #include "RealmList.h"

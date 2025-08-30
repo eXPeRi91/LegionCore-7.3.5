@@ -23,7 +23,7 @@
 #include "ScenarioPackets.h"
 #include "InstanceScript.h"
 #include "QuestData.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 
 Scenario::Scenario(Map* map, lfg::LFGDungeonData const* _dungeonData, Player* player, bool find) : m_achievementMgr(this)
 {

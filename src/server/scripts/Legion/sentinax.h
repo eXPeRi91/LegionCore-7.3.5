@@ -1,7 +1,7 @@
 #ifndef SENTINAX_H
 #define SENTINAX_H
 
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "GameEventMgr.h"
 
 

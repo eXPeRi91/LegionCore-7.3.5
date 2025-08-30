@@ -3,7 +3,7 @@
 #include "CombatAI.h"
 #include "custom_events.h"
 #include "GameEventMgr.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "QuestData.h"
 #include "ScriptMgr.h"
 #include "ScriptedCreature.h"

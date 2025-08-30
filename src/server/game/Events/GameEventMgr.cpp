@@ -32,7 +32,7 @@
 #include "DatabaseEnv.h"
 #include "QuestData.h"
 #include "WorldStateMgr.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 
 static uint32 timerConstant = 946684800; // 01/01/2000 00:00:00
 

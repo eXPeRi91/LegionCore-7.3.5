@@ -19,7 +19,7 @@
 #define OUTDOOR_PVP_ZM_
 
 #include "Language.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 
 const uint8 OutdoorPvpZMBuffZonesNum = 5;
 

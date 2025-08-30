@@ -20,7 +20,7 @@
 #include "Player.h"
 #include "PlayerDefines.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "Packets/WorldStatePackets.h"
 #include "Language.h"
 #include "World.h"

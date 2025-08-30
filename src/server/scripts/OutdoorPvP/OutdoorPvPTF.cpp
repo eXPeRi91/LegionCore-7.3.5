@@ -18,7 +18,7 @@
 #include "ScriptMgr.h"
 #include "OutdoorPvpTF.h"
 #include "Packets/WorldStatePackets.h"
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 #include "Player.h"
 #include "ObjectMgr.h"
 #include "Language.h"

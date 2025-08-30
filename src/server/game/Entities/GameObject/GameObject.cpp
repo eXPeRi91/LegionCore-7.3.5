@@ -36,7 +36,7 @@
 #include "MMapManager.h"
 #include "ObjectMgr.h"
 #include "ObjectVisitors.hpp"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "PlayerDefines.h"
 #include "PoolMgr.h"
 #include "QuestData.h"

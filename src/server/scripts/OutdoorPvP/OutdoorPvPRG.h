@@ -18,7 +18,7 @@
 #ifndef OUTDOOR_PVP_RG_
 #define OUTDOOR_PVP_RG_
 
-#include "OutdoorPvp.h"
+#include "OutdoorPvP.h"
 
 enum OutdoorPvpRGKillCredit
 {

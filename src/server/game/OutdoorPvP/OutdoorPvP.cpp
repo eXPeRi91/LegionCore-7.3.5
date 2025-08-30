@@ -15,8 +15,8 @@
  * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "OutdoorPvp.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvP.h"
+#include "OutdoorPvPMgr.h"
 #include "ObjectAccessor.h"
 #include "ObjectMgr.h"
 #include "Map.h"

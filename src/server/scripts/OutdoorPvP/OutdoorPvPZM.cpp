@@ -18,7 +18,7 @@
 #include "ScriptMgr.h"
 #include "OutdoorPvpZM.h"
 #include "ObjectMgr.h"
-#include "OutdoorPvpMgr.h"
+#include "OutdoorPvPMgr.h"
 #include "Player.h"
 #include "Creature.h"
 #include "ObjectAccessor.h"
