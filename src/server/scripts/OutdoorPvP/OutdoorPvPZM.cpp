@@ -16,7 +16,7 @@
  */
 
 #include "ScriptMgr.h"
-#include "OutdoorPvpZM.h"
+#include "OutdoorPvPZM.h"
 #include "ObjectMgr.h"
 #include "OutdoorPvPMgr.h"
 #include "Player.h"

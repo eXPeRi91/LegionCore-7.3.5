@@ -16,7 +16,7 @@
  */
 
 #include "ScriptMgr.h"
-#include "OutdoorPvpRG.h"
+#include "OutdoorPvPRG.h"
 #include "OutdoorPvPMgr.h"
 
 Position summon_pos[3]

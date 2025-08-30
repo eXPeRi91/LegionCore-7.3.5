@@ -16,7 +16,7 @@
  */
 
 #include "ScriptMgr.h"
-#include "OutdoorPvpNA.h"
+#include "OutdoorPvPNA.h"
 #include "Player.h"
 #include "PlayerDefines.h"
 #include "ObjectMgr.h"
