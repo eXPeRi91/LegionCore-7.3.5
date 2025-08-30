@@ -34,7 +34,7 @@ void AddSC_Kloaka();
 
 // The name of this function should match:
 // void Add${NameOfDirectory}Scripts()
-void AddOutdoorPvpScripts()
+void AddOutdoorPvPScripts()
 {
     AddSC_outdoorpvp_hp();
     AddSC_outdoorpvp_na();
