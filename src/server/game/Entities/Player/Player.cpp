@@ -37787,7 +37787,8 @@ void Player::SaveBattlePets(SQLTransaction& trans)
 {
     for (BattlePetMap::iterator itr = _battlePets.begin(); itr != _battlePets.end(); ++itr)
         if (std::shared_ptr<BattlePet> pet = itr->second)
-            pet->Save(trans);
+            if (!pet->needDelete)
+                pet->Save(trans);
 }
 
 void Player::PetBattleCountBattleSpecies()
