@@ -1067,7 +1067,7 @@ void WorldSession::SendPetBattleRoundResult(PetBattle* petBattle)
         bool isDead = false;
         for (const auto & update : roundEvent.Updates)
         {
-            isDead = update.State.ID == BATTLEPET_STATE_Is_Dead;
+            isDead = update.State.ID == BATTLEPET_STATE_IsDead;
             WorldPackets::BattlePet::PetBattleEffectTarget effectTargetUpdate;
             effectTargetUpdate.Type = update.UpdateType;
             effectTargetUpdate.Petx = update.TargetPetID;
