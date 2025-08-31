@@ -149,11 +149,14 @@ void BattlePet::AddToPlayer(Player* player, SQLTransaction& trans)
 
 void BattlePet::Remove(Player* /*player*/)
 {
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "BattlePet::Remove() called");
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "BattlePet::Remove() called for pet with id %u", JournalID.GetCounter());
+
     PreparedStatement* statement = CharacterDatabase.GetPreparedStatement(CHAR_DEL_PETBATTLE);
     statement->setUInt64(0, JournalID.GetCounter());
     CharacterDatabase.Execute(statement);
 
-    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "BattlePet::Remove() called for pet with id %u", JournalID.GetCounter());
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "BattlePet::Remove() completed for pet with id %u", JournalID.GetCounter());
 
     needDelete = true;
 }
