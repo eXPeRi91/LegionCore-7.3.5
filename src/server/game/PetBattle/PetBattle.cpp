@@ -153,6 +153,8 @@ void BattlePet::Remove(Player* /*player*/)
     statement->setUInt64(0, JournalID.GetCounter());
     CharacterDatabase.Execute(statement);
 
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "BattlePet::Remove() called for pet with id %u", JournalID.GetCounter());
+
     needDelete = true;
 }
 
