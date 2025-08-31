@@ -3556,7 +3556,7 @@ class Player : public Unit, public GridObject<Player>
         void ApplyWargameItemModifications();
 
         uint32 GetBattlePetTrapLevel();
-        void SaveBattlePets(SQLTransaction& trans);
+        void _SaveBattlePets(SQLTransaction& trans);
         void UnsummonCurrentBattlePetIfAny(bool p_Unvolontary);
         void PetBattleCountBattleSpecies();
         uint8 GetBattlePetCountForSpecies(uint32 speciesID);
