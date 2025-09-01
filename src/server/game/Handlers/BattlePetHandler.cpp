@@ -130,7 +130,7 @@ void WorldSession::HandleCageBattlePet(WorldPackets::BattlePet::BattlePetGuidRea
     if (!battlePet)
         return;
 
-    if (sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_CAGEABLE))
+    if (!sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_CAGEABLE))
         return;
 
     ItemPosCountVec dest;
@@ -599,7 +599,7 @@ void WorldSession::HandleBattlePetDelete(WorldPackets::BattlePet::BattlePetGuidR
     if (!battlePet)
         return;
 
-    if (sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
+    if (!sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
         return;
 
     SendBattlePetDeleted(packet.BattlePetGUID);
@@ -1067,7 +1067,7 @@ void WorldSession::SendPetBattleRoundResult(PetBattle* petBattle)
         bool isDead = false;
         for (const auto & update : roundEvent.Updates)
         {
-            isDead = update.State.ID == BATTLEPET_STATE_Is_Dead;
+            isDead = update.State.ID == BATTLEPET_STATE_IsDead;
             WorldPackets::BattlePet::PetBattleEffectTarget effectTargetUpdate;
             effectTargetUpdate.Type = update.UpdateType;
             effectTargetUpdate.Petx = update.TargetPetID;

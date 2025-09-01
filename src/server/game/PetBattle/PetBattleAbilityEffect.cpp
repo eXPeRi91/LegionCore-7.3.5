@@ -531,7 +531,7 @@ int32 PetBattleAbilityEffect::CalculateHit(int32 accuracy)
     if (accuracy < 100 && !roll_chance_i(accuracy))
         Flags |= PETBATTLE_EVENT_FLAG_MISS;
 
-    if (Caster != Target && GetState(Target, BATTLEPET_STATE_untargettable))
+    if (Caster != Target && GetState(Target, BATTLEPET_STATE_Untargettable))
         Flags |= PETBATTLE_EVENT_FLAG_MISS;
 
     return accuracy;
@@ -546,7 +546,7 @@ bool PetBattleAbilityEffect::SetState(uint32 target, uint32 stateID, int32 value
         {
             case BATTLEPET_STATE_Mechanic_IsStunned:
             case BATTLEPET_STATE_Mechanic_IsWebbed:
-            case BATTLEPET_STATE_turnLock:
+            case BATTLEPET_STATE_TurnLock:
                 Flags |= PETBATTLE_EVENT_FLAG_IMMUNE;
                 break;
             default:
@@ -604,7 +604,7 @@ bool PetBattleAbilityEffect::SetHealth(uint32 target, int32 value)
         {
             Flags |= PETBATTLE_EVENT_FLAG_UNK_KILL;
 
-            if (!GetState(target, BATTLEPET_STATE_Is_Dead))
+            if (!GetState(target, BATTLEPET_STATE_IsDead))
                 PetBattleInstance->SetPetState(Caster, target, EffectInfo->ID, BATTLEPET_STATE_Internal_HealthBeforeInstakill, PetBattleInstance->Pets[target]->Health);
         }
         else if (value <= 0 && GetAura(target, 284))    ///< Buff : Suvival https://www.wowhead.com/petability=283/survival
@@ -618,7 +618,7 @@ bool PetBattleAbilityEffect::SetHealth(uint32 target, int32 value)
 
     PetBattleInstance->RoundEvents.push_back(battleEvent);
 
-    if (!(Flags & FailFlags) && PetBattleInstance->Pets[target]->Health <= 0 && !GetState(target, BATTLEPET_STATE_Is_Dead) && !GetState(target, BATTLEPET_STATE_unkillable))
+    if (!(Flags & FailFlags) && PetBattleInstance->Pets[target]->Health <= 0 && !GetState(target, BATTLEPET_STATE_IsDead) && !GetState(target, BATTLEPET_STATE_Unkillable))
         Kill(target);
 
     return !(Flags & FailFlags);
@@ -648,8 +648,8 @@ void PetBattleAbilityEffect::Kill(uint32 target)
 {
     if (Flags & FailFlags)
     {
-        // TC_LOG_DEBUG(LOG_FILTER_BATTLEPET, "PetBattleAbilityEffect::Kill BATTLEPET_STATE_Is_Dead");
-        SetState(target, BATTLEPET_STATE_Is_Dead, 1);
+        // TC_LOG_DEBUG(LOG_FILTER_BATTLEPET, "PetBattleAbilityEffect::Kill BATTLEPET_STATE_IsDead");
+        SetState(target, BATTLEPET_STATE_IsDead, 1);
         return;
     }
 
@@ -789,7 +789,7 @@ bool PetBattleAbilityEffect::Execute()
         Target = target;
         Flags = 0;
 
-        if (PetBattleInstance->Pets[Caster]->TeamID != PetBattleInstance->Pets[Target]->TeamID && PetBattleInstance->Pets[Target]->States[BATTLEPET_STATE_untargettable])
+        if (PetBattleInstance->Pets[Caster]->TeamID != PetBattleInstance->Pets[Target]->TeamID && PetBattleInstance->Pets[Target]->States[BATTLEPET_STATE_Untargettable])
             Flags |= PETBATTLE_EVENT_FLAG_DODGE;
 
         auto _result = (this->*Handlers[EffectInfo->BattlePetEffectPropertiesID].Handle)();
@@ -1399,7 +1399,7 @@ bool PetBattleAbilityEffect::HandleInitialization()
 bool PetBattleAbilityEffect::HandleResurect()
 {
     SetHealth(Target, CalculatePct(GetMaxHealth(Target), EffectInfo->Param[0]));
-    SetState(Target, BATTLEPET_STATE_Is_Dead, 0);
+    SetState(Target, BATTLEPET_STATE_IsDead, 0);
     return true;
 }
 
@@ -1681,7 +1681,7 @@ bool PetBattleAbilityEffect::HandleTryRevive()
 
     CalculateHit(EffectInfo->Param[0]);
 
-    return SetState(Target, BATTLEPET_STATE_Is_Dead, 0);
+    return SetState(Target, BATTLEPET_STATE_IsDead, 0);
 }
 
 bool PetBattleAbilityEffect::HandleDamagePercentTaken()

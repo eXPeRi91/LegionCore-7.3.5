@@ -25146,7 +25146,7 @@ void Player::SaveToDB(bool create /*=false*/)
     if (_collectionMgr)
         _collectionMgr->SaveToDB(trans);
 
-    SaveBattlePets(trans);
+    _SaveBattlePets(trans);
 
     _SaveChallengeKey(trans);
     _SaveDeathMatchStats(trans);
@@ -37783,7 +37783,7 @@ std::shared_ptr<BattlePet>* Player::GetBattlePetCombatTeam()
     return _battlePetCombatTeam;
 }
 
-void Player::SaveBattlePets(SQLTransaction& trans)
+void Player::_SaveBattlePets(SQLTransaction& trans)
 {
     for (BattlePetMap::iterator itr = _battlePets.begin(); itr != _battlePets.end(); ++itr)
         if (std::shared_ptr<BattlePet> pet = itr->second)

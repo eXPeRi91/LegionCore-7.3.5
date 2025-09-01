@@ -332,17 +332,17 @@ std::shared_ptr<BattlePetInstance> BattlePetInstance::CloneForBattle(std::shared
 
 bool BattlePetInstance::IsAlive()
 {
-    return States[BATTLEPET_STATE_Is_Dead] == 0;
+    return States[BATTLEPET_STATE_IsDead] == 0;
 }
 
 bool BattlePetInstance::CanAttack()
 {
-    return !States[BATTLEPET_STATE_turnLock] && !States[BATTLEPET_STATE_Mechanic_IsStunned];
+    return !States[BATTLEPET_STATE_TurnLock] && !States[BATTLEPET_STATE_Mechanic_IsStunned];
 }
 
 int32 BattlePetInstance::GetMaxHealth()
 {
-    return int32(floor((10000.0f + 5.0f * States[BATTLEPET_STATE_Stat_Stamina] + States[BATTLEPET_STATE_maxHealthBonus] * States[BATTLEPET_STATE_Internal_InitialLevel]) / 100.0f + 0.5));
+    return int32(floor((10000.0f + 5.0f * States[BATTLEPET_STATE_Stat_Stamina] + States[BATTLEPET_STATE_MaxHealthBonus] * States[BATTLEPET_STATE_Internal_InitialLevel]) / 100.0f + 0.5));
 }
 
 int32 BattlePetInstance::GetSpeed()
@@ -522,7 +522,7 @@ void PetBattleAura::Apply(PetBattle* petBattle)
                 case BATTLEPET_STATE_Mechanic_IsBlind:
                 case BATTLEPET_STATE_Mechanic_IsChilled:
                 case BATTLEPET_STATE_Mechanic_IsBurning:
-                case BATTLEPET_STATE_swapOutLock:
+                case BATTLEPET_STATE_SwapOutLock:
                     if (v->Value > 0)
                         flags |= PETBATTLE_EVENT_FLAG_IMMUNE;
                     break;
@@ -777,7 +777,7 @@ bool PetBattleTeam::CanCastAny()
     if (HasPendingMultiTurnCast())
         return false;
 
-    if (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_turnLock])
+    if (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_TurnLock])
         return false;
 
     if (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_Mechanic_IsStunned])
@@ -791,7 +791,7 @@ bool PetBattleTeam::CanSwap(int8 replacementPet)
     if (HasPendingMultiTurnCast())
         return false;
 
-    if (PetBattleInstance->Pets[ActivePetID]->IsAlive() && (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_swapOutLock] || PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_Mechanic_IsWebbed]))
+    if (PetBattleInstance->Pets[ActivePetID]->IsAlive() && (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_SwapOutLock] || PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_Mechanic_IsWebbed]))
         return false;
 
     if (replacementPet != PETBATTLE_NULL_ID)
@@ -799,7 +799,7 @@ bool PetBattleTeam::CanSwap(int8 replacementPet)
         if (!PetBattleInstance->Pets[replacementPet]->IsAlive())
             return false;
 
-        if (PetBattleInstance->Pets[replacementPet]->States[BATTLEPET_STATE_swapInLock])
+        if (PetBattleInstance->Pets[replacementPet]->States[BATTLEPET_STATE_SwapInLock])
             return false;
     }
 
@@ -1703,7 +1703,7 @@ void PetBattle::Kill(int8 killer, int8 target, uint32 killerAbibilityEffectID, b
 
     // TC_LOG_DEBUG(LOG_FILTER_BATTLEPET, "PetBattle::Kill BATTLEPET_STATE_Special_ConsumedCorpse");
 
-    SetPetState(killer, target, killerAbibilityEffectID, BATTLEPET_STATE_Is_Dead, 1, fromCapture, flags);
+    SetPetState(killer, target, killerAbibilityEffectID, BATTLEPET_STATE_IsDead, 1, fromCapture, flags);
 
     RoundResult = PETBATTLE_ROUND_RESULT_CATCH_OR_KILL;
 }
