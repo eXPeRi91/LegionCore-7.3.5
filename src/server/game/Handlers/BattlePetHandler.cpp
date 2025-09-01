@@ -602,7 +602,7 @@ void WorldSession::HandleBattlePetDelete(WorldPackets::BattlePet::BattlePetGuidR
         return;
 
     TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() checking flags");
-    if (sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
+    if (!sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
         return;
 
     TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() send deleted");
