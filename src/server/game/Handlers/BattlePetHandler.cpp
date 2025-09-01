@@ -595,15 +595,21 @@ void WorldSession::HandlePetBattleQuitNotify(WorldPackets::BattlePet::NullCmsg& 
 
 void WorldSession::HandleBattlePetDelete(WorldPackets::BattlePet::BattlePetGuidRead& packet)
 {
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() called");
     auto battlePet = _player->GetBattlePet(packet.BattlePetGUID);
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() pet retrieved");
     if (!battlePet)
         return;
 
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() checking flags");
     if (sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
         return;
 
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() send deleted");
     SendBattlePetDeleted(packet.BattlePetGUID);
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() calling remove()");
     battlePet->Remove(nullptr);
+    TC_LOG_ERROR(LOG_FILTER_DUNGEONBALANCE, "WorldSession::HandleBattlePetDelete() erasing from array");
     _player->_battlePets.erase(packet.BattlePetGUID);
 }
 
