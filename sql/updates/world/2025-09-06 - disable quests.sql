@@ -19,3 +19,7 @@ INSERT INTO `disables` (`sourceType`, `entry`, `flags`, `params_0`, `params_1`, 
 (1, 573, 0, '', '', 'Deprecated quest: Mok''thardin''s Enchantment'),
 (1, 14007, 0, '', '', 'Deprecated quest: Steady Shot'),
 (1, 25143, 0, '', '', 'Deprecated quest: Primal Strike');
+
+-- Fix "The Holy Water of Clarity", two quests depending on if you've quested up north or not
+UPDATE `quest_template_addon` SET `PrevQuestID` = 26404, `ExclusiveGroup` = 26433 WHERE `ID` = 26433;
+UPDATE `quest_template_addon` SET `ExclusiveGroup` = 26433 WHERE `ID` = 26590;
