@@ -1,5 +1,4 @@
 -- Fix NPCs that incorrectly aggressively attack the player
---
 -- 9119 = Muigin
 -- 34283 = Sabina Pilgrim
 -- 46006 = Ginny Goodwin
@@ -7,7 +6,6 @@ UPDATE `creature_template` SET `flags_extra` = 2 WHERE `entry` IN (9119, 34283, 
 
 
 -- Fix NPCs that you should not be able to attack
---
 -- 53544 = Squrky
 -- 101146 = Orgrimmar Grunt
 UPDATE `creature_template` SET `unit_flags` = 33536, `flags_extra` = 2 WHERE `entry` = 53544;
@@ -15,13 +13,24 @@ UPDATE `creature_template` SET `flags_extra` = 2 WHERE `entry` = 101146;
 
 
 -- Fix creatures in Tirisfal Glades, incorrect min/max levels
+-- 1502 = Wretched Ghoul
+-- 1504 = Young Night Web Spider
+-- 1505 = Night Web Spider
+-- 1508 = Young Scavenger
+-- 1509 = Ragged Scavenger
+-- 1548 = Cursed Darkhound
+-- 1890 = Rattlecage Skeleton
 -- 1910 = Muad
 -- 38980 = Spirit of Devlin Agamand
 -- 38981 = Shadow of Agamand
-UPDATE `creature_template` SET `minlevel` = 1, `maxlevel` = 1, `ScaleLevelMin` = 1, `ScaleLevelMax` = 20 WHERE `entry` IN (1910, 38980, 38981);
+UPDATE `creature_template` SET `minlevel` = 1, `maxlevel` = 1, `ScaleLevelMin` = 1, `ScaleLevelMax` = 20 WHERE `entry` IN (1502, 1504, 1505, 1508, 1509, 1548, 1890, 1910, 38980, 38981);
 
 
 -- Fix creatures in Northern Barrens, incorrect min/max levels
+-- 3243 = Savannah Highmane
+-- 3268 = Razormane Thornweaver
+-- 3270 = Elder Mystic Razorsnout
+-- 3384 = Southsea Privateer
 -- 3394 = Barak Kodobane
 -- 3395 = Verog the Dervish
 -- 3398 = Gesharahan
@@ -57,7 +66,7 @@ UPDATE `creature_template` SET `minlevel` = 1, `maxlevel` = 1, `ScaleLevelMin` =
 -- 52165 = Sludge Beast
 -- 52312 = Xelnaz
 -- 52386 = Burning Blade Windrider
-UPDATE `creature_template` SET `minlevel` = 10, `maxlevel` = 10, `ScaleLevelMin` = 10, `ScaleLevelMax` = 60 WHERE `entry` IN (3394, 3395, 3398, 3438, 3470, 3475, 4166, 5629, 5828, 5841, 8307, 9456, 9457, 9458, 9524, 9990, 34284, 34432, 34577, 34594, 34635, 34747, 34750, 34752, 34753, 34782, 34804, 34829, 34846, 44164, 44165, 44168, 52165, 52312, 52386);
+UPDATE `creature_template` SET `minlevel` = 10, `maxlevel` = 10, `ScaleLevelMin` = 10, `ScaleLevelMax` = 60 WHERE `entry` IN (3243, 3268, 3270, 3384, 3394, 3395, 3398, 3438, 3470, 3475, 4166, 5629, 5828, 5841, 8307, 9456, 9457, 9458, 9524, 9990, 34284, 34432, 34577, 34594, 34635, 34747, 34750, 34752, 34753, 34782, 34804, 34829, 34846, 44164, 44165, 44168, 52165, 52312, 52386);
 
 
 -- Fix creatures in Ashenvale, incorrect min/max levels
@@ -91,8 +100,9 @@ UPDATE `creature_template` SET `minlevel` = 15, `maxlevel` = 15, `ScaleLevelMin`
 
 -- Fix creatures in Stonetalon Mountains, incorrect min/max levels
 -- 38384 = Kona Thunderwalk
+-- 41311 = Master Assassin Kel'istra
 -- 42015 = Gnomish Bomber
-UPDATE `creature_template` SET `minlevel` = 20, `maxlevel` = 20, `ScaleLevelMin` = 20, `ScaleLevelMax` = 60 WHERE `entry` IN (38384, 42015);
+UPDATE `creature_template` SET `minlevel` = 20, `maxlevel` = 20, `ScaleLevelMin` = 20, `ScaleLevelMax` = 60 WHERE `entry` IN (38384, 41311, 42015);
 
 
 -- Fix creatures in Southern Barrens, incorrect min/max levels
@@ -105,12 +115,19 @@ UPDATE `creature_template` SET `minlevel` = 25, `maxlevel` = 25, `ScaleLevelMin`
 
 
 -- Fix creatures in Dustwallow Marsh, incorrect min/max levels
+-- 4339 = Brimgore
+-- 4841 = Deadmire
+-- 14232 = Dart
+-- 23786 = Stonemaul Spirit
+-- 23789 = Smolderwing
+-- 23864 = Zelfrax
+-- 23928 = Lurking Shark
 -- 23941 = Gavis Greyshield
-UPDATE `creature_template` SET `minlevel` = 35, `maxlevel` = 35, `ScaleLevelMin` = 35, `ScaleLevelMax` = 60 WHERE `entry` = 23941;
+-- 38006 = Crown Hoodlum
+UPDATE `creature_template` SET `minlevel` = 35, `maxlevel` = 35, `ScaleLevelMin` = 35, `ScaleLevelMax` = 60 WHERE `entry` IN (4339, 4841, 14232, 23786, 23789, 23864, 23928, 23941, 38006);
 
 
 -- Fix creatures in Western Plaguelands, incorrect min/max levels
---
 -- 1848 = Lord Maldazzar
 -- 10927 = Disturbed Resident
 -- 44445 = Krastinovian Disciple
@@ -124,7 +141,6 @@ UPDATE `creature_template` SET `minlevel` = 35, `maxlevel` = 35, `ScaleLevelMin`
 
 
 -- Fix creatures in Eastern Plaguelands, incorrect min/max levels
---
 -- 8562 = Mossflayer Cannibal
 -- 10699 = Carrion Scarab
 -- 10822 = Warlord Thresh'jinn
@@ -182,21 +198,20 @@ UPDATE `creature_template` SET `minlevel` = 40, `maxlevel` = 40, `ScaleLevelMin`
 
 
 -- Fix creatures in Hellfire Peninsula, incorrect min/max levels
---
 -- 16939 = Void Baron Galaxis
 -- 16994 = Draenei Anchorite
 -- 16996 = Draenei Vindicator
 -- 18978 = Heckling Fel Sprite
+-- 18981 = Doomwhisperer
 -- 19443 = Tagar Spinebreaker
 -- 19599 = Void Servant
 -- 19862 = Urtrak
 -- 20145 = Unstable Voidwalker
 -- 20798 = Razorsaw
-UPDATE `creature_template` SET `minlevel` = 58, `maxlevel` = 58, `ScaleLevelMin` = 58, `ScaleLevelMax` = 80 WHERE `entry` IN (16939, 16994, 16996, 18978, 19443, 19599, 19862, 20145, 20798);
+UPDATE `creature_template` SET `minlevel` = 58, `maxlevel` = 58, `ScaleLevelMin` = 58, `ScaleLevelMax` = 80 WHERE `entry` IN (16939, 16994, 16996, 18978, 18981, 19443, 19599, 19862, 20145, 20798);
 
 
 -- Fix creatures in Zangarmarsh, incorrect min/max levels
---
 -- 18044 = Rajis Fyashe
 -- 18089 = Bloodscale Slavedriver
 -- 18121 = Ango'rosh Souleater
