@@ -32720,6 +32720,57 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
 
     //AddTrackingQuestIfNeeded(loot->LootSourceGuid);
     sScriptMgr->OnLootItem(this, newitem, item->count);
+
+    // Check if we need to convert this item to gold instead
+    if (sWorld->getBoolConfig(CONFIG_SELLJUNKWHENLOOTED))
+    {
+        if (newitem && newitem->GetTemplate())
+        {
+            if (newitem->GetTemplate()->GetQuality() == ITEM_QUALITY_POOR)
+            {
+                // Output chat message
+                std::string name;
+
+                if (count > 1)
+                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|rx%u", item->item.ItemID, newitem->GetTemplate()->GetName(), item->count);
+                else
+                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|r", item->item.ItemID, newitem->GetTemplate()->GetName());
+
+                uint32 money = newitem->GetTemplate()->GetSellPrice() * item->count;
+                uint32 gold = money / GOLD;
+                uint32 silver = (money % GOLD) / SILVER;
+                uint32 copper = (money % GOLD) % SILVER;
+
+                std::string info;
+                if (money < SILVER)
+                    info = Trinity::StringFormat("%s sold for %u copper.", name, copper);
+                else if (money < GOLD)
+                {
+                    if (copper > 0)
+                        info = Trinity::StringFormat("%s sold for %u silver and %u copper.", name, silver, copper);
+                    else
+                        info = Trinity::StringFormat("%s sold for %u silver.", name, silver);
+                }
+                else
+                {
+                    if (copper > 0 && silver > 0)
+                        info = Trinity::StringFormat("%s sold for %u gold, %u silver and %u copper.", name, gold, silver, copper);
+                    else if (copper > 0)
+                        info = Trinity::StringFormat("%s sold for %u gold and %u copper.", name, gold, copper);
+                    else if (silver > 0)
+                        info = Trinity::StringFormat("%s sold for %u gold and %u silver.", name, gold, silver);
+                    else
+                        info = Trinity::StringFormat("%s sold for %u gold.", name, gold);
+                }
+
+                ChatHandler(this).PSendSysMessage(info.c_str());
+
+                // Update money and remove item
+                this->ModifyMoney(newitem->GetSellPrice() * item->count);
+                this->DestroyItem(newitem->GetBagSlot(), newitem->GetSlot(), true);
+            }
+        }
+    }
 }
 
 uint8 Player::CalculateTalentsPoints() const
