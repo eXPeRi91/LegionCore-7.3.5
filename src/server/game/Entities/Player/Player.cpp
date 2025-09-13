@@ -107,6 +107,7 @@
 #include "SpellAuras.h"
 #include "SpellMgr.h"
 #include "SpellPackets.h"
+#include "StringFormat.h"
 #include "TalentPackets.h"
 #include "ToyPackets.h"
 #include "TradeData.h"
