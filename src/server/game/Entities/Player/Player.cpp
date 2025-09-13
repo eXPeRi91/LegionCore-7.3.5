@@ -107,7 +107,6 @@
 #include "SpellAuras.h"
 #include "SpellMgr.h"
 #include "SpellPackets.h"
-#include "StringFormat.h"
 #include "TalentPackets.h"
 #include "ToyPackets.h"
 #include "TradeData.h"
@@ -32733,9 +32732,9 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
                 std::string name;
 
                 if (count > 1)
-                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|rx%u", item->item.ItemID, newitem->GetTemplate()->GetName(), item->count);
+                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|rx%u", item->item.ItemID, newitem->GetTemplate()->GetName()->Str, item->count);
                 else
-                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|r", item->item.ItemID, newitem->GetTemplate()->GetName());
+                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|r", item->item.ItemID, newitem->GetTemplate()->GetName()->Str);
 
                 uint32 money = newitem->GetTemplate()->GetSellPrice() * item->count;
                 uint32 gold = money / GOLD;
