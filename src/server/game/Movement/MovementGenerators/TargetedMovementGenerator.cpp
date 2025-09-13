@@ -420,7 +420,7 @@ void FetchMovementGenerator<Creature>::MovementInform(Creature &unit)
         {
             if(Pet* pet = _player->GetPet())
             {
-                _player->GetSession()->LootCorps(i_target.getTarget()->GetGUID(), pet);
+                _player->GetSession()->LootCorpse(i_target.getTarget()->GetGUID(), pet);
                 pet->CastSpell(i_target.getTarget(), 125056, false);
 
                 pet->AttackStop();

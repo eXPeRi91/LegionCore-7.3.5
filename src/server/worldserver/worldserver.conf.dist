@@ -1191,6 +1191,13 @@ LevelGoldReq.Mail = 15
 BattlePet.AllowCageAll = 0
 
 #
+#   SellJunkWhenLooted
+#        Description: Setting this to 1 will automatically sell gray items upon looting them.
+#        Default:     0
+
+SellJunkWhenLooted = 0
+
+#
 ###################################################################################################
 
 ###################################################################################################
