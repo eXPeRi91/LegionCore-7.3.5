@@ -688,6 +688,8 @@ void World::LoadConfigSettings(bool reload)
 
     m_bool_configs[CONFIG_BATTLEPET_ALLOWCAGEALL] = sConfigMgr->GetBoolDefault("BattlePet.AllowCageAll", false);
 
+    m_bool_configs[CONFIG_SELLJUNKWHENLOOTED] = sConfigMgr->GetBoolDefault("SellJunkWhenLooted", false);
+
     m_int_configs[CONFIG_INTERVAL_GRIDCLEAN] = sConfigMgr->GetIntDefault("GridCleanUpDelay", 5 * MINUTE * IN_MILLISECONDS);
     if (m_int_configs[CONFIG_INTERVAL_GRIDCLEAN] < MIN_GRID_DELAY)
     {
