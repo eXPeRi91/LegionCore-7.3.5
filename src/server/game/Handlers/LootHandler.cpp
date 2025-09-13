@@ -527,9 +527,10 @@ void WorldSession::HandleDoMasterLootRoll(WorldPackets::Loot::DoMasterLootRoll& 
     else if (packet.LootObj.IsLoot())
     {
         loot = sLootMgr->GetLoot(packet.LootObj);
-        if (!loot)
-            return;
     }
+
+    if (!loot)
+        return;
 
     packet.LootListID -= 1; //restore slot index;
     if (packet.LootListID >= loot->items.size() + loot->quest_items.size())
