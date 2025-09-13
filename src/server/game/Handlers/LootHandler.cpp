@@ -131,13 +131,13 @@ void WorldSession::HandleLootUnit(WorldPackets::Loot::LootUnit& packet)
     if (!GetPlayer()->isAlive() || !packet.Unit.IsCreatureOrVehicle())
         return;
 
-    LootCorps(packet.Unit);
+    LootCorpse(packet.Unit);
 
     if (GetPlayer()->IsNonMeleeSpellCast(false))
         GetPlayer()->InterruptNonMeleeSpells(false);
 }
 
-void WorldSession::LootCorps(ObjectGuid corpsGUID, WorldObject* lootedBy)
+void WorldSession::LootCorpse(ObjectGuid corpsGUID, WorldObject* lootedBy)
 {
     Player* player = GetPlayer();
     if (!player)

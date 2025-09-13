@@ -1962,7 +1962,7 @@ class WorldSession
         void HandleUpdateListedAuctionableTokens(WorldPackets::Token::UpdateListedAuctionableTokens& packet);
         void HandleRequestConsumptionConversionInfo(WorldPackets::Misc::RequestConsumptionConversionInfo& packet);
         void HandleCheckVeteranTokenEligibility(WorldPackets::Token::CheckVeteranTokenEligibility& packet);
-        void LootCorps(ObjectGuid corpsGUID, WorldObject* lootedBy = nullptr);
+        void LootCorpse(ObjectGuid corpsGUID, WorldObject* lootedBy = nullptr);
 
         void HandleContributionCollectorContribute(WorldPackets::Misc::ContributionCollectorContribute& packet);
         void HandleContributionGetState(WorldPackets::Misc::ContributionGetState& packet);
