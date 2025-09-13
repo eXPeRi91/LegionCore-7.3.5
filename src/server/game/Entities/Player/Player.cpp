@@ -32731,12 +32731,12 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
                 // Output chat message
                 std::string name;
 
-                if (count > 1)
-                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|rx%u", item->item.ItemID, newitem->GetTemplate()->GetName()->Str[this->GetSession()->GetSessionDbLocaleIndex()], item->count);
+                if (newitem->GetCount() > 1)
+                    name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|rx%u", item->item.ItemID, newitem->GetTemplate()->GetName()->Str[this->GetSession()->GetSessionDbLocaleIndex()], newitem->GetCount());
                 else
                     name = Trinity::StringFormat("|cff9d9d9d|Hitem:%u::::::::80:::::|h[%s]|h|r", item->item.ItemID, newitem->GetTemplate()->GetName()->Str[this->GetSession()->GetSessionDbLocaleIndex()]);
 
-                uint32 money = newitem->GetTemplate()->GetSellPrice() * item->count;
+                uint32 money = newitem->GetTemplate()->GetSellPrice() * newitem->GetCount();
                 uint32 gold = money / GOLD;
                 uint32 silver = (money % GOLD) / SILVER;
                 uint32 copper = (money % GOLD) % SILVER;
@@ -32766,7 +32766,7 @@ void Player::StoreLootItem(uint8 lootSlot, Loot* loot)
                 ChatHandler(this).PSendSysMessage(info.c_str());
 
                 // Update money and remove item
-                this->ModifyMoney(newitem->GetSellPrice() * item->count);
+                this->ModifyMoney(newitem->GetSellPrice() * newitem->GetCount());
                 this->DestroyItem(newitem->GetBagSlot(), newitem->GetSlot(), true);
             }
         }
