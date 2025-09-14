@@ -3,10 +3,20 @@
 
 -- ------------------------------------------------------------------------------------------
 -- Fix spawn times for quest items that are single container, these will be 2 second respawns
+-- 4483 = Burning Key (2689)
+-- 4484 = Cresting Key (2691)
+-- 4485 = Thundering Key (2690)
+-- 4530 = Trelane's Phylactery (2717)
+-- 4531 = Trelane's Orb (2716)
+-- 4532 = Trelane's Ember Agate (2718)
 -- 30628 = Fel Reaver Power Core (184859)
 -- 30631 = Fel Reaver Armor Plate (184860)
+-- 34963 = Lower Horn Half (187885)
+-- 34964 = Upper Horn Half (187886)
+-- 48921 = Sarcen Stone (195513)
 -- 49012 = Abjurer's Manual (195584)
-UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` IN (184859, 184860, 195584);
+UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` IN (2689, 2690, 2691, 2716, 2717, 2718) AND `zoneId` = 45;
+UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` IN (184859, 184860, 187885, 187886, 195513, 195584);
 
 -- The following also have position fixes
 -- 49642 = Heart of Arkkoroc
@@ -38,7 +48,14 @@ UPDATE `gameobject` SET `spawntimesecs` = 30 where `id` IN (195447, 195448, 1955
 -- ------------------------------------------------------------------------------------------
 -- Fix spawn times for quest items in multiple containers, these will be 120 second respawns
 -- 24468 = Burstcap Mushroom (182095)
-UPDATE `gameobject` SET `spawntimesecs` = 120 where `id` = 182095;
+-- 34709 = Warsong Munitions (23083, 187661, 187660, 187659)
+UPDATE `gameobject` SET `spawntimesecs` = 120 where `id` IN (23083, 182095, 187661, 187660, 187659);
+
+
+-- ------------------------------------------------------------------------------------------
+-- Fix spawn times for quest items in multiple containers, these will be 180 second respawns
+-- 35492 = Frostberry (188113)
+UPDATE `gameobject` SET `spawntimesecs` = 180 where `id` IN (188113);
 
 
 -- ------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 -- Fix loot chance for the following quest items:
 --
--- Set the following to 100%
+-- Set the following to 100%:
 -- 2828 = Nissa's Remains
 -- 2829 = Gregor's Remains
 -- 2830 = Thurman's Remains
@@ -33,16 +33,16 @@
 -- 130255 = Latara's Bow
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (2828, 2829, 2830, 3635, 4859, 5063, 5089, 5544, 18962, 33420, 34027, 34035, 34387, 34621, 36753, 36793, 36853, 37565, 39318, 46147, 46365, 46381, 46834, 56139, 60874, 60876, 62911, 62924, 63035, 130255);
 --
--- Set the following to 90%
+-- Set the following to 90%:
 -- 3162 = Notched Rib
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -90 WHERE `item` = 3162;
 --
--- Set the following to 80%
+-- Set the following to 80%:
 -- 3163 = Blackened Skull
 -- 9237 = Woodpaw Gnoll Mane
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -80 WHERE `item` IN (3163, 9237);
 --
--- Set the following to 50%
+-- Set the following to 50%:
 -- 2834 = Embalming Ichor
 -- 46392 = Venison Steak
 -- 52270 = Plagued Bruin Hide
