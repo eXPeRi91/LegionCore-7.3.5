@@ -1,0 +1,16 @@
+-- Fix battle pets that should not be green to you:
+-- 61143 = Mouse
+-- 61258 = Rat Snake
+-- 61321 = Lizard Hatchling
+-- 61366 = Rat
+-- 61829 = Bat
+-- 62120 = Rabid Nut Varmint 5000
+-- 62184 = Rock Viper
+-- 62315 = Tainted Moth
+-- 62895 = Oasis Moth
+-- 62904 = Yellow-Bellied Marmot
+-- 65124 = Luyu Moth
+-- 68806 = Lofty Libram
+-- 303790 = Westfall Chicken
+-- 327910 = Spring Rabbit
+UPDATE `creature_template` SET `faction` = 188 WHERE `entry` IN (61143, 61258, 61321, 61366, 61829, 62120, 62184, 62315, 62895, 62904, 65124, 68806, 303790, 327910);

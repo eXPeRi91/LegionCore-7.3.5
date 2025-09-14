@@ -11,10 +11,12 @@
 -- 4532 = Trelane's Ember Agate (2718)
 -- 30628 = Fel Reaver Power Core (184859)
 -- 30631 = Fel Reaver Armor Plate (184860)
+-- 34963 = Lower Horn Half (187885)
+-- 34964 = Upper Horn Half (187886)
 -- 48921 = Sarcen Stone (195513)
 -- 49012 = Abjurer's Manual (195584)
 UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` IN (2689, 2690, 2691, 2716, 2717, 2718) AND `zoneId` = 45;
-UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` IN (184859, 184860, 195513, 195584);
+UPDATE `gameobject` SET `spawntimesecs` = 2 where `id` IN (184859, 184860, 187885, 187886, 195513, 195584);
 
 -- The following also have position fixes
 -- 49642 = Heart of Arkkoroc

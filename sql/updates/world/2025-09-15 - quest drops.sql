@@ -1,6 +1,6 @@
 -- Fix loot chance for the following quest items (from creatures):
 --
--- Set the following to 100%
+-- Set the following to 100%:
 -- 4458 = Sigil of Arathor
 -- 34961 = Burglegoggle's Key
 -- 34962 = Gurgleboggle's Key
@@ -16,13 +16,13 @@
 -- 35774 = Trident of Naz'jan
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (4458, 34961, 34962, 35353, 35354, 35355, 35483, 35484, 35486, 35490, 35648, 35669, 35774);
 --
--- Set the following to 70%
+-- Set the following to 70%:
 -- 35288 = 
 -- 35629 = Shimmering Rune
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -70 WHERE `item` IN (35288, 35629);
 
 
--- Cleanup bad entries
+-- Cleanup bad entries:
 DELETE FROM `creature_loot_template` WHERE `item` = 34961 AND NOT `entry` = 25726;
 DELETE FROM `creature_loot_template` WHERE `item` = 34962 AND NOT `entry` = 25725;
 DELETE FROM `creature_loot_template` WHERE `item` = 35288 AND NOT `entry` IN (25680, 25750);
@@ -35,6 +35,9 @@ DELETE FROM `creature_loot_template` WHERE `item` = 35629 AND NOT `entry` = 2571
 DELETE FROM `creature_loot_template` WHERE `item` = 35648 AND NOT `entry` = 25719;
 DELETE FROM `creature_loot_template` WHERE `item` = 35669 AND NOT `entry` = 25712;
 DELETE FROM `creature_loot_template` WHERE `item` = 35774 AND NOT `entry` = 26451;
+
+-- These should not drop at all:
+DELETE FROM `creature_loot_template` WHERE `item` = 34972;
 
 
 -- Fix loot chance for following, should be 100% POSITIVE chance:
