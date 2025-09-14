@@ -39,7 +39,7 @@ DELETE FROM `creature_loot_template` WHERE `item` = 35774 AND NOT `entry` = 2645
 
 -- Fix loot chance for following, should be 100% POSITIVE chance:
 -- 46318 = Hellscream's Missive
-UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` IN (46318);
+UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = 100 WHERE `item` = 46318;
 
 -- Fix loot chance for the following quest items (in game objects):
 --
@@ -52,9 +52,15 @@ UPDATE `gameobject_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` 
 DELETE FROM `gameobject_loot_template` WHERE `item` = 56804 AND NOT `entry` = 203450;
 
 
--- Fix game objects being interactable when they should not be
+-- Fix game objects being interactable when they should not be unless you have the quest:
 -- 181053 = Basket of Bloodkelp
 UPDATE `gameobject_template` SET `flags` = 4 WHERE `entry` = 181053;
+
+
+-- Fix missing game objects from the world:
+-- 188113 = Frostberry Bush
+UPDATE `gameobject_template` SET `type` = 3 WHERE `entry` = 188113;
+
 
 -- Fix broken game objects not tied to quest like they should be (type, gameobject, item, quest):
 -- 181053 = Basket of Bloodkelp (item 22094)
