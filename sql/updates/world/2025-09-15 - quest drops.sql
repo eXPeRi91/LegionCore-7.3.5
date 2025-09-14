@@ -17,7 +17,7 @@
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -100 WHERE `item` IN (4458, 34961, 34962, 35353, 35354, 35355, 35483, 35484, 35486, 35490, 35648, 35669, 35774);
 --
 -- Set the following to 70%:
--- 35288 = 
+-- 35288 = Uncured Caribou Hide
 -- 35629 = Shimmering Rune
 UPDATE `creature_loot_template` SET `ChanceOrQuestChance` = -70 WHERE `item` IN (35288, 35629);
 
