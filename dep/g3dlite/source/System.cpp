@@ -1,7 +1,7 @@
 /** 
   \file System.cpp
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   Note: every routine must call init() first.
 
@@ -186,7 +186,7 @@ void System::init() {
 
     // Get the operating system name (also happens to read some other information)
 #    ifdef G3D_WINDOWS
-	    HRESULT r = OleInitialize(NULL);
+        HRESULT r = OleInitialize(NULL);
         // Note that this overrides some of the values computed above
         bool success = RegistryUtil::readInt32
             ("HKEY_LOCAL_MACHINE\\HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0", 
@@ -200,17 +200,17 @@ void System::init() {
             arch = "x86 Intel";
             break;
     
-		case PROCESSOR_ARCHITECTURE_AMD64:
-			arch = "x64 Intel/AMD";
-			break;
+        case PROCESSOR_ARCHITECTURE_AMD64:
+            arch = "x64 Intel/AMD";
+            break;
 
-		case PROCESSOR_ARCHITECTURE_ARM:
-			arch = "ARM";
-			break;
+        case PROCESSOR_ARCHITECTURE_ARM:
+            arch = "ARM";
+            break;
 
         default:
             arch = "Unknown";
-			break;
+            break;
         }
 
         m_numCores = systemInfo.dwNumberOfProcessors;
@@ -796,7 +796,7 @@ void System::sleep(RealTime t) {
     RealTime remainingTime = wakeupTime - now;
     RealTime sleepTime = 0;
 
-    // On Windows, a "time slice" is measured in quanta of 3-5 ms (http://support.microsoft.com/kb/259025)
+    // On Windows, a "time slice" is measured in quanta of 3-5 ms (https://support.microsoft.com/kb/259025)
     // Sleep(0) yields the remainder of the time slice, which could be a long time.
     // A 1 ms minimum time experimentally kept the "Empty GApp" at nearly no CPU load at 100 fps,
     // yet nailed the frame timing perfectly.
@@ -1687,17 +1687,17 @@ std::string System::currentTimeString() {
 
 // Windows 64-bit
 void System::cpuid(CPUIDFunction func, uint32& eax, uint32& ebx, uint32& ecx, uint32& edx) {
-	int regs[4] = {eax, ebx, ecx, edx};
-	__cpuid(regs, func);
-	eax = regs[0];
-	ebx = regs[1];
-	ecx = regs[2];
-	edx = regs[3];
+    int regs[4] = {eax, ebx, ecx, edx};
+    __cpuid(regs, func);
+    eax = regs[0];
+    ebx = regs[1];
+    ecx = regs[2];
+    edx = regs[3];
 }
 
 #else
 
-// See http://sam.zoy.org/blog/2007-04-13-shlib-with-non-pic-code-have-inline-assembly-and-pic-mix-well
+// See https://sam.zoy.org/blog/2007-04-13-shlib-with-non-pic-code-have-inline-assembly-and-pic-mix-well
 // for a discussion of why the second version saves ebx; it allows 32-bit code to compile with the -fPIC option.
 // On 64-bit x86, PIC code has a dedicated rip register for PIC so there is no ebx conflict.
 void System::cpuid(CPUIDFunction func, uint32& eax, uint32& ebx, uint32& ecx, uint32& edx) {

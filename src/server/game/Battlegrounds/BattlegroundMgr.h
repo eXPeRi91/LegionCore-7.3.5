@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __BATTLEGROUNDMGR_H
@@ -151,7 +151,7 @@ public:
     Battleground* GetBattleground(uint32 InstanceID, uint16 bgTypeId);
 
     Battleground* GetBattlegroundTemplate(uint16 bgTypeId);
-    Battleground* CreateNewBattleground(uint16 bgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType = MS::Battlegrounds::BattlegroundTypeId::None, bool useTournamentRules = false, bool isWarGame = false);
+    Battleground* CreateNewBattleground(uint16 bgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType = MS::Battlegrounds::BattlegroundTypeId::None, bool useTournamentRules = false, bool isWarGame = false);
 
     void CreateBattleground(CreateBattlegroundData& data);
 

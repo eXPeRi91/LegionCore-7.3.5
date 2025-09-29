@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2010 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2010 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef BATTLEFIELD_WG_
@@ -102,8 +102,8 @@ enum WGQuestCredit
 
 enum Wintergrasp_Sounds
 {
-    OutdoorPvP_WG_SOUND_WORKSHOP_Horde          = 6205, // время убивать орда
-    OutdoorPvP_WG_SOUND_WORKSHOP_ALLIANCE       = 6298, // к оружию альянс
+    OUTDOORPVP_WG_SOUND_WORKSHOP_HORDE          = 6205,
+    OUTDOORPVP_WG_SOUND_WORKSHOP_ALLIANCE       = 6298,
 };
 
 enum WintergraspData

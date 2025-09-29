@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __UNIT_H
@@ -264,7 +264,7 @@ enum VictimState
     VICTIMSTATE_DEFLECTS       = 8
 };
 
-//i would like to remove this: (it is defined in item.h
+// I would like to remove this: (it is defined in item.h
 enum InventorySlot
 {
     NULL_BAG                   = 0,
@@ -1120,8 +1120,8 @@ class Unit : public WorldObject
 
         virtual ~Unit();
 
-        void Clear();
-        uint32 GetSize();
+        void Clear() override;
+        uint32 GetSize() override;
 
         UnitAI* GetAI() { return i_AI; }
         void SetAI(UnitAI* newAI) { i_AI = newAI; }
@@ -1149,7 +1149,7 @@ class Unit : public WorldObject
         float GetSpellMaxRangeForTarget(Unit const* target, SpellInfo const* spellInfo) const;
         float GetSpellMinRangeForTarget(Unit const* target, SpellInfo const* spellInfo) const;
 
-        virtual void Update(uint32 time);
+        virtual void Update(uint32 time) override;
 
         void setAttackTimer(WeaponAttackType type, uint32 time) { m_attackTimer[type] = time; }
         void resetAttackTimer(WeaponAttackType type = BASE_ATTACK);
@@ -1219,6 +1219,7 @@ class Unit : public WorldObject
         uint8 getLevel() const;
         uint8 GetEffectiveLevel() const;
         uint8 getLevelForTarget(WorldObject const* target) const override;
+        uint8 getLevelForXPReward(Player const* player) const;
         float getScaleForTarget(int32 delta) const;
         uint32 GetDamageFromLevelScale(Unit* target, uint32 damage);
         void SetLevel(uint8 lvl);
@@ -1323,9 +1324,9 @@ class Unit : public WorldObject
         void GetRaidMembers(std::list<Unit*> &tagUnitMap);
         bool IsContestedGuard() const;
 
-        bool IsPvP() const;
-        bool IsFFAPvP() const;
-        virtual void SetPvP(bool state);
+        bool IsPvp() const;
+        bool IsFFAPvp() const;
+        virtual void SetPvp(bool state);
         uint32 GetCreatureType() const;
         uint32 GetCreatureTypeMask() const;
 
@@ -1442,7 +1443,7 @@ class Unit : public WorldObject
         bool isInCombat() const;
 
         void CombatStart(Unit* target, bool initialAggro = true);
-        void SetInCombatState(Unit* enemy = nullptr, bool PvP = false);
+        void SetInCombatState(Unit* enemy = nullptr, bool pvp = false);
         void SetInCombatWith(Unit* enemy);
         void ClearInCombat();
         uint32 GetCombatTimer() const { return m_CombatTimer; }
@@ -1725,7 +1726,7 @@ class Unit : public WorldObject
         void RemoveAllAurasExceptType(AuraType type);
         void RemoveAllAurasByType(AuraType type);
         void DelayOwnedAuras(uint32 spellId, ObjectGuid caster, int32 delaytime);
-        void RecalcArenaAuras(bool hasPvPScaling);
+        void RecalcArenaAuras(bool hasPvpScaling);
         void RemoveAurasAllDots();
         void RemoveAurasAllNotOwned(ObjectGuid caster);
 
@@ -2066,7 +2067,7 @@ class Unit : public WorldObject
         void RemoveDynObject(uint32 spellId);
         void RemoveAllDynObjects();
 
-        // AreaTriger management
+        // AreaTrigger management
         void _RegisterAreaObject(AreaTrigger* dynObj);
         void _UnregisterAreaObject(AreaTrigger* dynObj);
         AreaTrigger* GetAreaObject(uint32 spellId);
@@ -2119,7 +2120,7 @@ class Unit : public WorldObject
         int32 SpellBaseHealingBonusTaken(SpellSchoolMask schoolMask);
         uint32 SpellHealingBonusDone(Unit* victim, SpellInfo const *spellProto, uint32 healamount, DamageEffectType damagetype, SpellEffIndex effIndex = EFFECT_0, uint32 stack = 1);
         uint32 SpellHealingBonusTaken(Unit* caster, SpellInfo const *spellProto, uint32 healamount, DamageEffectType damagetype, SpellEffIndex effIndex = EFFECT_0, uint32 stack = 1);
-        bool CanPvPScalar();
+        bool CanPvpScalar();
         float GetProcStatsMultiplier(uint32 spellId) const;
 
         uint32 MeleeDamageBonusDone(Unit *victim, uint32 damage, WeaponAttackType attType, SpellInfo const *spellProto = nullptr, uint32 effIndex = 0);
@@ -2137,8 +2138,8 @@ class Unit : public WorldObject
         uint32 SpellCriticalHealingBonus(SpellInfo const* spellProto, uint32 damage);
         float SpellCriticalDamageBonus(SpellInfo const* spellProto, Unit* victim);
 
-        void SetContestedPvP(Player* attackedPlayer = nullptr, bool forceByAura = false);
-        OutdoorPvP* GetOutdoorPvP() const;
+        void SetContestedPvp(Player* attackedPlayer = nullptr, bool forceByAura = false);
+        OutdoorPvp* GetOutdoorPvp() const;
 
         uint32 GetCastingTimeForBonus(SpellInfo const* spellProto, DamageEffectType damagetype, uint32 CastingTime) const;
         float CalculateDefaultCoefficient(SpellInfo const *spellInfo, DamageEffectType damagetype) const;

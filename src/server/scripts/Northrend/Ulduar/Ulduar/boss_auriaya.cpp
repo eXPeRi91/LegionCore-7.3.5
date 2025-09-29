@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ulduar.h"
@@ -437,7 +437,7 @@ public:
             // Increases the damage of all Sanctum Sentries within 10 yards by 30%
             if (CheckTimer < uiDiff)
             {
-                uint8 aura = NULL;
+                uint8 aura = 0;
                 std::list<Creature*> Sanctum;
                 GetCreatureListWithEntryInGrid(Sanctum, me, NPC_SANCTUM_SENTRY, 10.0f);
                 for(std::list<Creature*>::iterator itr = Sanctum.begin(); itr != Sanctum.end(); ++itr)

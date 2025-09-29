@@ -1,7 +1,7 @@
 /**
  \file debug.h
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2001-08-26
  \edited  2008-08-16

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -674,7 +674,7 @@ public:
                 instance->DoCompleteAchievement(ACHIEVEMENT_CHOOSE_BRUNDIR);
                 instance->DoUpdateAchievementCriteria(CRITERIA_TYPE_BE_SPELL_TARGET, 65195);
                 if (me->GetPositionZ() > 428)
-                    me->GetMotionMaster()->MoveFall(427.28f);
+                    me->GetMotionMaster()->MoveFall(427);
             }
             else me->SetLootRecipient(NULL);
 

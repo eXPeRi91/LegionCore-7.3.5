@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2017 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_CONTAINERS_H
@@ -162,7 +162,7 @@ namespace Trinity
         void RandomShuffleList(std::list<T>& list)
         {
             // create a vector of (wrapped) references to elements in the list
-            // http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
+            // https://en.cppreference.com/w/cpp/utility/functional/reference_wrapper
             std::vector<std::reference_wrapper<const T>> vec(list.begin(), list.end());
         
             // shuffle (the references in) the vector

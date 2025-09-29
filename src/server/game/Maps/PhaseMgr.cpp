@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "PhaseMgr.h"
@@ -493,7 +493,7 @@ bool PhaseMgr::IsConditionTypeSupported(ConditionTypes const conditionType)
         case CONDITION_LEVEL:
         case CONDITION_AREA_EXPLORED:
         case CONDITION_SCENE_SEEN:
-        case CONDITION_SCENE_TRIGER_EVENT:
+        case CONDITION_SCENE_TRIGGER_EVENT:
         case CONDITION_QUEST_OBJECTIVE_DONE:
         case CONDITION_AREAID:
         case CONDITION_ZONEID:

@@ -1,12 +1,12 @@
 /*
-	httppost.h
+    httppost.h
 
-	gSOAP HTTP POST plugin for non-SOAP payloads.
+    gSOAP HTTP POST plugin for non-SOAP payloads.
 
-	See httppost.c for instructions.
+    See httppost.c for instructions.
 
-	Revisions:
-	register multiple POST content handlers, each for a content type
+    Revisions:
+    register multiple POST content handlers, each for a content type
 
 gSOAP XML Web services tools
 Copyright (C) 2004-2009, Robert van Engelen, Genivia, Inc. All Rights Reserved.
@@ -17,7 +17,7 @@ gSOAP public license.
 The contents of this file are subject to the gSOAP Public License Version 1.3
 (the "License"); you may not use this file except in compliance with the
 License. You may obtain a copy of the License at
-http://www.cs.fsu.edu/~engelen/soaplicense.html
+https://www.cs.fsu.edu/~engelen/soaplicense.html
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 for the specific language governing rights and limitations under the License.

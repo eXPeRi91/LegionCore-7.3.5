@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2017 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef PlayerDefines_h__
@@ -83,7 +83,7 @@ enum PlayerFlags
     PLAYER_FLAGS_GHOST                  = 0x00000010,
     PLAYER_FLAGS_RESTING                = 0x00000020,
     PLAYER_FLAGS_UNK6                   = 0x00000040,
-    PLAYER_FLAGS_UNK7                   = 0x00000080,       // pre-3.0.3 PLAYER_FLAGS_FFA_PVP flag for FFA PVP state
+    PLAYER_FLAGS_UNK7                   = 0x00000080,       // pre-3.0.3 PLAYER_FLAGS_FFA_PVP flag for FFA PvP state
     PLAYER_FLAGS_CONTESTED_PVP          = 0x00000100,       // Player has been involved in a PvP combat and will be attacked by contested guards
     PLAYER_FLAGS_IN_PVP                 = 0x00000200,
     PLAYER_FLAGS_HIDE_HELM              = 0x00000400,
@@ -94,7 +94,7 @@ enum PlayerFlags
     PLAYER_FLAGS_DEVELOPER              = 0x00008000,       // <Dev> prefix for something?
     PLAYER_FLAGS_UNK16                  = 0x00010000,       // pre-3.0.3 PLAYER_FLAGS_SANCTUARY flag for player entered sanctuary
     PLAYER_FLAGS_TAXI_BENCHMARK         = 0x00020000,       // taxi benchmark mode (on/off) (2.0.1)
-    PLAYER_FLAGS_PVP_TIMER              = 0x00040000,       // 3.0.2, pvp timer active (after you disable pvp manually)
+    PLAYER_FLAGS_PVP_TIMER              = 0x00040000,       // 3.0.2, Pvp timer active (after you disable PvP manually)
     PLAYER_FLAGS_COMMENTATOR            = 0x00080000,
     PLAYER_FLAGS_UNK20                  = 0x00100000,
     PLAYER_FLAGS_UNK21                  = 0x00200000,

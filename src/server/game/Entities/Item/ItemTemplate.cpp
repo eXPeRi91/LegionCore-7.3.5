@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DB2Stores.h"
@@ -169,7 +169,7 @@ void ItemTemplate::GetDamage(uint32 itemLevel, float& minDamage, float& maxDamag
 
 bool ItemTemplate::IsUsableBySpecialization(uint32 specId, uint8 level) const
 {
-    if (!ItemSpecExist) // if item don`t use spec allways good
+    if (!ItemSpecExist) // if item don`t use spec always good
         return true;
 
     if (ChrSpecializationEntry const* chrSpecialization = sChrSpecializationStore.LookupEntry(specId))
@@ -294,7 +294,7 @@ bool ItemTemplate::IsRecipe() const
 
 bool ItemTemplate::IsNotNeedCheck() const
 {
-    return GetBonding() == BIND_WHEN_EQUIPED || GetBonding() == BIND_WHEN_USE || GetBonding() == NO_BIND || (GetFlags() & ITEM_FLAG_IS_BOUND_TO_ACCOUNT);
+    return GetBonding() == BIND_WHEN_EQUIPPED || GetBonding() == BIND_WHEN_USE || GetBonding() == NO_BIND || (GetFlags() & ITEM_FLAG_IS_BOUND_TO_ACCOUNT);
 }
 
 bool ItemTemplate::IsRangedWeapon() const

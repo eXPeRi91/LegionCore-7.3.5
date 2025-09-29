@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #define MOVEMENT_PACKET_TIME_DELAY 0
@@ -178,8 +178,8 @@ void WorldSession::HandleWorldPortAck()
 
     if (player->pvpInfo.inHostileArea)
         player->CastSpell(player, 2479, true);
-    else if (player->IsPvP() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
-        player->UpdatePvP(false, false);
+    else if (player->IsPvp() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
+        player->UpdatePvp(false, false);
 
     player->ResummonPetTemporaryUnSummonedIfAny();
     player->SummonLastSummonedBattlePet();
@@ -217,8 +217,8 @@ void WorldSession::HandleMoveTeleportAck(WorldPackets::Movement::MoveTeleportAck
         if (plMover->pvpInfo.inHostileArea)
             plMover->CastSpell(plMover, 2479, true);
 
-        else if (plMover->IsPvP() && !plMover->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
-            plMover->UpdatePvP(false, false);
+        else if (plMover->IsPvp() && !plMover->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
+            plMover->UpdatePvp(false, false);
     }
 
     GetPlayer()->ResummonPetTemporaryUnSummonedIfAny();

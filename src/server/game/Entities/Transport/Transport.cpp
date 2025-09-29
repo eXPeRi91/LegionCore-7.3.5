@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2017 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Anticheat.h"
@@ -939,7 +939,7 @@ void StaticTransport::Update(uint32 diff)
     if (!transportPeriod)
         return;
 
-    if (isMapObject && GetGoState() != GO_STATE_TRANSPORT_ACTIVE || !IsMoving())
+    if ((isMapObject && GetGoState() != GO_STATE_TRANSPORT_ACTIVE) || !IsMoving())
         return;
 
     if (GetGoState() == GO_STATE_TRANSPORT_ACTIVE)

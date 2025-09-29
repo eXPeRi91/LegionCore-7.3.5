@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Battlefield.h"
@@ -765,7 +765,7 @@ void Object::BuildValuesUpdate(uint8 updateType, ByteBuffer* data, Player* targe
 
     for (uint16 index = 0; index < m_valuesCount; ++index)
     {
-        if (_fieldNotifyFlags & flags[index] || (updateType == UPDATETYPE_VALUES ? _changesMask[index] : m_uint32Values[index]) && flags[index] & visibleFlag)
+        if (_fieldNotifyFlags & flags[index] || ((updateType == UPDATETYPE_VALUES ? _changesMask[index] : m_uint32Values[index]) && flags[index] & visibleFlag))
         {
             UpdateMask::SetUpdateBit(data->contents() + maskPos, index);
             *data << m_uint32Values[index];
@@ -792,7 +792,7 @@ void Object::BuildDynamicValuesUpdate(uint8 updateType, ByteBuffer *data, Player
         std::vector<uint32> const& values = _dynamicValues[index];
 
         if (_fieldNotifyFlags & flags[index] ||
-            (updateType == UPDATETYPE_VALUES ? _dynamicChangesMask[index] != UpdateMask::UNCHANGED : !values.empty()) && flags[index] & visibleFlag)
+            ((updateType == UPDATETYPE_VALUES ? _dynamicChangesMask[index] != UpdateMask::UNCHANGED : !values.empty()) && flags[index] & visibleFlag))
         {
             if (index == PLAYER_DYNAMIC_FIELD_ARENA_COOLDOWNS && updateType == UPDATETYPE_VALUES)
             {
@@ -1545,9 +1545,6 @@ uint16 Object::GetUInt16Value(uint16 index, uint8 offset) const
 
 ObjectGuid const& Object::GetGuidValue(uint16 index) const
 {
-    if (!this)
-        return ObjectGuid::Empty;
-
     // ASSERT(index + 1 < m_valuesCount || PrintIndexError(index, false));
     if (index + 1 < m_valuesCount || PrintIndexError(index, false))
         return *reinterpret_cast<ObjectGuid*>(&m_uint32Values[index]);
@@ -2488,7 +2485,7 @@ float WorldObject::GetVisibilityCombatLog() const
 
 float WorldObject::GetSightRange(const WorldObject* target) const
 {
-    if (!this || !GetMap())
+    if (!GetMap())
         return 0.0f;
 
     if (ToUnit())
@@ -2524,7 +2521,7 @@ void WorldObject::SetVisible(bool x)
 
 bool WorldObject::canSeeOrDetect(WorldObject const* obj, bool ignoreStealth, bool distanceCheck) const
 {
-    if (this == obj || m_Teleports && obj->m_Teleports)
+    if (this == obj || (m_Teleports && obj->m_Teleports))
         return true;
 
     if (GetGUID().IsPlayer())
@@ -3011,7 +3008,7 @@ void WorldObject::SetZoneScript()
             if (Battlefield* bf = sBattlefieldMgr->GetBattlefieldToZoneId(m_zoneId))
                 m_zoneScript = bf;
             else
-                m_zoneScript = sOutdoorPvPMgr->GetZoneScript(m_zoneId);
+                m_zoneScript = sOutdoorPvpMgr->GetZoneScript(m_zoneId);
         }
     }
 }
@@ -3108,7 +3105,7 @@ GameObject* WorldObject::SummonGameObject(uint32 entry, float x, float y, float 
 
     // If we summon go by creature at despown - we will see deleted go.
     // If we summon go by creature with ownership in some cases we couldn't use it
-    if (hasCreator && (IsPlayer() || IsCreature() && !respawnTime)) //not sure how to handle this
+    if (hasCreator && (IsPlayer() || (IsCreature() && !respawnTime))) //not sure how to handle this
         ToUnit()->AddGameObject(go);
     else
         go->SetSpawnedByDefault(false);
@@ -3832,7 +3829,7 @@ void WorldObject::DestroyForNearbyPlayers()
         if (!player->HaveAtClient(this))
             continue;
 
-        if (player->IsOnVehicle() || IsUnit() && ToUnit()->IsOnVehicle())
+        if (player->IsOnVehicle() || (IsUnit() && ToUnit()->IsOnVehicle()))
             if (player->HaveExtraLook(GetGUID()))
                 continue;
 
@@ -3899,7 +3896,7 @@ struct WorldObjectChangeAccumulator
 
     void BuildPacket(Player* player)
     {
-        if (!player) // http://pastebin.com/RmVRfpHS
+        if (!player) // https://pastebin.com/RmVRfpHS
             return;
 
         // Only send update once to a player
@@ -3965,7 +3962,7 @@ bool WorldObject::InSamePhaseId(std::set<uint32> const& phase, bool otherUsePlay
 
     //! speed up case. should be done in any way. 
     // As iteration not check empty data but it should be done.
-    if (phase.empty() && !m_phaseId.empty() || !phase.empty() && m_phaseId.empty())
+    if ((phase.empty() && !m_phaseId.empty()) || (!phase.empty() && m_phaseId.empty()))
         return false;
 
     //! check target phases

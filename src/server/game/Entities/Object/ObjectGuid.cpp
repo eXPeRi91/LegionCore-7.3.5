@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ObjectGuid.h"
@@ -73,7 +73,7 @@ namespace
         SET_GUID_NAME(LFGObject);
         SET_GUID_NAME(LFGList);
         SET_GUID_NAME(UserRouter);
-        SET_GUID_NAME(PVPQueueGroup);
+        SET_GUID_NAME(PvpQueueGroup);
         SET_GUID_NAME(UserClient);
         SET_GUID_NAME(PetBattle);
         SET_GUID_NAME(UniqUserClient);
@@ -574,7 +574,7 @@ GLOBAL_GUID_CREATE(HighGuid::RaidGroup)
 GLOBAL_GUID_CREATE(HighGuid::Spell)
 GLOBAL_GUID_CREATE(HighGuid::Mail)
 GLOBAL_GUID_CREATE(HighGuid::UserRouter)
-GLOBAL_GUID_CREATE(HighGuid::PVPQueueGroup)
+GLOBAL_GUID_CREATE(HighGuid::PvpQueueGroup)
 GLOBAL_GUID_CREATE(HighGuid::UserClient)
 GLOBAL_GUID_CREATE(HighGuid::BattlePet)
 GLOBAL_GUID_CREATE(HighGuid::PetBattle)
@@ -604,7 +604,7 @@ MAP_GUID_CREATE(HighGuid::AILock)
 MAP_GUID_CREATE(HighGuid::AILockTicket)
 MAP_GUID_CREATE(HighGuid::Cast)
 MAP_GUID_CREATE(HighGuid::EventObject)
-MAP_GUID_CREATE(HighGuid::PVPQueueGroup)
+MAP_GUID_CREATE(HighGuid::PvpQueueGroup)
 
 ObjectGuid const ObjectGuid::Empty = ObjectGuid();
 ObjectGuid const ObjectGuid::TradeItem = ObjectGuid::Create<HighGuid::Uniq>(uint64(10));

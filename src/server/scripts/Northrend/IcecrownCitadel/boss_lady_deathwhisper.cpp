@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ObjectMgr.h"
@@ -694,14 +694,18 @@ class npc_cult_fanatic : public CreatureScript
                             break;
                         case EVENT_CULTIST_DARK_MARTYRDOM:
                             if (Creature* lady = me->GetCreature(*me, Instance->GetGuidData(DATA_LADY_DEATHWHISPER)))
+                            {
                                 if (boss_lady_deathwhisper::boss_lady_deathwhisperAI* ladyAI = CAST_AI(boss_lady_deathwhisper::boss_lady_deathwhisperAI, lady->AI()))
+                                {
                                     if (ladyAI->Istransform())
                                     {
                                         DoCast(me, SPELL_DARK_MARTYRDOM_FANATIC);
                                         Events.CancelEvent(EVENT_CULTIST_DARK_MARTYRDOM);
                                     }
-                                    else 
+                                    else
                                         Events.CancelEvent(EVENT_CULTIST_DARK_MARTYRDOM);
+                                }
+                            }
                             break;
                     }
                 }
@@ -794,14 +798,18 @@ class npc_cult_adherent : public CreatureScript
                             break;
                         case EVENT_CULTIST_DARK_MARTYRDOM:
                             if (Creature* lady = me->GetCreature(*me, Instance->GetGuidData(DATA_LADY_DEATHWHISPER)))
+                            {
                                 if (boss_lady_deathwhisper::boss_lady_deathwhisperAI* ladyAI = CAST_AI(boss_lady_deathwhisper::boss_lady_deathwhisperAI, lady->AI()))
+                                {
                                     if (ladyAI->Istransform())
                                     {
                                         DoCast(me, SPELL_DARK_MARTYRDOM_FANATIC);
                                         Events.CancelEvent(EVENT_CULTIST_DARK_MARTYRDOM);
                                     }
-                                    else 
+                                    else
                                         Events.CancelEvent(EVENT_CULTIST_DARK_MARTYRDOM);
+                                }
+                            }
                             break;
                     }
                 }

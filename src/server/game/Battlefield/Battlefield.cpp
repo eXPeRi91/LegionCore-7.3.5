@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2010 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2010 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Battlefield.h"
@@ -449,7 +449,7 @@ void Battlefield::PlayerAcceptInviteToWar(Player* player)
         if (player->isAFK())
             player->ToggleAFK();
 
-        player->SetPvP(true);
+        player->SetPvp(true);
         OnPlayerJoinWar(player);
     }
 }
@@ -526,10 +526,10 @@ void Battlefield::SendWorldTextToTeam(uint32 broadcastID, ObjectGuid guid, uint3
         for (auto const& v : m_players[i])
             if (Player* _player = ObjectAccessor::FindPlayer(v))
                 if (sConditionMgr->IsPlayerMeetingCondition(_player, bct->ConditionID))
-				{
-					packet.Text = DB2Manager::GetBroadcastTextValue(bct, _player->GetSession()->GetSessionDbLocaleIndex());
-					_player->SendDirectMessage(packet.Write());
-				}
+                {
+                    packet.Text = DB2Manager::GetBroadcastTextValue(bct, _player->GetSession()->GetSessionDbLocaleIndex());
+                    _player->SendDirectMessage(packet.Write());
+                }
 }
 
 void Battlefield::SendUpdateWorldState(uint32 field, uint32 value)
@@ -1076,7 +1076,7 @@ bool BfCapturePoint::Update(uint32 diff)
         {
             if (Player* player = ObjectAccessor::FindPlayer(*itr))
             {
-                if (!m_capturePoint->IsWithinDistInMap(player, radius) || !player->IsOutdoorPvPActive())
+                if (!m_capturePoint->IsWithinDistInMap(player, radius) || !player->IsOutdoorPvpActive())
                     itr = HandlePlayerLeave(player);
                 else
                     ++itr;
@@ -1092,7 +1092,7 @@ bool BfCapturePoint::Update(uint32 diff)
     Trinity::VisitNearbyWorldObject(m_capturePoint, radius, searcher);
 
     for (std::list<Player*>::iterator itr = players.begin(); itr != players.end(); ++itr)
-        if ((*itr)->IsOutdoorPvPActive())
+        if ((*itr)->IsOutdoorPvpActive())
             if (m_activePlayers[(*itr)->GetTeamId()].insert((*itr)->GetGUID()).second)
                 HandlePlayerEnter(*itr);
 

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "QuestData.h"
@@ -126,7 +126,7 @@ void QuestDataStoreMgr::LoadWorldQuestTemplates()
                     wqt.ArmorList.emplace_back(proto);
 
             wqt.MinItemLevel = fields[i++].GetUInt16();
-            wqt.IsPvP = fields[i++].GetBool();
+            wqt.IsPvp = fields[i++].GetBool();
 
             if (!wqt.CurrencyID_A)
                 wqt.CurrencyID_A = wqt.CurrencyID;
@@ -1578,7 +1578,7 @@ void QuestDataStoreMgr::LoadGameObjectForQuests()
             }
             case GAMEOBJECT_TYPE_GENERIC:
             {
-                if (itr->second.generic.questID > 0)            //quests objects
+                if (itr->second.generic.questID > 0)            // quests objects
                 {
                     _gameObjectForQuestStore.insert(itr->second.entry);
                     count++;
@@ -1587,7 +1587,7 @@ void QuestDataStoreMgr::LoadGameObjectForQuests()
             }
             case GAMEOBJECT_TYPE_GOOBER:
             {
-                if (itr->second.goober.questID > 0)              //quests objects
+                if (itr->second.goober.questID > 0)              // quests objects
                 {
                     _gameObjectForQuestStore.insert(itr->second.entry);
                     count++;
@@ -1597,7 +1597,7 @@ void QuestDataStoreMgr::LoadGameObjectForQuests()
             case GAMEOBJECT_TYPE_SPELL_FOCUS:
             {
                 //
-                if (itr->second.spellFocus.questID > 0)              //quests objects
+                if (itr->second.spellFocus.questID > 0)              // quests objects
                 {
                     _gameObjectForQuestStore.insert(itr->second.entry);
                     count++;

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Creature.h"
@@ -30,9 +30,6 @@
 template<class T>
 void FleeingMovementGenerator<T>::_setTargetLocation(T &owner)
 {
-    if (!&owner)
-        return;
-
     if (owner.HasUnitState(UNIT_STATE_ROOT | UNIT_STATE_STUNNED))
         return;
 
@@ -53,9 +50,6 @@ void FleeingMovementGenerator<T>::_setTargetLocation(T &owner)
 template<class T>
 bool FleeingMovementGenerator<T>::_getPoint(T &owner, float &x, float &y, float &z)
 {
-    if (!&owner)
-        return false;
-
     owner.GetPosition(x, y, z, owner.GetTransport());
 
     float angle;
@@ -298,9 +292,6 @@ bool FleeingMovementGenerator<T>::_setMoveData(T &owner)
 template<class T>
 void FleeingMovementGenerator<T>::DoInitialize(T &owner)
 {
-    if (!&owner)
-        return;
-
     owner.SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_FLEEING);
     owner.AddUnitState(UNIT_STATE_FLEEING|UNIT_STATE_FLEEING_MOVE);
 
@@ -370,7 +361,7 @@ void FleeingMovementGenerator<T>::DoReset(T &owner)
 template<class T>
 bool FleeingMovementGenerator<T>::DoUpdate(T &owner, const uint32 &time_diff)
 {
-    if (!&owner || !owner.isAlive())
+    if (!owner.isAlive())
         return false;
     if (owner.HasUnitState(UNIT_STATE_ROOT | UNIT_STATE_STUNNED))
     {

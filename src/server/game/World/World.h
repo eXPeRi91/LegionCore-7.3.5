@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /// \addtogroup world The World
@@ -195,6 +195,7 @@ enum WorldBoolConfigs
     CONFIG_ARCHAEOLOGY_ENABLED,
     CONFIG_ENABLE_MMAPS,
     CONFIG_LFG_DEBUG_JOIN,
+    CONFIG_LFG_ALL_PREVIOUS_DUNGEONS,
     CONFIG_LFG_FORCE_MINPLAYERS,
     CONFIG_CHECK_MT_SESSION,
     CONFIG_BLACKMARKET_ENABLED,
@@ -229,8 +230,11 @@ enum WorldBoolConfigs
     CONFIG_PLAYER_CONTROL_GUARDIAN_PETS,
     CONFIG_PLAYER_UNLIMITED_LEGION_LEGENDARIES,
     CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME,
+    CONFIG_RESET_PVP_TALENTS_ON_PRESTIGE,
     CONFIG_GAIN_HONOR_GUARD,
     CONFIG_GAIN_HONOR_ELITE,
+    CONFIG_BATTLEPET_ALLOWCAGEALL,
+    CONFIG_SELLJUNKWHENLOOTED,
     BOOL_CONFIG_VALUE_COUNT
 };
 
@@ -371,6 +375,7 @@ enum WorldIntConfigs
     CONFIG_ARENA_START_PERSONAL_RATING,
     CONFIG_ARENA_START_MATCHMAKER_RATING,
     CONFIG_MAX_WHO,
+    CONFIG_AFK_PREVENT_LOGOUT,
     CONFIG_HONOR_AFTER_DUEL,
     CONFIG_PVP_TOKEN_MAP_TYPE,
     CONFIG_PVP_TOKEN_ID,
@@ -602,25 +607,25 @@ enum RealmZone
 
 enum ServerWorldStates
 {
-    WS_CURRENCY_RESET_TIME              = 20001,                      // Next currency reset time
-    WS_WEEKLY_RESET_TIME                = 20002,                      // Next weekly reset time
-    WS_BG_DAILY_RESET_TIME              = 20003,                      // Next daily BG reset time
-    WS_AUTO_SERVER_RESTART_TIME         = 20005,                      // Next server restart time
-    WS_INSTANCE_DAILY_RESET_TIME        = 20006,                      // Next daily Instance restart time
-    WS_INSTANCE_HALF_WEEK_RESET_TIME    = 20007,                      // Next daily Instance restart time
-    WS_INSTANCE_WEEKLY_RESET_TIME       = 20008,                      // Next weekly Instance restart time
-    WS_CHALLENGE_KEY_RESET_TIME         = 20015,                      // Reset time for Challenge key
-    WS_CHALLENGE_AFFIXE1_RESET_TIME     = 20016,                      // Challenge Affixe 1
-    WS_CHALLENGE_AFFIXE2_RESET_TIME     = 20017,                      // Challenge Affixe 2
-    WS_CHALLENGE_AFFIXE3_RESET_TIME     = 20018,                      // Challenge Affixe 3
-    WS_WORLDQUEST_HOURLY_RESET_TIME     = 20019,                      // World quest every 6 hours reset time
-    WS_WORLDQUEST_DAILY_RESET_TIME      = 20020,                      // World quest every day reset time
-    WS_CHALLENGE_LAST_RESET_TIME        = 20021,                      // Last reset time for Challenge key
-    WS_BAN_WAVE_TIME                    = 20022,                      // Next banwave time
-    WS_CURRENT_ARTIFACT_KNOWLEDGE       = 20023,                      // Current Artifact Knowledge
-    WS_INVASION_POINT_RESET_TIME        = 20024,                      // World quest every 2 hours reset time
-    WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE = 20025,                      // Alliance Score for Holiday "Call of the Scarab".
-    WS_SCORE_CALL_OF_THE_SCARAB_HORDE   = 20026                       // Horde Score for Holiday "Call of the Scarab".
+    WS_CURRENCY_RESET_TIME               = 20001,                      // Next currency reset time
+    WS_WEEKLY_RESET_TIME                 = 20002,                      // Next weekly reset time
+    WS_BG_DAILY_RESET_TIME               = 20003,                      // Next daily BG reset time
+    WS_AUTO_SERVER_RESTART_TIME          = 20005,                      // Next server restart time
+    WS_INSTANCE_DAILY_RESET_TIME         = 20006,                      // Next daily Instance restart time
+    WS_INSTANCE_HALF_WEEK_RESET_TIME     = 20007,                      // Next daily Instance restart time
+    WS_INSTANCE_WEEKLY_RESET_TIME        = 20008,                      // Next weekly Instance restart time
+    WS_CHALLENGE_KEY_RESET_TIME          = 20015,                      // Reset time for Challenge key
+    WS_CHALLENGE_AFFIXE1_RESET_TIME      = 20016,                      // Challenge Affixe 1
+    WS_CHALLENGE_AFFIXE2_RESET_TIME      = 20017,                      // Challenge Affixe 2
+    WS_CHALLENGE_AFFIXE3_RESET_TIME      = 20018,                      // Challenge Affixe 3
+    WS_WORLDQUEST_HOURLY_RESET_TIME      = 20019,                      // World quest every 6 hours reset time
+    WS_WORLDQUEST_DAILY_RESET_TIME       = 20020,                      // World quest every day reset time
+    WS_CHALLENGE_LAST_RESET_TIME         = 20021,                      // Last reset time for Challenge key
+    WS_BAN_WAVE_TIME                     = 20022,                      // Next banwave time
+    WS_CURRENT_ARTIFACT_KNOWLEDGE        = 20023,                      // Current Artifact Knowledge
+    WS_INVASION_POINT_RESET_TIME         = 20024,                      // World quest every 2 hours reset time
+    WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE = 20025,                      // Alliance Score for Holiday "Call of the Scarab".
+    WS_SCORE_CALL_OF_THE_SCARAB_HORDE    = 20026                       // Horde Score for Holiday "Call of the Scarab".
 };
 
 /// Storage class for commands issued for delayed execution
@@ -712,8 +717,8 @@ class World
         void ProcessMailboxQueue();
         void Transfer();
 
-        uint32 GetPvPMysticCount() const { return m_pvpMysticCount; }
-        void AddPvPMysticCount() { m_pvpMysticCount++; }
+        uint32 GetPvpMysticCount() const { return m_pvpMysticCount; }
+        void AddPvpMysticCount() { m_pvpMysticCount++; }
 
         /// Security level limitations
         AccountTypes GetPlayerSecurityLimit() const { return m_allowedSecurityLevel; }
@@ -815,8 +820,8 @@ class World
         void LoadWorldStates();
 
         /// Are we on a "Player versus Player" server?
-        bool IsPvPRealm() const;
-        bool IsFFAPvPRealm() const;
+        bool IsPvpRealm() const;
+        bool IsFFAPvpRealm() const;
 
         void KickAll();
         void KickAllLess(AccountTypes sec);

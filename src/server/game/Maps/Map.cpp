@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <cds/gc/hp.h>
@@ -472,17 +472,17 @@ void Map::UnloadMapImpl(Map* map, int gx, int gy)
     map->GridMaps[gx][gy] = nullptr;
 }
 
-void Map::UpdateOutdoorPvPScript()
+void Map::UpdateOutdoorPvpScript()
 {
     if (!m_parentMap || !CanCreatedZone() || !i_InstanceId)
         return;
 
-    if (!m_parentMap->OutdoorPvPList || m_parentMap->OutdoorPvPList->empty())
+    if (!m_parentMap->OutdoorPvpList || m_parentMap->OutdoorPvpList->empty())
     {
-        if (!sOutdoorPvPMgr->GetOutdoorPvPMap(m_parentMap->GetId()))
+        if (!sOutdoorPvpMgr->GetOutdoorPvpMap(m_parentMap->GetId()))
             return;
 
-        auto set = *sOutdoorPvPMgr->GetOutdoorPvPMap(m_parentMap->GetId()); // we need copy it else we do it twice
+        auto set = *sOutdoorPvpMgr->GetOutdoorPvpMap(m_parentMap->GetId()); // we need copy it else we do it twice
         for (auto itr : set)
             if (itr && itr->ThisZone(i_InstanceId))
             {
@@ -493,10 +493,10 @@ void Map::UpdateOutdoorPvPScript()
                     else
                     {
                         itr->RemoveZone(i_InstanceId);
-                        auto pvp = sScriptMgr->CreateOutdoorPvP(sOutdoorPvPMgr->GetOutdoorPvPData(OutdoorPvPTypes(itr->GetTypeId())));
+                        auto pvp = sScriptMgr->CreateOutdoorPvp(sOutdoorPvpMgr->GetOutdoorPvpData(OutdoorPvpTypes(itr->GetTypeId())));
                         if (pvp)
                         {
-                            sOutdoorPvPMgr->AddOutdoorPvP(pvp);
+                            sOutdoorPvpMgr->AddOutdoorPvp(pvp);
                             pvp->RegisterZone(i_InstanceId);
                         }
                     }
@@ -505,21 +505,21 @@ void Map::UpdateOutdoorPvPScript()
                     itr->RegisterZone(i_InstanceId);
             }
 
-        OutdoorPvPList = sOutdoorPvPMgr->GetOutdoorPvPMap(m_parentMap->GetId());
+        OutdoorPvpList = sOutdoorPvpMgr->GetOutdoorPvpMap(m_parentMap->GetId());
     }
     else
     {
-        auto set = *(m_parentMap->OutdoorPvPList); // we need copy it else we do it twice
+        auto set = *(m_parentMap->OutdoorPvpList); // we need copy it else we do it twice
         for (auto itr : set)
             if (itr && itr->ThisZone(i_InstanceId))
             {
                 if (itr->SizeZones() > 1)
                 {
                     itr->RemoveZone(i_InstanceId);
-                    auto pvp = sScriptMgr->CreateOutdoorPvP(sOutdoorPvPMgr->GetOutdoorPvPData(OutdoorPvPTypes(itr->GetTypeId())));
+                    auto pvp = sScriptMgr->CreateOutdoorPvp(sOutdoorPvpMgr->GetOutdoorPvpData(OutdoorPvpTypes(itr->GetTypeId())));
                     if (pvp)
                     {
-                        sOutdoorPvPMgr->AddOutdoorPvP(pvp);
+                        sOutdoorPvpMgr->AddOutdoorPvp(pvp);
                         pvp->RegisterZone(i_InstanceId);
                     }
                 }
@@ -532,7 +532,7 @@ void Map::UpdateOutdoorPvPScript()
                 }
             }
 
-        OutdoorPvPList = m_parentMap->OutdoorPvPList;
+        OutdoorPvpList = m_parentMap->OutdoorPvpList;
     }
 }
 
@@ -561,7 +561,7 @@ m_activeNonPlayersIter(m_activeNonPlayers.end()), i_grids(), GridMaps()
     i_scriptLock = false;
     b_isMapUnload = false;
     b_isMapStop = false;
-    OutdoorPvPList = nullptr;
+    OutdoorPvpList = nullptr;
     BattlefieldList = nullptr;
 
     if (IsBattlegroundOrArena())
@@ -929,7 +929,7 @@ bool Map::AddPlayerToMap(Player* player, bool initPlayer /*= true*/)
     player->UpdateObjectVisibility(false);
 
     sScriptMgr->OnPlayerEnterMap(this, player);
-    sOutdoorPvPMgr->HandlePlayerEnterMap(player->GetGUID(), player->GetCurrentZoneID());
+    sOutdoorPvpMgr->HandlePlayerEnterMap(player->GetGUID(), player->GetCurrentZoneID());
 
     return true;
 }
@@ -1111,7 +1111,7 @@ void Map::Update(const uint32 t_diff)
 
     uint32 _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 200)
-        sLog->outDiff("Map::Update Player mapId %u Update time - %ums diff %u Players online: %u i_InstanceId %u activeEntry %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry);
+        sLog->outDiff("Map::Update Player mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry);
 
     if (b_isMapUnload)
         return;
@@ -1163,7 +1163,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update Collected mapId %u Update time - %ums diff %u Players online: %u i_InstanceId %u activeEntry %u collectedCount %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, collectedCount);
+        sLog->outDiff("Map::Update Collected mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u collectedCount %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, collectedCount);
 
     // sWorldStateMgr.MapUpdate(this);
 
@@ -1187,7 +1187,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update ScriptsProcess mapId %u Update time - %ums diff %u Players online: %u i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update ScriptsProcess mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 
     if (b_isMapUnload)
         return;
@@ -1199,7 +1199,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update MoveAll mapId %u Update time - %ums diff %u Players online: %u i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update MoveAll mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 
     std::set<ObjectGuid> objectsTemp;
 
@@ -1251,7 +1251,7 @@ void Map::Update(const uint32 t_diff)
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 250)
-        sLog->outDiff("Map::Update UpdateDataMap mapId %u Update time - %ums diff %u Players online: %u i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update UpdateDataMap mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 
     std::set<Object*> objectsAddTemp;
     if (!i_objectsAddToMap.empty())
@@ -1280,13 +1280,13 @@ void Map::Update(const uint32 t_diff)
     i_timer_op.Update(t_diff);
     if (i_timer_op.Passed())
     {
-        UpdateOutdoorPvP(uint32(i_timer_op.GetCurrent()));
+        UpdateOutdoorPvp(uint32(i_timer_op.GetCurrent()));
         i_timer_op.SetCurrent(0);
     }
 
     _ms = GetMSTimeDiffToNow(_s);
     if (_ms > 500) // Only lags
-        sLog->outDiff("Map::Update mapId %u Update time - %ums diff %u Players online: %u i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
+        sLog->outDiff("Map::Update mapId %u Update time - %ums diff %u Players online: " UI64FMTDX " i_InstanceId %u activeEntry %u activeEncounter %u", GetId(), _ms, t_diff, m_sessions.size(), i_InstanceId, m_activeEntry, m_activeEncounter);
 }
 
 void Map::UpdateSessions(uint32 diff)
@@ -1340,15 +1340,15 @@ void Map::UpdateSessions(uint32 diff)
         sLog->outDiff("Map::UpdateSessions mapId %u Update time - %ums diff %u", GetId(), _ms, diff);
 }
 
-void Map::UpdateOutdoorPvP(uint32 diff)
+void Map::UpdateOutdoorPvp(uint32 diff)
 {
     if (b_isMapUnload)
         return;
 
     uint32 _s = getMSTime();
 
-    if (OutdoorPvPList && !OutdoorPvPList->empty())
-        for (auto itr : *OutdoorPvPList)
+    if (OutdoorPvpList && !OutdoorPvpList->empty())
+        for (auto itr : *OutdoorPvpList)
             if (itr && itr->GetMap() == this)
                 itr->Update(diff);
 
@@ -1370,7 +1370,7 @@ uint32 Map::GetCurrentDiff() const
 
 void Map::RemovePlayerFromMap(Player* player, bool remove)
 {
-    sOutdoorPvPMgr->HandlePlayerLeaveMap(player->GetGUID(), player->GetCurrentZoneID());
+    sOutdoorPvpMgr->HandlePlayerLeaveMap(player->GetGUID(), player->GetCurrentZoneID());
 
     if (InstanceScript* data_s = player->GetInstanceScript())
         data_s->OnPlayerLeaveForScript(player);
@@ -1383,11 +1383,11 @@ void Map::RemovePlayerFromMap(Player* player, bool remove)
     if (player->IsInGrid())
         player->RemoveFromGrid();
 
+    sScriptMgr->OnPlayerLeaveMap(this, player);
     if (remove)
     {
         player->SetPreDelete();
         DeleteFromWorld(player);
-        sScriptMgr->OnPlayerLeaveMap(this, player);
     }
 }
 
@@ -3388,8 +3388,6 @@ bool Map::getObjectHitPos(std::set<uint32> const& phases, bool otherUsePlayerPha
 
 float Map::GetHeight(std::set<uint32> const& phases, float x, float y, float z, bool vmap /*= true*/, float maxSearchDist /*= DEFAULT_HEIGHT_SEARCH*/, DynamicTreeCallback* dCallback /*= nullptr*/) const
 {
-    if (!this)
-        return VMAP_INVALID_HEIGHT_VALUE;
     float vmapZ = GetHeight(x, y, z, vmap, maxSearchDist);
     float goZ = _dynamicTree.getHeight(x, y, z, maxSearchDist, phases, dCallback);
     if (vmapZ > goZ && dCallback)
@@ -4201,7 +4199,7 @@ bool InstanceMap::AddPlayerToMap(Player* player, bool initPlayer /*= true*/)
                     }
                     // if the group/leader is permanently bound to the instance
                     // players also become permanently bound when they enter
-                    if (groupBind->perm || mapSave->SaveIsOld() && mapSave->GetExtended())
+                    if (groupBind->perm || (mapSave->SaveIsOld() && mapSave->GetExtended()))
                     {
                         WorldPackets::Instance::PendingRaidLock lock;
                         lock.TimeUntilLock = i_data ? i_data->GetCompletedEncounterMask() : 0;
@@ -4486,12 +4484,12 @@ void InstanceMap::UpdatePhasing()
 
         player->AddDelayedEvent(100, [player, step]() -> void
         {
-            PhaseUpdateData phaseUdateData;
-            phaseUdateData.AddConditionType(CONDITION_INSTANCE_INFO);
+            PhaseUpdateData phaseUpdateData;
+            phaseUpdateData.AddConditionType(CONDITION_INSTANCE_INFO);
 
             if (step >= 0)
-                phaseUdateData.AddScenarioUpdate(step);
-            player->GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+                phaseUpdateData.AddScenarioUpdate(step);
+            player->GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
         });
     });
 }
@@ -4564,6 +4562,7 @@ bool Map::IsCanScale() const
         case DIFFICULTY_EVENT_SCENARIO_6:
         case DIFFICULTY_WORLD_PVP_SCENARIO_2:
             return true;
+        default: break;
     }
 
     return false;
@@ -4619,7 +4618,7 @@ const WorldLocation* InstanceMap::GetClosestGraveYard(float x, float y, float z)
     WorldLocation const* location = nullptr;
 
     if (i_data) // For use in instance script
-        if (location = i_data->GetClosestGraveYard(x, y, z))
+        if ((location = i_data->GetClosestGraveYard(x, y, z)))
             return location;
 
     float dist = 10000.0f;
@@ -4757,8 +4756,8 @@ TempSummon* Map::SummonCreature(uint32 entry, Position const& pos, SummonPropert
         }
     }
 
-	if (sWorld->getBoolConfig(CONFIG_PLAYER_CONTROL_GUARDIAN_PETS) && (entry == 121661 || entry == 69791 || entry == 69792))
-		mask = UNIT_MASK_GUARDIAN;
+    if (sWorld->getBoolConfig(CONFIG_PLAYER_CONTROL_GUARDIAN_PETS) && (entry == 121661 || entry == 69791 || entry == 69792))
+        mask = UNIT_MASK_GUARDIAN;
 
     uint32 phase = PHASEMASK_NORMAL;
     uint32 team = 0;

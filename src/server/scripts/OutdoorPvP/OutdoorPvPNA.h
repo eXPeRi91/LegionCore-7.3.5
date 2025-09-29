@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef OUTDOOR_PVP_NA_
@@ -22,7 +22,7 @@
 
 // TODO: "sometimes" set to neutral
 
-enum OutdoorPvPNASpells
+enum OutdoorPvpNASpells
 {
     NA_KILL_TOKEN_ALLIANCE          = 33005,
     NA_KILL_TOKEN_HORDE             = 33004,
@@ -210,13 +210,13 @@ enum HalaaStates
 
 class Unit;
 class Creature;
-class OutdoorPvPNA;
+class OutdoorPvpNA;
 
-class OPvPCapturePointNA : public OPvPCapturePoint
+class OPvpCapturePointNA : public OPvpCapturePoint
 {
     public:
 
-        OPvPCapturePointNA(OutdoorPvP* pvp);
+        OPvpCapturePointNA(OutdoorPvp* Pvp);
 
         bool Update(uint32 diff) override;
 
@@ -271,13 +271,13 @@ class OPvPCapturePointNA : public OPvPCapturePoint
         uint32 m_GuardCheckTimer;
 };
 
-class OutdoorPvPNA : public OutdoorPvP
+class OutdoorPvpNA : public OutdoorPvp
 {
     public:
 
-        OutdoorPvPNA();
+        OutdoorPvpNA();
 
-        bool SetupOutdoorPvP() override;
+        bool SetupOutdoorPvp() override;
 
         void Initialize(uint32 zone) override;
 
@@ -294,7 +294,7 @@ class OutdoorPvPNA : public OutdoorPvP
 
     private:
 
-        OPvPCapturePointNA * m_obj;
+        OPvpCapturePointNA * m_obj;
 };
 
 #endif

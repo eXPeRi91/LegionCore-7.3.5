@@ -1,7 +1,7 @@
 /**
  \file G3D/source/TextInput.cpp
   
- \author Morgan McGuire, http://graphics.cs.williams.edu
+ \author Morgan McGuire, https://graphics.cs.williams.edu
  
  \cite Based on a lexer written by Aaron Orenstein. 
  

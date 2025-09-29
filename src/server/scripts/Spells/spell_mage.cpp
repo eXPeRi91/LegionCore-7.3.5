@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -651,11 +651,11 @@ class spell_mage_icicle : public AuraScript
 
     ObjectGuid iceLanceTarget;
 
-    bool Load()
+    bool Load() override
     {
         if (Unit* caster = GetCaster())
         {
-            if (iceLanceTarget = caster->GetAnyDataContainer().GetValue<ObjectGuid>("IceLanceTarget", ObjectGuid::Empty))
+            if ((iceLanceTarget = caster->GetAnyDataContainer().GetValue<ObjectGuid>("IceLanceTarget", ObjectGuid::Empty)))
                 return true;
         }
         return false;
@@ -1969,32 +1969,32 @@ class spell_mage_phoenixs_flames : public SpellScript
 /*class areatrigger_at_mage_frozen_orb : public AreaTriggerScript
 {
 public:
-	areatrigger_at_mage_frozen_orb() : AreaTriggerScript("areatrigger_at_mage_frozen_orb") {}
+    areatrigger_at_mage_frozen_orb() : AreaTriggerScript("areatrigger_at_mage_frozen_orb") {}
 
-	struct areatrigger_at_mage_frozen_orbAI : AreaTriggerAI
-	{
-		areatrigger_at_mage_frozen_orbAI(AreaTrigger* areatrigger) : AreaTriggerAI(areatrigger) { }
+    struct areatrigger_at_mage_frozen_orbAI : AreaTriggerAI
+    {
+        areatrigger_at_mage_frozen_orbAI(AreaTrigger* areatrigger) : AreaTriggerAI(areatrigger) { }
 
-		void OnRemove() override
-		{
-			float posX = at->GetPositionX();
-			float posY = at->GetPositionY();
-			float posZ = at->GetPositionZ();
+        void OnRemove() override
+        {
+            float posX = at->GetPositionX();
+            float posY = at->GetPositionY();
+            float posZ = at->GetPositionZ();
 
-			if (Unit* caster = at->GetCaster())
-			{
-				if (caster->HasAura(235227)) // Ice Time Legion legendary shoulders
-				{
-					caster->CastSpell(posX, posY, posZ, 235235, TriggerCastFlags(TRIGGERED_FULL_MASK | TRIGGERED_CASTED_BY_AREATRIGGER));
-				}
-			}
-		}
-	};
+            if (Unit* caster = at->GetCaster())
+            {
+                if (caster->HasAura(235227)) // Ice Time Legion legendary shoulders
+                {
+                    caster->CastSpell(posX, posY, posZ, 235235, TriggerCastFlags(TRIGGERED_FULL_MASK | TRIGGERED_CASTED_BY_AREATRIGGER));
+                }
+            }
+        }
+    };
 
-	AreaTriggerAI* GetAI(AreaTrigger* areatrigger) const override
-	{
-		return new areatrigger_at_mage_frozen_orbAI(areatrigger);
-	}
+    AreaTriggerAI* GetAI(AreaTrigger* areatrigger) const override
+    {
+        return new areatrigger_at_mage_frozen_orbAI(areatrigger);
+    }
 };*/
 
 void AddSC_mage_spell_scripts()
@@ -2038,5 +2038,5 @@ void AddSC_mage_spell_scripts()
     RegisterAuraScript(spell_mage_immolation);
     RegisterAuraScript(spell_mage_highblades_will);
     RegisterSpellScript(spell_mage_phoenixs_flames);
-	//new areatrigger_at_mage_frozen_orb();
+    //new areatrigger_at_mage_frozen_orb();
 }

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_COMBATAI_H
@@ -33,14 +33,14 @@ class AggressorAI : public CreatureAI
     public:
         explicit AggressorAI(Creature* c) : CreatureAI(c), m_checkTimer(0), CreatureTexts(nullptr), CreatureCombatTexts(nullptr) {}
 
-        void Reset();
-        void InitializeAI();
-        void UpdateAI(uint32);
-        void EnterCombat(Unit* who);
-        void JustDied(Unit* killer);
+        void Reset() override;
+        void InitializeAI() override;
+        void UpdateAI(uint32) override;
+        void EnterCombat(Unit* who) override;
+        void JustDied(Unit* killer) override;
         static int Permissible(const Creature*);
         void DoActionAI(uint32 diff, CreatureActionType type);
-        void MoveInLineOfSight(Unit*);
+        void MoveInLineOfSight(Unit*) override;
 
         void AddClientVisibility(ObjectGuid guid) override;
         void RemoveClientVisibility(ObjectGuid guid) override;

@@ -1,7 +1,7 @@
 /**
   \file G3D/unorm8.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   \created 2011-08-11
   \edited  2011-08-11

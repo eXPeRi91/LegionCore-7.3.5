@@ -1,7 +1,7 @@
 /**
  \file PhysicsFrame.cpp
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2002-07-09
  \edited  2013-04-25

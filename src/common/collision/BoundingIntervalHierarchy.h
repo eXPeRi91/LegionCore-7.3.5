@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
- * Copyright (C) 2005-2010 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2005-2010 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _BIH_H
@@ -63,7 +63,7 @@ struct AABound
 /** Bounding Interval Hierarchy Class.
     Building and Ray-Intersection functions based on BIH from
     Sunflow, a Java Raytracer, released under MIT/X11 License
-    http://sunflow.sourceforge.net/
+    https://sunflow.sourceforge.net/
     Copyright (c) 2003-2007 Christopher Kulla
 */
 

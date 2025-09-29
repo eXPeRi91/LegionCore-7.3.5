@@ -1,7 +1,7 @@
 /**
   @file PhysicsFrameSpline.h
 
-  @author Morgan McGuire, http://graphics.cs.williams.edu
+  @author Morgan McGuire, https://graphics.cs.williams.edu
  */
 #ifndef G3D_PhysicsFrameSpline_h
 #define G3D_PhysicsFrameSpline_h

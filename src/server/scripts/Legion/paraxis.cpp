@@ -42,17 +42,17 @@ Position const pos[8]
     {-3152.38f, 8655.84f, -155.78f, 1.97f}, 
 };
 
-class OutdoorPVPParaxis : public OutdoorPvP
+class OutdoorPvpParaxis : public OutdoorPvp
 {
 public:
-    OutdoorPVPParaxis()
+    OutdoorPvpParaxis()
     {
         m_TypeId = OUTDOOR_PVP_PARAXIS;
     }
 
-    ~OutdoorPVPParaxis() = default;
+    ~OutdoorPvpParaxis() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         RegisterZone(8899);
         return true;
@@ -60,7 +60,7 @@ public:
 
     void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerEnterZone(guid, zone);
+        OutdoorPvp::HandlePlayerEnterZone(guid, zone);
 
         if (m_stage == STAGE_NOT_ACTIVE)
             return;
@@ -80,7 +80,7 @@ public:
 
     void HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerLeaveZone(guid, zone);
+        OutdoorPvp::HandlePlayerLeaveZone(guid, zone);
 
         Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
         if (!player)
@@ -267,14 +267,14 @@ public:
     std::vector<ObjectGuid> m_eventGO{};
 };
 
-class OutdoorPvP_Paraxis : public OutdoorPvPScript
+class OutdoorPvp_Paraxis : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_Paraxis() : OutdoorPvPScript("outdoorpvp_paraxis") {}
+    OutdoorPvp_Paraxis() : OutdoorPvpScript("outdoorpvp_paraxis") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPVPParaxis();
+        return new OutdoorPvpParaxis();
     }
 };
 
@@ -304,11 +304,11 @@ struct npc_paraxis : ScriptedAI
         if (point != 4)
             return;
 
-        OutdoorPvP* pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(me->GetCurrentZoneID());
-        if (!pvp)
+        OutdoorPvp* Pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(me->GetCurrentZoneID());
+        if (!Pvp)
             return;
 
-        pvp->SetData(1, 1);
+        Pvp->SetData(1, 1);
 
         me->DespawnOrUnsummon();
     }
@@ -325,7 +325,7 @@ class spell_paraxis_artillery : public SpellScript
         if (!caster)
             return;
 
-        OutdoorPvP* pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(caster->GetCurrentZoneID());
+        OutdoorPvp* pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(caster->GetCurrentZoneID());
         if (!pvp)
             return;
 
@@ -354,7 +354,7 @@ class spell_paraxis_artillery : public SpellScript
 
 void Addsc_paraxis()
 {
-    new OutdoorPvP_Paraxis();
+    new OutdoorPvp_Paraxis();
     RegisterCreatureAI(npc_paraxis);
     RegisterSpellScript(spell_paraxis_artillery);
 }

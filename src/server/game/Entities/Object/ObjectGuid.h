@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2014 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef ObjectGuid_h__
@@ -105,7 +105,7 @@ enum class HighGuid
     LFGObject       = 37,
     LFGList         = 38,
     UserRouter      = 39,
-    PVPQueueGroup   = 40,
+    PvpQueueGroup   = 40,
     UserClient      = 41,
     PetBattle       = 42,
     UniqUserClient  = 43,

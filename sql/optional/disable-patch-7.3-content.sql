@@ -26,5 +26,5 @@ INSERT INTO disables (`sourceType`, `entry`, `comment`) VALUES
 -- disable Invasaion Point Argus Events
 UPDATE game_event SET start_time = '2035-07-04 17:00:00' WHERE eventEntry IN(180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191);
 
--- set the minimum item level to 0 (scaling with current gear) for pvp world quests and dungeon world quests
+-- set the minimum item level to 0 (scaling with current gear) for PvP world quests and dungeon world quests
 UPDATE world_quest_template SET MinItemLevel = 0 WHERE ZoneId = 0 AND QuestInfoId IN (113, 137);

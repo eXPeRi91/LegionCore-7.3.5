@@ -1,4 +1,4 @@
-/* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+/* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * Thanks to the original authors: ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
@@ -687,13 +687,13 @@ bool ScriptedAI::CheckHomeDistToEvade(uint32 diff, float dist, float x, float y,
 
 void ScriptedAI::InitializeAI()
 {
-	if (PetStats const* pStats = sObjectMgr->GetPetStats(me->GetEntry()))
-	{
-		if(me->GetEntry() != 100868)
-			me->SetReactState(ReactStates(pStats->state));
-		else
-			me->SetReactState(REACT_ATTACK_OFF);
-	}
+    if (PetStats const* pStats = sObjectMgr->GetPetStats(me->GetEntry()))
+    {
+        if(me->GetEntry() != 100868)
+            me->SetReactState(ReactStates(pStats->state));
+        else
+            me->SetReactState(REACT_ATTACK_OFF);
+    }
 
     CreatureAI::InitializeAI();
 }

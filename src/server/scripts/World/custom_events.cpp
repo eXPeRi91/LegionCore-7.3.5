@@ -78,10 +78,12 @@ struct boss_temple_vonjin : public ScriptedAI
     void Skull()
     {
         if (auto skull = me->FindNearestGameObject(go_hazorn_skull_1, 50.f))
+        {
             if (me->isAlive())
                 skull->SetFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
             else
                 skull->RemoveFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
+        }
     }
 
     void JustSummoned(Creature* summon) override
@@ -254,10 +256,12 @@ struct boss_temple_lessar : public ScriptedAI
     void Blood()
     {
         if (auto blood = me->FindNearestGameObject(go_ritual_blood_1, 50.f))
+        {
             if (me->isAlive())
                 blood->SetFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
             else
                 blood->RemoveFlag(GAMEOBJECT_FIELD_FLAGS, GO_FLAG_NOT_SELECTABLE);
+        }
     }
 
     void KilledUnit(Unit* who) override
@@ -1589,7 +1593,7 @@ class spell_events_spirit_chains : public AuraScript
         if (timer <= diff)
         {
             if (auto target = GetCaster())
-                if (health = target->GetHealth())
+                if ((health = target->GetHealth()))
                     target->SetHealth(health - (health * 5 / 100));
 
             timer = 1000;
@@ -2288,17 +2292,17 @@ class spell_new_year_evala_pos_check : public SpellScript
 
 
 //atray
-class OutdoorPvPAB_winter_event : public OutdoorPvP
+class OutdoorPvpAB_winter_event : public OutdoorPvp
 {
 public:
-    OutdoorPvPAB_winter_event()
+    OutdoorPvpAB_winter_event()
     {
         m_TypeId = OUTDOOR_PVP_AB_WINTER_EVENT;
     }
 
-    ~OutdoorPvPAB_winter_event() = default;
+    ~OutdoorPvpAB_winter_event() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         RegisterZone(65);
         return true;
@@ -2416,30 +2420,30 @@ private:
     }
 };
 
-class OutdoorPvP_AB_winter_event : public OutdoorPvPScript
+class OutdoorPvp_AB_winter_event : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_AB_winter_event() : OutdoorPvPScript("outdoorpvp_ab_winter_event") {}
+    OutdoorPvp_AB_winter_event() : OutdoorPvpScript("outdoorpvp_ab_winter_event") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPAB_winter_event();
+        return new OutdoorPvpAB_winter_event();
     }
 };
 
 
 // evala
-class OutdoorPvPAB_winter_event_ev : public OutdoorPvP
+class OutdoorPvpAB_winter_event_ev : public OutdoorPvp
 {
 public:
-    OutdoorPvPAB_winter_event_ev()
+    OutdoorPvpAB_winter_event_ev()
     {
         m_TypeId = OUTDOOR_PVP_AB_WNTR_EVENT_EV;
     }
 
-    ~OutdoorPvPAB_winter_event_ev() = default;
+    ~OutdoorPvpAB_winter_event_ev() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         RegisterZone(618);
         return true;
@@ -2566,14 +2570,14 @@ private:
     }
 };
 
-class OutdoorPvP_AB_winter_event_ev : public OutdoorPvPScript
+class OutdoorPvp_AB_winter_event_ev : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_AB_winter_event_ev() : OutdoorPvPScript("outdoorpvp_ab_winter_event_ev") {}
+    OutdoorPvp_AB_winter_event_ev() : OutdoorPvpScript("outdoorpvp_ab_winter_event_ev") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPAB_winter_event_ev();
+        return new OutdoorPvpAB_winter_event_ev();
     }
 };
 
@@ -2831,7 +2835,7 @@ struct boss_new_year_2019_atray : public ScriptedAI
         me->UpdateMaxHealth();
     }
 
-    void EnterEvadeMode()
+    void EnterEvadeMode() override
     {
         CreatureAI::EnterEvadeMode();
         me->SetHomePosition(AtrayHomePos);
@@ -3239,7 +3243,7 @@ struct boss_new_year_2019_evala : public ScriptedAI
         }
     }
 
-    void EnterEvadeMode()
+    void EnterEvadeMode() override
     {
         CreatureAI::EnterEvadeMode();
         me->SetVisible(false);
@@ -3468,7 +3472,7 @@ struct npc_new_year_2019_evala_portal : public ScriptedAI
             clicker->RemoveAurasDueToSpell(SPELL_EVALA_PHASE);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         events.Update(diff);
 
@@ -3510,7 +3514,7 @@ struct npc_new_year_2019_void_zone : public ScriptedAI
         events.ScheduleEvent(EVENT_1, 8000);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         events.Update(diff);
 
@@ -3541,7 +3545,7 @@ struct npc_new_year_2019_evala_arctic_cloud : public ScriptedAI
         events.ScheduleEvent(EVENT_1, urand(1000, 2000));
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         events.Update(diff);
 
@@ -3603,7 +3607,7 @@ struct npc_new_year_2019_evala_shard : public ScriptedAI
         }
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         if (!UpdateVictim())
             return;
@@ -3649,7 +3653,7 @@ struct npc_new_year_2019_evala_frostmage : public ScriptedAI
         me->DespawnOrUnsummon(200);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         events.Update(diff);
 
@@ -3692,7 +3696,7 @@ struct npc_new_year_2019_evala_frostwarr : public ScriptedAI
         me->DespawnOrUnsummon(200);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         events.Update(diff);
 
@@ -3790,7 +3794,7 @@ struct npc_new_year_2019_evala_minion : public VehicleAI
         }
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         if (insert)
             return;
@@ -3829,7 +3833,7 @@ struct npc_new_year_2019_evala_tomb : public ScriptedAI
             owner->RemoveAurasDueToSpell(SPELL_EVALA_ICY_TOMB_STUN);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         if (timer <= diff)
         {
@@ -3857,7 +3861,7 @@ struct npc_new_year_2019_evala_guard : public ScriptedAI
         me->DespawnOrUnsummon(100);
     }
 
-    void UpdateAI(uint32 diff)
+    void UpdateAI(uint32 diff) override
     {
         if (timer <= diff)
         {
@@ -4482,7 +4486,7 @@ public:
         }
     };
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* creature) const override
     {
         return new npc_events_teleporter_spAI(creature);
     }
@@ -5432,7 +5436,7 @@ public:
         }
     }
 
-    void OnEnterCombat(Player* player, Unit* /*target*/)
+    void OnEnterCombat(Player* player, Unit* /*target*/) override
     {
         if (player->GetCurrentZoneID() == 65 && sGameEventMgr->IsActiveEvent(823))
         {
@@ -5441,7 +5445,7 @@ public:
         }
     }
 
-    void OnQuestReward(Player* player, Quest const* quest)
+    void OnQuestReward(Player* player, Quest const* quest) override
     {
         switch (quest->Id)
         {
@@ -5463,7 +5467,7 @@ public:
         }
     }
 
-    void OnSpellLearned(Player* player, uint32 spellID)
+    void OnSpellLearned(Player* player, uint32 spellID) override
     {
         switch (spellID)
         {
@@ -5622,6 +5626,6 @@ void AddSC_custom_events()
     new player_monk_quest_43062();
     new player_remove_flight_if_not_mounted();
 
-    new OutdoorPvP_AB_winter_event();
-    new OutdoorPvP_AB_winter_event_ev();
+    new OutdoorPvp_AB_winter_event();
+    new OutdoorPvp_AB_winter_event_ev();
 };

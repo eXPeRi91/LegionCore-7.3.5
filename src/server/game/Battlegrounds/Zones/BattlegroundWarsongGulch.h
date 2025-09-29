@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __BATTLEGROUNDWS_H
@@ -200,16 +200,16 @@ private:
     // brawl
     std::vector<std::pair<uint32, Position>> brawlObjects
     {
-        { BG_OBJECT_A_FLAG_WS_ENTRY ,{ 1529.36f,	1474.93f,	351.987f,	2.65f } },
+        { BG_OBJECT_A_FLAG_WS_ENTRY ,{ 1529.36f, 1474.93f, 351.987f, 2.65f } },
         { BG_OBJECT_H_FLAG_WS_ENTRY ,{ 923.747f, 1441.55f, 345.65f, 0.0f } },
     
-        { BG_BRAWL_A_POSTAMENT ,{ 1529.36f,	1474.93f,	351.987f,	2.65f } },
-        { BG_BRAWL_A_POSTAMENT ,{ 1530.17f,	1487.84f,	351.961f,	2.22625f } },
+        { BG_BRAWL_A_POSTAMENT ,{ 1529.36f, 1474.93f, 351.987f, 2.65f } },
+        { BG_BRAWL_A_POSTAMENT ,{ 1530.17f, 1487.84f, 351.961f, 2.22625f } },
 
-        { BG_OBJECT_A_FLAG_WS_ENTRY ,{ 1530.17f,	1487.84f,	351.961f,	2.22625f } },
+        { BG_OBJECT_A_FLAG_WS_ENTRY ,{ 1530.17f, 1487.84f, 351.961f, 2.22625f } },
         { BG_OBJECT_H_FLAG_WS_ENTRY ,{ 924.083f, 1428.02f, 345.69f, 0.0f } },
     
-        { BG_BRAWL_H_POSTAMENT ,{ 923.747f, 1441.55f, 345.65f,	0.0f } },
+        { BG_BRAWL_H_POSTAMENT ,{ 923.747f, 1441.55f, 345.65f, 0.0f } },
         { BG_BRAWL_H_POSTAMENT ,{ 924.083f, 1428.02f, 345.69f, 0.0f } },
 
         { BG_BRAWL_BUFF_ENTRY,{ 1529.67f, 1456.66f, 352.054f, 6.27189f } },

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ArenaAll.h"
@@ -178,7 +178,7 @@ void BattlegroundMgr::SendBattlegroundList(Player* player, ObjectGuid const& gui
     if (!bgTemplate)
         return;
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bgTemplate->GetMapId(), player->getLevel());
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bgTemplate->GetMapId(), player->getLevel());
     if (!bracketEntry)
         return;
 
@@ -192,7 +192,7 @@ void BattlegroundMgr::SendBattlegroundList(Player* player, ObjectGuid const& gui
 
     if (bgTypeId != MS::Battlegrounds::BattlegroundTypeId::ArenaAll && bgTypeId != MS::Battlegrounds::BattlegroundTypeId::BrawlArenaAll && bgTypeId != MS::Battlegrounds::BattlegroundTypeId::BattlegroundRatedEyeOfTheStorm && bgTypeId != MS::Battlegrounds::BattlegroundTypeId::BrawlAllSix)
         if (Battleground* bgtemplate_ = GetBattlegroundTemplate(bgTypeId))
-            if (PVPDifficultyEntry const* v = sDB2Manager.GetBattlegroundBracketByLevel(bgtemplate_->GetMapId(), player->getLevel()))
+            if (PvpDifficultyEntry const* v = sDB2Manager.GetBattlegroundBracketByLevel(bgtemplate_->GetMapId(), player->getLevel()))
                 for (auto const& x : _clientBattlegroundIDs[bgTypeId][v->RangeIndex])
                     battlefieldList.Battlefields.push_back(x);
 
@@ -317,7 +317,7 @@ uint32 BattlegroundMgr::CreateClientVisibleInstanceId(uint16 bgTypeId, uint8 bra
     return lastId + 1;
 }
 
-Battleground* BattlegroundMgr::CreateNewBattleground(uint16 bgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType/*=bgTypeId*/, bool useTournamentRules /*= false*/, bool isWarGame /*= false*/)
+Battleground* BattlegroundMgr::CreateNewBattleground(uint16 bgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 joinType, bool isRated, uint16 generatedType/*=bgTypeId*/, bool useTournamentRules /*= false*/, bool isWarGame /*= false*/)
 {
     CreateBattlegroundData const* bgData = GetBattlegroundData(bgTypeId);
     if (!bgData)
@@ -817,32 +817,33 @@ uint16 BattlegroundMgr::GetBattleMasterBG(uint32 entry) const
 void BattlegroundMgr::LoadPvpRewards()
 {
     /*
-    http://www.mmo-champion.com/content/6046-Oct-19-Hotfixes-7-1-PvP-Reward-Changes-Blue-Posts-BlizzCon-Virtual-Ticket-Hosts#71pvprewards
+    https://www.mmo-champion.com/content/6046-Oct-19-Hotfixes-7-1-PvP-Reward-Changes-Blue-Posts-BlizzCon-Virtual-Ticket-Hosts#71pvprewards
 
-    Activity	                        Honor	Artifact Power
-    Rated BG Win (First of the Day)	    600	    800
-    Rated BG Win	                    300	    400
+    Activity                            Honor      Artifact Power
+    Rated BG Win (First of the Day)     600        800
+    Rated BG Win                        300        400
 
-    Random BG Win (First of the Day)    300	    400
-    Random BG Win	                    150	    200
+    Random BG Win (First of the Day)    300        400
+    Random BG Win                       150        200
 
-    Skirmish Win (First of the Day)	    160	    100
-    Skirmish Win	                    80	    25
+    Skirmish Win (First of the Day)     160        100
+    Skirmish Win                        80         25
 
-    2v2 Win (First of the Day)	        200	    120
-    2v2 Win	                            100	    40
+    2v2 Win (First of the Day)          200        120
+    2v2 Win                             100        40
 
-    3v3 Win (First of the Day)	        200	    180
-    3v3 Wins	                        100	    60
+    3v3 Win (First of the Day)          200        180
+    3v3 Wins                            100        60
 
-    Last Week's Rating	Base Item Level	Appearance
-    0 - 1399	        840	            Gladiator
-    1400 - 1599	        850	            Gladiator
-    1600 - 1799	        860	            Gladiator
-    1800 - 1999	        865	            Gladiator
-    2000 - 2199	        870	            Elite
-    2200 - 2399	        875	            Elite
-    2400+	            880	            Elite
+
+    Last Week's Rating     Base Item Level    Appearance
+    0 - 1399               840                Gladiator
+    1400 - 1599            850                Gladiator
+    1600 - 1799            860                Gladiator
+    1800 - 1999            865                Gladiator
+    2000 - 2199            870                Elite
+    2200 - 2399            875                Elite
+    2400+                  880                Elite
     */
 
     uint32 oldMSTime = getMSTime();

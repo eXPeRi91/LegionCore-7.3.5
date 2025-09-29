@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Common.h"
@@ -767,7 +767,7 @@ bool ChatHandler::ShowHelpForSubCommands(std::vector<ChatCommand> const& table, 
 
     if (&table == &getCommandTable())
     {
-        SendSysMessage(LANG_AVIABLE_CMD);
+        SendSysMessage(LANG_AVAILABLE_CMD);
         PSendSysMessage("%s", list.c_str());
     }
     else
@@ -833,6 +833,14 @@ bool ChatHandler::ShowHelpForCommand(std::vector<ChatCommand> const& table, cons
     return ShowHelpForSubCommands(table, "", cmd);
 }
 
+Player* ChatHandler::getPlayer()
+{
+    if (!m_session)
+        return nullptr;
+
+    return m_session->GetPlayer();
+}
+
 Player* ChatHandler::getSelectedPlayer()
 {
     if (!m_session)
@@ -844,6 +852,39 @@ Player* ChatHandler::getSelectedPlayer()
         return m_session->GetPlayer();
 
     return ObjectAccessor::FindPlayer(guid);
+}
+
+Player* ChatHandler::getSelectedPlayerOrSelf()
+{
+    if (!m_session)
+        return nullptr;
+
+    ObjectGuid selected = m_session->GetPlayer()->GetSelection();
+
+    Player* targetPlayer = ObjectAccessor::FindPlayer(selected);
+
+    if (!targetPlayer)
+        targetPlayer = m_session->GetPlayer();
+
+    return targetPlayer;
+}
+
+Unit* ChatHandler::getSelectedUnitOrPlayerOrSelf()
+{
+    if (!m_session)
+        return nullptr;
+
+    ObjectGuid selected = m_session->GetPlayer()->GetSelection();
+
+    if (selected.IsEmpty())
+        return m_session->GetPlayer();
+
+    Player* targetPlayer = ObjectAccessor::FindPlayer(selected);
+
+    if (targetPlayer)
+        return targetPlayer;
+
+    return ObjectAccessor::GetUnit(*m_session->GetPlayer(), selected);
 }
 
 Unit* ChatHandler::getSelectedUnit()
@@ -1206,7 +1247,7 @@ bool ChatHandler::extractPlayerTarget(char* args, Player** player, ObjectGuid* p
     }
     else
     {
-        Player* pl = getSelectedPlayer();
+        Player* pl = getSelectedPlayerOrSelf();
         // if allowed player pointer
         if (player)
             *player = pl;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -845,7 +845,7 @@ class spell_pri_power_word_shield : public SpellScriptLoader
                     {
                         float critChance = plr->GetFloatValue(PLAYER_FIELD_CRIT_PERCENTAGE);
                         if (roll_chance_f(critChance))
-                            amount *= plr->CanPvPScalar() ? 1.5f : 2.f;
+                            amount *= plr->CanPvpScalar() ? 1.5f : 2.f;
                     }
 
                     if (Unit* target = GetAura()->GetUnitOwner())
@@ -1410,7 +1410,7 @@ class spell_pri_penance_cast : public SpellScriptLoader
                             return SPELL_FAILED_BAD_TARGETS;
                 return SPELL_CAST_OK;
             }
-			
+            
             void HandleDummy(SpellEffIndex /*effIndex*/)
             {
                 if (Player* _player = GetCaster()->ToPlayer())
@@ -1611,7 +1611,7 @@ class spell_pri_atonement_heal : public SpellScript
 
         if (GetSpell()->IsCritForTarget(target))
         {
-            float mod = caster->CanPvPScalar() ? 0.75f : 0.5f;
+            float mod = caster->CanPvpScalar() ? 0.75f : 0.5f;
             SetHitHeal(GetHitHeal() * mod);
         }
     }
@@ -1822,7 +1822,7 @@ class spell_pri_mind_flay : public AuraScript
             AuraRemoveMode removeMode = GetTargetApplication()->GetRemoveMode();
             if (removeMode == AURA_REMOVE_BY_EXPIRE)
             {
-                if (caster->HasAura(199445)) // Mind Trauma	(Honor Talent)
+                if (caster->HasAura(199445)) // Mind Trauma (Honor Talent)
                 {
                     caster->CastSpell(target, 247777, true);
                     if (Aura* aura = target->GetAura(247777, caster->GetGUID()))

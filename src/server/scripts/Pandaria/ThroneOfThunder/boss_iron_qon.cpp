@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "throne_of_thunder.h"
@@ -65,7 +65,7 @@ class boss_iron_qon : public CreatureScript
             InstanceScript* instance;
             bool achieve;
 
-            void Reset()
+            void Reset() override
             {
                 _Reset();
                 ResetMaunt();
@@ -105,14 +105,14 @@ class boss_iron_qon : public CreatureScript
                 }
             }
 
-            void EnterCombat(Unit* who)
+            void EnterCombat(Unit* who) override
             {
                 me->AddAura(SPELL_RISING_ANGER, me);
                 events.RescheduleEvent(EVENT_FIST_SMASH, 15000);
                 achieve = true;
             }
 
-            void JustDied(Unit* /*killer*/)
+            void JustDied(Unit* /*killer*/) override
             {
                 _JustDied();
                 if (achieve)
@@ -125,7 +125,7 @@ class boss_iron_qon : public CreatureScript
                 }
             }
 
-            void UpdateAI(uint32 diff)
+            void UpdateAI(uint32 diff) override
             {
                 if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING))
                     return;

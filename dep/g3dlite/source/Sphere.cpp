@@ -3,7 +3,7 @@
  
  Sphere class
  
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2001-04-17
  \edited  2011-02-10
@@ -31,7 +31,7 @@ Sphere::Sphere(const Any& a) : radius(0) {
         center = a[0];
         radius = a[1];
     } else {
-        a.verify(false, "Sphere must recieve exactly 1 or two arguments.");
+        a.verify(false, "Sphere must receive exactly 1 or two arguments.");
     }
 }
 

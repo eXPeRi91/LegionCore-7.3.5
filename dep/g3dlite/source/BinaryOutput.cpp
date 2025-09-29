@@ -1,7 +1,7 @@
 /**
  @file BinaryOutput.cpp
  
- @author Morgan McGuire, http://graphics.cs.williams.edu
+ @author Morgan McGuire, https://graphics.cs.williams.edu
  Copyright 2002-2011, Morgan McGuire, All rights reserved.
  
  @created 2002-02-20

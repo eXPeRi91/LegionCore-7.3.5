@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -69,7 +69,7 @@ class spell_generic_quest_update_entry_SpellScript : public SpellScript
         }
 };
 
-// http://www.wowhead.com/quest=55 Morbent Fel
+// https://www.wowhead.com/quest=55 Morbent Fel
 // 8913 Sacred Cleansing
 enum Quest55Data
 {
@@ -88,7 +88,7 @@ class spell_q55_sacred_cleansing : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=5206 Marauders of Darrowshire
+// https://www.wowhead.com/quest=5206 Marauders of Darrowshire
 // 17271 Test Fetid Skull
 enum Quest5206Data
 {
@@ -136,8 +136,8 @@ class spell_q5206_test_fetid_skull : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=6124 Curing the Sick (A)
-// http://www.wowhead.com/quest=6129 Curing the Sick (H)
+// https://www.wowhead.com/quest=6124 Curing the Sick (A)
+// https://www.wowhead.com/quest=6129 Curing the Sick (H)
 // 19512 Apply Salve
 enum Quests6124_6129Data
 {
@@ -200,7 +200,7 @@ class spell_q6124_6129_apply_salve : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=10255 Testing the Antidote
+// https://www.wowhead.com/quest=10255 Testing the Antidote
 // 34665 Administer Antidote
 enum Quest10255Data
 {
@@ -219,8 +219,8 @@ class spell_q10255_administer_antidote : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=11396 Bring Down Those Shields (A)
-// http://www.wowhead.com/quest=11399 Bring Down Those Shields (H)
+// https://www.wowhead.com/quest=11396 Bring Down Those Shields (A)
+// https://www.wowhead.com/quest=11399 Bring Down Those Shields (H)
 enum Quest11396_11399Data
 {
     SPELL_FORCE_SHIELD_ARCANE_PURPLE_X3 = 43874,
@@ -337,7 +337,7 @@ class spell_q11396_11399_scourging_crystal_controller_dummy : public SpellScript
         };
 };
 
-// http://www.wowhead.com/quest=11515 Blood for Blood
+// https://www.wowhead.com/quest=11515 Blood for Blood
 // 44936 Quest - Fel Siphon Dummy
 enum Quest11515Data
 {
@@ -356,7 +356,7 @@ class spell_q11515_fel_siphon_dummy : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=11587 Prison Break
+// https://www.wowhead.com/quest=11587 Prison Break
 // 45449 Arcane Prisoner Rescue
 enum Quest11587Data
 {
@@ -406,7 +406,7 @@ class spell_q11587_arcane_prisoner_rescue : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=11730 Master and Servant
+// https://www.wowhead.com/quest=11730 Master and Servant
 // 46023 The Ultrasonic Screwdriver
 enum Quest11730Data
 {
@@ -479,7 +479,7 @@ class spell_q11730_ultrasonic_screwdriver : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=12459 That Which Creates Can Also Destroy
+// https://www.wowhead.com/quest=12459 That Which Creates Can Also Destroy
 // 49587 Seeds of Nature's Wrath
 enum Quest12459Data
 {
@@ -530,7 +530,7 @@ class spell_q12459_seeds_of_natures_wrath : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=12634 Some Make Lemonade, Some Make Liquor
+// https://www.wowhead.com/quest=12634 Some Make Lemonade, Some Make Liquor
 // 51840 Despawn Fruit Tosser
 enum Quest12634Data
 {
@@ -582,7 +582,7 @@ class spell_q12634_despawn_fruit_tosser : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=12683 Burning to Help
+// https://www.wowhead.com/quest=12683 Burning to Help
 // 52308 Take Sputum Sample
 class spell_q12683_take_sputum_sample : public SpellScriptLoader
 {
@@ -617,7 +617,7 @@ class spell_q12683_take_sputum_sample : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=12851 Going Bearback
+// https://www.wowhead.com/quest=12851 Going Bearback
 // 54798 FLAMING Arrow Triggered Effect
 enum Quest12851Data
 {
@@ -679,7 +679,7 @@ class spell_q12851_going_bearback : public SpellScriptLoader
         }
 };
 
-// http://www.wowhead.com/quest=12937 Relief for the Fallen
+// https://www.wowhead.com/quest=12937 Relief for the Fallen
 // 55804 Healing Finished
 enum Quest12937Data
 {
@@ -818,7 +818,7 @@ class spell_symbol_of_life_dummy : public SpellScriptLoader
         };
 };
 
-// http://www.wowhead.com/quest=12659 Scalps!
+// https://www.wowhead.com/quest=12659 Scalps!
 // 52090 Ahunae's Knife
 enum Quest12659Data
 {
@@ -952,8 +952,8 @@ class spell_q12805_lifeblood_dummy : public SpellScriptLoader
 };
 
 /*
- http://www.wowhead.com/quest=13283 King of the Mountain
- http://www.wowhead.com/quest=13280 King of the Mountain
+ https://www.wowhead.com/quest=13283 King of the Mountain
+ https://www.wowhead.com/quest=13280 King of the Mountain
  59643 Plant Horde Battle Standard
  4338 Plant Alliance Battle Standard
  */
@@ -1033,7 +1033,7 @@ class spell_q14112_14145_chum_the_water: public SpellScriptLoader
         }
 };
 
-// http://old01.wowhead.com/quest=9452 - Red Snapper - Very Tasty!
+// https://old01.wowhead.com/quest=9452 - Red Snapper - Very Tasty!
 enum RedSnapperVeryTasty
 {
     SPELL_CAST_NET          = 29866,
@@ -1283,7 +1283,7 @@ public:
     }
 };
 
-// http://www.wowhead.com/quest=12372 Defending Wyrmrest Temple
+// https://www.wowhead.com/quest=12372 Defending Wyrmrest Temple
 // 49370 - Wyrmrest Defender: Destabilize Azure Dragonshrine Effect
 enum Quest12372Data
 {
@@ -1323,7 +1323,7 @@ public:
     }
 };
 
-// http://www.wowhead.com/quest=11010 "Bombing Run", http://www.wowhead.com/quest=11102 "Bombing Run" /druid/ and http://www.wowhead.com/quest=11023 "Bomb Them Again!"
+// https://www.wowhead.com/quest=11010 "Bombing Run", https://www.wowhead.com/quest=11102 "Bombing Run" /druid/ and https://www.wowhead.com/quest=11023 "Bomb Them Again!"
 enum Quest11010_11102_11023Data
 {
     // Spell
@@ -1497,7 +1497,7 @@ public:
     }
 };
 
-// http://www.wowhead.com/quest=11008 "Fires Over Skettis"
+// https://www.wowhead.com/quest=11008 "Fires Over Skettis"
 // 39844 - Skyguard Blasting Charge
 class spell_q11008_blasting_charge : public SpellScriptLoader
 {
@@ -1552,11 +1552,11 @@ class spell_q30050_resuscitate: public SpellScriptLoader
                         else if(step > 24)
                             step -= 24;
                         else if(step > 18)
-                            step =- 18;
+                            step -= 18;
                         else if(step > 12)
-                            step =- 12;
+                            step -= 12;
                         else if(step > 6)
-                            step =- 6;
+                            step -= 6;
 
                         switch (step)
                         {
@@ -1648,7 +1648,7 @@ public:
             {
                 if (!player->isGameMaster())
                 {
-                    uint32 questId = player->GetQuestForUnLockSecondTier();
+                    uint32 questId = player->GetQuestForUnlockSecondTier();
                     if (!questId || player->GetQuestStatus(questId) != QUEST_STATUS_INCOMPLETE) // Prevent complete art in other spec
                     {
                         ChatHandler(player).PSendSysMessage("Error: You need quest %u", questId);

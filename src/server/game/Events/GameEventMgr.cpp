@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "GameEventMgr.h"
@@ -177,7 +177,7 @@ bool GameEventMgr::StartEvent(uint16 event_id, bool overwrite)
             break;
         }
 
-        sOutdoorPvPMgr->HandleGameEventStart(event_id);
+        sOutdoorPvpMgr->HandleGameEventStart(event_id);
         return false;
     }
     if (data.state == GAMEEVENT_WORLD_INACTIVE)
@@ -199,7 +199,7 @@ bool GameEventMgr::StartEvent(uint16 event_id, bool overwrite)
     if (overwrite && conditions_met)
         sWorld->ForceGameEventUpdate();
 
-    sOutdoorPvPMgr->HandleGameEventStart(event_id);
+    sOutdoorPvpMgr->HandleGameEventStart(event_id);
 
     // temporally. delete after new year event end
     switch (event_id)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "heart_of_fear.h"
@@ -378,6 +378,7 @@ class npc_tempest_slash : public CreatureScript
             {
                 DoCast(me, SPELL_TEMPEST_SLASH_DMG, true);
                 if (summoner->ToCreature())
+                {
                     if (Unit* target = summoner->ToCreature()->AI()->SelectTarget(SELECT_TARGET_RANDOM, 1, 0.0f, true))
                     {
                         Position pos;
@@ -386,6 +387,7 @@ class npc_tempest_slash : public CreatureScript
                     }
                     else if (!target)
                         events.ScheduleEvent(EVENT_1, 1000);
+                }
             }
 
             void FillCirclePath(Position const& centerPos, float radius, float z, Movement::PointsArray& path)

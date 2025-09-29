@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -101,6 +101,7 @@ class spell_endurance_of_niuzao : public SpellScriptLoader
                 if (Unit* owner = GetUnitOwner())
                 {
                     if (Player* plr = owner->ToPlayer())
+                    {
                         if (dmgInfo.GetAbsorb() < owner->GetHealth() || owner->HasAura(148010) || !plr->isInTankSpec())
                         {
                             dmgInfo.AbsorbDamage(-(int32(absorbAmount)));
@@ -113,6 +114,7 @@ class spell_endurance_of_niuzao : public SpellScriptLoader
                             owner->AddAura(148010, owner);
                             owner->AddAura(148958, owner);
                         }
+                    }
                 }
             }
 
@@ -793,7 +795,7 @@ class spell_creature_permanent_feign_death : public SpellScriptLoader
         }
 };
 
-enum PvPTrinketTriggeredSpells
+enum PvpTrinketTriggeredSpells
 {
     SPELL_WILL_OF_THE_FORSAKEN_COOLDOWN_TRIGGER         = 72752,
     SPELL_WILL_OF_THE_FORSAKEN_COOLDOWN_TRIGGER_WOTF    = 72757,
@@ -1995,6 +1997,7 @@ class spell_gen_mounted_charge: public SpellScriptLoader
                             }
                             break;
                         }
+                    default: break;
                 }
             }
 
@@ -3395,17 +3398,21 @@ public:
                     break;
                 case SPELL_SPEED_RAM_TROT:
                     if (pCaster->HasAura(SPELL_RAM_FATIGUE))
+                    {
                         if (pCaster->GetAura(SPELL_RAM_FATIGUE)->GetStackAmount() <= 2)
                             pCaster->RemoveAura(SPELL_RAM_FATIGUE);
                         else
                             pCaster->GetAura(SPELL_RAM_FATIGUE)->ModStackAmount(-2);
+                    }
                     break;
                 case SPELL_SPEED_RAM_NORMAL:
                     if (pCaster->HasAura(SPELL_RAM_FATIGUE))
+                    {
                         if (pCaster->GetAura(SPELL_RAM_FATIGUE)->GetStackAmount() <= 4)
                             pCaster->RemoveAura(SPELL_RAM_FATIGUE);
                         else
                             pCaster->GetAura(SPELL_RAM_FATIGUE)->ModStackAmount(-4);
+                    }
                     break;
             }
             if (pCaster->HasAura(SPELL_RAM_FATIGUE))
@@ -3978,8 +3985,8 @@ enum MineSpells
     SPELL_ACHIEV_MINE_STACK     = 57099,
     SPELL_ACHIEV_MINE_CREDIT    = 57064,
 };
-// Achiev Mine Sweeper http://www.wowhead.com/achievement=1428
-// http://www.wowhead.com/spell=54355
+// Achiev Mine Sweeper https://www.wowhead.com/achievement=1428
+// https://www.wowhead.com/spell=54355
 class spell_gen_landmine_knockback : public SpellScriptLoader
 {
     public:
@@ -4659,7 +4666,7 @@ class spell_gen_artificial_stamina : public SpellScriptLoader
 static uint32 const _effects[] = 
 {
     ATTACK_POWER_FOR_ATTACKER,
-    NULL,
+    DUMMY_PLACEHOLDER,
     MOD_DAMAGE_DONE_OVERRIDE,
     MOD_POWER_REGEN_OVERRIDE,
     STRENGTH_MULTIPLICATIVE,
@@ -4688,7 +4695,7 @@ class spell_gen_spec_stat_template : public AuraScript
                 uint32 specId = plr->GetUInt32Value(PLAYER_FIELD_CURRENT_SPEC_ID);
                 float statMod = 0.f;
 
-                if (!plr->GetCustomPvPMods(statMod, _effects[aurEff->GetEffIndex()], specId))
+                if (!plr->GetCustomPvpMods(statMod, _effects[aurEff->GetEffIndex()], specId))
                     statMod = sDB2Manager.GetPvpScalingValueByEffectType(_effects[aurEff->GetEffIndex()], specId);
 
                 switch (aurEff->GetEffIndex())
@@ -6050,7 +6057,7 @@ class spell_gen_cothl : public SpellScript
     {
         if (auto caster = GetCaster())
         {
-            if (!caster->CanPvPScalar())
+            if (!caster->CanPvpScalar())
             {
                 if (AuraEffect const* aurEff = caster->GetAuraEffect(252799, EFFECT_0)) // Shocklight
                 {
@@ -7455,7 +7462,7 @@ struct areatrigger_gen_at_misc : public AreaTriggerAI
         index = at->GetRealEntry() == 8210;
     }
 
-    bool CalculateSpline(Position const* pos, Position& startPos, Position& endPos, std::vector<Position>& path)
+    bool CalculateSpline(Position const* pos, Position& startPos, Position& endPos, std::vector<Position>& path) override
     {
         if (targetGUID)
         {

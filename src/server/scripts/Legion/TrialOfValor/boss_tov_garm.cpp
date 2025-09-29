@@ -122,7 +122,7 @@ struct boss_garm : BossAI
         RemoveDebaffsOnPlayer();
 
         me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_UNK_6 | UNIT_FLAG_UNK_15);
-        me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_UNK5);
+        me->SetFlag(UNIT_FIELD_FLAGS_2, UNIT_FLAG2_UNK4);
         me->SetPower(POWER_ENERGY, 0);
         me->SetMaxPower(POWER_ENERGY, 100);
         me->SetReactState(REACT_AGGRESSIVE);
@@ -902,7 +902,7 @@ struct at_guardians_breath : AreaTriggerAI
             caster->GetAI()->DoAction(ACTION_3);
     }
 
-    void BeforeRemove(Unit* target)
+    void BeforeRemove(Unit* target) override
     {
         Unit* caster = at->GetCaster()->ToCreature();
         if (!caster || !target)

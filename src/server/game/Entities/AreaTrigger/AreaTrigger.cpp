@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2013 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2013 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AreaTrigger.h"
@@ -339,7 +339,7 @@ bool AreaTrigger::CreateAreaTrigger(ObjectGuid::LowType guidlow, uint32 triggerE
 
     _ai->CalculateDuration(_duration);
 
-    if (info && (GetCustomEntry() == 13251 && (caster && caster->IsCreature() && caster->GetEntry() != 116407) || info->Id == 233530)) //! Hack!!!, because it is so stupid and don't work else
+    if (info && ((GetCustomEntry() == 13251 && (caster && caster->IsCreature() && caster->GetEntry() != 116407)) || info->Id == 233530)) //! Hack!!!, because it is so stupid and don't work else
         _canMove = false;
 
     // culculate destination point
@@ -808,7 +808,7 @@ void AreaTrigger::DoAction(Unit* unit, ActionInfo& action)
         // return;
 
     // do not process depleted actions
-    if (!caster || !unit || !action.charges && action.action->maxCharges)
+    if (!caster || !unit || (!action.charges && action.action->maxCharges))
         return;
 
 #ifdef WIN32
@@ -1193,8 +1193,8 @@ void AreaTrigger::DoAction(Unit* unit, ActionInfo& action)
             _spline.VerticesPoints[1] = G3D::Vector3(GetPositionX(), GetPositionY(), GetPositionZ());
             _reachedDestination = true;
             InitSplines();
-			if(atInfo.spellId != 84714) // Fix for mage frozen orb appearing to long
-				SetDuration(_spline.TimeToTarget);
+            if(atInfo.spellId != 84714) // Fix for mage frozen orb appearing to long
+                SetDuration(_spline.TimeToTarget);
             break;
         }
         case AT_ACTION_TYPE_REMOVE_OWNED_AURA: // 17
@@ -1319,7 +1319,7 @@ void AreaTrigger::DoActionLeave(ActionInfo& action)
         // return;
 
     // do not process depleted actions
-    if (!caster || !action.charges && action.action->maxCharges)
+    if (!caster || (!action.charges && action.action->maxCharges))
         return;
 
 #ifdef WIN32
@@ -2140,16 +2140,16 @@ bool AreaTrigger::CheckValidateTargets(Unit* unit, AreaTriggerActionMoment /*act
             if (!_ai->IsValidTarget(_caster, unit, action.action->moment))
                 continue;
 
-        if (action.action->hasAura > 0 && !unit->HasAura(action.action->hasAura)
-            || action.action->hasAura2 > 0 && !unit->HasAura(action.action->hasAura2)
-            || action.action->hasAura3 > 0 && !unit->HasAura(action.action->hasAura3))
+        if ((action.action->hasAura > 0 && !unit->HasAura(action.action->hasAura))
+            || (action.action->hasAura2 > 0 && !unit->HasAura(action.action->hasAura2))
+            || (action.action->hasAura3 > 0 && !unit->HasAura(action.action->hasAura3)))
         {
             // TC_LOG_DEBUG(LOG_FILTER_AREATRIGGER, "CheckValidateTargets aura > 0 unit %s", unit->GetGUID().ToString().c_str());
             continue;
         }
-        if (action.action->hasAura < 0 && unit->HasAura(abs(action.action->hasAura))
-            || action.action->hasAura2 < 0 && unit->HasAura(abs(action.action->hasAura2))
-            || action.action->hasAura3 < 0 && unit->HasAura(abs(action.action->hasAura3)))
+        if ((action.action->hasAura < 0 && unit->HasAura(abs(action.action->hasAura)))
+            || (action.action->hasAura2 < 0 && unit->HasAura(abs(action.action->hasAura2)))
+            || (action.action->hasAura3 < 0 && unit->HasAura(abs(action.action->hasAura3))))
         {
             // TC_LOG_DEBUG(LOG_FILTER_AREATRIGGER, "CheckValidateTargets aura < 0 unit %s", unit->GetGUID().ToString().c_str());
             continue;

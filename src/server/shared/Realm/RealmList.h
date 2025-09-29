@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2016 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _REALMLIST_H
@@ -93,7 +93,7 @@ public:
     Realm const* GetRealm(Battlenet::RealmHandle const& id) const;
 
     RealmBuildInfo const* GetBuildInfo(uint32 build) const;
-	uint32 GetMinorMajorBugfixVersionForBuild(uint32 build) const;
+    uint32 GetMinorMajorBugfixVersionForBuild(uint32 build) const;
     std::unordered_set<std::string> const& GetSubRegions() const { return _subRegions; }
     void WriteSubRegions(bgs::protocol::game_utilities::v1::GetAllValuesForAttributeResponse* response) const;
     std::vector<uint8> GetRealmEntryJSON(Battlenet::RealmHandle const& id, uint32 build) const;

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Battleground.h"
@@ -666,9 +666,9 @@ void BattlegroundDeepwindGorge::Cart::CartDelivered()
 
 void BattlegroundDeepwindGorge::Cart::UnbindCartFromPlayer()
 {
-    Player* player = nullptr;
+    Player* player = ControlledBy();
     Unit* cart = nullptr;
-    if (player = ControlledBy())
+    if (player)
         if (Aura* aura = player->GetAura(BG_DG_AURA_CARTS_CHAINS))
             if (Unit* unit = aura->GetCaster())
                 cart = unit;

@@ -3,9 +3,9 @@
  
  Color class
  
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  \cite Portions based on Dave Eberly's Magic Software Library
-      at <A HREF="http://www.magic-software.com">http://www.magic-software.com</A>
+      at <A HREF="https://www.magic-software.com">https://www.magic-software.com</A>
  
  \created 2001-06-02
  \edited  2013-03-29

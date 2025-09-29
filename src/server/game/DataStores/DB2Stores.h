@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 TrintiyCore <http://www.trinitycore.org/>
+ * Copyright (C) 2011 TrintiyCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_DB2STORES_H
@@ -177,7 +177,7 @@ extern DB2Storage<PhaseEntry>                               sPhaseStore;
 extern DB2Storage<PlayerConditionEntry>                     sPlayerConditionStore;
 extern DB2Storage<PowerDisplayEntry>                        sPowerDisplayStore;
 extern DB2Storage<PowerTypeEntry>                           sPowerTypeStore;
-extern DB2Storage<PVPItemEntry>                             sPvpItemStore;
+extern DB2Storage<PvpItemEntry>                             sPvpItemStore;
 extern DB2Storage<PvpRewardEntry>                           sPvpRewardStore;
 extern DB2Storage<PvpScalingEffectEntry>                    sPvpScalingEffectStore;
 extern DB2Storage<PvpScalingEffectTypeEntry>                sPvpScalingEffectTypeStore;
@@ -458,13 +458,13 @@ public:
     std::vector<SpecializationSpellsEntry const*> const* GetSpecializationSpells(uint32 specId);
     std::vector<SpellProcsPerMinuteModEntry const*> GetSpellProcsPerMinuteMods(uint32 spellprocsPerMinuteID) const;
     SpellTargetRestrictionsEntry const* GetSpellTargetRestrioctions(uint32 spellid, uint16 difficulty);
-    uint32 GetLearnSpell(uint32 trigerSpell);
-    uint32 GetSpellByTrigger(uint32 trigerSpell);
+    uint32 GetLearnSpell(uint32 triggerSpell);
+    uint32 GetSpellByTrigger(uint32 triggerSpell);
     SpellEffectEntry const* GetSpellEffectEntry(uint32 spellId, uint32 effect, uint8 difficulty);
     std::set<uint32> const* GetSpellCategory(uint32 category);
     std::vector<ItemSpecOverrideEntry const*> const* GetItemSpecOverrides(uint32 itemId) const;
-    static PVPDifficultyEntry const* GetBattlegroundBracketByLevel(uint32 mapID, uint32 level);
-    static PVPDifficultyEntry const* GetBattlegroundBracketById(uint32 mapID, uint8 id);
+    static PvpDifficultyEntry const* GetBattlegroundBracketByLevel(uint32 mapID, uint32 level);
+    static PvpDifficultyEntry const* GetBattlegroundBracketById(uint32 mapID, uint8 id);
     ChrSpecializationEntry const* GetChrSpecializationByIndex(uint8 classID, uint32 ID);
     ChrSpecializationEntry const* GetDefaultChrSpecializationForClass(uint32 class_) const;
     PetFamilySpellsSet const* GetPetFamilySpells(uint32 family);

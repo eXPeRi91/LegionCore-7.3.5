@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "BattlegroundMgr.h"
@@ -682,7 +682,6 @@ bool Creature::InitEntry(uint32 entry, uint32 /*team*/, const CreatureData* data
     else
         SetObjectScale(cinfo->scale);
 
-
     // checked at loading
     m_defaultMovementType = MovementGeneratorType(cinfo->MovementType);
     if (!m_respawnradius && m_defaultMovementType == RANDOM_MOTION_TYPE)
@@ -763,7 +762,7 @@ bool Creature::UpdateEntry(uint32 entry, uint32 team, const CreatureData* data)
     SetUInt32Value(UNIT_FIELD_FLAGS, unit_flags);
     SetUInt32Value(UNIT_FIELD_FLAGS_2, cInfo->unit_flags2);
     SetUInt32Value(UNIT_FIELD_FLAGS_3, unit_flags3);
-	
+    
     if (IsMirrorImage())
         new MirrorImageUpdate(this);
 
@@ -801,9 +800,9 @@ bool Creature::UpdateEntry(uint32 entry, uint32 team, const CreatureData* data)
     if (FactionTemplateEntry const* factionTemplate = sFactionTemplateStore.LookupEntry(cInfo->faction))
     {
         if (factionTemplate->Flags & FACTION_TEMPLATE_FLAG_PVP)
-            SetPvP(true);
+            SetPvp(true);
         else
-            SetPvP(false);
+            SetPvp(false);
     }
 
     // trigger creature is always not selectable and can not be attacked
@@ -1027,6 +1026,11 @@ void Creature::Update(uint32 diff)
         case ALIVE:
         {
             Unit::Update(diff);
+
+            // creature can be dead after Unit::Update call
+            // CORPSE/DEAD state will processed at next tick (in other case death timer will be updated unexpectedly)
+            if (!isAlive())
+                break;
 
             // if creature is charmed, switch to charmed AI (and back)
             if (NeedChangeAI)
@@ -1388,7 +1392,7 @@ void Creature::SetReactState(ReactStates st, uint32 delay /*= 0*/)
     {
         AddDelayedCombat(delay, [this, st] () -> void
         {
-            if (this && isInCombat())
+            if (isInCombat())
                 m_reactState = st;
         });
     }
@@ -1825,7 +1829,7 @@ void Creature::SelectLevel(const CreatureTemplate* cInfo)
     SetModifierValue(UNIT_MOD_HEALTH, BASE_VALUE, static_cast<float>(health));
     SetModifierValue(UNIT_MOD_MANA, BASE_VALUE, static_cast<float>(mana));
 
-    //damage
+    // damage
     float maxDmgMod = 1.5f;
     if (GetMap() && GetMap()->GetDifficultyID() == DIFFICULTY_MYTHIC_KEYSTONE)
         maxDmgMod = 1.2f;
@@ -2498,13 +2502,13 @@ void Creature::setDeathState(DeathState s)
 
         if (sWorld->getBoolConfig(CONFIG_RESPAWN_FROM_PLAYER_ENABLED))
         {
-            if (_respawnDelay <= 600 && !GetMap()->Instanceable()) // квестовые мобы и прочий шлак
+            if (_respawnDelay <= 600 && !GetMap()->Instanceable()) // quest mobs and other trash
             {
                 uint32 targetCount = GetPlayerFromArea(m_areaId);
                 if (targetCount)
                 {
                     if (targetCount >= sWorld->getIntConfig(CONFIG_RESPAWN_FROM_PLAYER_COUNT))
-                        _respawnDelay /= targetCount; // грубый рассчет, конечно, но лучше уж..
+                        _respawnDelay /= targetCount; // a rough calculation, of course, but better...
 
                     if (_respawnDelay < 10)
                         _respawnDelay = urand(10, 15);
@@ -2521,11 +2525,6 @@ void Creature::setDeathState(DeathState s)
         SetUInt32Value(UNIT_FIELD_NPC_FLAGS, UNIT_NPC_FLAG_NONE);
 
         setActive(false);
-
-        if (!isPet() && GetCreatureTemplate()->SkinLootId)
-            if (LootTemplates_Skinning.HaveLootFor(GetCreatureTemplate()->SkinLootId))
-                if (hasLootRecipient())
-                    SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_SKINNABLE);
 
         if (HasSearchedAssistance())
         {
@@ -2699,7 +2698,7 @@ void Creature::ForcedDespawn(uint32 timeMSToDespawn /*= 0*/, Seconds const& forc
 
 void Creature::DespawnOrUnsummon(uint32 msTimeToDespawn /*= 0*/, Seconds const& forceRespawnTimer /*= 0*/)
 {
-    if (!this || m_despawn || !IsInWorld())
+    if (m_despawn || !IsInWorld())
         return;
 
     if (TempSummon* summon = this->ToTempSummon())
@@ -2854,7 +2853,7 @@ SpellInfo const* Creature::reachWithSpellCure(Unit* victim)
             if (spellInfo->EffectMask < uint32(1 << j))
                 break;
 
-            if ((spellInfo->Effects[j]->Effect == SPELL_EFFECT_HEAL))
+            if (spellInfo->Effects[j]->Effect == SPELL_EFFECT_HEAL)
             {
                 bcontinue = false;
                 break;
@@ -3524,13 +3523,13 @@ uint32 Creature::GetVendorItemCurrentCount(VendorItem const* vItem)
         ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(vItem->item);
 
         auto diff = uint32((ptime - vCount->lastIncrementTime)/vItem->incrtime);
-        if ((vCount->count + diff * pProto->VendorStackCount) >= vItem->maxcount)
+        if ((vCount->count + diff * pProto->GetBuyCount()) >= vItem->maxcount)
         {
             m_vendorItemCounts.erase(itr);
             return vItem->maxcount;
         }
 
-        vCount->count += diff * pProto->VendorStackCount;
+        vCount->count += diff * pProto->GetBuyCount();
         vCount->lastIncrementTime = ptime;
     }
 
@@ -3563,8 +3562,8 @@ uint32 Creature::UpdateVendorItemCurrentCount(VendorItem const* vItem, uint32 us
         ItemTemplate const* pProto = sObjectMgr->GetItemTemplate(vItem->item);
 
         auto diff = uint32((ptime - vCount->lastIncrementTime)/vItem->incrtime);
-        if ((vCount->count + diff * pProto->VendorStackCount) < vItem->maxcount)
-            vCount->count += diff * pProto->VendorStackCount;
+        if ((vCount->count + diff * pProto->GetBuyCount()) < vItem->maxcount)
+            vCount->count += diff * pProto->GetBuyCount();
         else
             vCount->count = vItem->maxcount;
     }

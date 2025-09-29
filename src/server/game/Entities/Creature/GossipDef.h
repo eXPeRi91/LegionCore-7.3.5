@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef GOSSIP_H
@@ -48,7 +48,7 @@ enum Gossip_Option
     GOSSIP_OPTION_ARMORER               = 15,                   //UNIT_NPC_FLAG_ARMORER             (4096)
     GOSSIP_OPTION_UNLEARNTALENTS        = 16,                   //UNIT_NPC_FLAG_TRAINER             (16) (bonus option for GOSSIP_OPTION_TRAINER)
     GOSSIP_OPTION_MAILBOX               = 18,                   //UNIT_NPC_FLAG_MAILBOX
-    GOSSIP_OPTION_OUTDOORPVP            = 19,                   //added by code (option for outdoor pvp creatures)
+    GOSSIP_OPTION_OUTDOORPVP            = 19,                   //added by code (option for outdoor PvP creatures)
     GOSSIP_OPTION_TRANSMOGRIFIER        = 20,                   //UNIT_NPC_FLAG_TRANSMOGRIFIER
     GOSSIP_OPTION_SCENARIO              = 21,                   //UNIT_NPC_FLAG_GOSSIP
     GOSSIP_OPTION_GARRISON_SHIPMENT     = 22,                   //UNIT_NPC_FLAG2_AI_OBSTACLE 

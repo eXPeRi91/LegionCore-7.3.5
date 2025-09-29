@@ -299,7 +299,7 @@ bool NetworkDevice::init() {
     */
     
     // TODO: WSAIoctl for subnet and broadcast addresses
-    // http://msdn.microsoft.com/en-us/library/ms741621(VS.85).aspx
+    // https://msdn.microsoft.com/en-us/library/ms741621(VS.85).aspx
     // 
     // TODO: SIO_GET_INTERFACE_LIST 
 

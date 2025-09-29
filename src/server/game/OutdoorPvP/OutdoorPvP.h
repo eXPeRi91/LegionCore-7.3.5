@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef OUTDOOR_PVP_H_
@@ -33,23 +33,23 @@ namespace WorldPackets
 
 class GameObject;
 
-enum OutdoorPvPTypes
+enum OutdoorPvpTypes
 {
-    OUTDOOR_PVP_HP              = 1,
-    OUTDOOR_PVP_NA              = 2,
-    OUTDOOR_PVP_TF              = 3,
-    OUTDOOR_PVP_ZM              = 4,
-    OUTDOOR_PVP_SILITHUS        = 5,
-    OUTDOOR_PVP_ASHRAN          = 6,
-    OUTDOOR_PVP_TARRENMILL      = 7,
-    OUTDOOR_PVP_RG              = 8,
-    OUTDOOR_PVP_SENTINAX        = 9,
-    OUTDOOR_PVP_ARGUS_INVASION  = 10,
-    OUTDOOR_PVP_PARAXIS         = 11,
-    OUTDOOR_PVP_DALARAN_EVENT   = 12,
+    OUTDOOR_PVP_HP               = 1,
+    OUTDOOR_PVP_NA               = 2,
+    OUTDOOR_PVP_TF               = 3,
+    OUTDOOR_PVP_ZM               = 4,
+    OUTDOOR_PVP_SILITHUS         = 5,
+    OUTDOOR_PVP_ASHRAN           = 6,
+    OUTDOOR_PVP_TARRENMILL       = 7,
+    OUTDOOR_PVP_RG               = 8,
+    OUTDOOR_PVP_SENTINAX         = 9,
+    OUTDOOR_PVP_ARGUS_INVASION   = 10,
+    OUTDOOR_PVP_PARAXIS          = 11,
+    OUTDOOR_PVP_DALARAN_EVENT    = 12,
     OUTDOOR_PVP_THOUSAND_NEEDLES = 13,
-    OUTDOOR_PVP_AB_WINTER_EVENT = 14,
-    OUTDOOR_PVP_AB_WNTR_EVENT_EV= 15,
+    OUTDOOR_PVP_AB_WINTER_EVENT  = 14,
+    OUTDOOR_PVP_AB_WNTR_EVENT_EV = 15,
 
     MAX_OUTDOORPVP_TYPES
 };
@@ -101,19 +101,19 @@ class WorldPacket;
 class Creature;
 class Unit;
 struct GossipMenuItems;
-class OutdoorPvP;
+class OutdoorPvp;
 class OutdoorGraveyard;
 
 typedef std::set<Player*> PlayerSet;
 typedef std::vector<OutdoorGraveyard*> GraveyardVector;
 
-class OPvPCapturePoint
+class OPvpCapturePoint
 {
     public:
 
-        explicit OPvPCapturePoint(OutdoorPvP* pvp);
+        explicit OPvpCapturePoint(OutdoorPvp* pvp);
 
-        virtual ~OPvPCapturePoint() {}
+        virtual ~OPvpCapturePoint() {}
 
         virtual void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& /*packet*/) { }
 
@@ -200,7 +200,7 @@ class OPvPCapturePoint
         uint32 m_neutralValuePct;
 
         // pointer to the OutdoorPvP this objective belongs to
-        OutdoorPvP* m_PvP;
+        OutdoorPvp* m_Pvp;
 
         // map to store the various gameobjects and creatures spawned by the objective
         //        type, guid
@@ -210,20 +210,20 @@ class OPvPCapturePoint
         std::map<ObjectGuid, uint32> m_CreatureTypes;
 };
 
-// base class for specific outdoor pvp handlers
-class OutdoorPvP : public ZoneScript
+// base class for specific outdoor PvP handlers
+class OutdoorPvp : public ZoneScript
 {
-    friend class OutdoorPvPMgr;
+    friend class OutdoorPvpMgr;
 
     public:
 
         // ctor
-        OutdoorPvP();
+        OutdoorPvp();
 
         // dtor
-        virtual ~OutdoorPvP();
+        virtual ~OutdoorPvp();
 
-        // deletes all gos/creatures spawned by the pvp
+        // deletes all gos/creatures spawned by the PvP
         void DeleteSpawns();
 
         virtual void FillInitialWorldStates(WorldPackets::WorldState::InitWorldStates& /*packet*/) { }
@@ -238,7 +238,7 @@ class OutdoorPvP : public ZoneScript
         virtual bool HandleOpenGo(Player* player, ObjectGuid guid);
 
         // setup stuff
-        virtual bool SetupOutdoorPvP() {return true;}
+        virtual bool SetupOutdoorPvp() {return true;}
 
         virtual void OnCreatureCreate(Creature* /*creature*/) {}
         virtual void OnCreatureRemove(Creature* /*creature*/) {}
@@ -249,7 +249,7 @@ class OutdoorPvP : public ZoneScript
         void SendUpdateWorldState(uint32 field, uint32 value);
         void SendUpdateWorldState(WorldStates field, uint32 value);
 
-        // called by OutdoorPvPMgr, updates the objectives and if needed, sends new worldstateui information
+        // called by OutdoorPvpMgr, updates the objectives and if needed, sends new worldstateui information
         virtual bool Update(uint32 diff);
 
         // handle npc/player kill
@@ -258,7 +258,7 @@ class OutdoorPvP : public ZoneScript
         virtual void HandleKillImpl(Player* /*killer*/, Unit* /*killed*/) {}
         virtual void HandlePlayerKilled(Player* p_Player) { }
         virtual void HandleRewardHonor(Player* p_Player) { }
-        virtual void FillCustomPvPLoots(Player* /*looter*/, Loot& /*loot*/, ObjectGuid /*container*/) { }
+        virtual void FillCustomPvpLoots(Player* /*looter*/, Loot& /*loot*/, ObjectGuid /*container*/) { }
 
         virtual void HandleSpellClick(Player* player, Unit* target) {}
 
@@ -320,9 +320,9 @@ class OutdoorPvP : public ZoneScript
 
         virtual void HandlePlayerResurrects(Player* player, uint32 zone);
 
-        void AddCapturePoint(OPvPCapturePoint* cp);
+        void AddCapturePoint(OPvpCapturePoint* cp);
 
-        OPvPCapturePoint* GetCapturePoint(ObjectGuid guid) const;
+        OPvpCapturePoint* GetCapturePoint(ObjectGuid guid) const;
 
         bool HasPlayer(Player* player) const;
 
@@ -336,7 +336,7 @@ class OutdoorPvP : public ZoneScript
         bool AddObject(uint32 p_Type, uint32 p_Entry, uint32 p_Map, float p_X, float p_Y, float p_Z, float p_O, float p_Rot0, float p_Rot1, float p_Rot2, float p_Rot3);
         bool DelObject(uint32 p_Type);
 
-        std::map<ObjectGuid, OPvPCapturePoint*> m_capturePoints;
+        std::map<ObjectGuid, OPvpCapturePoint*> m_capturePoints;
 
         GuidSet m_players[MAX_TEAMS];
         GuidSet m_playersInArea;
@@ -360,7 +360,7 @@ class OutdoorPvP : public ZoneScript
 class OutdoorGraveyard
 {
     public:
-        explicit OutdoorGraveyard(OutdoorPvP* p_OutdoorPvP);
+        explicit OutdoorGraveyard(OutdoorPvp* p_OutdoorPvp);
 
         void GiveControlTo(TeamId p_Team);
         TeamId GetControlTeamId();
@@ -386,7 +386,7 @@ class OutdoorGraveyard
         uint32 GetGraveyardId();
 
     protected:
-        OutdoorPvP* m_OutdoorPvP;
+        OutdoorPvp* m_OutdoorPvp;
         std::set<ObjectGuid> m_ResurrectQueue;
         ObjectGuid m_SpiritGuide[2];
         TeamId m_ControlTeam;

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Guild.h"
@@ -90,7 +90,7 @@ void WorldSession::HandlePetitionBuy(WorldPackets::Petition::PetitionBuy& packet
     }
 
     ItemPosCountVec dest;
-    InventoryResult msg = player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, charterid, pProto->VendorStackCount);
+    InventoryResult msg = player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, charterid, pProto->GetBuyCount());
     if (msg != EQUIP_ERR_OK)
     {
         player->SendEquipError(msg, nullptr, nullptr, charterid);
@@ -492,7 +492,7 @@ void WorldSession::HandleTurnInPetition(WorldPackets::Petition::TurnInPetition& 
 
     stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_PETITION_SIGNATURE);
     stmt->setUInt64(0, packet.Item.GetCounter());
-    if (result = CharacterDatabase.Query(stmt))
+    if ((result = CharacterDatabase.Query(stmt)))
         signatures = uint8(result->GetRowCount());
 
     if (signatures < sWorld->getIntConfig(CONFIG_MIN_PETITION_SIGNS))

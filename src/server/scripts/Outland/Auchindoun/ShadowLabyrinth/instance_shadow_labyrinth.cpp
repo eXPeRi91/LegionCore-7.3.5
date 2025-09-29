@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2014 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -44,7 +44,7 @@ class instance_shadow_labyrinth : public InstanceMapScript
                 FelOverseerCount      = 0;
             }
 
-            void OnCreatureCreate(Creature* creature)
+            void OnCreatureCreate(Creature* creature) override
             {
                 switch (creature->GetEntry())
                 {
@@ -67,7 +67,7 @@ class instance_shadow_labyrinth : public InstanceMapScript
                 }
             }
 
-            void OnGameObjectCreate(GameObject* go)
+            void OnGameObjectCreate(GameObject* go) override
             {
                 switch (go->GetEntry())
                 {
@@ -80,7 +80,7 @@ class instance_shadow_labyrinth : public InstanceMapScript
                 }
             }
 
-            void OnGameObjectRemove(GameObject* go)
+            void OnGameObjectRemove(GameObject* go) override
             {
                 switch (go->GetEntry())
                 {
@@ -93,7 +93,7 @@ class instance_shadow_labyrinth : public InstanceMapScript
                 }
             }
 
-            void OnUnitDeath(Unit* unit)
+            void OnUnitDeath(Unit* unit) override
             {
                 Creature* creature = unit->ToCreature();
                 if (!creature)
@@ -122,7 +122,7 @@ class instance_shadow_labyrinth : public InstanceMapScript
                 return 0;
             }
 
-            ObjectGuid GetGuidData(uint32 type) const
+            ObjectGuid GetGuidData(uint32 type) const override
             {
                 switch (type)
                 {

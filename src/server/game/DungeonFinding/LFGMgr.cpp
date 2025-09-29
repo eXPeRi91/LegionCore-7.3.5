@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Common.h"
@@ -566,7 +566,7 @@ void LFGMgr::JoinLfg(Player* player, uint8 roles, LfgDungeonSet& dungeons)
                     break;
             }
 
-            if (isDungeon && isRaid || isDungeon && isScenario || isRaid && isScenario)
+            if ((isDungeon && isRaid) || (isDungeon && isScenario) || (isRaid && isScenario))
                 joinData.result = LFG_JOIN_INTERNAL_ERROR;
 
             switch (entry->dbc->TypeID)
@@ -890,7 +890,7 @@ void LFGMgr::UpdateRoleCheck(ObjectGuid gguid, ObjectGuid guid /* = 0 */, uint8 
     Battleground* bg = nullptr;
     GroupQueueInfo* ginfo = nullptr;
     uint32 avgTime = 0;
-    PVPDifficultyEntry const* bracketEntry = nullptr;
+    PvpDifficultyEntry const* bracketEntry = nullptr;
     if (roleCheck.state == LFG_ROLECHECK_FINISHED && roleCheck.bgQueueId)
     {
         bg = sBattlegroundMgr->GetBattlegroundTemplate(roleCheck.bgQueueId);
@@ -1793,8 +1793,11 @@ void LFGMgr::FinishDungeon(ObjectGuid gguid, const uint32 dungeonId)
             if (data.reward->bonusQuestId)
             {
                 if (CTARewardStore[guid] && player->GetGroup() && (player->GetGroup()->GetLfgRoles(guid) & ~PLAYER_ROLE_LEADER) == CTARewardStore[guid])
-                    if (quest = sQuestDataStore->GetQuestTemplate(data.reward->bonusQuestId))
+                {
+                    quest = sQuestDataStore->GetQuestTemplate(data.reward->bonusQuestId);
+                    if (quest)
                         player->RewardQuest(quest, 0, nullptr, false);
+                }
 
                 SetEligibleForCTAReward(guid, 0);
             }
@@ -1911,6 +1914,7 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
         return lock;
     }
 
+    bool allowPrevious = sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS);
     uint8 level = player->getLevel();
     uint8 expansion = player->GetSession()->Expansion();
     LfgDungeonSet const& dungeons = GetDungeonsByRandom(0);
@@ -1934,12 +1938,12 @@ LfgLockMap LFGMgr::GetLockedDungeons(ObjectGuid guid)
             lockData.status = LFG_LOCKSTATUS_RAID_LOCKED;
         else if (dungeon->minlevel > level)
             lockData.status = LFG_LOCKSTATUS_TOO_LOW_LEVEL;
-        else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level)
+        else if (dungeon->maxlevel != 0 && dungeon->maxlevel < level && (!allowPrevious || dungeon->dbc->IsRaidFinder()))
             lockData.status = LFG_LOCKSTATUS_TOO_HIGH_LEVEL;
         else if (dungeon->seasonal && !IsSeasonActive(dungeon->id))
             lockData.status = LFG_LOCKSTATUS_NOT_IN_SEASON;
         else if (!sConditionMgr->IsPlayerMeetingCondition(player, sDB2Manager.LFGRoleRequirementCondition(dungeon->dbc->ID, player->GetSpecializationRole())))
-            lockData.status = LFG_LOCKSTATUS_NOT_COMLETE_CHALANGE; // atm data only for challenges check, same in beta BFA
+            lockData.status = LFG_LOCKSTATUS_NOT_COMPLETE_CHALLENGE; // atm data only for challenges check, same in beta BFA
         // else if (dungeon->dbc->GroupID == LFG_GROUP_NORMAL_LEGION && !player->HasAchieved(ar->achievement)) // Check artifact in Legion
             // lockData.status = LFG_LOCKSTATUS_NOT_HAVE_ARTIFACT;
         // merge faction check with check on invalid TP pos and check on test invalid maps (BUT we still have to send it! LOL, in WoD blizz deleted invalid maps from client DBC)
@@ -2682,7 +2686,7 @@ LfgUpdateData LFGMgr::GetLfgStatus(ObjectGuid guid, uint32 queueId)
 
 bool LFGMgr::IsSeasonActive(uint32 dungeonId)
 {
-	switch (dungeonId)
+    switch (dungeonId)
     {
         case 285: // The Headless Horseman
             return IsHolidayActive(HOLIDAY_HALLOWS_END);
@@ -2781,6 +2785,8 @@ uint32 LFGMgr::GetLFGDungeonEntry(uint32 id)
 
 LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
 {
+    bool allowPrevious = sWorld->getBoolConfig(CONFIG_LFG_ALL_PREVIOUS_DUNGEONS);
+
     LfgDungeonSet randomDungeons;
     for (uint32 i = 0; i < sLfgDungeonsStore.GetNumRows(); i++)
     {
@@ -2788,10 +2794,13 @@ LfgDungeonSet LFGMgr::GetRewardableDungeons(uint8 level, uint8 expansion)
         if (!dungeon)
             continue;
 
-        if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && level <= dungeon->maxlevel)
+        if (dungeon->dbc->CanBeRewarded() && (!dungeon->seasonal || IsSeasonActive(dungeon->id)) && dungeon->expansion <= expansion && dungeon->minlevel <= level && (level <= dungeon->maxlevel || (allowPrevious && !dungeon->dbc->IsRaidFinder())))
+        {
             if (GetDungeonReward(dungeon->dbc->Entry(), level))
                 randomDungeons.insert(dungeon->dbc->Entry());
+        }
     }
+
     return randomDungeons;
 }
 
@@ -2877,7 +2886,8 @@ bool LfgReward::RewardPlayer(Player* player, LFGDungeonData const* randomDungeon
     {
         done = true;
 
-        if (quest = sQuestDataStore->GetQuestTemplate(otherQuest))
+        quest = sQuestDataStore->GetQuestTemplate(otherQuest);
+        if (quest)
             player->AddDelayedEvent(100, [player, quest] () -> void { if (player) player->RewardQuest(quest, 0, nullptr, false); });
     }
 

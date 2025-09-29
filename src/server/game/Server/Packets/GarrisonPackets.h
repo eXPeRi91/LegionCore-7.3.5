@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef GarrisonPackets_h__
@@ -70,7 +70,7 @@ namespace WorldPackets
             uint32 TravelDuration = 0;
             uint32 Duration = 0;
             uint32 State = 0; // MS::Garrison::Mission::State
-            uint32 SuccesChance = 0;
+            uint32 SuccessChance = 0;
             uint32 UnkInt2 = 0;
         };
 

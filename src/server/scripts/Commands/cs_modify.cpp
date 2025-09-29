@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -79,7 +79,7 @@ public:
         return commandTable;
     }
 
-    //Edit Player HP
+    // Edit Player HP
     static bool HandleModifyHPCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -95,7 +95,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -116,7 +116,7 @@ public:
         return true;
     }
 
-    //Edit Player Mana
+    // Edit Player Mana
     static bool HandleModifyManaCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -132,7 +132,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -154,7 +154,7 @@ public:
         return true;
     }
 
-    //Edit Player Energy
+    // Edit Player Energy
     static bool HandleModifyEnergyCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -181,7 +181,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -205,7 +205,7 @@ public:
         return true;
     }
 
-    //Edit Player Rage
+    // Edit Player Rage
     static bool HandleModifyRageCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -232,7 +232,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -270,7 +270,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -288,7 +288,7 @@ public:
         return true;
     }
 
-    //Edit Player Faction
+    // Edit Player Faction
     static bool HandleModifyFactionCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -366,7 +366,7 @@ public:
         return true;
     }
 
-    //Edit Player Spell
+    // Edit Player Spell
     static bool HandleModifySpellCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -396,8 +396,8 @@ public:
         else
             mark = atoi(pmark);
 
-        Player* target = handler->getSelectedPlayer();
-        if (target == NULL)
+        Player* target = handler->getSelectedPlayerOrSelf();
+        if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
@@ -422,7 +422,7 @@ public:
         return true;
     }
 
-    //Edit Player TP
+    // Edit Player TP
     static bool HandleModifyTalentCommand (ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -466,7 +466,7 @@ public:
         return false;
     }
 
-    //Edit Player Aspeed
+    // Edit Player Aspeed
     static bool HandleModifyASpeedCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -481,7 +481,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -514,7 +514,7 @@ public:
         return true;
     }
 
-    //Edit Player Speed
+    // Edit Player Speed
     static bool HandleModifySpeedCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -529,7 +529,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -559,7 +559,7 @@ public:
         return true;
     }
 
-    //Edit Player Swim Speed
+    // Edit Player Swim Speed
     static bool HandleModifySwimCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -574,7 +574,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -604,7 +604,7 @@ public:
         return true;
     }
 
-    //Edit Player Walk Speed
+    // Edit Player Walk Speed
     static bool HandleModifyBWalkCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -619,7 +619,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -649,7 +649,7 @@ public:
         return true;
     }
 
-    //Edit Player Fly
+    // Edit Player Fly
     static bool HandleModifyFlyCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -664,7 +664,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -685,7 +685,7 @@ public:
         return true;
     }
 
-    //Edit Player or Creature Scale
+    // Edit Player or Creature Scale
     static bool HandleModifyScaleCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -723,7 +723,7 @@ public:
         return true;
     }
 
-    //Enable Player mount
+    // Enable Player mount
     static bool HandleModifyMountCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -949,7 +949,7 @@ public:
             return false;
         }
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -973,13 +973,13 @@ public:
         return true;
     }
 
-    //Edit Player money
+    // Edit Player money
     static bool HandleModifyMoneyCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
             handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
@@ -1035,7 +1035,7 @@ public:
         return true;
     }
 
-    //Edit Unit field
+    // Edit Unit field
     static bool HandleModifyBitCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -1090,15 +1090,16 @@ public:
         return true;
     }
 
+    // Edit Player honor
     static bool HandleModifyHonorCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->SendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -1116,6 +1117,7 @@ public:
         return true;
     }
 
+    // Edit Player drunk
     static bool HandleModifyDrunkCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -1125,21 +1127,29 @@ public:
         if (drunklevel > 100)
             drunklevel = 100;
 
-        if (Player* target = handler->getSelectedPlayer())
-            target->SetDrunkValue(drunklevel);
+        Player* target = handler->getSelectedPlayerOrSelf();
+        if (!target)
+        {
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
+            handler->SetSentErrorMessage(true);
+            return false;
+        }
+
+        target->SetDrunkValue(drunklevel);
 
         return true;
     }
 
+    // Edit Player rep
     static bool HandleModifyRepCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->SendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -1192,7 +1202,7 @@ public:
         return true;
     }
 
-    //morph creature or player
+    // Morph creature or player
     static bool HandleModifyMorphCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -1203,7 +1213,6 @@ public:
         Unit* target = handler->getSelectedUnit();
         if (!target)
             target = handler->GetSession()->GetPlayer();
-
         // check online security
         else if (target->GetTypeId() == TYPEID_PLAYER && handler->HasLowerSecurity(target->ToPlayer(), ObjectGuid::Empty))
             return false;
@@ -1216,7 +1225,7 @@ public:
         return true;
     }
 
-    //set temporary phase mask for player
+    // Set temporary phase mask for player
     static bool HandleModifyPhaseCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -1265,7 +1274,8 @@ public:
 
         return true;
     }
-    //change standstate
+
+    // Change standstate
     static bool HandleModifyStandStateCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -1277,16 +1287,16 @@ public:
         return true;
     }
 
+    // Edit Player gender
     static bool HandleModifyGenderCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
-
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->PSendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -1338,6 +1348,7 @@ public:
         return true;
     }
 
+    // Edit Player power
     static bool HandleModifyPowerCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -1349,11 +1360,10 @@ public:
         if (!power_str || !value_str)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
-
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->PSendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -1369,7 +1379,8 @@ public:
 
         return true;
     }
-//demorph player or unit
+
+    // Demorph player or unit
     static bool HandleDeMorphCommand(ChatHandler* handler, const char* /*args*/)
     {
         Unit* target = handler->getSelectedUnit();
@@ -1385,15 +1396,16 @@ public:
         return true;
     }
 
+    // Edit Player currency
     static bool HandleModifyCurrencyCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->PSendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -1419,15 +1431,16 @@ public:
         return true;
     }
 
+    // Edit Player artifact XP
     static bool HandleModifyArtifactXPCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->PSendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -1448,15 +1461,16 @@ public:
         return true;
     }
 
+    // Modify Player average itemslevel
     static bool HandleModifyItemsLevel(ChatHandler* handler, const char* args)
     {
         if (!*args)
             return false;
 
-        Player* target = handler->getSelectedPlayer();
+        Player* target = handler->getSelectedPlayerOrSelf();
         if (!target)
         {
-            handler->PSendSysMessage(LANG_PLAYER_NOT_FOUND);
+            handler->SendSysMessage(LANG_NO_CHAR_SELECTED);
             handler->SetSentErrorMessage(true);
             return false;
         }

@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -168,7 +168,7 @@ namespace cds { namespace intrusive { namespace striped_set {
             {
 #if CDS_COMPILER == CDS_COMPILER_MSVC && CDS_COMPILER_VERSION == CDS_COMPILER_MSVC12
                 // MS VC++ 2013 internal compiler error
-                // Use assignment workaround, see http://connect.microsoft.com/VisualStudio/feedback/details/804941/visual-studio-2013-rc-c-internal-compiler-error-with-std-forward
+                // Use assignment workaround, see https://connect.microsoft.com/VisualStudio/feedback/details/804941/visual-studio-2013-rc-c-internal-compiler-error-with-std-forward
                 value_type val = value_type(std::forward<Args>(args)...);
 #else
                 value_type val( std::forward<Args>(args)... );

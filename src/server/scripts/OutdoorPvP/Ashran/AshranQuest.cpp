@@ -120,7 +120,7 @@ public:
             if (p_Action)
                 return;
 
-            ZoneScript* l_ZoneScript = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(me->GetZoneId());
+            ZoneScript* l_ZoneScript = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(me->GetZoneId());
             if (l_ZoneScript == nullptr)
                 return;
 
@@ -131,7 +131,7 @@ public:
             uint32 l_Count = artifactCount / MaxArtifactCounts;
             uint8 l_Rand = urand(0, MaxArtifactCounts - 1);
 
-            if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(l_ZoneScript))
+            if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(l_ZoneScript))
             {
                 for (uint8 l_I = 0; l_I < MaxArtifactCounts; ++l_I)
                 {
@@ -182,7 +182,7 @@ public:
             if (p_Action)
                 return;
 
-            ZoneScript* l_ZoneScript = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(me->GetZoneId());
+            ZoneScript* l_ZoneScript = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(me->GetZoneId());
             if (l_ZoneScript == nullptr)
                 return;
 
@@ -193,7 +193,7 @@ public:
             uint32 l_Count = artifactCount / MaxArtifactCounts;
             uint8 l_Rand = urand(0, MaxArtifactCounts - 1);
 
-            if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(l_ZoneScript))
+            if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(l_ZoneScript))
             {
                 for (uint8 l_I = 0; l_I < MaxArtifactCounts; ++l_I)
                 {

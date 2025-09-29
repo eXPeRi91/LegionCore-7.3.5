@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef MiscPackets_h__
@@ -706,22 +706,22 @@ namespace WorldPackets
             void Read() override { }
         };
 
-        class TogglePvP final : public ClientPacket
+        class TogglePvp final : public ClientPacket
         {
         public:
-            TogglePvP(WorldPacket&& packet) : ClientPacket(CMSG_TOGGLE_PVP, std::move(packet)) { }
+            TogglePvp(WorldPacket&& packet) : ClientPacket(CMSG_TOGGLE_PVP, std::move(packet)) { }
 
             void Read() override { }
         };
 
-        class SetPvP final : public ClientPacket
+        class SetPvp final : public ClientPacket
         {
         public:
-            SetPvP(WorldPacket&& packet) : ClientPacket(CMSG_SET_PVP, std::move(packet)) { }
+            SetPvp(WorldPacket&& packet) : ClientPacket(CMSG_SET_PVP, std::move(packet)) { }
 
             void Read() override;
 
-            bool EnablePVP = false;
+            bool EnablePvp = false;
         };
 
         class SummonRequest final : public ServerPacket

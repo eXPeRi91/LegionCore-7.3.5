@@ -1,7 +1,7 @@
 /**
  \file G3D/CoordinateFrame.h
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2001-03-04
  \edited  2012-07-29

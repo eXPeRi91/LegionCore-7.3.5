@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AuctionHouseBotSeller.h"
@@ -140,7 +140,7 @@ bool AuctionBotSeller::Initialize()
                 if (!sAuctionBotConfig->GetConfig(CONFIG_AHBOT_BIND_PICKUP))
                     continue;
                 break;
-            case BIND_WHEN_EQUIPED:
+            case BIND_WHEN_EQUIPPED:
                 if (!sAuctionBotConfig->GetConfig(CONFIG_AHBOT_BIND_EQUIP))
                     continue;
                 break;
@@ -623,7 +623,7 @@ void AuctionBotSeller::SetPricesOfItem(ItemTemplate const* itemProto, SellerConf
     if (sAuctionBotConfig->GetConfig(CONFIG_AHBOT_BUYPRICE_SELLER))
         buyPrice = sellPrice;
 
-    float basePriceFloat = buyPrice * stackCount / (itemProto->GetClass() == 6 ? 200.0f : static_cast<float>(itemProto->VendorStackCount));
+    float basePriceFloat = buyPrice * stackCount / (itemProto->GetClass() == 6 ? 200.0f : static_cast<float>(itemProto->GetBuyCount()));
     basePriceFloat *= priceRatio;
 
     float range = basePriceFloat * 0.04f;

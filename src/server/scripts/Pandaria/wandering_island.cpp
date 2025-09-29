@@ -58,7 +58,7 @@ enum spell_panda
     SPELL_SUMMON_WIND_TELEPORTER                   = 104396,
     SUMMON_MANDORI_DOOR                            = 115426, // Summon Mandori Door
     SUMMON_PEI_WU_DOOR                             = 115435, // Summon Pei-Wu Door
-    SUMMON_GO_TRIGER_CHECKER                       = 115343,
+    SUMMON_GO_TRIGGER_CHECKER                      = 115343,
 };
 
 class npc_panda_announcer : public CreatureScript
@@ -458,7 +458,7 @@ public:
                     case EVENT_RESET:
                         me->NearTeleportTo(me->GetHomePosition());
                         EnterEvadeMode();
-                    	break;
+                        break;
                 }
             }
             DoMeleeAttackIfReady();
@@ -1068,7 +1068,7 @@ public:
             EVENT_SHADOW_KICK_STUN  = 4,
         };
 
-        void Reset()
+        void Reset() override
         {
             // This particular entry is also spawned on an other event
             if (me->GetAreaId() != 5849) // Cavern areaid
@@ -1088,7 +1088,7 @@ public:
             playerGuid = guid;
         }
         
-        void DamageTaken(Unit* attacker, uint32& damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32& damage, DamageEffectType dmgType) override
         {
             if (me->HealthBelowPctDamaged(10, damage))
             {
@@ -1108,7 +1108,7 @@ public:
             }
         }
 
-        void KilledUnit(Unit* victim)
+        void KilledUnit(Unit* victim) override
         {
             if (victim->GetTypeId() == TYPEID_PLAYER)
             {
@@ -1119,7 +1119,7 @@ public:
             }
         }
         
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
             
@@ -1657,7 +1657,7 @@ public:
             EVENT_WATER_SPOUT_DESPAWN   = 5,
         };
 
-        void Reset()
+        void Reset() override
         {
             _events.Reset();
             actualPlace = 0;
@@ -1690,7 +1690,7 @@ public:
             return me->GetMap()->GetCreature(waterSpoutGUID);
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             _events.Update(diff);
 
@@ -3779,17 +3779,17 @@ class mop_air_balloon : public VehicleScript
 ========================================
 */
 
-class mob_mandori_triger : public CreatureScript
+class mob_mandori_trigger : public CreatureScript
 {
 public:
-    mob_mandori_triger() : CreatureScript("mob_mandori_triger") { }
+    mob_mandori_trigger() : CreatureScript("mob_mandori_trigger") { }
     
     CreatureAI* GetAI(Creature* creature) const
     {
-        return new mob_mandori_trigerAI(creature);
+        return new mob_mandori_triggerAI(creature);
     }
     
-    struct mob_mandori_trigerAI : public ScriptedAI
+    struct mob_mandori_triggerAI : public ScriptedAI
     {
 
         enum spells
@@ -3799,7 +3799,7 @@ public:
             SUMMON_JOJO                 = 115337, // Summon Jojo
         };
 
-        mob_mandori_trigerAI(Creature* creature) : ScriptedAI(creature)
+        mob_mandori_triggerAI(Creature* creature) : ScriptedAI(creature)
         {
         }
 
@@ -5396,7 +5396,7 @@ void AddSC_WanderingIsland()
     new mob_aisa_pre_balon_event();
     new mop_air_balloon();
     // south
-    new mob_mandori_triger();
+    new mob_mandori_trigger();
     new mob_mandori_escort();
     new npc_ji_yuan();
     new npc_injured_sailor_rescue_controller();

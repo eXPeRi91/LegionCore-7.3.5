@@ -1,7 +1,7 @@
 /**
   \file G3D/unorm16.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   \created 2012-03-02 by Zina Cigolle
   \edited  2012-03-02
@@ -25,7 +25,7 @@ namespace G3D {
  uint16 arithmetic.
 
  OpenGL specifications can be found here: 
- http://www.opengl.org/registry/specs/ARB/shading_language_packing.txt
+ https://www.opengl.org/registry/specs/ARB/shading_language_packing.txt
 
 */
 G3D_BEGIN_PACKED_CLASS(1)

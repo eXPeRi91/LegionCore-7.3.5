@@ -1,7 +1,7 @@
 /**
  @file Vector4.cpp
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
   
  @created 2001-07-09
  @edited  2010-11-05

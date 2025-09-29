@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "throne_of_thunder.h"
@@ -117,7 +117,7 @@ public:
             me->setPowerType(POWER_ENERGY);
             me->SetPower(POWER_ENERGY, 0);
 
-            if (instance->GetBossState(DATA_MEGAERA != NOT_STARTED))
+            if (instance->GetBossState(DATA_MEGAERA) != NOT_STARTED)
                 instance->SetBossState(DATA_MEGAERA, NOT_STARTED);
 
             instance->SendEncounterUnit(ENCOUNTER_FRAME_DISENGAGE, me);
@@ -212,7 +212,7 @@ struct megaera_headAI : public ScriptedAI
                     if (megaerahead->isAlive() && !megaerahead->isInCombat())
                         DoZoneInCombat(megaerahead, 150.0f);
 
-        if (instance->GetBossState(DATA_MEGAERA != IN_PROGRESS))
+        if (instance->GetBossState(DATA_MEGAERA) != IN_PROGRESS)
             instance->SetBossState(DATA_MEGAERA, IN_PROGRESS);
     }
 };
@@ -357,7 +357,7 @@ public:
                 nextheadentry = GetNextMeleeHeadEntry(nexthead->GetEntry());
                 if (Creature* megaera = me->GetCreature(*me, instance->GetGuidData(NPC_MEGAERA)))
                 {
-                    uint32 modhp = megaera->CountPctFromMaxHealth(14.3f);
+                    uint32 modhp = megaera->CountPctFromMaxHealth(14);
                     megaera->SetHealth(megaera->GetHealth() - modhp);
                     events.RescheduleEvent(EVENT_SPAWN_NEW_HEADS, 3000);
                 }
@@ -871,7 +871,7 @@ public:
         ObjectGuid targetGuid;
         EventMap events;
 
-        void Reset()
+        void Reset() override
         {
             events.Reset();
             targetGuid.Clear();
@@ -892,17 +892,17 @@ public:
             me->DespawnOrUnsummon();
         }
 
-        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType) override
         {
             if (damage >= me->GetHealth())
                 damage = 0;
         }
 
-        void EnterCombat(Unit* /*victim*/){}
+        void EnterCombat(Unit* /*victim*/) override {}
 
-        void EnterEvadeMode(){}
+        void EnterEvadeMode() override {}
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
 

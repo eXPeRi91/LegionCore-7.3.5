@@ -1,7 +1,7 @@
 /**
  @file prompt.cpp
  
- @author Morgan McGuire, http://graphics.cs.williams.edu 
+ @author Morgan McGuire, https://graphics.cs.williams.edu 
  @cite Windows dialog interface by Max McGuire, mmcguire@ironlore.com
  @cite Font setting code by Kurt Miller, kurt@flipcode.com
 
@@ -567,9 +567,9 @@ int prompt(
         #ifdef G3D_OSX
                 if (useGui){
                     //Will default to text prompt if numChoices > 4
-		  int result = guiPrompt(windowTitle, prompt, choice, numChoices);
-		  fprintf(stderr, "%d\n", result);
-		  return result;
+          int result = guiPrompt(windowTitle, prompt, choice, numChoices);
+          fprintf(stderr, "%d\n", result);
+          return result;
                 }
         #endif
 #endif /* G3DFIX: exclude GUI prompt code */

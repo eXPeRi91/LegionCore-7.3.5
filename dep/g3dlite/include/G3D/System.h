@@ -1,11 +1,11 @@
 /** 
   \file System.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
-  \cite Rob Wyatt http://www.gamasutra.com/features/wyatts_world/19990709/processor_detection_01.htm
-  \cite Benjamin Jurke http://www.flipcode.com/cgi-bin/msg.cgi?showThread=COTD-ProcessorDetectionClass&forum=cotd&id=-1
-  \cite Michael Herf http://www.stereopsis.com/memcpy.html
+  \cite Rob Wyatt https://www.gamasutra.com/features/wyatts_world/19990709/processor_detection_01.htm
+  \cite Benjamin Jurke https://www.flipcode.com/cgi-bin/msg.cgi?showThread=COTD-ProcessorDetectionClass&forum=cotd&id=-1
+  \cite Michael Herf https://www.stereopsis.com/memcpy.html
 
   \created 2003-01-25
   \edited  2012-10-02
@@ -148,8 +148,8 @@ private:
 
     /** Helper macro to call cpuid functions and return all values 
 
-       See http://software.intel.com/en-us/articles/intel-64-architecture-processor-topology-enumeration/
-       or  http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/25481.pdf
+       See https://software.intel.com/en-us/articles/intel-64-architecture-processor-topology-enumeration/
+       or  https://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/25481.pdf
 
        for description of the arguments.
     */
@@ -305,7 +305,7 @@ public:
      to an incorrect value by a calling program, relative to a now
      non-current directory, or obfuscated by sym-links.
 
-     @cite Linux version written by Nicolai Haehnle <prefect_@gmx.net>, http://www.flipcode.com/cgi-bin/msg.cgi?showThread=COTD-getexename&forum=cotd&id=-1
+     @cite Linux version written by Nicolai Haehnle <prefect_@gmx.net>, https://www.flipcode.com/cgi-bin/msg.cgi?showThread=COTD-getexename&forum=cotd&id=-1
      */
     static std::string currentProgramFilename();
 

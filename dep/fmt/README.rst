@@ -15,31 +15,31 @@
 It can be used as a safe alternative to printf or as a fast
 alternative to IOStreams.
 
-`Documentation <http://fmtlib.net/latest/>`_
+`Documentation <https://fmtlib.net/latest/>`_
 
 Features
 --------
 
 * Two APIs: faster concatenation-based `write API
-  <http://fmtlib.net/latest/api.html#write-api>`_ and slower,
+  <https://fmtlib.net/latest/api.html#write-api>`_ and slower,
   but still very fast, replacement-based `format API
-  <http://fmtlib.net/latest/api.html#format-api>`_ with positional arguments
+  <https://fmtlib.net/latest/api.html#format-api>`_ with positional arguments
   for localization.
 * Write API similar to the one used by IOStreams but stateless allowing
   faster implementation.
 * Format API with `format string syntax
-  <http://fmtlib.net/latest/syntax.html>`_
+  <https://fmtlib.net/latest/syntax.html>`_
   similar to the one used by `str.format
   <https://docs.python.org/2/library/stdtypes.html#str.format>`_ in Python.
 * Safe `printf implementation
-  <http://fmtlib.net/latest/api.html#printf-formatting-functions>`_
+  <https://fmtlib.net/latest/api.html#printf-formatting-functions>`_
   including the POSIX extension for positional arguments.
 * Support for user-defined types.
 * High speed: performance of the format API is close to that of
-  glibc's `printf <http://en.cppreference.com/w/cpp/io/c/fprintf>`_
+  glibc's `printf <https://en.cppreference.com/w/cpp/io/c/fprintf>`_
   and better than the performance of IOStreams. See `Speed tests`_ and
   `Fast integer to string conversion in C++
-  <http://zverovich.net/2013/09/07/integer-to-string-conversion-in-cplusplus.html>`_.
+  <https://zverovich.net/2013/09/07/integer-to-string-conversion-in-cplusplus.html>`_.
 * Small code size both in terms of source code (the core library consists of a single
   header file and a single source file) and compiled code.
   See `Compile time and code bloat`_.
@@ -51,14 +51,14 @@ Features
 * Ease of use: small self-contained code base, no external dependencies,
   permissive BSD `license
   <https://github.com/fmtlib/fmt/blob/master/LICENSE.rst>`_
-* `Portability <http://fmtlib.net/latest/index.html#portability>`_ with consistent output
+* `Portability <https://fmtlib.net/latest/index.html#portability>`_ with consistent output
   across platforms and support for older compilers.
 * Clean warning-free codebase even on high warning levels
   (-Wall -Wextra -pedantic).
 * Support for wide strings.
 * Optional header-only configuration enabled with the ``FMT_HEADER_ONLY`` macro.
 
-See the `documentation <http://fmtlib.net/latest/>`_ for more details.
+See the `documentation <https://fmtlib.net/latest/>`_ for more details.
 
 Examples
 --------
@@ -107,10 +107,10 @@ An object of any user-defined type for which there is an overloaded
     // s == "The date is 2012-12-9"
 
 You can use the `FMT_VARIADIC
-<http://fmtlib.net/latest/api.html#utilities>`_
+<https://fmtlib.net/latest/api.html#utilities>`_
 macro to create your own functions similar to `format
-<http://fmtlib.net/latest/api.html#format>`_ and
-`print <http://fmtlib.net/latest/api.html#print>`_
+<https://fmtlib.net/latest/api.html#format>`_ and
+`print <https://fmtlib.net/latest/api.html#print>`_
 which take arbitrary arguments:
 
 .. code:: c++
@@ -131,14 +131,14 @@ accept variable number of arguments.
 Projects using this library
 ---------------------------
 
-* `0 A.D. <http://play0ad.com/>`_: A free, open-source, cross-platform real-time strategy game
+* `0 A.D. <https://play0ad.com/>`_: A free, open-source, cross-platform real-time strategy game
 
 * `AMPL/MP <https://github.com/ampl/mp>`_:
   An open-source library for mathematical programming
 
-* `CUAUV <http://cuauv.org/>`_: Cornell University's autonomous underwater vehicle
+* `CUAUV <https://cuauv.org/>`_: Cornell University's autonomous underwater vehicle
 
-* `Drake <http://drake.mit.edu/>`_: A planning, control, and analysis toolbox for nonlinear dynamical systems (MIT)
+* `Drake <https://drake.mit.edu/>`_: A planning, control, and analysis toolbox for nonlinear dynamical systems (MIT)
 
 * `Envoy <https://lyft.github.io/envoy/>`_: C++ L7 proxy and communication bus (Lyft)
 
@@ -147,9 +147,9 @@ Projects using this library
 * `HarpyWar/pvpgn <https://github.com/pvpgn/pvpgn-server>`_:
   Player vs Player Gaming Network with tweaks
 
-* `KBEngine <http://kbengine.org/>`_: An open-source MMOG server engine
+* `KBEngine <https://kbengine.org/>`_: An open-source MMOG server engine
 
-* `Keypirinha <http://keypirinha.com/>`_: A semantic launcher for Windows
+* `Keypirinha <https://keypirinha.com/>`_: A semantic launcher for Windows
 
 * `Kodi <https://kodi.tv/>`_ (formerly xbmc): Home theater software
 
@@ -157,9 +157,9 @@ Projects using this library
 
 * `MongoDB Smasher <https://github.com/duckie/mongo_smasher>`_: A small tool to generate randomized datasets
 
-* `OpenSpace <http://openspaceproject.com/>`_: An open-source astrovisualization framework
+* `OpenSpace <https://openspaceproject.com/>`_: An open-source astrovisualization framework
 
-* `PenUltima Online (POL) <http://www.polserver.com/>`_:
+* `PenUltima Online (POL) <https://www.polserver.com/>`_:
   An MMO server, compatible with most Ultima Online clients
 
 * `quasardb <https://www.quasardb.net/>`_: A distributed, high-performance, associative database
@@ -171,13 +171,13 @@ Projects using this library
 * `Saddy <https://github.com/mamontov-cpp/saddy-graphics-engine-2d>`_:
   Small crossplatform 2D graphic engine
 
-* `Salesforce Analytics Cloud <http://www.salesforce.com/analytics-cloud/overview/>`_:
+* `Salesforce Analytics Cloud <https://www.salesforce.com/analytics-cloud/overview/>`_:
   Business intelligence software
 
-* `Scylla <http://www.scylladb.com/>`_: A Cassandra-compatible NoSQL data store that can handle
+* `Scylla <https://www.scylladb.com/>`_: A Cassandra-compatible NoSQL data store that can handle
   1 million transactions per second on a single server
 
-* `Seastar <http://www.seastar-project.org/>`_: An advanced, open-source C++ framework for
+* `Seastar <https://www.seastar-project.org/>`_: An advanced, open-source C++ framework for
   high-performance server applications on modern hardware
 
 * `spdlog <https://github.com/gabime/spdlog>`_: Super fast C++ logging library
@@ -212,7 +212,7 @@ The good thing about printf is that it is pretty fast and readily available
 being a part of the C standard library. The main drawback is that it
 doesn't support user-defined types. Printf also has safety issues although
 they are mostly solved with `__attribute__ ((format (printf, ...))
-<http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html>`_ in GCC.
+<https://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html>`_ in GCC.
 There is a POSIX extension that adds positional arguments required for
 `i18n <https://en.wikipedia.org/wiki/Internationalization_and_localization>`_
 to printf but it is not a part of C99 and may not be available on some
@@ -289,7 +289,7 @@ for completeness. As IOStreams it suffers from the problem of mixing
 verbatim text with arguments. The library is pretty fast, but slower
 on integer formatting than ``fmt::Writer`` on Karma's own benchmark,
 see `Fast integer to string conversion in C++
-<http://zverovich.net/2013/09/07/integer-to-string-conversion-in-cplusplus.html>`_.
+<https://zverovich.net/2013/09/07/integer-to-string-conversion-in-cplusplus.html>`_.
 
 Benchmarks
 ----------
@@ -316,11 +316,11 @@ Boost Format 1.54 boost::format   9.94
 ================= ============= ===========
 
 As you can see ``boost::format`` is much slower than the alternative methods; this
-is confirmed by `other tests <http://accu.org/index.php/journals/1539>`_.
+is confirmed by `other tests <https://accu.org/index.php/journals/1539>`_.
 Tinyformat is quite good coming close to IOStreams.  Unfortunately tinyformat
 cannot be faster than the IOStreams because it uses them internally.
 Performance of fmt is close to that of printf, being `faster than printf on integer
-formatting <http://zverovich.net/2013/09/07/integer-to-string-conversion-in-cplusplus.html>`_,
+formatting <https://zverovich.net/2013/09/07/integer-to-string-conversion-in-cplusplus.html>`_,
 but slower on floating-point formatting which dominates this benchmark.
 
 Compile time and code bloat
@@ -374,7 +374,7 @@ Running the tests
 Please refer to `Building the library`__ for the instructions on how to build
 the library and run the unit tests.
 
-__ http://fmtlib.net/latest/usage.html#building-the-library
+__ https://fmtlib.net/latest/usage.html#building-the-library
 
 Benchmarks reside in a separate repository,
 `format-benchmarks <https://github.com/fmtlib/format-benchmark>`_,
@@ -400,7 +400,7 @@ fmt is distributed under the BSD `license
 <https://github.com/fmtlib/fmt/blob/master/LICENSE.rst>`_.
 
 The `Format String Syntax
-<http://fmtlib.net/latest/syntax.html>`_
+<https://fmtlib.net/latest/syntax.html>`_
 section in the documentation is based on the one from Python `string module
 documentation <https://docs.python.org/3/library/string.html#module-string>`_
 adapted for the current library. For this reason the documentation is
@@ -422,11 +422,11 @@ from the excellent `tinyformat <https://github.com/c42f/tinyformat>`_ library
 written by Chris Foster.  Boost Format library is acknowledged transitively
 since it had some influence on tinyformat.
 Some ideas used in the implementation are borrowed from `Loki
-<http://loki-lib.sourceforge.net/>`_ SafeFormat and `Diagnostic API
-<http://clang.llvm.org/doxygen/classclang_1_1Diagnostic.html>`_ in
-`Clang <http://clang.llvm.org/>`_.
+<https://loki-lib.sourceforge.net/>`_ SafeFormat and `Diagnostic API
+<https://clang.llvm.org/doxygen/classclang_1_1Diagnostic.html>`_ in
+`Clang <https://clang.llvm.org/>`_.
 Format string syntax and the documentation are based on Python's `str.format
-<http://docs.python.org/2/library/stdtypes.html#str.format>`_.
+<https://docs.python.org/2/library/stdtypes.html#str.format>`_.
 Thanks `Doug Turnbull <https://github.com/softwaredoug>`_ for his valuable
 comments and contribution to the design of the type-safe API and
 `Gregory Czajkowski <https://github.com/gcflymoto>`_ for implementing binary

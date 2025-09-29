@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DatabaseEnv.h"
@@ -49,10 +49,10 @@ PreparedResultSet::PreparedResultSet(MYSQL_STMT* stmt, MYSQL_RES *result, uint64
     }
 
     m_rBind = new MYSQL_BIND[m_fieldCount];
-    m_isNull = new my_bool[m_fieldCount];
+    m_isNull = new bool[m_fieldCount];
     m_length = new unsigned long[m_fieldCount];
 
-    memset(m_isNull, 0, sizeof(my_bool) * m_fieldCount);
+    memset(m_isNull, 0, sizeof(bool) * m_fieldCount);
     memset(m_rBind, 0, sizeof(MYSQL_BIND) * m_fieldCount);
     memset(m_length, 0, sizeof(unsigned long) * m_fieldCount);
 

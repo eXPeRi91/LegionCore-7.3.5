@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DuelPackets.h"
@@ -50,18 +50,18 @@ void WorldSession::HandleDuelResponse(WorldPackets::Duel::DuelResponse& packet)
             _player->duel->state = DUEL_COUNTDOWN;
             dueler->duel->state = DUEL_COUNTDOWN;
 
-			if (sWorld->getBoolConfig(CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME) && _player->getLevel() >= 110 && dueler->getLevel() >= 110)
-			{
-				if (!_player->HasPvpRulesEnabled())
-					_player->EnablePvpRules(false);
-				if (!dueler->HasPvpRulesEnabled())
-					dueler->EnablePvpRules(false);
-			}
-			else
-			{
-				_player->EnablePvpRules();
-				dueler->EnablePvpRules();
-			}
+            if (sWorld->getBoolConfig(CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME) && _player->getLevel() >= 110 && dueler->getLevel() >= 110)
+            {
+                if (!_player->HasPvpRulesEnabled())
+                    _player->EnablePvpRules(false);
+                if (!dueler->HasPvpRulesEnabled())
+                    dueler->EnablePvpRules(false);
+            }
+            else
+            {
+                _player->EnablePvpRules();
+                dueler->EnablePvpRules();
+            }
         }
         else
         {

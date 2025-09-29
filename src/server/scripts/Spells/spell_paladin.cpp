@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -1401,7 +1401,7 @@ struct spell_pal_at_aura_of_sacrifice : public AreaTriggerAI
     {
         SetAuraMastery(Num);
         SetTimer();
-        return NULL;
+        return 0;
     }
 
     void OnUnitEnter(Unit* /*unit*/) override

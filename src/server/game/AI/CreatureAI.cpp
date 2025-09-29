@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "CreatureAI.h"
@@ -173,25 +173,16 @@ void CreatureAI::Talk(std::initializer_list<uint8> ids, ObjectGuid WhisperGuid /
 
 void CreatureAI::Talk(uint8 id, ObjectGuid WhisperGuid)
 {
-    if (!this)
-        return;
-
     sCreatureTextMgr->SendChat(me, id, WhisperGuid);
 }
 
 void CreatureAI::TalkAuto(uint8 id, ObjectGuid WhisperGuid)
 {
-    if (!this)
-        return;
-
     sCreatureTextMgr->SendChat(me, id, WhisperGuid, CHAT_MSG_ADDON, LANG_ADDON, TEXT_RANGE_NORMAL, 0, TEAM_OTHER, false, nullptr, true);
 }
 
 void CreatureAI::DelayTalk(uint32 delayTimer, uint8 id, ObjectGuid WhisperGuid)
 {
-    if (!this)
-        return;
-
     delayTimer *= IN_MILLISECONDS;
 
     me->AddDelayedEvent(delayTimer, [this, id, WhisperGuid]() -> void
@@ -203,9 +194,6 @@ void CreatureAI::DelayTalk(uint32 delayTimer, uint8 id, ObjectGuid WhisperGuid)
 
 void CreatureAI::ZoneTalk(uint8 id, ObjectGuid WhisperGuid)
 {
-    if (!this)
-        return;
-
     sCreatureTextMgr->SendChat(me, id, WhisperGuid, CHAT_MSG_ADDON, LANG_ADDON, TEXT_RANGE_ZONE);
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -405,7 +405,7 @@ public:
                 handler->PSendSysMessage("%s%s%u|r", "|cff00ff00", "Wp Event: Waypoint script removed: ", id);
             }
             else
-                handler->PSendSysMessage("|cffff33ffWp Event: ERROR: you have selected a non existing script: %u|r", id);
+                handler->PSendSysMessage("|cffff33ffWp Event: ERROR: you have selected a non-existent script: %u|r", id);
 
             return true;
         }
@@ -474,7 +474,7 @@ public:
 
             if (!result)
             {
-                handler->SendSysMessage("|cffff33ffERROR: You have selected an non existing waypoint script guid.|r");
+                handler->SendSysMessage("|cffff33ffERROR: You have selected an non-existent waypoint script guid.|r");
                 return true;
             }
 
@@ -598,7 +598,7 @@ public:
             // some difficulties.
             // Here we search for all waypoints that only differ in one from 1 thousand
             // (0.001) - There is no other way to compare C++ floats with mySQL floats
-            // See also: http://dev.mysql.com/doc/refman/5.0/en/problems-with-float.html
+            // See also: https://dev.mysql.com/doc/refman/5.0/en/problems-with-float.html
             std::string maxDiff = "0.01";
 
             PreparedStatement* stmt = WorldDatabase.GetPreparedStatement(WORLD_SEL_WAYPOINT_DATA_BY_POS);

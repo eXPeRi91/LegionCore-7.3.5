@@ -3,7 +3,7 @@
  
   Homogeneous vector class.
  
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   @created 2002-07-09
   @edited  2008-11-01

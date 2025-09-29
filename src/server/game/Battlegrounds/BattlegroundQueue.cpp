@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "BattlegroundMgr.h"
@@ -166,7 +166,7 @@ bool BattlegroundQueue::SelectionPool::AddGroup(GroupQueueInfo* ginfo, uint32 de
     return PlayerCount < desiredCount;
 }
 
-GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* grp, uint16 BgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 JoinType, bool isRated, bool isPremade, WorldPackets::Battleground::IgnorMapInfo ignore, uint32 mmr, uint32 _team /*= 0*/)
+GroupQueueInfo* BattlegroundQueue::AddGroup(Player* leader, Group* grp, uint16 BgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 JoinType, bool isRated, bool isPremade, WorldPackets::Battleground::IgnorMapInfo ignore, uint32 mmr, uint32 _team /*= 0*/)
 {
     uint8 bracket = MS::Battlegrounds::GetBracketByJoinType(JoinType);
 
@@ -325,8 +325,7 @@ void BattlegroundQueue::RemovePlayer(ObjectGuid guid, bool decreaseInvitedCount)
 {
     AddDelayedEvent(10, [=]() -> void
     {
-        if (this)
-            RemovePlayerQueue(guid, decreaseInvitedCount);
+        RemovePlayerQueue(guid, decreaseInvitedCount);
     });
 }
 
@@ -1180,7 +1179,7 @@ void BattlegroundQueue::BattlegroundQueueUpdate(uint32 /*diff*/, uint16 bgTypeId
         next = itr;
         ++next;
 
-        if ((*itr)->IsBattleground() && ((*itr)->GetTypeID(true) == bgTypeId || (bgTypeId == MS::Battlegrounds::BattlegroundTypeId::BattlegroundRandom && !(*itr)->IsBrawl()) && (*itr)->GetTypeID(true) != MS::Battlegrounds::BattlegroundTypeId::BattlegroundDeathMatch)
+        if ((*itr)->IsBattleground() && ((*itr)->GetTypeID(true) == bgTypeId || ((bgTypeId == MS::Battlegrounds::BattlegroundTypeId::BattlegroundRandom && !(*itr)->IsBrawl()) && (*itr)->GetTypeID(true) != MS::Battlegrounds::BattlegroundTypeId::BattlegroundDeathMatch))
         && (*itr)->GetMinLevel() == bracket_MinLevel && (*itr)->GetStatus() > STATUS_WAIT_QUEUE && (*itr)->GetStatus() < STATUS_WAIT_LEAVE)
         {
             auto bg = *itr;
@@ -1210,7 +1209,7 @@ void BattlegroundQueue::BattlegroundQueueUpdate(uint32 /*diff*/, uint16 bgTypeId
         return;
     }
 
-    PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketById(bg_template->GetMapId(), bracketID);
+    PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketById(bg_template->GetMapId(), bracketID);
     if (!bracketEntry)
     {
         TC_LOG_ERROR(LOG_FILTER_BATTLEGROUND, "Battleground: Update: bg bracket entry not found for map %u bracket id %u", bg_template->GetMapId(), bracketID);

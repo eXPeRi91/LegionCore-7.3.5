@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "heart_of_fear.h"
@@ -144,7 +144,7 @@ class boss_unsok : public CreatureScript
                 {
                     uint8 alterPower;
                     if (target->HasAura(SPELL_RESHAPE_LIFE_MORPH))
-                        if (alterPower = target->GetPower(POWER_ALTERNATE))
+                        if ((alterPower = target->GetPower(POWER_ALTERNATE)))
                         {
                             if (alterPower > 40)
                                 target->SetPower(POWER_ALTERNATE, alterPower - 40);
@@ -294,7 +294,7 @@ class npc_amber_monster : public CreatureScript
                     uint8 alterPower;
                     if (target->HasAura(SPELL_RESHAPE_LIFE_MORPH))
                     {
-                        if (alterPower = target->GetPower(POWER_ALTERNATE))
+                        if ((alterPower = target->GetPower(POWER_ALTERNATE)))
                         {
                             if (alterPower > 40)
                                 target->SetPower(POWER_ALTERNATE, alterPower - 40);

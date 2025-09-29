@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_LOOTMGR_H
@@ -366,7 +366,7 @@ struct Loot
     bool isRareOrGo = false;
     bool isRareNext = false;
     bool _isEmissaryLoot = false;
-    bool _IsPvPLoot = false;
+    bool _IsPvpLoot = false;
     bool _isTokenLoot = false;
     bool _isItemLoot = false;
     bool _isLegendaryLoot = false;
@@ -406,7 +406,7 @@ struct Loot
     void GenerateLootGuid(ObjectGuid __objGuid);
     uint32 ReplaceLootID(uint32 lootId);
     bool IsEmissaryLoot(uint32 lootId, WorldObject const* lootFrom);
-    bool IsPvPLoot(uint32 lootId, WorldObject const* lootFrom);
+    bool IsPvpLoot(uint32 lootId, WorldObject const* lootFrom);
 
     void generateMoneyLoot(uint32 minAmount, uint32 maxAmount, bool isDungeon = false);
     bool FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bool noGroup, bool noEmptyError = false, WorldObject const* lootFrom = nullptr);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_SMARTSCRIPTMGR_H
@@ -160,7 +160,7 @@ enum SMART_EVENT
     SMART_EVENT_ON_TAXIPATHTO            = 76,      // clicker (unit)
     SMART_EVENT_EVENTOBJECT_OFFTRIGGER   = 77,      // EventObject(0 any), CooldownMin, CooldownMax
     SMART_EVENT_ON_APPLY_OR_REMOVE_AURA  = 78,      // SpellId, Mode, ApplyOrRemove(1/0), Cooldown
-	SMART_EVENT_DISTANCE_CREATURE        = 79,      // guid, entry, distance, repeat
+    SMART_EVENT_DISTANCE_CREATURE        = 79,      // guid, entry, distance, repeat
 
     SMART_EVENT_END                      = 80
 };
@@ -408,13 +408,13 @@ struct SmartEvent
             uint32 id;
         } taxipathto;
 
-		struct
-		{
-			uint32 guid;
-			uint32 entry;
-			uint32 dist;
-			uint32 repeat;
-		} distance;
+        struct
+        {
+            uint32 guid;
+            uint32 entry;
+            uint32 dist;
+            uint32 repeat;
+        } distance;
 
     };
 };
@@ -686,7 +686,7 @@ struct SmartAction
             uint32 duration;
             uint32 attackinvoker;
             uint32 getphases;
-            uint32 summmonInNPCPosition;
+            uint32 summonInNPCPosition;
         } sumCreaturePV;
 
         struct

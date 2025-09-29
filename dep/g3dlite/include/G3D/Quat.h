@@ -3,7 +3,7 @@
  
   Quaternion
   
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
   
   \created 2002-01-23
   \edited  2011-05-10

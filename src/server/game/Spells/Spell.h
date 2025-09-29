@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __SPELL_H
@@ -334,7 +334,7 @@ class Spell
         void EffectCreateHeirloomItem(SpellEffIndex effIndex);
         void EffectChangeItemBonuses(SpellEffIndex effIndex);
         void EffectUpgradeHeirloom(SpellEffIndex effIndex);
-        void EffectGieveExperience(SpellEffIndex effIndex);
+        void EffectGiveExperience(SpellEffIndex effIndex);
         void EffectRemovePhase(SpellEffIndex effIndex);
         void EffectModAssistantEquipmentLevel(SpellEffIndex effIndex);
         void EffectIncreaseFollowerExperience(SpellEffIndex effIndex);
@@ -580,8 +580,8 @@ class Spell
 
         SpellValue* m_spellValue;
 
-        ObjectGuid m_originalCasterGUID;                        // real source of cast (aura caster/etc), used for spell targets selection
-                                                            // e.g. damage around area spell trigered by victim aura and damage enemies of aura caster
+        ObjectGuid m_originalCasterGUID;                    // real source of cast (aura caster/etc), used for spell targets selection
+                                                            // e.g. damage around area spell triggered by victim aura and damage enemies of aura caster
         Unit* m_originalCaster;                             // cached pointer for m_originalCaster, updated at Spell::UpdatePointers()
         Unit* m_originalTarget;
         ObjectGuid m_originalTargetGUID;

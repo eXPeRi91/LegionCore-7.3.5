@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __TRINITY_LANGUAGE_H
@@ -38,7 +38,7 @@ enum TrinityStrings
     LANG_NO_CMD                         = 6,
     LANG_NO_SUBCMD                      = 7,
     LANG_SUBCMDS_LIST                   = 8,
-    LANG_AVIABLE_CMD                    = 9,
+    LANG_AVAILABLE_CMD                  = 9,
     LANG_CMD_SYNTAX                     = 10,
     LANG_ACCOUNT_LEVEL                  = 11,
     LANG_CONNECTED_USERS                = 12,

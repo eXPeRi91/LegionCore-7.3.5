@@ -1,7 +1,7 @@
 /**
  @file AtomicInt32.h
 
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  @created 2005-09-01
  @edited  2006-06-21
@@ -144,7 +144,7 @@ public:
             return InterlockedCompareExchange(&m_value, exchange, comperand);
 #       elif defined(G3D_LINUX) || defined(G3D_FREEBSD) || defined(G3D_OSX)
             // Based on Apache Portable Runtime
-            // http://koders.com/c/fid3B6631EE94542CDBAA03E822CA780CBA1B024822.aspx
+            // https://koders.com/c/fid3B6631EE94542CDBAA03E822CA780CBA1B024822.aspx
             int32 ret;
             asm volatile ("lock; cmpxchgl %1, %2"
                           : "=a" (ret)

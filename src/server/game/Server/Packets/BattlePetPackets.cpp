@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "BattlePetPackets.h"
@@ -327,7 +327,7 @@ WorldPacket const* WorldPackets::BattlePet::FinalizeLocation::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::BattlePet::PVPChallenge::Write()
+WorldPacket const* WorldPackets::BattlePet::PvpChallenge::Write()
 {
     _worldPacket << ChallengerGUID;
     _worldPacket << Location;
@@ -341,7 +341,7 @@ void WorldPackets::BattlePet::RequestWild::Read()
     _worldPacket >> Battle.Location;
 }
 
-void WorldPackets::BattlePet::RequestPVP::Read()
+void WorldPackets::BattlePet::RequestPvp::Read()
 {
     _worldPacket >> Battle.TargetGUID;
     _worldPacket >> Battle.Location;
@@ -539,7 +539,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::BattlePet::PetBattleFullU
 
     data << update.InitialWildPetGUID;
 
-    data.WriteBit(update.IsPVP);
+    data.WriteBit(update.IsPvp);
     data.WriteBit(update.CanAwardXP);
     data.FlushBits();
 

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DisableMgr.h"
@@ -174,7 +174,7 @@ void LoadDisables()
             case DISABLE_TYPE_OUTDOORPVP:
                 if (entry > MAX_OUTDOORPVP_TYPES)
                 {
-                    TC_LOG_ERROR(LOG_FILTER_SQL, "OutdoorPvPTypes value %u from `disables` is invalid, skipped.", entry);
+                    TC_LOG_ERROR(LOG_FILTER_SQL, "OutdoorPvpTypes value %u from `disables` is invalid, skipped.", entry);
                     continue;
                 }
                 if (flags)

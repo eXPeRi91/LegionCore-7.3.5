@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef SystemPackets_h__
@@ -69,9 +69,9 @@ namespace WorldPackets
                 float ThrottleLfgListPriorityDefault = 0.0f;
                 float ThrottleMinThreshold = 0.0f;
                 float ThrottlePrioritySpike = 0.0f;
-                float ThrottlePvPHonorThreshold = 0.0f;
-                float ThrottlePvPPriorityLow = 0.0f;
-                float ThrottlePvPPriorityNormal = 0.0f;
+                float ThrottlePvpHonorThreshold = 0.0f;
+                float ThrottlePvpPriorityLow = 0.0f;
+                float ThrottlePvpPriorityNormal = 0.0f;
                 float ThrottleRfIlvlScalingAbove = 0.0f;
                 float ThrottleRfPriorityAbove = 0.0f;
                 float ToastDuration = 0.0f;

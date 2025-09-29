@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2014 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_SCENARIO_H
@@ -72,10 +72,10 @@ public:
 
     uint32 GetInstanceId() const;
     Map* GetMap();
-    OutdoorPvP* GetOutdoorPvP();
+    OutdoorPvp* GetOutdoorPvp();
     uint32 GetScenarioId() const;
     uint32 GetCurrentStep() const;
-    uint32 GetOutdoorPvPZone() const;
+    uint32 GetOutdoorPvpZone() const;
 
     void SetStepState(ScenarioStepEntry const* step, ScenarioStepState state);
     ScenarioStepState GetStepState(ScenarioStepEntry const* step);
@@ -102,7 +102,7 @@ public:
     Challenge* GetChallenge();
     sf::contention_free_shared_mutex< > i_updateLock;
 
-    void SetOutdoorPvP(OutdoorPvP* outdoor, uint32 zone);
+    void SetOutdoorPvp(OutdoorPvp* outdoor, uint32 zone);
 
 protected:
     Challenge* _challenge;
@@ -124,8 +124,8 @@ protected:
     bool bonusRewarded;
     bool hasbonus;
 
-    OutdoorPvP* m_outdoorPvp = nullptr;
-    uint32 m_outdoorPvpZone = 0;
+    OutdoorPvp* m_OutdoorPvp = nullptr;
+    uint32 m_OutdoorPvpZone = 0;
 };
 
 #endif

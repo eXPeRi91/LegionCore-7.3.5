@@ -118,7 +118,7 @@ public:
     {
         npc_faction_bossAI(Creature* creature) : ScriptedAI(creature)
         {
-            m_ZoneScript = sOutdoorPvPMgr->GetZoneScript(creature->GetZoneId());
+            m_ZoneScript = sOutdoorPvpMgr->GetZoneScript(creature->GetZoneId());
         }
 
         enum eSpells
@@ -181,7 +181,7 @@ public:
         {
             Talk(TalkDeath);
 
-            if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(m_ZoneScript))
+            if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(m_ZoneScript))
             {
                 auto l_GenericGuid = l_Ashran->GetFactionGenericMoP(me->GetEntry() == GrandMarshalTremblade ? TEAM_ALLIANCE : TEAM_HORDE);
                 if (Creature* l_GenericMoP = sObjectAccessor->FindCreature(l_GenericGuid))
@@ -380,7 +380,7 @@ public:
     {
         npc_ashran_korlokAI(Creature* creature) : ScriptedAI(creature)
         {
-            m_OutdoorPvP = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(creature->GetZoneId());
+            m_OutdoorPvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(creature->GetZoneId());
             m_IsAwake = false;
             m_InFight = false;
         }
@@ -428,7 +428,7 @@ public:
         };
 
         EventMap m_Events;
-        OutdoorPvP* m_OutdoorPvP;
+        OutdoorPvp* m_OutdoorPvp;
 
         bool m_IsAwake;
         bool m_InFight;
@@ -498,7 +498,7 @@ public:
                 me->setFaction(KorlokNeutral);
                 me->SetReactState(REACT_PASSIVE);
 
-                if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(m_OutdoorPvP))
+                if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(m_OutdoorPvp))
                     l_Ashran->EndEvent(EventKorlokTheOgreKing);
             }
         }
@@ -526,7 +526,7 @@ public:
         {
             if (p_SpellInfo->Id == SpellOgreicLeap)
             {
-                OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(m_OutdoorPvP);
+                OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(m_OutdoorPvp);
                 if (l_Ashran == nullptr)
                     return;
 
@@ -634,7 +634,7 @@ public:
 
         void HandleJumpToFight()
         {
-            if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(m_OutdoorPvP))
+            if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(m_OutdoorPvp))
                 l_Ashran->EndEvent(EventKorlokTheOgreKing, false);
             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
             me->SetReactState(REACT_AGGRESSIVE);
@@ -664,7 +664,7 @@ public:
     {
         npc_ashran_faction_championsAI(Creature* creature) : ScriptedAI(creature)
         {
-            m_OutdoorPvP = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(creature->GetZoneId());
+            m_OutdoorPvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(creature->GetZoneId());
 
             m_Rewarded = false;
         }
@@ -692,7 +692,7 @@ public:
         };
 
         EventMap m_Events;
-        OutdoorPvP* m_OutdoorPvP;
+        OutdoorPvp* m_OutdoorPvp;
 
         bool m_Rewarded;
 
@@ -714,10 +714,10 @@ public:
 
         void JustDied(Unit* killer) override
         {
-            if (m_OutdoorPvP == nullptr)
+            if (m_OutdoorPvp == nullptr)
                 return;
 
-            Creature* l_Korlok = sObjectAccessor->FindCreature(m_OutdoorPvP->GetCreature(NeutralKorlokTheOgreKing));
+            Creature* l_Korlok = sObjectAccessor->FindCreature(m_OutdoorPvp->GetCreature(NeutralKorlokTheOgreKing));
             if (l_Korlok == nullptr || !l_Korlok->IsAIEnabled)    ///< Shouldn't happens
                 return;
 
@@ -756,11 +756,11 @@ public:
             if (m_Rewarded)
                 return;
 
-            ZoneScript* l_ZoneScript = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(me->GetZoneId());
+            ZoneScript* l_ZoneScript = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(me->GetZoneId());
             if (l_ZoneScript == nullptr)
                 return;
 
-            if (OutdoorPvPAshran* l_Ashran = static_cast<OutdoorPvPAshran*>(l_ZoneScript))
+            if (OutdoorPvpAshran* l_Ashran = static_cast<OutdoorPvpAshran*>(l_ZoneScript))
                 l_Ashran->CastSpellOnTeam(me, TEAM_ALLIANCE, SpellEventAllianceReward);
 
             m_Rewarded = true;

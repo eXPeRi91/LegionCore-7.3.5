@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -265,7 +265,7 @@ public:
         {
         }
 
-        void Reset()
+        void Reset() override
         {
             if (me->getVictim() || me->IsInEvadeMode())
                 return;
@@ -400,7 +400,7 @@ public:
             players.insert(who->GetGUID());
             sCreatureTextMgr->SendChat(me, 0, who->GetGUID());
 
-            // already trigered player for nearest
+            // already triggered player for nearest
             std::list<Creature*> creatureList;
             me->GetCreatureListWithEntryInGrid(creatureList, me->GetEntry(), 50);
             for (auto c : creatureList)
@@ -731,8 +731,8 @@ public:
 };
 
 //! enable phase_definitions for zone 7025 ID 18 phases - 3266 3394 3395 3396 3481 3693 3694 3712 3824 3833 3834 4006 4017 4150 4151 4200
-//! was done by spell 165867 withch prock with trigger and witch prock - 82238 with change phase. and by using condition CONDITION_SCENE_TRIGER_EVENT i did it.
-//! so. this script just like example for future possible scripting. But. I think. Blizz all has done by spell prock at triger scene.
+//! was done by spell 165867 withch proc with trigger and witch proc - 82238 with change phase. and by using condition CONDITION_SCENE_TRIGGER_EVENT i did it.
+//! so. this script just like example for future possible scripting. But. I think. Blizz all has done by spell proc at trigger scene.
 class sceneTrigger_q34425 : public SceneTriggerScript
 {
 public:
@@ -770,7 +770,7 @@ public:
             SPELL_CREDIT = 168182,
         };
 
-        void Reset()
+        void Reset() override
         {
             if (me->getVictim() || me->IsInEvadeMode())
                 return;
@@ -805,7 +805,7 @@ public:
             damage /= 2;
         }
 
-        void JustDied(Unit* /*killer*/)
+        void JustDied(Unit* /*killer*/) override
         {
             std::list<Player*> lList;
             me->GetPlayerListInGrid(lList, 200.0f);
@@ -1098,7 +1098,7 @@ public:
             
         }
 
-        void JustDied(Unit* killer)
+        void JustDied(Unit* killer) override
         {
             sCreatureTextMgr->SendChat(me, TEXT_GENERIC_3, ObjectGuid::Empty);
         }
@@ -1117,7 +1117,7 @@ public:
             events.RescheduleEvent(EVENT_SHELL, 8000);
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             UpdateVictim();
 

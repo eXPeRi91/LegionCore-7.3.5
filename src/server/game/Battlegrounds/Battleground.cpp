@@ -1,6 +1,6 @@
 ﻿/*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Arena.h"
@@ -179,9 +179,11 @@ void Battleground::Update(uint32 diff)
                 //_ProcessPlayerPositionBroadcast(Milliseconds(diff));
                 _ProcessRessurect(diff);
                 if (sBattlegroundMgr->GetPrematureFinishTime() && 
-                ((GetPlayersCountByTeam(ALLIANCE) < GetMinPlayersPerTeam() || GetPlayersCountByTeam(HORDE) < GetMinPlayersPerTeam()) && GetMapId() != 1101 || // if one team has smaller players, that need and not DM
-                 GetMapId() == 1101 && GetBattlegroundScoreMap().size() < GetMinPlayersPerTeam()))   // or DM and summary players smaller that summary need
+                    (((GetPlayersCountByTeam(ALLIANCE) < GetMinPlayersPerTeam() || GetPlayersCountByTeam(HORDE) < GetMinPlayersPerTeam()) && GetMapId() != 1101) || // if one team has smaller players, that need and not DM
+                    (GetMapId() == 1101 && GetBattlegroundScoreMap().size() < GetMinPlayersPerTeam())))   // or DM and summary players smaller that summary need
+                {
                     _ProcessProgress(diff);
+                }
                 else if (m_PrematureCountDown)
                     m_PrematureCountDown = false;
             }
@@ -592,7 +594,7 @@ void Battleground::RewardReputationToTeam(uint32 factionIDAlliance, uint32 facti
     if (FactionEntry const* factionEntry = sFactionStore.LookupEntry(teamID == ALLIANCE ? factionIDAlliance : factionIDHorde))
     {
         for (auto const& itr : GetPlayers())
-		{
+        {
             if (Player* player = GetPlayerForTeam(teamID, itr, "RewardReputationToTeam"))
             {
                 if (!player)
@@ -604,7 +606,7 @@ void Battleground::RewardReputationToTeam(uint32 factionIDAlliance, uint32 facti
                 player->GetReputationMgr().ModifyReputation(factionEntry, reputation);
             }
         }
-	}
+    }
 }
 
 void Battleground::UpdateWorldState(uint32 variableID, uint32 value, bool hidden /*= false*/)
@@ -844,9 +846,9 @@ void Battleground::EndBattleground(uint32 winner)
         }
     }
 
-    WorldPackets::Battleground::PVPLogData pvpLogData;
-    BuildPvPLogDataPacket(pvpLogData);
-    SendPacketToAll(pvpLogData.Write());
+    WorldPackets::Battleground::PvpLogData PvpLogData;
+    BuildPvpLogDataPacket(PvpLogData);
+    SendPacketToAll(PvpLogData.Write());
 
     SendBroadcastText(broadcastID, CHAT_MSG_BG_SYSTEM_NEUTRAL);
 }
@@ -1162,14 +1164,14 @@ void Battleground::PlayerReward(Player* player, bool isWinner)
     uint32 needLevel = reward->BaseLevel;
 
     if ((IsArena() || IsRBG()) && !IsSkirmish())
-        player->GetPvPRatingAndLevel(reward, type, rating, needLevel, true);
+        player->GetPvpRatingAndLevel(reward, type, rating, needLevel, true);
 
     if ((IsBattleground() || IsSkirmish()) && roll_chance_f(reward->ChanceBonusLevel))
         needLevel += reward->BonusBaseLevel;
 
     sLog->outArena(0, "PlayerReward: player (%s) (%s) itemId %u PvPtype %u", player->GetName(), player->GetGUID().ToString().c_str(), itemId, type);
 
-    std::vector<uint32> itemModifiers = player->GetPvPRewardItem(itemId, type, rating, (IsArena() || IsRBG()) && !IsSkirmish(), needLevel);
+    std::vector<uint32> itemModifiers = player->GetPvpRewardItem(itemId, type, rating, (IsArena() || IsRBG()) && !IsSkirmish(), needLevel);
     if (itemId)
     {
         ItemPosCountVec dest;
@@ -1716,7 +1718,7 @@ bool Battleground::HasFreeSlots() const
     return _players.size() < GetMaxPlayers();
 }
 
-void Battleground::BuildPvPLogDataPacket(WorldPackets::Battleground::PVPLogData& packet)
+void Battleground::BuildPvpLogDataPacket(WorldPackets::Battleground::PvpLogData& packet)
 {
     uint8 bType = MS::Battlegrounds::GetBracketByJoinType(GetJoinType());
 
@@ -1729,7 +1731,7 @@ void Battleground::BuildPvPLogDataPacket(WorldPackets::Battleground::PVPLogData&
         if (!IsPlayerInBattleground(score.first))
             continue;
 
-        WorldPackets::Battleground::PVPLogData::PlayerData playerData;
+        WorldPackets::Battleground::PvpLogData::PlayerData playerData;
 
         playerData.PlayerGUID = score.second->PlayerGuid;
         playerData.Kills = score.second->KillingBlows;
@@ -2222,9 +2224,9 @@ void Battleground::PlayerAddedToBGCheckIfBGIsRunning(Player* player)
 
     BlockMovement(player);
 
-    WorldPackets::Battleground::PVPLogData pvpLogData;
-    BuildPvPLogDataPacket(pvpLogData);
-    player->SendDirectMessage(pvpLogData.Write());
+    WorldPackets::Battleground::PvpLogData PvpLogData;
+    BuildPvpLogDataPacket(PvpLogData);
+    player->SendDirectMessage(PvpLogData.Write());
 
     auto queueTypeID = MS::Battlegrounds::GetBgQueueTypeIdByBgTypeID(GetTypeID(), GetJoinType());
 
@@ -2353,7 +2355,7 @@ uint16 Battleground::GetTypeID(bool GetRandom) const
     return GetRandom ? m_RandomTypeID : m_TypeID;
 }
 
-void Battleground::SetBracket(PVPDifficultyEntry const* bracketEntry)
+void Battleground::SetBracket(PvpDifficultyEntry const* bracketEntry)
 {
     m_BracketId = bracketEntry->RangeIndex;
     SetLevelRange(bracketEntry->MinLevel, bracketEntry->MaxLevel);

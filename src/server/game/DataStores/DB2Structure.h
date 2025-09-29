@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 TrintiyCore <http://www.trinitycore.org/>
+ * Copyright (C) 2011 TrintiyCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_DB2STRUCTURE_H
@@ -3460,7 +3460,7 @@ struct ItemSparseEntry
     float       QualityModifier;
     int32       DurationInInventory;
     float       DmgVariance;
-    uint16      AllowableClass;
+    int16       AllowableClass;
     uint16      ItemLevel;
     uint16      RequiredSkill;
     uint16      RequiredSkillRank;
@@ -3486,8 +3486,8 @@ struct ItemSparseEntry
     uint8       OverallQualityID;
     uint8       InventoryType;
     int8        RequiredLevel;
-    uint8       RequiredPVPRank;
-    uint8       RequiredPVPMedal;
+    uint8       RequiredPvpRank;
+    uint8       RequiredPvpMedal;
     uint8       MinReputation;
     uint8       ContainerSlots;
     int8        StatModifierBonusStat[10];
@@ -4578,8 +4578,8 @@ struct PlayerConditionEntry
     uint8       MaxReputation;
     int32       ReputationLogic;
     uint8       CurrentPvpFaction;
-    uint8       MinPVPRank;
-    uint8       MaxPVPRank;
+    uint8       MinPvpRank;
+    uint8       MaxPvpRank;
     uint8       PvpMedal;
     int32       PrevQuestLogic;
     int32       CurrQuestLogic;
@@ -4591,7 +4591,7 @@ struct PlayerConditionEntry
     uint16      WorldStateExpressionID;
     uint8       WeatherID;
     uint8       PartyStatus;
-    uint8       LifetimeMaxPVPRank;
+    uint8       LifetimeMaxPvpRank;
     int32       AchievementLogic;
     int32       LfgLogic;
     int32       AreaLogic;
@@ -4725,7 +4725,7 @@ struct PrestigeLevelInfoEntry
 };
 
 // FileOptions: Index, None
-struct PVPBracketTypesEntry
+struct PvpBracketTypesEntry
 {
     int32       ID;
     uint8       BracketID;
@@ -4733,7 +4733,7 @@ struct PVPBracketTypesEntry
 };
 
 // FileOptions: Index, None
-struct PVPDifficultyEntry
+struct PvpDifficultyEntry
 {
     int32       ID;
     uint8       RangeIndex;
@@ -4743,7 +4743,7 @@ struct PVPDifficultyEntry
 };
 
 // FileOptions: Index, None
-struct PVPItemEntry
+struct PvpItemEntry
 {
     int32       ID;
     int32       ItemID;
@@ -7371,7 +7371,7 @@ struct WorldStateZoneSoundsEntry
 };
 
 // FileOptions: Index, None
-struct World_PVP_AreaEntry
+struct World_Pvp_AreaEntry
 {
     int32       ID;
     uint16      AreaID;

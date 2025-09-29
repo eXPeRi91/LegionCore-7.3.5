@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "CharacterDatabase.h"
@@ -693,10 +693,10 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_DEL_PETBATTLE, "DELETE FROM account_battlepet WHERE id = ?", CONNECTION_BOTH);
 
     // Else
-    PrepareStatement(CHAR_SEL_PERSONAL_RATE,       "SELECT rate FROM character_rates WHERE guid=? LIMIT 1",                                         CONNECTION_ASYNC);
-    PrepareStatement(CHAR_SEL_PLAYER_VISUAL,       "SELECT head, shoulders, chest, waist, legs, feet, wrists, hands, back, main, off, ranged, tabard, shirt FROM character_visuals WHERE guid = ?",  CONNECTION_ASYNC);
-    PrepareStatement(CHAR_SEL_MAILBOX_QUEUE,       "SELECT id, messageType, stationery, sender_guid, receiver_guid, subject, message, money, item, item_count FROM mailbox_queue LIMIT 500",  CONNECTION_SYNCH);
-    PrepareStatement(CHAR_DEL_MAILBOX_QUEUE,       "DELETE FROM mailbox_queue WHERE id = ?",                                       CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_PERSONAL_RATE, "SELECT rate FROM character_rates WHERE guid=? LIMIT 1",                                         CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_PLAYER_VISUAL, "SELECT head, shoulders, chest, waist, legs, feet, wrists, hands, back, main, off, ranged, tabard, shirt FROM character_visuals WHERE guid = ?",  CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_MAILBOX_QUEUE, "SELECT id, messageType, stationery, sender_guid, receiver_guid, subject, message, money, item, item_count FROM mailbox_queue LIMIT 500",  CONNECTION_SYNCH);
+    PrepareStatement(CHAR_DEL_MAILBOX_QUEUE, "DELETE FROM mailbox_queue WHERE id = ?",                                       CONNECTION_ASYNC);
 
     // character_donate
     PrepareStatement(CHAR_ADD_ITEM_DONATE, "REPLACE INTO character_donate (`owner_guid`, `itemguid`, `itemEntry`, `efircount`, `count`, `state`) VALUES (?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
@@ -791,7 +791,7 @@ void CharacterDatabaseConnection::DoPrepareStatements()
     PrepareStatement(CHAR_INS_BNET_ITEM_FAVORITE_APPEARANCE, "INSERT INTO account_item_favorite_appearances (battlenetAccountId, itemModifiedAppearanceId) VALUES (?, ?)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_DEL_BNET_ITEM_FAVORITE_APPEARANCE, "DELETE FROM account_item_favorite_appearances WHERE battlenetAccountId = ? AND itemModifiedAppearanceId = ?", CONNECTION_ASYNC);
 
-    PrepareStatement(CHAR_SEL_ITEM_INSTANCE_ARTIFACT, "SELECT ap.itemEntry, a.xp, a.artifactAppearanceId, ap.artifactPowerId, ap.purchasedRank, a.itemGuid FROM	item_instance_artifact_powers ap LEFT JOIN item_instance_artifact a ON ap.itemEntry = a.itemEntry and ap.char_guid = a.char_guid where ap.char_guid = ?", CONNECTION_ASYNC);
+    PrepareStatement(CHAR_SEL_ITEM_INSTANCE_ARTIFACT, "SELECT ap.itemEntry, a.xp, a.artifactAppearanceId, ap.artifactPowerId, ap.purchasedRank, a.itemGuid FROM item_instance_artifact_powers ap LEFT JOIN item_instance_artifact a ON ap.itemEntry = a.itemEntry and ap.char_guid = a.char_guid where ap.char_guid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_REP_ITEM_INSTANCE_ARTIFACT, "REPLACE INTO item_instance_artifact (itemGuid, xp, artifactAppearanceId, itemEntry, tier, char_guid, totalrank) VALUES (?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC);
     PrepareStatement(CHAR_DEL_ITEM_INSTANCE_ARTIFACT, "DELETE FROM item_instance_artifact WHERE itemGuid = ?", CONNECTION_ASYNC);
     PrepareStatement(CHAR_DEL_ITEM_INSTANCE_ARTIFACT_BY_OWNER, "DELETE iia FROM item_instance_artifact iia LEFT JOIN item_instance ii ON iia.itemGuid = ii.guid WHERE ii.owner_guid = ?", CONNECTION_ASYNC);

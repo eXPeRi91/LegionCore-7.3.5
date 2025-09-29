@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -43,7 +43,7 @@ public:
             { "map",                    SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableMapCommand,                 ""},
             { "battleground",           SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableBattlegroundCommand,        ""},
             { "achievement_criteria",   SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableAchievementCriteriaCommand, ""},
-            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableOutdoorPvPCommand,          ""},
+            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableOutdoorPvpCommand,          ""},
             { "vmap",                   SEC_ADMINISTRATOR,      true,   &HandleRemoveDisableVmapCommand,                ""}
         };
         static std::vector<ChatCommand> addDisableCommandTable =
@@ -53,7 +53,7 @@ public:
             { "map",                    SEC_ADMINISTRATOR,      true,   &HandleAddDisableMapCommand,                    ""},
             { "battleground",           SEC_ADMINISTRATOR,      true,   &HandleAddDisableBattlegroundCommand,           ""},
             { "achievement_criteria",   SEC_ADMINISTRATOR,      true,   &HandleAddDisableAchievementCriteriaCommand,    ""},
-            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleAddDisableOutdoorPvPCommand,             ""},
+            { "outdoorpvp",             SEC_ADMINISTRATOR,      true,   &HandleAddDisableOutdoorPvpCommand,             ""},
             { "vmap",                   SEC_ADMINISTRATOR,      true,   &HandleAddDisableVmapCommand,                   ""}
         };
         static std::vector<ChatCommand> disableCommandTable =
@@ -232,7 +232,7 @@ public:
         return HandleAddDisables(handler, args, DISABLE_TYPE_CRITERIA);
     }
 
-    static bool HandleAddDisableOutdoorPvPCommand(ChatHandler* handler, char const* args)
+    static bool HandleAddDisableOutdoorPvpCommand(ChatHandler* handler, char const* args)
     {
         if (!*args)
             return false;
@@ -345,7 +345,7 @@ public:
         return HandleRemoveDisables(handler, args, DISABLE_TYPE_CRITERIA);
     }
 
-    static bool HandleRemoveDisableOutdoorPvPCommand(ChatHandler* handler, char const* args)
+    static bool HandleRemoveDisableOutdoorPvpCommand(ChatHandler* handler, char const* args)
     {
         if (!*args)
             return false;

@@ -68,7 +68,7 @@ typedef int32 Atomic32;
 // means Atomic64 and AtomicWord should be the same type on 64-bit.
 #if defined(__ILP32__) || defined(GOOGLE_PROTOBUF_OS_NACL) || defined(GOOGLE_PROTOBUF_ARCH_SPARC)
 // NaCl's intptr_t is not actually 64-bits on 64-bit!
-// http://code.google.com/p/nativeclient/issues/detail?id=1162
+// https://code.google.com/p/nativeclient/issues/detail?id=1162
 // sparcv9's pointer type is 32bits
 typedef int64 Atomic64;
 #else
@@ -164,7 +164,7 @@ Atomic64 Release_Load(volatile const Atomic64* ptr);
 #define GOOGLE_PROTOBUF_ATOMICOPS_ERROR \
 #error "Atomic operations are not supported on your platform"
 
-// ThreadSanitizer, http://clang.llvm.org/docs/ThreadSanitizer.html.
+// ThreadSanitizer, https://clang.llvm.org/docs/ThreadSanitizer.html.
 #if defined(THREAD_SANITIZER)
 #include <google/protobuf/stubs/atomicops_internals_tsan.h>
 // MSVC.

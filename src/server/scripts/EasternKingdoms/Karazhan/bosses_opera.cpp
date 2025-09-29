@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -358,7 +358,7 @@ public:
             Talk(2);
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             if (AggroTimer)
             {
@@ -473,7 +473,7 @@ public:
             Talk(2);
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             if (AggroTimer)
             {
@@ -1059,7 +1059,7 @@ public:
         bool SummonedRomulo;
         bool RomuloDead;
 
-        void Reset()
+        void Reset() override
         {
             RomuloGUID.Clear();
             Phase = PHASE_JULIANNE;
@@ -1082,7 +1082,7 @@ public:
             RomuloDead = false;
         }
 
-        void EnterCombat(Unit* /*who*/) {}
+        void EnterCombat(Unit* /*who*/) override {}
 
         void AttackStart(Unit* who) override
         {
@@ -1114,7 +1114,7 @@ public:
             }
         }
 
-        void DamageTaken(Unit* /*done_by*/, uint32 &damage, DamageEffectType dmgType);
+        void DamageTaken(Unit* /*done_by*/, uint32 &damage, DamageEffectType dmgType) override;
 
         void JustDied(Unit* /*killer*/) override
         {
@@ -1135,7 +1135,7 @@ public:
             Talk(3);
         }
 
-        void UpdateAI(uint32 diff);
+        void UpdateAI(uint32 diff) override;
     };
 
 };

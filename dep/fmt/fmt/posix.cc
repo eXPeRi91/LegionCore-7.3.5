@@ -111,7 +111,7 @@ fmt::File::File(fmt::CStringRef path, int oflag) {
 
 fmt::File::~File() FMT_NOEXCEPT {
   // Don't retry close in case of EINTR!
-  // See http://linux.derkeiler.com/Mailing-Lists/Kernel/2005-09/3000.html
+  // See https://linux.derkeiler.com/Mailing-Lists/Kernel/2005-09/3000.html
   if (fd_ != -1 && FMT_POSIX_CALL(close(fd_)) != 0)
     fmt::report_system_error(errno, "cannot close file");
 }
@@ -120,7 +120,7 @@ void fmt::File::close() {
   if (fd_ == -1)
     return;
   // Don't retry close in case of EINTR!
-  // See http://linux.derkeiler.com/Mailing-Lists/Kernel/2005-09/3000.html
+  // See https://linux.derkeiler.com/Mailing-Lists/Kernel/2005-09/3000.html
   int result = FMT_POSIX_CALL(close(fd_));
   fd_ = -1;
   if (result != 0)
@@ -171,7 +171,7 @@ std::size_t fmt::File::write(const void *buffer, std::size_t count) {
 
 fmt::File fmt::File::dup(int fd) {
   // Don't retry as dup doesn't return EINTR.
-  // http://pubs.opengroup.org/onlinepubs/009695399/functions/dup.html
+  // https://pubs.opengroup.org/onlinepubs/009695399/functions/dup.html
   int new_fd = FMT_POSIX_CALL(dup(fd));
   if (new_fd == -1)
     FMT_THROW(SystemError(errno, "cannot duplicate file descriptor {}", fd));
@@ -206,7 +206,7 @@ void fmt::File::pipe(File &read_end, File &write_end) {
   int result = FMT_POSIX_CALL(pipe(fds, DEFAULT_CAPACITY, _O_BINARY));
 #else
   // Don't retry as the pipe function doesn't return EINTR.
-  // http://pubs.opengroup.org/onlinepubs/009696799/functions/pipe.html
+  // https://pubs.opengroup.org/onlinepubs/009696799/functions/pipe.html
   int result = FMT_POSIX_CALL(pipe(fds));
 #endif
   if (result != 0)

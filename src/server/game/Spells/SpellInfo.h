@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _SPELLINFO_H
@@ -269,7 +269,7 @@ enum SpellAuraInterruptFlags : uint32
     AURA_INTERRUPT_FLAG_IMMUNE_OR_LOST_SELECTION    = 0x00100000,   // 20   removed by auras that make you invulnerable, or make other to lose selection on you
     AURA_INTERRUPT_FLAG_UNK21               = 0x00200000,   // 21
     AURA_INTERRUPT_FLAG_TELEPORTED          = 0x00400000,   // 22
-    AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT    = 0x00800000,   // 23   removed by entering pvp combat
+    AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT    = 0x00800000,   // 23   removed by entering PvP combat
     AURA_INTERRUPT_FLAG_DIRECT_DAMAGE       = 0x01000000,   // 24   removed by any direct damage
     AURA_INTERRUPT_FLAG_LANDING             = 0x02000000,   // 25   removed by hitting the ground
     AURA_INTERRUPT_FLAG_UNK26               = 0x04000000,   // 26
@@ -414,7 +414,7 @@ public:
     flag128   SpellClassMask;
     std::list<Condition*>* ImplicitTargetConditions;
     float     BonusCoefficientFromAP;
-    float PvPMultiplier;
+    float PvpMultiplier;
     float SpellEffectGroupSizeCoefficient;
 
     struct ScalingInfo

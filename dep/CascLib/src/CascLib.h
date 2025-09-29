@@ -5,7 +5,7 @@
 /*                                                                           */
 /* Author : Ladislav Zezula                                                  */
 /* E-mail : ladik@zezula.net                                                 */
-/* WWW    : http://www.zezula.net                                            */
+/* WWW    : https://www.zezula.net                                            */
 /*---------------------------------------------------------------------------*/
 /*   Date    Ver   Who  Comment                                              */
 /* --------  ----  ---  -------                                              */

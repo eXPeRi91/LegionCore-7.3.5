@@ -1,6 +1,6 @@
 /*
-* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
-* Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+* Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "BattlefieldMgr.h"
@@ -720,7 +720,7 @@ bool SpellMgr::IsSpellProcEventCanTriggeredBy(SpellProcEventEntry const* spellPr
     // No extra req need
     uint32 procEvent_procEx = PROC_EX_NONE;
 
-    // check prockFlags for condition
+    // check procFlags for condition
     if ((procFlags & EventProcFlag) == 0)
         return false;
 
@@ -1261,40 +1261,40 @@ bool SpellArea::IsFitToRequirements(Player const* player, uint32 newZone, uint32
                     return bf->IsWarTime();
                 break;
             }
-            case 240010: //Class Hall Banishing
+            case 240010: // Class Hall Banishing
             {
                 switch (player->GetCurrentAreaID())
                 {
-                    case 7679: //DK Hall
+                    case 7679: // DK Hall
                         if (player->getClass() == CLASS_DEATH_KNIGHT)
                             return false;
                         break;
-                    case 7752: //Shaman Hall
+                    case 7752: // Shaman Hall
                     case 7753:
                         if (player->getClass() == CLASS_SHAMAN)
                             return false;
                         break;
-                    case 7813: //Warrior Hall
+                    case 7813: // Warrior Hall
                         if (player->getClass() == CLASS_WARRIOR)
                             return false;
                         break;
-                    case 7879: //Mage Hall
+                    case 7879: // Mage Hall
                         if (player->getClass() == CLASS_MAGE)
                             return false;
                         break;
-                    case 8012: //Rogue Hall
+                    case 8012: // Rogue Hall
                         if (player->getClass() == CLASS_ROGUE)
                             return false;
                         break;
-                    case 7875: //Warlock Hall
+                    case 7875: // Warlock Hall
                         if (player->getClass() == CLASS_WARLOCK)
                             return false;
                         break;
-                    case 7903: //Monk Hall
+                    case 7903: // Monk Hall
                         if (player->getClass() == CLASS_MONK)
                             return false;
                         break;
-                    case 7834: //Priest Hall
+                    case 7834: // Priest Hall
                     case 8356:
                         if (player->getClass() == CLASS_PRIEST)
                             return false;
@@ -2376,18 +2376,18 @@ void SpellMgr::LoadTalentSpellLinked()
             continue;
         }
 
-        int32 triger = fields[1].GetInt32();
-        spellInfo = GetSpellInfo(abs(triger));
+        int32 trigger = fields[1].GetInt32();
+        spellInfo = GetSpellInfo(abs(trigger));
         if (!spellInfo)
         {
-            TC_LOG_ERROR(LOG_FILTER_SQL, "Spell %i listed in `spell_talent_linked_spell` does not exist", triger);
-            WorldDatabase.PExecute("DELETE FROM `spell_talent_linked_spell` WHERE spelllink = %i", triger);
+            TC_LOG_ERROR(LOG_FILTER_SQL, "Spell %i listed in `spell_talent_linked_spell` does not exist", trigger);
+            WorldDatabase.PExecute("DELETE FROM `spell_talent_linked_spell` WHERE spelllink = %i", trigger);
             continue;
         }
 
         SpellTalentLinked templink;
         templink.talent = talent;
-        templink.triger = triger;
+        templink.trigger = trigger;
         templink.type = fields[2].GetUInt8();
         templink.target = fields[3].GetUInt8();
         templink.caster = fields[4].GetUInt8();
@@ -2594,7 +2594,7 @@ void SpellMgr::LoadSpellScene()
     } while (result->NextRow());
 
     //                                       0           1             2          3
-    result = WorldDatabase.Query("SELECT MiscValue, trigerSpell, MonsterCredit, Event FROM spell_scene_event");
+    result = WorldDatabase.Query("SELECT MiscValue, TriggerSpell, MonsterCredit, Event FROM spell_scene_event");
     if (!result)
     {
         TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, ">> Loaded 0 visual spells. DB table `spell_scene_event` is empty.");
@@ -2608,7 +2608,7 @@ void SpellMgr::LoadSpellScene()
 
         SceneTriggerEvent templink;
         templink.MiscValue = fields[ind++].GetInt32();
-        templink.trigerSpell = fields[ind++].GetInt32();
+        templink.triggerSpell = fields[ind++].GetInt32();
         templink.MonsterCredit = fields[ind++].GetInt32();
         templink.Event = fields[ind++].GetString();
 
@@ -7925,103 +7925,103 @@ void SpellMgr::LoadSpellCustomAttr()
         spellInfo->GetMisc()->MiscData.Attributes[4] |= SPELL_ATTR4_NOT_USABLE_IN_ARENA_OR_RATED_BG;
     });
 
-    // update for custom pvp mods (7.3.5)
+    // update for custom PvP mods (7.3.5)
     ApplySpellFix({ 33763, 202497 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.5f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.5f;
     });
 
     ApplySpellFix({ 200851 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_3]->PvPMultiplier = 0.1f;
-        spellInfo->Effects[EFFECT_4]->PvPMultiplier = 0.1f;
+        spellInfo->Effects[EFFECT_3]->PvpMultiplier = 0.1f;
+        spellInfo->Effects[EFFECT_4]->PvpMultiplier = 0.1f;
     });
 
     ApplySpellFix({ 6807 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.53f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.53f;
     });
 
     ApplySpellFix({ 238122 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.57143f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.57143f;
     });
 
     ApplySpellFix({ 18562 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.4f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.4f;
     });
 
     ApplySpellFix({ 5487, 24858 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_2]->PvPMultiplier = 0.63f;
+        spellInfo->Effects[EFFECT_2]->PvpMultiplier = 0.63f;
     });
 
     ApplySpellFix({ 1178 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.73f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.73f;
     });
 
     ApplySpellFix({ 49998 , 158188 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.5f;
     });
 
     ApplySpellFix({ 32175, 32176, 115357, 115360, 205414, 222029, 201628, 201789, 193455, 212621, 224239, 224266 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = spellInfo->Effects[EFFECT_0]->PvPMultiplier;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = spellInfo->Effects[EFFECT_0]->PvpMultiplier;
     });
 
     ApplySpellFix({ 210042, 198533, 209525 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.8f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.8f;
     });
 
     ApplySpellFix({ 11366 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.7f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.7f;
     });
 
     ApplySpellFix({ 228598 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.2f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.2f;
     });
 
     // Catlike Reflexes
     ApplySpellFix({197241, 210144, 210145, 210147, 210148, 239290, 239291}, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.25f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.25f;
     });
 
     ApplySpellFix({ 195321, 123996, 114089, 114093 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.6f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.6f;
     });
 
     ApplySpellFix({ 202743, 206416 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.5f;
     });
 
     ApplySpellFix({ 8092 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.35f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.35f;
     });
 
     ApplySpellFix({ 15407 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 1.55f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 1.55f;
     });
 
     ApplySpellFix({ 130493 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.5f;
-        spellInfo->Effects[EFFECT_1]->PvPMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.5f;
+        spellInfo->Effects[EFFECT_1]->PvpMultiplier = 0.5f;
     });
 
     ApplySpellFix({ 218571 }, [](SpellInfo* spellInfo)
     {
-        spellInfo->Effects[EFFECT_0]->PvPMultiplier = 0.33f;
+        spellInfo->Effects[EFFECT_0]->PvpMultiplier = 0.33f;
     });
 
     ApplySpellFix({238244}, [](SpellInfo* spellInfo)
@@ -8142,48 +8142,48 @@ void SpellMgr::LoadSpellCustomAttr()
         spellInfo->Effects[EFFECT_2]->TargetA = TARGET_UNIT_CONE_ENEMY_24;
     });
 
-	// Fixed aura stack bugs like rejuvenation stacking instead of refreshing the buff etc
-	// TODO there might be more spells that stack so add more spells onto here if any are found
-	ApplySpellFix({ 1079,  // Rip
-					774,   // Rejuvenation
-					139,   // Renew
-					703,   // Garrote
-					1943,  // Rupture
-					603,   // Doom
-					32612, // Invisibility buff
-					66,    // Invisibility spell
-					136,   // Mend pet
-					1604,  // Dazed
-					1850   // Dash
-		}, [](SpellInfo* spellInfo)
-	{
-		spellInfo->GetAuraOptions()->ProcCharges = 0;
-		spellInfo->GetAuraOptions()->CumulativeAura = 0;
-	});
+    // Fixed aura stack bugs like rejuvenation stacking instead of refreshing the buff etc
+    // TODO there might be more spells that stack so add more spells onto here if any are found
+    ApplySpellFix({ 1079,  // Rip
+                    774,   // Rejuvenation
+                    139,   // Renew
+                    703,   // Garrote
+                    1943,  // Rupture
+                    603,   // Doom
+                    32612, // Invisibility buff
+                    66,    // Invisibility spell
+                    136,   // Mend pet
+                    1604,  // Dazed
+                    1850   // Dash
+        }, [](SpellInfo* spellInfo)
+    {
+        spellInfo->GetAuraOptions()->ProcCharges = 0;
+        spellInfo->GetAuraOptions()->CumulativeAura = 0;
+    });
 
-	//40 yards instead of 30 yards to match 198067
-	ApplySpellFix({ 188592, // Fire Elemental
-					118291, // Primal Fire Elemental
-					188616  // Earth Elemental
-		}, [](SpellInfo* spellInfo)
-		{
-			spellInfo->Misc.RangeEntry = sSpellRangeStore.LookupEntry(5);
-		});
+    //40 yards instead of 30 yards to match 198067
+    ApplySpellFix({ 188592, // Fire Elemental
+                    118291, // Primal Fire Elemental
+                    188616  // Earth Elemental
+        }, [](SpellInfo* spellInfo)
+        {
+            spellInfo->Misc.RangeEntry = sSpellRangeStore.LookupEntry(5);
+        });
 
-	// T18 Resto 4P lifebloom 2 targets
-	ApplySpellFix({ 188550 }, [](SpellInfo* spellInfo)
-		{
-			spellInfo->GetMisc()->MiscData.Attributes[5] &= ~SPELL_ATTR5_SINGLE_TARGET_SPELL;
-		});
+    // T18 Resto 4P lifebloom 2 targets
+    ApplySpellFix({ 188550 }, [](SpellInfo* spellInfo)
+        {
+            spellInfo->GetMisc()->MiscData.Attributes[5] &= ~SPELL_ATTR5_SINGLE_TARGET_SPELL;
+        });
 
-	// Fixed duration for frozen orb mage
-	/*ApplySpellFix({ 84721 }, [](SpellInfo* spellInfo)
-	{
-		spellInfo->Misc.Duration.Duration = 15 * IN_MILLISECONDS;
-		spellInfo->Misc.Duration.MaxDuration = 15 * IN_MILLISECONDS;
-		spellInfo->GetMisc()->Duration.Duration = 8;
-		spellInfo->GetMisc()->Duration.MaxDuration = 8;
-	});*/
+    // Fixed duration for frozen orb mage
+    /*ApplySpellFix({ 84721 }, [](SpellInfo* spellInfo)
+    {
+        spellInfo->Misc.Duration.Duration = 15 * IN_MILLISECONDS;
+        spellInfo->Misc.Duration.MaxDuration = 15 * IN_MILLISECONDS;
+        spellInfo->GetMisc()->Duration.Duration = 8;
+        spellInfo->GetMisc()->Duration.MaxDuration = 8;
+    });*/
 
     for (uint32 i = 0; i < GetSpellInfoStoreSize(); ++i)
     {

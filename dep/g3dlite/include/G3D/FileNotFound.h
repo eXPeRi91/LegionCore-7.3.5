@@ -1,7 +1,7 @@
 /** 
   \file FileNotFound.h
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
   \created 2011-12-31
   \edited  2011-12-31
  */

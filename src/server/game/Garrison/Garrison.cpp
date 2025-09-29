@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Garrison.h"
@@ -98,38 +98,38 @@ uint32 getQuestIdReqForShipment(uint32 siteID, uint32 buildingType)
     return 0;
 }
 
-//! Shipment for requarement.
+//! Shipment for requirement.
 uint32 getProgressShipment(uint32 questID)
 {
     switch (questID)
     {
-        //GARR_BTYPE_ALCHEMY_LAB
+        // GARR_BTYPE_ALCHEMY_LAB
         case 36641: return 114;
         case 37568: return 122;
-        //GARR_BTYPE_TAILORING
+        // GARR_BTYPE_TAILORING
         case 36643: return 120;
         case 37575: return 136;
-        //GARR_BTYPE_FORGE
+        // GARR_BTYPE_FORGE
         case 35168: return 113;
         case 37569: return 123;
-        //GARR_BTYPE_TANNERY
+        // GARR_BTYPE_TANNERY
         case 36642: return 119;
         case 37574: return 134;
-        //GARR_BTYPE_GEM
+        // GARR_BTYPE_GEM
         case 36644: return 118;
         case 37573: return 131;
-        //GARR_BTYPE_ENCHANTERS
+        // GARR_BTYPE_ENCHANTERS
         case 36645: return 115;
         case 37570: return 126;
-        //GARR_BTYPE_ENGINEERING
+        // GARR_BTYPE_ENGINEERING
         case 36646: return 116;
         case 37571: return 128;
-        //GARR_BTYPE_SCRIBE
+        // GARR_BTYPE_SCRIBE
         case 36647: return 117;
         case 37572: return 130;
-        //GARR_BTYPE_LUMBER_MILL
+        // GARR_BTYPE_LUMBER_MILL
         case 36189: case 36137: return 0;
-        //GARR_BTYPE_TRADING_POST:
+        // GARR_BTYPE_TRADING_POST:
         case 37088: case 37062: return 0;
     }
     ASSERT(false);
@@ -187,8 +187,8 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             _followerActivationsRemainingToday = fields[1].GetUInt32();
             _lastResTaken = fields[2].GetUInt32();
 
-            if (siteLevel->GarrSiteID == SITE_ID_GARRISON_ALLIANCE && _owner->GetTeam() == HORDE ||
-                siteLevel->GarrSiteID == SITE_ID_GARRISON_HORDE && _owner->GetTeam() == ALLIANCE)
+            if ((siteLevel->GarrSiteID == SITE_ID_GARRISON_ALLIANCE && _owner->GetTeam() == HORDE) ||
+                (siteLevel->GarrSiteID == SITE_ID_GARRISON_HORDE && _owner->GetTeam() == ALLIANCE))
             {
                 siteLevel = sGarrSiteLevelStore.LookupEntry(getSiteLevelIdById(_owner->GetTeam(), siteLevel->GarrLevel));
 
@@ -327,7 +327,7 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             mission.PacketInfo.TravelDuration = fields[5].GetUInt32();
             mission.PacketInfo.Duration = fields[6].GetUInt32();
             mission.PacketInfo.State = fields[7].GetUInt32();
-            mission.PacketInfo.SuccesChance = fields[8].GetUInt16();
+            mission.PacketInfo.SuccessChance = fields[8].GetUInt16();
 
             if (!sGarrisonMgr.GetMissionRewardByRecID(missionRecID))
                 continue;
@@ -345,21 +345,21 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             fields = followers->Fetch();
 
             auto followerId = fields[1].GetUInt32();
-            auto foloowerEntry = sGarrFollowerStore.LookupEntry(followerId);
-            if (!foloowerEntry)
+            auto followerEntry = sGarrFollowerStore.LookupEntry(followerId);
+            if (!followerEntry)
                 continue;
 
-            if (foloowerEntry->GarrTypeID != GARRISON_TYPE_GARRISON && foloowerEntry->GarrTypeID != GARRISON_TYPE_CLASS_ORDER)
+            if (followerEntry->GarrTypeID != GARRISON_TYPE_GARRISON && followerEntry->GarrTypeID != GARRISON_TYPE_CLASS_ORDER)
                 continue;
 
             auto dbId = fields[0].GetUInt64();
-            _followerIds[foloowerEntry->GarrTypeID].insert(followerId);
-            auto& follower = _followers[foloowerEntry->GarrTypeID][dbId];
+            _followerIds[followerEntry->GarrTypeID].insert(followerId);
+            auto& follower = _followers[followerEntry->GarrTypeID][dbId];
             follower.PacketInfo.DbID = dbId;
             follower.PacketInfo.GarrFollowerID = followerId;
             follower.PacketInfo.Quality = fields[2].GetUInt32();
 
-            switch (foloowerEntry->GarrFollowerTypeID)
+            switch (followerEntry->GarrFollowerTypeID)
             {
             case GarrisonConst::FollowerType::Garrison:
                 follower.PacketInfo.FollowerLevel = std::min(fields[3].GetUInt32(), uint32(GarrisonConst::Globals::MaxFollowerLevel));
@@ -379,7 +379,7 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
             follower.PacketInfo.FollowerStatus = fields[9].GetUInt32();
             follower.PacketInfo.Vitality = fields[10].GetUInt16();
 
-            follower.TypeID = foloowerEntry->GarrFollowerTypeID;
+            follower.TypeID = followerEntry->GarrFollowerTypeID;
             follower.DbState = DB_STATE_UNCHANGED;
 
             if (!sGarrBuildingStore.LookupEntry(follower.PacketInfo.CurrentBuildingID))
@@ -410,22 +410,22 @@ bool Garrison::LoadFromDB(PreparedQueryResult const& garrison, PreparedQueryResu
                 }
             }
 
-            if (_missionIds[foloowerEntry->GarrTypeID].empty())
+            if (_missionIds[followerEntry->GarrTypeID].empty())
                 if (auto mission = sGarrisonMgr.GetMissionAtFollowerTaking(followerId))
                     AddMission(mission->ID);
 
-            if (foloowerEntry->Vitality)
+            if (followerEntry->Vitality)
             {
                 follower.PacketInfo.FollowerStatus |= GarrisonConst::GarrisonFollowerFlags::FOLLOWER_STATUS_TROOP;
                 follower.PacketInfo.FollowerStatus |= GarrisonConst::GarrisonFollowerFlags::FOLLOWER_STATUS_NO_XP_GAIN;
 
                 // disable more then limit.
-                uint32 limit = GetTroopLimit(foloowerEntry->Vitality, _owner->GetTeam() == ALLIANCE ? foloowerEntry->AllianceGarrClassSpecID : foloowerEntry->HordeGarrClassSpecID);
-                if (_troopCount[foloowerEntry->Vitality] > limit)
+                uint32 limit = GetTroopLimit(followerEntry->Vitality, _owner->GetTeam() == ALLIANCE ? followerEntry->AllianceGarrClassSpecID : followerEntry->HordeGarrClassSpecID);
+                if (_troopCount[followerEntry->Vitality] > limit)
                     follower.PacketInfo.FollowerStatus |= GarrisonConst::GarrisonFollowerFlags::FOLLOWER_STATUS_INACTIVE;
 
-                ASSERT(foloowerEntry->Vitality < 5);
-                ++_troopCount[foloowerEntry->Vitality];
+                ASSERT(followerEntry->Vitality < 5);
+                ++_troopCount[followerEntry->Vitality];
             }
 
         } while (followers->NextRow());
@@ -642,7 +642,7 @@ void Garrison::SaveToDB(SQLTransaction const& trans)
             stmt->setUInt32(index++, mission.PacketInfo.TravelDuration);
             stmt->setUInt32(index++, mission.PacketInfo.Duration);
             stmt->setUInt32(index++, mission.PacketInfo.State);
-            stmt->setUInt16(index++, mission.PacketInfo.SuccesChance);
+            stmt->setUInt16(index++, mission.PacketInfo.SuccessChance);
             trans->Append(stmt);
             mission.DbState = DB_STATE_UNCHANGED;
         }
@@ -1458,7 +1458,7 @@ void Garrison::AddFollower(uint32 garrFollowerId)
     _owner->UpdateForQuestWorldObjects();
 }
 
-//! basic follower has rand 4.  for shaman look at http://ru.wowhead.com/champion=608#english-comments
+//! basic follower has rand 4.  for shaman look at https://ru.wowhead.com/champion=608#english-comments
 void Garrison::CheckBasicRequirements()
 {
     for (uint16 i = 0; i < MAX_QUEST_LOG_SIZE; ++i)
@@ -1580,7 +1580,7 @@ void Garrison::AddMission(uint32 missionRecID, bool sendLog/* = true*/)
     mission.PacketInfo.TravelDuration = 0;
     mission.PacketInfo.Duration = 0/*missionEntry->MissionDuration*/;
     mission.PacketInfo.State = MISSION_STATE_AVAILABLE;
-    mission.PacketInfo.SuccesChance = 0;
+    mission.PacketInfo.SuccessChance = 0;
     mission.PacketInfo.UnkInt2 = 0;
     mission.DbState = DB_STATE_NEW;
 
@@ -1853,7 +1853,7 @@ void Garrison::SendInfo()
     garrisonInfo.Garrisons.emplace_back();
 
     garrisonInfo.FollowerSoftCaps.emplace_back(1, 25); // has baracks? fuck it, dosntwork at all
-    garrisonInfo.FollowerSoftCaps.emplace_back(2, 10); // @hasTallent 
+    garrisonInfo.FollowerSoftCaps.emplace_back(2, 10); // @hasTalent 
     garrisonInfo.FollowerSoftCaps.emplace_back(4, 5);
 
     WorldPackets::Garrison::GarrisonInfo& garrison = garrisonInfo.Garrisons.back();
@@ -2427,7 +2427,7 @@ uint32 Garrison::GetMissionSuccessChance(Mission* mission, GarrMissionEntry cons
                             if (l_W != l_Y)
                             {
                                 auto followerEntry = sGarrFollowerStore.LookupEntry(missionFollowers[l_W]->PacketInfo.GarrFollowerID);
-                                if (followerEntry && (followerEntry->HordeCreatureID == abilityEffectEntry->ActionRace) || (followerEntry->AllianceCreatureID == abilityEffectEntry->ActionRace))
+                                if ((followerEntry && followerEntry->HordeCreatureID == abilityEffectEntry->ActionRace) || followerEntry->AllianceCreatureID == abilityEffectEntry->ActionRace)
                                 {
                                     canProc = true;
                                     break;
@@ -2868,7 +2868,7 @@ void Garrison::AddTalentToStore(uint32 talentID, uint32 _time, uint32 flags, Obj
     _classHallTalentStore.push_back(talentData);
 }
 
-bool Garrison::hasTallent(uint32 talentID) const
+bool Garrison::hasTalent(uint32 talentID) const
 {
     auto talentEntry = sGarrTalentStore.LookupEntry(talentID);
     if (!talentEntry)
@@ -2935,7 +2935,7 @@ void Garrison::SendShipmentInfo(ObjectGuid const& guid)
 
     //SMSG_GET_SHIPMENT_INFO_RESPONSE
     WorldPackets::Garrison::GetShipmentInfoResponse shipmentResponse;
-    shipmentResponse.Success = shipment && (plot || shipment->cEntry->GarrTypeID == GARRISON_TYPE_CLASS_ORDER) && (!questID || questID && _owner->GetQuestStatus(questID) != QUEST_STATUS_NONE);
+    shipmentResponse.Success = shipment && (plot || shipment->cEntry->GarrTypeID == GARRISON_TYPE_CLASS_ORDER) && (!questID || (questID && _owner->GetQuestStatus(questID) != QUEST_STATUS_NONE));
 
     //! placeholder for check is allowed shipment.
     uint32 sh = shipment->ShipmentID;
@@ -3353,29 +3353,29 @@ bool Garrison::hasLegionFall() const
     switch (_owner->getClass())
     {
         case CLASS_DEMON_HUNTER:
-            return hasTallent(491);
+            return hasTalent(491);
         case CLASS_DRUID:
-            return hasTallent(494);
+            return hasTalent(494);
         case CLASS_MONK:
-            return hasTallent(500);
+            return hasTalent(500);
         case CLASS_WARLOCK:
-            return hasTallent(512);
+            return hasTalent(512);
         case CLASS_SHAMAN:
-            return hasTallent(509);
+            return hasTalent(509);
         case CLASS_DEATH_KNIGHT:
-            return hasTallent(488);
+            return hasTalent(488);
         case CLASS_PRIEST:
-            return hasTallent(503);
+            return hasTalent(503);
         case CLASS_ROGUE:
-            return hasTallent(506);
+            return hasTalent(506);
         case CLASS_HUNTER:
-            return hasTallent(497);
+            return hasTalent(497);
         case CLASS_PALADIN:
-            return hasTallent(482);
+            return hasTalent(482);
         case CLASS_WARRIOR:
-            return hasTallent(515);
+            return hasTalent(515);
         case CLASS_MAGE:
-            return hasTallent(485);
+            return hasTalent(485);
         default:
             break;
     }
@@ -3388,29 +3388,29 @@ bool Garrison::hasLegendLimitUp() const
     switch (_owner->getClass())
     {
         case CLASS_DEMON_HUNTER:
-            return hasTallent(423);
+            return hasTalent(423);
         case CLASS_DRUID:
-            return hasTallent(357);
+            return hasTalent(357);
         case CLASS_MONK:
-            return hasTallent(258);
+            return hasTalent(258);
         case CLASS_WARLOCK:
-            return hasTallent(368);
+            return hasTalent(368);
         case CLASS_SHAMAN:
-            return hasTallent(42);
+            return hasTalent(42);
         case CLASS_DEATH_KNIGHT:
-            return hasTallent(434);
+            return hasTalent(434);
         case CLASS_PRIEST:
-            return hasTallent(456);
+            return hasTalent(456);
         case CLASS_ROGUE:
-            return hasTallent(445);
+            return hasTalent(445);
         case CLASS_HUNTER:
-            return hasTallent(379);
+            return hasTalent(379);
         case CLASS_PALADIN:
-            return hasTallent(401);
+            return hasTalent(401);
         case CLASS_WARRIOR:
-            return hasTallent(412);
+            return hasTalent(412);
         case CLASS_MAGE:
-            return hasTallent(390);
+            return hasTalent(390);
         default:
             break;
     }

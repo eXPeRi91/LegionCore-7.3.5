@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "TCSoap.h"
@@ -57,7 +57,7 @@ void TCSoapThread(const std::string& host, uint16 port)
         exit(-1);
     }
 
-    TC_LOG_INFO(LOG_FILTER_WORLDSERVER, "Bound to http://%s:%d", host.c_str(), port);
+    TC_LOG_INFO(LOG_FILTER_WORLDSERVER, "Bound to https://%s:%d", host.c_str(), port);
 
     while (!World::IsStopped())
     {
@@ -162,10 +162,10 @@ void SOAPCommand::commandFinished(void* soapconnection, bool success)
 
 struct Namespace namespaces[] =
 { 
-    { "SOAP-ENV",   "http://schemas.xmlsoap.org/soap/envelope/",    nullptr,                                    nullptr }, // must be first
-    { "SOAP-ENC",   "http://schemas.xmlsoap.org/soap/encoding/",    nullptr,                                    nullptr }, // must be second
-    { "xsi",        "http://www.w3.org/1999/XMLSchema-instance",    "http://www.w3.org/*/XMLSchema-instance",   nullptr },
-    { "xsd",        "http://www.w3.org/1999/XMLSchema",             "http://www.w3.org/*/XMLSchema",            nullptr },
+    { "SOAP-ENV",   "https://schemas.xmlsoap.org/soap/envelope/",   nullptr,                                    nullptr }, // must be first
+    { "SOAP-ENC",   "https://schemas.xmlsoap.org/soap/encoding/",   nullptr,                                    nullptr }, // must be second
+    { "xsi",        "https://www.w3.org/1999/XMLSchema-instance",   "https://www.w3.org/*/XMLSchema-instance",  nullptr },
+    { "xsd",        "https://www.w3.org/1999/XMLSchema",            "https://www.w3.org/*/XMLSchema",           nullptr },
     { "ns1",        "urn:TC",                                       nullptr,                                    nullptr }, // "ns1" namespace prefix
     { nullptr,      nullptr,                                        nullptr,                                    nullptr }
 };

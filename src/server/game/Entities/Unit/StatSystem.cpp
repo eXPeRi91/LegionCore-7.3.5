@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Unit.h"
@@ -68,7 +68,7 @@ void Player::UpdateStatsByMask()
         UpdateItemLevels();
 
     if (m_operationsAfterDelayMask & OAD_RECALC_PVP_BP)
-        RecalculatePvPAmountOfAuras();
+        RecalculatePvpAmountOfAuras();
 
     if (m_operationsAfterDelayMask & OAD_RECALC_AURAS)
         RecalculateAmountAllAuras();
@@ -194,7 +194,7 @@ float Player::GetTotalStatValue(Stats stat)
 
     if (HasPvpStatsScalingEnabled())
     {
-        CalcPvPTemplate(SPELL_AURA_MOD_STAT, value, otherMod, [stat](AuraEffect const* aurEff) -> bool
+        CalcPvpTemplate(SPELL_AURA_MOD_STAT, value, otherMod, [stat](AuraEffect const* aurEff) -> bool
         {
             return aurEff->GetMiscValue() < 0 || aurEff->GetMiscValue() == stat;
         });
@@ -255,7 +255,7 @@ void Player::ApplySpellPowerBonus(int32 amount, bool apply)
     UpdateSpellDamageAndHealingBonus();
 }
 
-bool Player::GetCustomPvPMods(float& val, uint32 type, uint32 specID) const
+bool Player::GetCustomPvpMods(float& val, uint32 type, uint32 specID) const
 {
     switch (specID)
     {
@@ -544,7 +544,7 @@ bool Player::GetCustomPvPMods(float& val, uint32 type, uint32 specID) const
     return false;
 }
 
-void Player::CalcPvPTemplate(AuraType auratype, float & templateMod, float & otherMod, std::function<bool(AuraEffect const*)> const& predicate)
+void Player::CalcPvpTemplate(AuraType auratype, float & templateMod, float & otherMod, std::function<bool(AuraEffect const*)> const& predicate)
 {
     if (auto const* mTotalAuraList = GetAuraEffectsByType(auratype))
     {
@@ -1703,7 +1703,7 @@ void Unit::UpdateMeleeHastMod()
     for (uint8 i = BASE_ATTACK; i < RANGED_ATTACK; ++i)
         CalcAttackTimePercentMod(WeaponAttackType(i), value);
 
-    // Disable crashed http://pastebin.com/Dxzha0se
+    // Disable crashed https://pastebin.com/Dxzha0se
     // if (Unit* owner = GetOwner())
         // if (owner->IsInWorld() && owner->getClass() == CLASS_HUNTER && (amount != 0.0f || (oldValue != 1.0f && value != oldValue)))
             // owner->SetFloatValue(PLAYER_FIELD_MOD_PET_HASTE, value);

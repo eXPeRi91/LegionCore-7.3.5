@@ -17,7 +17,7 @@
     int i = BIN(01100101001)
     \endcode
 
-    \cite By Kaz Kylheku http://www.velocityreviews.com/forums/t620780-mathew-hendrys-macro-for-binary-integer-literals.html 
+    \cite By Kaz Kylheku https://www.velocityreviews.com/forums/t620780-mathew-hendrys-macro-for-binary-integer-literals.html 
     \sa BIN8(), BIN11(), BIN16(), BIN32()
 */
 #define BIN11(N) _OCT_CODED_BIN(0 ## N ## UL)
@@ -50,7 +50,7 @@
     unsigned int i = BIN8(01010101); // 85 
     \endcode
 
-    \cite Tom Torfs http://groups.google.com/group/comp.arch.embedded/msg/9d430b6d3da12c8f
+    \cite Tom Torfs https://groups.google.com/group/comp.arch.embedded/msg/9d430b6d3da12c8f
     \sa BIN8(), BIN11(), BIN16(), BIN32()
 */
 #define BIN8(d) ((unsigned char)B8__(HEX__(d))) 
@@ -64,7 +64,7 @@
     unsigned int i = BIN16(10101010,01010101); // 43605 
     \endcode
 
-    \cite Tom Torfs http://groups.google.com/group/comp.arch.embedded/msg/9d430b6d3da12c8f
+    \cite Tom Torfs https://groups.google.com/group/comp.arch.embedded/msg/9d430b6d3da12c8f
     \sa BIN8(), BIN11(), BIN16(), BIN32()
 */
 #define BIN16(dmsb, dlsb) (((unsigned short)BIN8(dmsb) << 8) + BIN8(dlsb)) 
@@ -80,7 +80,7 @@
     unsigned int = BIN32(10000000,11111111,10101010,01010101); // 2164238933 
     \endcode
 
-    \cite Tom Torfs http://groups.google.com/group/comp.arch.embedded/msg/9d430b6d3da12c8f
+    \cite Tom Torfs https://groups.google.com/group/comp.arch.embedded/msg/9d430b6d3da12c8f
     \sa BIN8(), BIN11(), BIN16(), BIN32()
 */
 #define BIN32(dmsb,db2,db3,dlsb) \

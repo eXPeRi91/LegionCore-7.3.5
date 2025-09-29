@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Log.h"
@@ -560,7 +560,7 @@ void Minion::InitStats(uint32 duration)
 
 void Minion::RemoveFromWorld()
 {
-    if (!IsInWorld() || !this)
+    if (!IsInWorld())
         return;
 
     if (Unit* owner = GetSummoner())
@@ -624,10 +624,10 @@ void Guardian::InitStats(uint32 duration)
     if (m_owner->IsPlayer() && HasUnitTypeMask(UNIT_MASK_CONTROLABLE_GUARDIAN))
         m_charmInfo->InitCharmCreateSpells();
 
-	if (GetEntry() != 100868)
-		SetReactState(REACT_AGGRESSIVE);
-	else
-		SetReactState(REACT_ATTACK_OFF);
+    if (GetEntry() != 100868)
+        SetReactState(REACT_AGGRESSIVE);
+    else
+        SetReactState(REACT_ATTACK_OFF);
 }
 
 void Guardian::InitSummon()

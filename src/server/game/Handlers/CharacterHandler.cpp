@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DatabaseEnv.h"
@@ -345,7 +345,7 @@ void WorldSession::HandleCharCreateOpcode(WorldPackets::Character::CreateChar& c
             }
         }
 
-        bool allowTwoSideAccounts = !sWorld->IsPvPRealm();
+        bool allowTwoSideAccounts = !sWorld->IsPvpRealm();
         uint32 skipCinematics = sWorld->getIntConfig(CONFIG_SKIP_CINEMATICS);
 
         std::function<void(PreparedQueryResult)> finalizeCharacterCreation = [this, createInfo, SendCharCreate](PreparedQueryResult result)
@@ -720,9 +720,9 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         features.QuickJoinConfig.ThrottleDecayTime = 60;
         features.QuickJoinConfig.ThrottlePrioritySpike = 20;
         features.QuickJoinConfig.ThrottleMinThreshold = 0;
-        features.QuickJoinConfig.ThrottlePvPPriorityNormal = 50;
-        features.QuickJoinConfig.ThrottlePvPPriorityLow = 1;
-        features.QuickJoinConfig.ThrottlePvPHonorThreshold = 10;
+        features.QuickJoinConfig.ThrottlePvpPriorityNormal = 50;
+        features.QuickJoinConfig.ThrottlePvpPriorityLow = 1;
+        features.QuickJoinConfig.ThrottlePvpHonorThreshold = 10;
         features.QuickJoinConfig.ThrottleLfgListPriorityDefault = 50;
         features.QuickJoinConfig.ThrottleLfgListPriorityAbove = 100;
         features.QuickJoinConfig.ThrottleLfgListPriorityBelow = 50;
@@ -767,7 +767,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         pCurrChar->SetGuildLevel(0);
     }
 
-    WorldPackets::Battleground::PVPSeason season;
+    WorldPackets::Battleground::PvpSeason season;
     season.PreviousSeason = sWorld->getIntConfig(CONFIG_ARENA_SEASON_ID) - 1;
     if (sWorld->getBoolConfig(CONFIG_ARENA_SEASON_IN_PROGRESS))
         season.CurrentSeason = sWorld->getIntConfig(CONFIG_ARENA_SEASON_ID);
@@ -779,9 +779,6 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
 
     AddDelayedEvent(100, [=]() -> void
     {
-        if (!this)
-            return;
-
         auto player = GetPlayer();
         if (!player)
             return;
@@ -799,7 +796,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         artifactKnowledgeFishingPole.KnowledgeLevel = 0;
         SendPacket(artifactKnowledgeFishingPole.Write());
 
-        //Show cinematic at the first time that player login
+        // Show cinematic at the first time that player login
         bool firstLogin = !player->getCinematic(); // it's needed below
         if (!player->getCinematic())
         {
@@ -828,10 +825,9 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
                     if (!sWorld->GetNewCharString().empty())
                         chatHandler.PSendSysMessage("%s", sWorld->GetNewCharString().c_str());
                 }
-            
         }
 
-        if (!player->GetMap()->AddPlayerToMap(player) || !player->GetMap()->IsGarrison() && !player->CheckInstanceLoginValid())
+        if (!player->GetMap()->AddPlayerToMap(player) || (!player->GetMap()->IsGarrison() && !player->CheckInstanceLoginValid()))
         {
             if (AreaTriggerStruct const* at = sAreaTriggerDataStore->GetGoBackTrigger(player->GetMapId()))
                 player->TeleportTo(at->target_mapId, at->target_X, at->target_Y, at->target_Z, player->GetOrientation());
@@ -896,24 +892,24 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder* holder)
         player->SendOperationsAfterDelay(OAD_LOAD_PET);
 
         // Set FFA PvP for non GM in non-rest mode
-        if (sWorld->IsFFAPvPRealm() && !player->isGameMaster() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING))
+        if (sWorld->IsFFAPvpRealm() && !player->isGameMaster() && !player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING))
         {
             player->SetByteFlag(UNIT_FIELD_BYTES_2, UNIT_BYTES_2_OFFSET_PVP_FLAG, UNIT_BYTE2_FLAG_FFA_PVP);
             player->SetGroupUpdateFlag(GROUP_UPDATE_FLAG_STATUS);
         }
 
-        player->UpdatePvPState(true);
+        player->UpdatePvpState(true);
 
-        if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP) && !player->IsFFAPvP())
+        if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP) && !player->IsFFAPvp())
         {
             player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP, false);
             player->ApplyModFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PVP_TIMER, true);
-            if (!player->pvpInfo.inHostileArea && player->IsPvP())
+            if (!player->pvpInfo.inHostileArea && player->IsPvp())
                 player->pvpInfo.endTimer = time(nullptr);
         }
 
         if (player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_CONTESTED_PVP))
-            player->SetContestedPvP();
+            player->SetContestedPvp();
 
         // Apply at_login requests
         if (player->HasAtLoginFlag(AT_LOGIN_RESET_SPELLS))
@@ -1315,7 +1311,7 @@ void WorldSession::HandleCharCustomizeCallback(std::shared_ptr<WorldPackets::Cha
 
     PreparedStatement* stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_CHARACTER_NAME);
     stmt->setUInt64(0, lowGuid);
-    if (result = CharacterDatabase.Query(stmt))
+    if ((result = CharacterDatabase.Query(stmt)))
         TC_LOG_INFO(LOG_FILTER_CHARACTER, "Account: %d (IP: %s), Character[%s] (guid:%u) Customized to: %s", GetAccountId(), GetRemoteAddress().c_str(), result->Fetch()[0].GetString().c_str(), lowGuid, customizeInfo->CharName.c_str());
 
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
@@ -1654,7 +1650,7 @@ void WorldSession::HandleCharRaceOrFactionChange(WorldPackets::Character::CharRa
             // Reset guild
             stmt = CharacterDatabase.GetPreparedStatement(CHAR_SEL_GUILD_MEMBER);
             stmt->setUInt64(0, lowGuid);
-            if (result = CharacterDatabase.Query(stmt))
+            if ((result = CharacterDatabase.Query(stmt)))
                 if (Guild* guild = sGuildMgr->GetGuildById((result->Fetch()[0]).GetUInt64()))
                     guild->DeleteMember(ObjectGuid::Create<HighGuid::Player>(lowGuid));
         }
@@ -2034,20 +2030,26 @@ void WorldSession::HandleLogoutRequest(WorldPackets::Character::LogoutRequest& /
     if (!lguid.IsEmpty())
         DoLootRelease(lguid);
 
+    //instant logout in taverns/cities or on taxi or for admins, gm's, mod's if its enabled in worldserver.conf
+    bool instantLogout = player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING) || player->isInFlight() ||
+        GetSecurity() >= AccountTypes(sWorld->getIntConfig(CONFIG_INSTANT_LOGOUT)) || player->GetMapId() == 1179;//duel zone
+
+    bool preventAfkSanctuaryLogout = sWorld->getIntConfig(CONFIG_AFK_PREVENT_LOGOUT) == 1
+        && GetPlayer()->isAFK() && sAreaTableStore.LookupEntry(GetPlayer()->GetAreaId())->IsSanctuary();
+
+    bool preventAfkLogout = sWorld->getIntConfig(CONFIG_AFK_PREVENT_LOGOUT) == 2
+        && GetPlayer()->isAFK();
+
     uint32 reason = 0;
     if (player->isInCombat())
         reason = 1;
     else if (player->m_movementInfo.HasMovementFlag(MOVEMENTFLAG_FALLING | MOVEMENTFLAG_FALLING_FAR))
         reason = 3;                                         // is jumping or falling
-    else if (player->duel || player->HasAura(9454)) // is dueling or frozen by GM via freeze command
+    else if (preventAfkSanctuaryLogout || preventAfkLogout || player->duel || player->HasAura(9454)) // is dueling or frozen by GM via freeze command
         reason = 2;                                         // FIXME - Need the correct value
     else if (auto instance = player->GetInstanceScript())
         if (!player->isGameMaster() && instance->IsEncounterInProgress()) // Don`t res if instance in progress
             reason = 1;
-
-    //instant logout in taverns/cities or on taxi or for admins, gm's, mod's if its enabled in worldserver.conf
-    bool instantLogout = player->HasFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_RESTING) || player->isInFlight() ||
-        GetSecurity() >= AccountTypes(sWorld->getIntConfig(CONFIG_INSTANT_LOGOUT)) || player->GetMapId() == 1179;//duel zone
 
     WorldPackets::Character::LogoutResponse logoutResponse;
     logoutResponse.LogoutResult = reason;
@@ -2060,7 +2062,7 @@ void WorldSession::HandleLogoutRequest(WorldPackets::Character::LogoutRequest& /
         return;
     }
 
-    // instant logout in taverns/cities or on taxi or for admins, gm's, mod's if its enabled in worldserver.conf
+    // instant logout in taverns/cities or on taxi or for admins, GMs, mods if its enabled in worldserver.conf
     if (instantLogout)
     {
         // LogoutPlayer(true);

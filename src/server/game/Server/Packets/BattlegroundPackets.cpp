@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,12 +12,12 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "BattlegroundPackets.h"
 
-WorldPacket const* WorldPackets::Battleground::PVPSeason::Write()
+WorldPacket const* WorldPackets::Battleground::PvpSeason::Write()
 {
     _worldPacket << uint32(CurrentSeason);
     _worldPacket << uint32(PreviousSeason);
@@ -90,7 +90,7 @@ void WorldPackets::Battleground::JoinArena::Read()
     _worldPacket >> Roles;
 }
 
-ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PVPLogData::RatingData const& ratingData)
+ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PvpLogData::RatingData const& ratingData)
 {
     data.append(ratingData.Prematch, 2);
     data.append(ratingData.Postmatch, 2);
@@ -99,7 +99,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PVPLogData:
     return data;
 }
 
-ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PVPLogData::HonorData const& honorData)
+ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PvpLogData::HonorData const& honorData)
 {
     data << uint32(honorData.HonorKills);
     data << uint32(honorData.Deaths);
@@ -108,7 +108,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PVPLogData:
     return data;
 }
 
-ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PVPLogData::PlayerData const& playerData)
+ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PvpLogData::PlayerData const& playerData)
 {
     data << playerData.PlayerGUID;
     data << uint32(playerData.Kills);
@@ -149,9 +149,9 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Battleground::PVPLogData:
     return data;
 }
 
-WorldPacket const* WorldPackets::Battleground::PVPLogData::Write()
+WorldPacket const* WorldPackets::Battleground::PvpLogData::Write()
 {
-    _worldPacket.reserve(Players.size() * sizeof(PlayerData) + sizeof(PVPLogData));
+    _worldPacket.reserve(Players.size() * sizeof(PlayerData) + sizeof(PvpLogData));
 
     _worldPacket.WriteBit(Ratings.is_initialized());
     _worldPacket.WriteBit(Winner.is_initialized());
@@ -188,7 +188,7 @@ WorldPacket const* WorldPackets::Battleground::AreaSpiritHealerTime::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::Battleground::ReportPvPPlayerAFKResult::Write()
+WorldPacket const* WorldPackets::Battleground::ReportPvpPlayerAFKResult::Write()
 {
     _worldPacket << Offender;
     _worldPacket << Result;
@@ -216,7 +216,7 @@ WorldPacket const* WorldPackets::Battleground::BattlefieldList::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::Battleground::PVPOptionsEnabled::Write()
+WorldPacket const* WorldPackets::Battleground::PvpOptionsEnabled::Write()
 {
     _worldPacket.WriteBit(RatedArenas);
     _worldPacket.WriteBit(ArenaSkirmish);
@@ -229,7 +229,7 @@ WorldPacket const* WorldPackets::Battleground::PVPOptionsEnabled::Write()
     return &_worldPacket;
 }
 
-WorldPacket const* WorldPackets::Battleground::RequestPVPRewardsResponse::Write()
+WorldPacket const* WorldPackets::Battleground::RequestPvpRewardsResponse::Write()
 {
     _worldPacket << RandomBGRewards;
 
@@ -317,7 +317,7 @@ WorldPacket const* WorldPackets::Battleground::Points::Write()
 
 WorldPacket const* WorldPackets::Battleground::Init::Write()
 {
-    _worldPacket << ServerTime; // C_PvP.GetArenaCrowdControlInfo
+    _worldPacket << ServerTime; // C_Pvp.GetArenaCrowdControlInfo
     _worldPacket << MaxPoints;
 
     return &_worldPacket;
@@ -439,7 +439,7 @@ void WorldPackets::Battleground::JoinSkirmish::Read()
     _worldPacket >> Bracket;
 }
 
-void WorldPackets::Battleground::ReportPvPPlayerAFK::Read()
+void WorldPackets::Battleground::ReportPvpPlayerAFK::Read()
 {
     _worldPacket >> Offender;
 }

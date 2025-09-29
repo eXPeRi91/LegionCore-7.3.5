@@ -15,24 +15,24 @@ enum Misc
     EVENT_WINNER_TEAM           = 306
 };
 
-class OutdoorPvPSilithus : public OutdoorPvP
+class OutdoorPvpSilithus : public OutdoorPvp
 {
 public:
-    OutdoorPvPSilithus()
+    OutdoorPvpSilithus()
     {
         m_TypeId = OUTDOOR_PVP_SILITHUS;
     }
 
-    ~OutdoorPvPSilithus() = default;
+    ~OutdoorPvpSilithus() = default;
 
-    bool SetupOutdoorPvP() override
+    bool SetupOutdoorPvp() override
     {
         for (auto zone : { 5695, 1377 })
             RegisterZone(zone);
 
         if (!sGameEventMgr->IsActiveEvent(EVENT_CALL_OF_THE_SCARAB))
         {
-            sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE, 0);
+            sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE, 0);
             sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE, 0);
             CharacterDatabase.PExecute("DELETE FROM character_currency WHERE currency in (1325,1324);");
             CharacterDatabase.PExecute("DELETE FROM character_queststatus_rewarded WHERE quest in (45785,45787);");
@@ -50,7 +50,7 @@ public:
 
     void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerEnterZone(guid, zone);
+        OutdoorPvp::HandlePlayerEnterZone(guid, zone);
 
         if (m_stage != EVENT_ACTIVE)
             return;
@@ -59,7 +59,7 @@ public:
         if (!player)
             return;
 
-        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
         player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
@@ -68,7 +68,7 @@ public:
 
     void HandlePlayerLeaveZone(ObjectGuid guid, uint32 zone) override
     {
-        OutdoorPvP::HandlePlayerLeaveZone(guid, zone);
+        OutdoorPvp::HandlePlayerLeaveZone(guid, zone);
 
         Player* player = ObjectAccessor::GetObjectInMap(guid, m_map, (Player*)nullptr);
         if (!player)
@@ -86,18 +86,18 @@ public:
 
             ApplyOnEveryPlayerInZone([this](Player* player) -> void
             {
-                AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+                AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                 HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
-                if (AllianceScore > CurrectAllianceScore)
+                if (AllianceScore > CurrentAllianceScore)
                 {
-                    CurrectAllianceScore = AllianceScore;
+                    CurrentAllianceScore = AllianceScore;
                     player->SendUpdateWorldState(static_cast<WorldStates>(12953), AllianceScore);
                 }
 
-                if (HordeScore > CurrectHordeScore)
+                if (HordeScore > CurrentHordeScore)
                 {
-                    CurrectHordeScore = AllianceScore;
+                    CurrentHordeScore = HordeScore;
                     player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                 }
             });
@@ -120,12 +120,12 @@ public:
             {
                 m_winner = 0;
 
-                AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+                AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                 HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
                 if (AllianceScore > HordeScore)
                 {
-                    WorldDatabase.PExecute("UPDATE game_event SET start_time='0000-00-00 00:00:00' WHERE eventEntry = 76");
+                    WorldDatabase.PExecute("UPDATE game_event SET start_time='1970-01-01 00:00:01' WHERE eventEntry = 76");
                     WorldDatabase.PExecute("UPDATE game_event SET start_time=NOW() WHERE eventEntry = 77");
 
                     if (sGameEventMgr->IsActiveEvent(EVENT_HORDE_FLAG))
@@ -136,7 +136,7 @@ public:
                 }
                 else if (HordeScore > AllianceScore)
                 {
-                    WorldDatabase.PExecute("UPDATE game_event SET start_time='0000-00-00 00:00:00' WHERE eventEntry = 77");
+                    WorldDatabase.PExecute("UPDATE game_event SET start_time='1970-01-01 00:00:01' WHERE eventEntry = 77");
                     WorldDatabase.PExecute("UPDATE game_event SET start_time=NOW() WHERE eventEntry = 76");
 
                     if (sGameEventMgr->IsActiveEvent(EVENT_ALLIANCE_FLAG))
@@ -149,12 +149,12 @@ public:
                 if (sGameEventMgr->IsActiveEvent(EVENT_WINNER_TEAM))
                     sGameEventMgr->StopEvent(EVENT_WINNER_TEAM, true);
 
-                CurrectAllianceScore = 0;
-                CurrectHordeScore = 0;
+                CurrentAllianceScore = 0;
+                CurrentHordeScore = 0;
                 update_worldstate = 0;
                 HordeScore = 0;
                 AllianceScore = 0;
-                sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE, 0);
+                sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE, 0);
                 sWorld->setWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE, 0);
                 CharacterDatabase.PExecute("DELETE FROM character_currency WHERE currency in (1325,1324)");
                 ApplyOnEveryPlayerInZone([this](Player* player) -> void
@@ -183,31 +183,31 @@ public:
 
         m_stage = EVENT_ACTIVE;
         update_worldstate = 2000;
-        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
-        CurrectAllianceScore = AllianceScore;
-        CurrectHordeScore = CurrectHordeScore;
+        CurrentAllianceScore = AllianceScore;
+        CurrentHordeScore = HordeScore;
     }
 
 private:
     uint8 m_stage{};
     uint8 m_winner{};
     uint32 update_worldstate{};
-    uint32 CurrectAllianceScore{};
-    uint32 CurrectHordeScore{};
+    uint32 CurrentAllianceScore{};
+    uint32 CurrentHordeScore{};
     uint32 AllianceScore{};
     uint32 HordeScore{};
     bool b_winner = false;
 };
 
-class OutdoorPvP_Silithus : public OutdoorPvPScript
+class OutdoorPvp_Silithus : public OutdoorPvpScript
 {
 public:
-    OutdoorPvP_Silithus() : OutdoorPvPScript("outdoorpvp_silithus") {}
+    OutdoorPvp_Silithus() : OutdoorPvpScript("outdoorpvp_silithus") {}
 
-    OutdoorPvP* GetOutdoorPvP() const override
+    OutdoorPvp* GetOutdoorPvp() const override
     {
-        return new OutdoorPvPSilithus();
+        return new OutdoorPvpSilithus();
     }
 };
 
@@ -350,7 +350,7 @@ class spell_silithyst : public AuraScript
 
 void AddSC_CallOfTheScarab()
 {
-    //new OutdoorPvP_Silithus();
+    //new OutdoorPvp_Silithus();
     new go_wind_stone();
     RegisterCreatureAI(npc_sillithis_colossus);
     RegisterAuraScript(spell_silithyst);

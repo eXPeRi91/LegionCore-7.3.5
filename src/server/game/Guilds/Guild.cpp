@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AccountMgr.h"
@@ -1218,7 +1218,7 @@ void Guild::BankMoveItemData::LogAction(MoveItemData* pFrom) const
     MoveItemData::LogAction(pFrom);
     if (!pFrom->IsBank() && sWorld->getBoolConfig(CONFIG_GM_LOG_TRADE) && !AccountMgr::IsPlayerAccount(m_pPlayer->GetSession()->GetSecurity()))       // TODO: move to scripts
         sLog->outCommand(m_pPlayer->GetSession()->GetAccountId(),
-            "GM %s (Account: %u) deposit item: %s (Entry: %d Count: %u) to guild bank (Guild ID: %u)",
+            "GM %s (Account: %u) deposit item: %s (Entry: %d Count: %u) to guild bank (Guild ID: %lu)",
             m_pPlayer->GetName(), m_pPlayer->GetSession()->GetAccountId(),
             pFrom->GetItem()->GetTemplate()->GetName()->Str[m_pPlayer->GetSession()->GetSessionDbLocaleIndex()], pFrom->GetItem()->GetEntry(), pFrom->GetItem()->GetCount(),
             m_pGuild->GetId());
@@ -2301,11 +2301,11 @@ void Guild::HandleMemberDepositMoney(WorldSession* session, uint64 amount, bool 
     if (!AccountMgr::IsPlayerAccount(player->GetSession()->GetSecurity()) && sWorld->getBoolConfig(CONFIG_GM_LOG_TRADE))
     {
         sLog->outCommand(player->GetSession()->GetAccountId(),
-            "GM %s (Account: %u) deposit money (Amount: " UI64FMTD ") to guild bank (Guild ID %u)",
+            "GM %s (Account: %u) deposit money (Amount: " UI64FMTD ") to guild bank (Guild ID %lu)",
             player->GetName(), player->GetSession()->GetAccountId(), amount, m_id);
     }
     if (amount >= sWorld->getIntConfig(CONFIG_LOG_GOLD_FROM))
-        TC_LOG_DEBUG(LOG_FILTER_GOLD, "GuildDepositMoney: %s GUID %u (Account: %u) deposit money (Amount: " UI64FMTD ") to guild bank (Guild ID %u)", player->GetName(), player->GetGUIDLow(), player->GetSession()->GetAccountId(), amount, m_id);
+        TC_LOG_DEBUG(LOG_FILTER_GOLD, "GuildDepositMoney: %s GUID %u (Account: %u) deposit money (Amount: " UI64FMTD ") to guild bank (Guild ID %lu)", player->GetName(), player->GetGUIDLow(), player->GetSession()->GetAccountId(), amount, m_id);
 
     // Log guild bank event
     _LogBankEvent(trans, cashFlow ? GUILD_BANK_LOG_CASH_FLOW_DEPOSIT : GUILD_BANK_LOG_DEPOSIT_MONEY, uint8(0), player->GetGUIDLow(), amount);

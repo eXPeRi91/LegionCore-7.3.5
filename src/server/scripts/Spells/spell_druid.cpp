@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -521,7 +521,7 @@ class spell_dru_frenzied_regeneration : public AuraScript
     {
         if (Unit* caster = GetCaster())
         {
-            float bp0 = caster->CanPvPScalar() ? GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster) / 2 : GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster);
+            float bp0 = caster->CanPvpScalar() ? GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster) / 2 : GetSpellInfo()->Effects[EFFECT_1]->CalcValue(caster);
             int32 heal = int32(CalculatePct(caster->GetMaxHealth(), GetSpellInfo()->Effects[EFFECT_3]->CalcValue(caster)));
             int32 damageTaken = caster->GetDamageTakenInPastSecs(GetSpellInfo()->Effects[EFFECT_2]->CalcValue(caster), true, true);
             if (damageTaken > 3)
@@ -1273,8 +1273,8 @@ class spell_dru_rake : public SpellScriptLoader
                 if (Unit* caster = GetCaster())
                 {
                     int32 bp = GetSpellInfo()->Effects[EFFECT_3]->CalcValue(caster);
-                    if (caster->CanPvPScalar()) // hack, why doesn't it work PvPMultiplier?!
-                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvPMultiplier;
+                    if (caster->CanPvpScalar()) // hack, why doesn't it work PvpMultiplier?!
+                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvpMultiplier;
 
                     if (caster->HasAura(231052) && (GetSpell()->GetCastedFromStealth() || caster->HasAura(102543)))
                         SetHitDamage(GetHitDamage() + CalculatePct(GetHitDamage(), bp));
@@ -1673,8 +1673,8 @@ class spell_dru_shred : public SpellScriptLoader
                 {
                     int32 damage = GetHitDamage();
                     int32 bp = GetSpellInfo()->Effects[EFFECT_3]->CalcValue(caster);
-                    if (caster->CanPvPScalar()) // hack, why doesn't it work PvPMultiplier?!
-                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvPMultiplier;
+                    if (caster->CanPvpScalar()) // hack, why doesn't it work PvpMultiplier?!
+                        bp *= GetSpellInfo()->Effects[EFFECT_3]->PvpMultiplier;
 
                     if (caster->HasAura(231057) && (GetSpell()->GetCastedFromStealth() || caster->HasAura(102543)))
                         AddPct(damage, bp);
@@ -2033,12 +2033,12 @@ class spell_dru_swiftmend : public SpellScript
             plr->ModSpellChargeCooldown(GetSpellInfo()->Id, bp);
         }
 
-		// Extends lifebloom by 10 sec when having T18 Resto 4P bonus with Edraith, Bonds of Aglaya legion legendary
-		if (plr->HasAura(185397) && plr->HasAura(207943))
-			if (const SpellInfo* spellInfo = sSpellMgr->GetSpellInfo(188550))
-				if (Aura* aur = target->GetAura(spellInfo->Id, plr->GetGUID()))
-					if (AuraEffect const* aurEf = plr->GetAuraEffect(207943, EFFECT_0))
-						aur->SetDuration(aur->GetDuration() + aurEf->GetAmount() * IN_MILLISECONDS);
+        // Extends lifebloom by 10 sec when having T18 Resto 4P bonus with Edraith, Bonds of Aglaya legion legendary
+        if (plr->HasAura(185397) && plr->HasAura(207943))
+            if (const SpellInfo* spellInfo = sSpellMgr->GetSpellInfo(188550))
+                if (Aura* aur = target->GetAura(spellInfo->Id, plr->GetGUID()))
+                    if (AuraEffect const* aurEf = plr->GetAuraEffect(207943, EFFECT_0))
+                        aur->SetDuration(aur->GetDuration() + aurEf->GetAmount() * IN_MILLISECONDS);
     }
 
     void Register() override
@@ -2052,13 +2052,13 @@ class spell_dru_regrowth : public SpellScript
 {
     PrepareSpellScript(spell_dru_regrowth);
 
-    bool haspvptal = false;
+    bool hasPvpTal = false;
 
     uint32 CallSpecialFunction(uint32 /*Num*/) override
     {
         if (Unit* caster = GetCaster())
         {
-            if (haspvptal)
+            if (hasPvpTal)
             {
                 if (Unit* target = GetExplTargetUnit())
                     if (caster != target)
@@ -2073,7 +2073,7 @@ class spell_dru_regrowth : public SpellScript
         if (Unit* caster = GetCaster())
         {
             if (caster->HasAura(209730)) // Protector of the Grove (PvP Talent)
-                haspvptal = true;
+                hasPvpTal = true;
         }
     }
     void HandleOnHit(SpellEffIndex /*effIndex*/)
@@ -2083,7 +2083,7 @@ class spell_dru_regrowth : public SpellScript
             return;
 
         if (Unit* caster = GetCaster())
-            if (haspvptal)
+            if (hasPvpTal)
                 if (caster != target)
                     caster->CastSpell(caster, 209731, true);
     }

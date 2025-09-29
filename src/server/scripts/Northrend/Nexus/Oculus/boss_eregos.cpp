@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2014 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -73,9 +73,9 @@ enum Actions
 
 enum EregosData
 {
-    DATA_RUBY_VOID          = 0,      // http://www.wowhead.com/achievement=2044
-    DATA_EMERALD_VOID       = 1,      // http://www.wowhead.com/achievement=2045
-    DATA_AMBER_VOID         = 2       // http://www.wowhead.com/achievement=2046
+    DATA_RUBY_VOID          = 0,      // https://www.wowhead.com/achievement=2044
+    DATA_EMERALD_VOID       = 1,      // https://www.wowhead.com/achievement=2045
+    DATA_AMBER_VOID         = 2       // https://www.wowhead.com/achievement=2046
 };
 
 class boss_eregos : public CreatureScript

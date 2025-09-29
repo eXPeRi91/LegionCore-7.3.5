@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AchievementMgr.h"
@@ -1596,7 +1596,7 @@ void AchievementMgr<T>::UpdateAchievementCriteria(AchievementCachePtr cachePtr, 
     // TC_LOG_DEBUG(LOG_FILTER_ACHIEVEMENTSYS, "UpdateAchievementCriteria type %u (%u, %u, %u) CriteriaSort %u", cachePtr->type, cachePtr->miscValue1, cachePtr->miscValue2, cachePtr->miscValue3, GetCriteriaSort());
 
     // Prevent update if player not loading
-    if (!this || !CanUpdate())
+    if (!CanUpdate())
         return;
 
     // disable for gamemasters with GM-mode enabled
@@ -2036,9 +2036,8 @@ bool AchievementMgr<Player>::CanCompleteCriteria(AchievementEntry const* achieve
             return false;
 
         if (GetOwner())
-            if (GetOwner()->GetSession())
-                if (GetOwner()->GetSession()->GetSecurity())
-                    return false;
+            if (GetOwner()->isGameMaster())
+                return false;
     }
 
     return true;
@@ -4151,7 +4150,7 @@ bool AchievementMgr<T>::AdditionalRequirementsSatisfied(ModifierTreeNode const* 
                     break;
                 }
 
-                if (!garrison->hasTallent(reqValue))
+                if (!garrison->hasTalent(reqValue))
                     check = false;
                 break;
             }

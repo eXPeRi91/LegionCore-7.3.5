@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef BattlePetPacketsWorld_h__
@@ -344,10 +344,10 @@ namespace WorldPackets
             PetBattleLocation Location;
         };
 
-        class PVPChallenge final : public ServerPacket
+        class PvpChallenge final : public ServerPacket
         {
         public:
-            PVPChallenge() : ServerPacket(SMSG_PET_BATTLE_PVP_CHALLENGE, 16 + 4 + 12 + 4 + 12 * 2) { }
+            PvpChallenge() : ServerPacket(SMSG_PET_BATTLE_PVP_CHALLENGE, 16 + 4 + 12 + 4 + 12 * 2) { }
 
             WorldPacket const* Write() override;
 
@@ -371,10 +371,10 @@ namespace WorldPackets
             BattleRequest Battle;
         };
 
-        class RequestPVP final : public ClientPacket
+        class RequestPvp final : public ClientPacket
         {
         public:
-            RequestPVP(WorldPacket&& packet) : ClientPacket(CMSG_PET_BATTLE_REQUEST_PVP, std::move(packet)) { }
+            RequestPvp(WorldPacket&& packet) : ClientPacket(CMSG_PET_BATTLE_REQUEST_PVP, std::move(packet)) { }
 
             void Read() override;
 
@@ -524,7 +524,7 @@ namespace WorldPackets
             uint16 PvpMaxRoundTime = 0;
             uint8 ForfeitPenalty = 0;
             int8 CurPetBattleState = 0;
-            bool IsPVP = false;
+            bool IsPvp = false;
             bool CanAwardXP = false;
         };
 

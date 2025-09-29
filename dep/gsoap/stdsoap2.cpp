@@ -19,7 +19,7 @@ gSOAP public license.
 The contents of this file are subject to the gSOAP Public License Version 1.3
 (the "License"); you may not use this file except in compliance with the
 License. You may obtain a copy of the License at
-http://www.cs.fsu.edu/~engelen/soaplicense.html
+https://www.cs.fsu.edu/~engelen/soaplicense.html
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
 for the specific language governing rights and limitations under the License.
@@ -324,11 +324,11 @@ unsigned short errno;
 #endif
 
 #ifndef PALM_1
-static const char soap_env1[42] = "http://schemas.xmlsoap.org/soap/envelope/";
-static const char soap_enc1[42] = "http://schemas.xmlsoap.org/soap/encoding/";
-static const char soap_env2[40] = "http://www.w3.org/2003/05/soap-envelope";
-static const char soap_enc2[40] = "http://www.w3.org/2003/05/soap-encoding";
-static const char soap_rpc[35] = "http://www.w3.org/2003/05/soap-rpc";
+static const char soap_env1[43] = "https://schemas.xmlsoap.org/soap/envelope/";
+static const char soap_enc1[43] = "https://schemas.xmlsoap.org/soap/encoding/";
+static const char soap_env2[41] = "https://www.w3.org/2003/05/soap-envelope";
+static const char soap_enc2[41] = "https://www.w3.org/2003/05/soap-encoding";
+static const char soap_rpc[36] = "https://www.w3.org/2003/05/soap-rpc";
 #endif
 
 #ifndef PALM_1
@@ -6493,7 +6493,7 @@ http_parse_header(struct soap *soap, const char *key, const char *val)
       soap_strcpy(soap->endpoint, sizeof(soap->endpoint), "https://");
     else
 #endif
-      soap_strcpy(soap->endpoint, sizeof(soap->endpoint), "http://");
+      soap_strcpy(soap->endpoint, sizeof(soap->endpoint), "https://");
     if (soap_strncat(soap->endpoint, sizeof(soap->endpoint), val, sizeof(soap->endpoint) - 9))
       return soap->error = SOAP_HDR;
   }
@@ -8724,7 +8724,7 @@ soap_attachment(struct soap *soap, const char *tag, int id, const void *p, const
   /* TODO: this code to be obsoleted with new import/xop.h conventions */
   if ((soap->mode & SOAP_ENC_MTOM) && strcmp(tag, "xop:Include"))
   { if (soap_element_begin_out(soap, tag, 0, type)
-     || soap_element_href(soap, "xop:Include", 0, "xmlns:xop=\"http://www.w3.org/2004/08/xop/include\" href", aid)
+     || soap_element_href(soap, "xop:Include", 0, "xmlns:xop=\"https://www.w3.org/2004/08/xop/include\" href", aid)
      || soap_element_end_out(soap, tag))
       return soap->error;
   }
@@ -12887,7 +12887,7 @@ soap_peek_element(struct soap *soap)
           soap->mustUnderstand = 1;
         else if (!soap_match_tag(soap, tp->name, "SOAP-ENV:actor"))
         { if ((!soap->actor || strcmp(soap->actor, tp->value))
-           && strcmp(tp->value, "http://schemas.xmlsoap.org/soap/actor/next"))
+           && strcmp(tp->value, "https://schemas.xmlsoap.org/soap/actor/next"))
             soap->other = 1;
         }
       }
@@ -12913,7 +12913,7 @@ soap_peek_element(struct soap *soap)
           soap->mustUnderstand = 1;
         else if (!soap_match_tag(soap, tp->name, "SOAP-ENV:role"))
         { if ((!soap->actor || strcmp(soap->actor, tp->value))
-           && strcmp(tp->value, "http://www.w3.org/2003/05/soap-envelope/role/next"))
+           && strcmp(tp->value, "https://www.w3.org/2003/05/soap-envelope/role/next"))
             soap->other = 1;
         }
       }
@@ -18742,7 +18742,7 @@ soap_try_connect_command(struct soap *soap, int http_command, const char *endpoi
 #ifndef PALM_1
 static int
 soap_ntlm_handshake(struct soap *soap, int command, const char *endpoint, const char *host, int port)
-{ /* requires libntlm from http://www.nongnu.org/libntlm/ */
+{ /* requires libntlm from https://www.nongnu.org/libntlm/ */
   const char *userid = (soap->proxy_userid ? soap->proxy_userid : soap->userid);
   const char *passwd = (soap->proxy_passwd ? soap->proxy_passwd : soap->passwd);
   struct SOAP_ENV__Header *oldheader;

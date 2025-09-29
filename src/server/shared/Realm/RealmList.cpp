@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2016 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "RealmList.h"
@@ -63,21 +63,21 @@ void RealmList::Close()
 
 void RealmList::LoadBuildInfo()
 {
-	//                                                              0             1              2              3      4              5              6            7
-	if (QueryResult result = LoginDatabase.Query("SELECT majorVersion, minorVersion, bugfixVersion, hotfixVersion, build, win64AuthSeed, mac64AuthSeed, winAuthSeed FROM build_info ORDER BY build ASC"))
-	{
-		do
-		{
-			Field* fields = result->Fetch();
-			_builds.emplace_back();
-			RealmBuildInfo& build = _builds.back();
-			build.MajorVersion = fields[0].GetUInt32();
-			build.MinorVersion = fields[1].GetUInt32();
-			build.BugfixVersion = fields[2].GetUInt32();
-			std::string hotfixVersion = fields[3].GetString();
-			if (hotfixVersion.length() < build.HotfixVersion.size())
-				std::copy(hotfixVersion.begin(), hotfixVersion.end(), build.HotfixVersion.begin());
-			else
+    //                                                              0             1              2              3      4              5              6            7
+    if (QueryResult result = LoginDatabase.Query("SELECT majorVersion, minorVersion, bugfixVersion, hotfixVersion, build, win64AuthSeed, mac64AuthSeed, winAuthSeed FROM build_info ORDER BY build ASC"))
+    {
+        do
+        {
+            Field* fields = result->Fetch();
+            _builds.emplace_back();
+            RealmBuildInfo& build = _builds.back();
+            build.MajorVersion = fields[0].GetUInt32();
+            build.MinorVersion = fields[1].GetUInt32();
+            build.BugfixVersion = fields[2].GetUInt32();
+            std::string hotfixVersion = fields[3].GetString();
+            if (hotfixVersion.length() < build.HotfixVersion.size())
+                std::copy(hotfixVersion.begin(), hotfixVersion.end(), build.HotfixVersion.begin());
+            else
                 std::fill(hotfixVersion.begin(), hotfixVersion.end(), '\0');
 
             build.Build = fields[4].GetUInt32();
@@ -255,11 +255,11 @@ RealmBuildInfo const* RealmList::GetBuildInfo(uint32 build) const
 
 uint32 RealmList::GetMinorMajorBugfixVersionForBuild(uint32 build) const
 {
-	auto buildInfo = std::lower_bound(_builds.begin(), _builds.end(), build, [](RealmBuildInfo const& buildInfo, uint32 value)
-	{
-		return buildInfo.Build < value;
-	});
-	return buildInfo != _builds.end() ? (buildInfo->MajorVersion * 10000 + buildInfo->MinorVersion * 100 + buildInfo->BugfixVersion) : 0;
+    auto buildInfo = std::lower_bound(_builds.begin(), _builds.end(), build, [](RealmBuildInfo const& buildInfo, uint32 value)
+    {
+        return buildInfo.Build < value;
+    });
+    return buildInfo != _builds.end() ? (buildInfo->MajorVersion * 10000 + buildInfo->MinorVersion * 100 + buildInfo->BugfixVersion) : 0;
 }
 
 void RealmList::WriteSubRegions(bgs::protocol::game_utilities::v1::GetAllValuesForAttributeResponse* response) const

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "naxxramas.h"
@@ -249,12 +249,15 @@ public:
     void OnPlayerEnter(Player *pPlayer) override
     {
         if (instance->GetSpawnMode() == DIFFICULTY_10_N)
+        {
             if (instance->GetPlayersCountExceptGMs() > 8)
                 bfewer = false;
-
+        }
         else if (instance->GetSpawnMode() == DIFFICULTY_25_N)
-                if (instance->GetPlayersCountExceptGMs() > 20)
-                    bfewer = false;
+        {
+            if (instance->GetPlayersCountExceptGMs() > 20)
+                bfewer = false;
+        }
     }
 
     void OnCreatureCreate(Creature* pCreature) override
@@ -603,10 +606,12 @@ public:
                 }
             }
             if (bAllBossesDone && bImmortal)
+            {
                 if (Difficulty(instance->GetSpawnMode()) == DIFFICULTY_10_N)
                     DoCompleteAchievement(ACHIEVEMENT_UNDYING_10);
                 else if (Difficulty(instance->GetSpawnMode()) == DIFFICULTY_25_N)
                     DoCompleteAchievement(ACHIEVEMENT_IMMORTAL_25);
+            }
         }
         if (state == IN_PROGRESS)
         {
@@ -730,17 +735,20 @@ public:
             return;
 
         if (bImmortal)
+        {
             if (uiCheckAchievTimer <= diff)
             {
-                Map::PlayerList const &PlayerList = instance->GetPlayers();
+                Map::PlayerList const& PlayerList = instance->GetPlayers();
                 if (!PlayerList.isEmpty())
                     for (Map::PlayerList::const_iterator i = PlayerList.begin(); i != PlayerList.end(); ++i)
                         if (i->getSource()->isDead())
                             bImmortal = false;
 
-                uiCheckAchievTimer = 1*IN_MILLISECONDS;
-            } else
+                uiCheckAchievTimer = 1 * IN_MILLISECONDS;
+            }
+            else
                 uiCheckAchievTimer -= diff;
+        }
     }
 };
 };

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "CreatureTextMgr.h"
@@ -552,7 +552,7 @@ public:
         ObjectGuid bhGuid;
         float dist;
 
-        void Reset()
+        void Reset() override
         {
             events.Reset();
         }
@@ -567,13 +567,13 @@ public:
             }
         }
 
-        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType) override
         {
             if (damage >= me->GetHealth())
                 damage = 0;
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
 
@@ -628,7 +628,7 @@ public:
         ObjectGuid bhbaseGuid;
         float dist;
 
-        void Reset()
+        void Reset() override
         {
             events.Reset();
         }
@@ -643,24 +643,24 @@ public:
             }
         }
 
-        void EnterEvadeMode(){}
+        void EnterEvadeMode() override {}
 
-        void EnterCombat(Unit* who){}
+        void EnterCombat(Unit* who) override {}
 
-        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType) override
         {
             if (damage >= me->GetHealth())
                 damage = 0;
         }
 
-        void MovementInform(uint32 type, uint32 pointId)
+        void MovementInform(uint32 type, uint32 pointId) override
         {
             if (type == EFFECT_MOTION_TYPE || type == POINT_MOTION_TYPE)
                 if (pointId == 1)
                     events.RescheduleEvent(EVENT_UPDATE_POINT, 100);
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
 
@@ -996,7 +996,7 @@ public:
         enum sp
         {
             SPELL_UNLEASHED                              = 146173,
-            SPELL_UNLEASHED_0_EFFECT_PROCK               = 148974,
+            SPELL_UNLEASHED_0_EFFECT_PROC                = 148974,
         };
 
         void Reset()
@@ -1018,7 +1018,7 @@ public:
             me->CastSpell(me, SPELL_UNLEASHED, false);
             me->SetInCombatWithZone();
             if (Creature* amalgam = pInstance->instance->GetCreature(pInstance->GetGuidData(NPC_AMALGAM_OF_CORRUPTION)))
-                amalgam->CastSpell(me, SPELL_UNLEASHED_0_EFFECT_PROCK, false);
+                amalgam->CastSpell(me, SPELL_UNLEASHED_0_EFFECT_PROC, false);
         }
 
         void JustDied(Unit* killer)
@@ -1073,7 +1073,7 @@ public:
         enum spell
         {
             SPELL_UNLEASHED                     = 146174,
-            SPELL_UNLEASHED_0_EFFECT_PROCK      = 148974,
+            SPELL_UNLEASHED_0_EFFECT_PROC       = 148974,
             SPELL_STEALTH_DETECTION             = 8279,     //Stealth Detection
             SPELL_EXPEL_CORRUPTION              = 145064,   //145132 on friend | 145134 on enemy
         };
@@ -1089,7 +1089,7 @@ public:
             me->CastSpell(me, SPELL_STEALTH_DETECTION, false);
             if (Creature* amalgam = instance->instance->GetCreature(instance->GetGuidData(NPC_AMALGAM_OF_CORRUPTION)))
             {
-                amalgam->CastSpell(me, SPELL_UNLEASHED_0_EFFECT_PROCK, false);
+                amalgam->CastSpell(me, SPELL_UNLEASHED_0_EFFECT_PROC, false);
                 me->SetFacingToObject(amalgam);
             }
             me->CastSpell(me, SPELL_EXPEL_CORRUPTION, true);
@@ -1757,14 +1757,14 @@ private:
 };
 
 //145227
-class spell_norushen_blind_hatred_prock : public SpellScriptLoader
+class spell_norushen_blind_hatred_proc : public SpellScriptLoader
 {
 public:
-    spell_norushen_blind_hatred_prock() : SpellScriptLoader("spell_blind_hatred") { }
+    spell_norushen_blind_hatred_proc() : SpellScriptLoader("spell_blind_hatred") { }
     
-    class spell_norushen_blind_hatred_prock_SpellScript : public SpellScript
+    class spell_norushen_blind_hatred_proc_SpellScript : public SpellScript
     {
-        PrepareSpellScript(spell_norushen_blind_hatred_prock_SpellScript);
+        PrepareSpellScript(spell_norushen_blind_hatred_proc_SpellScript);
 
         void FilterTargets(std::list<WorldObject*>&unitList)
         {
@@ -1780,14 +1780,14 @@ public:
 
         void Register()
         {
-            OnObjectAreaTargetSelect += SpellObjectAreaTargetSelectFn(spell_norushen_blind_hatred_prock_SpellScript::FilterTargets, EFFECT_0, TARGET_UNIT_SRC_AREA_ENTRY);
-            OnObjectAreaTargetSelect += SpellObjectAreaTargetSelectFn(spell_norushen_blind_hatred_prock_SpellScript::FilterTargets, EFFECT_1, TARGET_UNIT_SRC_AREA_ENTRY);
+            OnObjectAreaTargetSelect += SpellObjectAreaTargetSelectFn(spell_norushen_blind_hatred_proc_SpellScript::FilterTargets, EFFECT_0, TARGET_UNIT_SRC_AREA_ENTRY);
+            OnObjectAreaTargetSelect += SpellObjectAreaTargetSelectFn(spell_norushen_blind_hatred_proc_SpellScript::FilterTargets, EFFECT_1, TARGET_UNIT_SRC_AREA_ENTRY);
         }
     };
     
     SpellScript* GetSpellScript() const
     {
-        return new spell_norushen_blind_hatred_prock_SpellScript();
+        return new spell_norushen_blind_hatred_proc_SpellScript();
     }
 };
 
@@ -2239,7 +2239,7 @@ void AddSC_boss_norushen()
     new npc_norushen_heal_ch_guardian();
     new spell_norushen_blind_hatred();
     new spell_blind_hatred_periodic();
-    new spell_norushen_blind_hatred_prock();
+    new spell_norushen_blind_hatred_proc();
     new spell_unleashed_anger();
     new spell_icy_fear_dmg();
     new spell_norushen_challenge();

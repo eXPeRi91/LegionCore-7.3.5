@@ -1,6 +1,6 @@
 /*
-* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
-* Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+* Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "Common.h"
@@ -315,7 +315,7 @@ void Group::ChangeFlagEveryoneAssistant(bool apply)
 
 void Group::ChangeFlagGuildGroup(bool apply)
 {
-    if (!apply && !IsGuildGroup() || apply && IsGuildGroup())
+    if ((!apply && !IsGuildGroup()) || (apply && IsGuildGroup()))
         return;
 
     if (apply)
@@ -570,11 +570,11 @@ bool Group::AddMember(Player* player)
     {
         player->SetGroupInvite(nullptr);
 
-        bool PvPGroup = isBGGroup() || isBFGroup();
+        bool PvpGroup = isBGGroup() || isBFGroup();
 
         if (player->GetGroup())
         {
-            if (PvPGroup) // if player is in group and he is being added to BG raid group, then call SetBattlegroundRaid()
+            if (PvpGroup) // if player is in group and he is being added to BG raid group, then call SetBattlegroundRaid()
                 player->SetBattlegroundOrBattlefieldRaid(this, subGroup);
             else //if player is in bg raid and we are adding him to normal group, then call SetOriginalGroup()
                 player->SetOriginalGroup(this, subGroup);
@@ -582,7 +582,7 @@ bool Group::AddMember(Player* player)
         else //if player is not in group, then call set group
             player->SetGroup(this, subGroup);
 
-        player->SetPartyType(m_groupCategory, PvPGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL);
+        player->SetPartyType(m_groupCategory, PvpGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL);
         player->ResetGroupUpdateSequenceIfNeeded(this);
 
         // if the same group invites the player back, cancel the homebind timer
@@ -784,8 +784,6 @@ bool Group::RemoveMember(ObjectGuid const& guid, bool /*disbandInfo*/, RemoveMet
     // {
         // m_Functions.AddFunction([this, guid, method, kicker, reason]() -> void
         // {
-            // if (!this)
-                // return;
             // RemoveMemberQueue(guid, method, kicker, reason);
         // }, m_Functions.CalculateTime(10));
     // }
@@ -859,7 +857,7 @@ bool Group::RemoveMemberQueue(ObjectGuid const& guid, RemoveMethod const& method
         }
 
         // Reevaluate group enchanter if the leaving player had enchanting skill or the player is offline
-        if (player && player->GetSkillValue(SKILL_ENCHANTING) || !player)
+        if ((player && player->GetSkillValue(SKILL_ENCHANTING)) || !player)
             ResetMaxEnchantingLevel();
 
         // Remove player from loot rolls
@@ -920,7 +918,7 @@ bool Group::RemoveMemberQueue(ObjectGuid const& guid, RemoveMethod const& method
         {
             Player* leader = ObjectAccessor::FindPlayer(GetLeaderGUID());
             uint32 mapId = sLFGMgr->GetDungeonMapId(GetGUID());
-            if (!mapId || !leader || leader->isAlive() && leader->GetMapId() != mapId)
+            if (!mapId || !leader || (leader->isAlive() && leader->GetMapId() != mapId))
             {
                 Disband();
                 return false;
@@ -1730,8 +1728,8 @@ void Group::SendUpdateToPlayer(ObjectGuid playerGUID, MemberSlot* slot /*= nullp
     }
 
     WorldPackets::Party::PartyUpdate partyUpdate;
-    bool PvPGroup = isBGGroup() || isBFGroup();
-    partyUpdate.PartyType = PvPGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL;
+    bool PvpGroup = isBGGroup() || isBFGroup();
+    partyUpdate.PartyType = PvpGroup ? GROUP_TYPE_BG : GROUP_TYPE_NORMAL;
     partyUpdate.PartyFlags = m_groupFlags;
     partyUpdate.PartyGUID = m_guid;
     partyUpdate.LeaderGUID = GetLeaderGUID();
@@ -1785,7 +1783,7 @@ void Group::SendUpdateToPlayer(ObjectGuid playerGUID, MemberSlot* slot /*= nullp
         auto dungeon = sLFGMgr->GetLFGDungeon(sLFGMgr->GetDungeon(m_guid, true), player->GetTeam());
         auto lfgState = sLFGMgr->GetState(m_guid, QueueId);
         uint8 flags = 0;
-        if (lfgState == lfg::LFG_STATE_FINISHED_DUNGEON || dungeon && dungeon->dbc->Flags & LFG_FLAG_NON_BACKFILLABLE)
+        if (lfgState == lfg::LFG_STATE_FINISHED_DUNGEON || (dungeon && dungeon->dbc->Flags & LFG_FLAG_NON_BACKFILLABLE))
             flags |= 2;
 
         partyUpdate.LfgInfos = boost::in_place();
@@ -1850,7 +1848,7 @@ void Group::BroadcastAddonMessagePacket(WorldPacket const* packet, std::string c
     for (GroupReference* itr = GetFirstMember(); itr != nullptr; itr = itr->next())
     {
         Player* player = itr->getSource();
-        if (!player || !player->CanContact() || ignore && player->GetGUID() == ignore || ignorePlayersInBGRaid && player->GetGroup() != this)
+        if (!player || !player->CanContact() || (ignore && player->GetGUID() == ignore) || (ignorePlayersInBGRaid && player->GetGroup() != this))
             continue;
 
         if (WorldSession* session = player->GetSession())
@@ -2283,7 +2281,7 @@ void Group::ResetInstances(uint8 method, bool isRaid, bool isLegacy, Player* Sen
     {
         InstanceSave* instanceSave = itr->second.save;
         const MapEntry* entry = sMapStore.LookupEntry(itr->first);
-        if (!entry || entry->IsRaid() != isRaid || !instanceSave->CanReset() && method != INSTANCE_RESET_GROUP_DISBAND)
+        if (!entry || entry->IsRaid() != isRaid || (!instanceSave->CanReset() && method != INSTANCE_RESET_GROUP_DISBAND))
         {
             ++itr;
             continue;

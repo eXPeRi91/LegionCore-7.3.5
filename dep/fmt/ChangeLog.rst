@@ -126,10 +126,10 @@
   Including ``format.h`` from the ``cppformat`` directory is deprecated
   but works via a proxy header which will be removed in the next major version.
   
-  The documentation is now available at http://fmtlib.net.
+  The documentation is now available at https://fmtlib.net.
 
-* Added support for `strftime <http://en.cppreference.com/w/cpp/chrono/c/strftime>`_-like
-  `date and time formatting <http://fmtlib.net/3.0.0/api.html#date-and-time-formatting>`_
+* Added support for `strftime <https://en.cppreference.com/w/cpp/chrono/c/strftime>`_-like
+  `date and time formatting <https://fmtlib.net/3.0.0/api.html#date-and-time-formatting>`_
   (`#283 <https://github.com/fmtlib/fmt/issues/283>`_):
 
   .. code:: c++
@@ -161,7 +161,7 @@
     // s == "The date is 2012-12-9"
 
 * Added support for `custom argument formatters
-  <http://fmtlib.net/3.0.0/api.html#argument-formatters>`_
+  <https://fmtlib.net/3.0.0/api.html#argument-formatters>`_
   (`#235 <https://github.com/fmtlib/fmt/issues/235>`_).
 
 * Added support for locale-specific integer formatting with the ``n`` specifier
@@ -428,7 +428,7 @@ General
 
 * [Breaking] Improved compatibility between ``BasicStringRef`` and
   `std::experimental::basic_string_view
-  <http://en.cppreference.com/w/cpp/experimental/basic_string_view>`_
+  <https://en.cppreference.com/w/cpp/experimental/basic_string_view>`_
   (`#100 <https://github.com/fmtlib/fmt/issues/100>`_,
   `#159 <https://github.com/fmtlib/fmt/issues/159>`_,
   `#183 <https://github.com/fmtlib/fmt/issues/183>`_):
@@ -524,7 +524,7 @@ Distribution
 * `Packages for Fedora and RHEL <https://admin.fedoraproject.org/pkgdb/package/cppformat/>`_
   are now available. Thanks to Dave Johansen.
   
-* C++ Format can now be installed via `Homebrew <http://brew.sh/>`_ on OS X
+* C++ Format can now be installed via `Homebrew <https://brew.sh/>`_ on OS X
   (`#157 <https://github.com/fmtlib/fmt/issues/157>`_)::
 
     $ brew install cppformat
@@ -537,11 +537,11 @@ Documentation
 * Migrated from ReadTheDocs to GitHub Pages for better responsiveness
   and reliability
   (`#128 <https://github.com/fmtlib/fmt/issues/128>`_).
-  New documentation address is http://cppformat.github.io/.
+  New documentation address is https://cppformat.github.io/.
 
 
 * Added `Building the documentation
-  <http://fmtlib.net/2.0.0/usage.html#building-the-documentation>`_
+  <https://fmtlib.net/2.0.0/usage.html#building-the-documentation>`_
   section to the documentation.
 
 * Documentation build script is now compatible with Python 3 and newer pip versions.
@@ -695,8 +695,8 @@ Fixes
     fmt::ArrayWriter w(buffer);
     w.write("The answer is {}", 42);
 
-* Added `0 A.D. <http://play0ad.com/>`_ and `PenUltima Online (POL)
-  <http://www.polserver.com/>`_ to the list of notable projects using C++ Format.
+* Added `0 A.D. <https://play0ad.com/>`_ and `PenUltima Online (POL)
+  <https://www.polserver.com/>`_ to the list of notable projects using C++ Format.
 
 * C++ Format now uses MSVC intrinsics for better formatting performance
   (`#115 <https://github.com/fmtlib/fmt/pull/115>`_,
@@ -712,7 +712,7 @@ Fixes
 
   You can now install C++ Format with ``make install`` command.
 
-* Improved `Biicode <http://www.biicode.com/>`_ support
+* Improved `Biicode <https://www.biicode.com/>`_ support
   (`#98 <https://github.com/fmtlib/fmt/pull/98>`_ and
   `#104 <https://github.com/fmtlib/fmt/pull/104>`_). Thanks to
   `@MariadeAnton <https://github.com/MariadeAnton>`_ and
@@ -792,7 +792,7 @@ Fixes
 * Improvements to documentation build procedure.
 
 * Remove ``FMT_SHARED`` CMake variable in favor of standard `BUILD_SHARED_LIBS
-  <http://www.cmake.org/cmake/help/v3.0/variable/BUILD_SHARED_LIBS.html>`_.
+  <https://www.cmake.org/cmake/help/v3.0/variable/BUILD_SHARED_LIBS.html>`_.
 
 * Fix error handling in ``fmt::fprintf``.
 
@@ -843,7 +843,7 @@ Fixes
   Boost Format in terms of compiled code size.
 
 * Improved appearance of the documentation on mobile by using the `Sphinx
-  Bootstrap theme <http://ryan-roemer.github.io/sphinx-bootstrap-theme/>`_:
+  Bootstrap theme <https://ryan-roemer.github.io/sphinx-bootstrap-theme/>`_:
 
   .. |old| image:: https://cloud.githubusercontent.com/assets/576385/4792130/
                    cd256436-5de3-11e4-9a62-c077d0c2b003.png

@@ -1,7 +1,7 @@
 /**
  \file G3D/Random.h
  
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  \created 2009-01-02
  \edited  2012-07-20
@@ -29,7 +29,7 @@ namespace G3D {
 
     On average, uniform() runs about 2x-3x faster than rand().
 
-    @cite http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html
+    @cite https://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html
     
     On OS X, Random is about 10x faster than drand48() (which is
     threadsafe) and 4x faster than rand() (which is not threadsafe).

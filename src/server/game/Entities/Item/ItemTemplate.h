@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _ITEMPROTOTYPE_H
@@ -125,7 +125,7 @@ enum ItemBondingType : uint8
 {
     NO_BIND                                     = 0,
     BIND_WHEN_PICKED_UP                         = 1,
-    BIND_WHEN_EQUIPED                           = 2,
+    BIND_WHEN_EQUIPPED                           = 2,
     BIND_WHEN_USE                               = 3,
     BIND_QUEST_ITEM                             = 4,
     BIND_QUEST_ITEM1                            = 5,         // not used in game
@@ -728,6 +728,7 @@ struct ItemTemplate
     int32 GetItemRandomSuffixGroupID() const { return ExtendedData->ItemRandomSuffixGroupID; }
     uint32 GetSpellWeightCategory() const { return ExtendedData->SpellWeightCategory; }
     uint32 GetSpellWeight() const { return ExtendedData->SpellWeight; }
+    uint32 GetBuyCount() const { return std::max<uint32>(ExtendedData->VendorStackCount, 1u); }
     int32 GetBuyPrice() const { return ExtendedData->BuyPrice; }
     uint32 GetSellPrice() const { return ExtendedData->SellPrice; }
     uint32 GetItemNameDescriptionID() const { return ExtendedData->ItemNameDescriptionID; }
@@ -740,8 +741,8 @@ struct ItemTemplate
     int32 GetMaterial() const { return ExtendedData->Material; }
     uint32 GetMinReputation() const { return ExtendedData->MinReputation; }
     uint32 GetMinFactionID() const { return ExtendedData->MinFactionID; }
-    uint32 GetRequiredPVPMedal() const { return ExtendedData->RequiredPVPMedal; }
-    uint32 GetRequiredPVPRank() const { return ExtendedData->RequiredPVPRank; }
+    uint32 GetRequiredPvpMedal() const { return ExtendedData->RequiredPvpMedal; }
+    uint32 GetRequiredPvpRank() const { return ExtendedData->RequiredPvpRank; }
     uint32 GetRequiredAbility() const { return ExtendedData->RequiredAbility; }
     uint32 GetTotemCategoryID() const { return ExtendedData->TotemCategoryID; }
     uint32 GetBagFamily() const { return ExtendedData->BagFamily; }

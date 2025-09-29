@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "LootPackets.h"
@@ -131,13 +131,13 @@ void WorldSession::HandleLootUnit(WorldPackets::Loot::LootUnit& packet)
     if (!GetPlayer()->isAlive() || !packet.Unit.IsCreatureOrVehicle())
         return;
 
-    LootCorps(packet.Unit);
+    LootCorpse(packet.Unit);
 
     if (GetPlayer()->IsNonMeleeSpellCast(false))
         GetPlayer()->InterruptNonMeleeSpells(false);
 }
 
-void WorldSession::LootCorps(ObjectGuid corpsGUID, WorldObject* lootedBy)
+void WorldSession::LootCorpse(ObjectGuid corpsGUID, WorldObject* lootedBy)
 {
     Player* player = GetPlayer();
     if (!player)
@@ -527,9 +527,10 @@ void WorldSession::HandleDoMasterLootRoll(WorldPackets::Loot::DoMasterLootRoll& 
     else if (packet.LootObj.IsLoot())
     {
         loot = sLootMgr->GetLoot(packet.LootObj);
-        if (!loot)
-            return;
     }
+
+    if (!loot)
+        return;
 
     packet.LootListID -= 1; //restore slot index;
     if (packet.LootListID >= loot->items.size() + loot->quest_items.size())

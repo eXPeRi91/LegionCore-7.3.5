@@ -28,11 +28,11 @@ public:
     void OnPlayerLogin(Player* player);
     LFGListStatus CanQueueFor(LFGListEntry* entry, Player* requestingPlayer, bool apply = true);
     void RemoveAllApplicationsByPlayer(uint32 playerGUID, bool notify = false);
-    bool IsActivityPvP(GroupFinderActivityEntry const* activity) const;
+    bool IsActivityPvp(GroupFinderActivityEntry const* activity) const;
     float GetPlayerItemLevelForActivity(GroupFinderActivityEntry const* activity, Player* player) const;
     uint8 GetApplicationCountByPlayer(ObjectGuid::LowType guidLow) const;
     float GetLowestItemLevelInGroup(LFGListEntry* entry) const;
-    uint8 GetMemeberCountInGroupIncludingInvite(LFGListEntry* entry);
+    uint8 GetMemberCountInGroupIncludingInvite(LFGListEntry* entry);
     uint8 CountEntryApplicationsWithStatus(LFGListEntry* entry, LFGListApplicationStatus status);
     void AutoInviteApplicantsIfPossible(LFGListEntry* entry);
 

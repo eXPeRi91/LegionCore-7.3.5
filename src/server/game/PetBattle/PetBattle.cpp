@@ -332,17 +332,17 @@ std::shared_ptr<BattlePetInstance> BattlePetInstance::CloneForBattle(std::shared
 
 bool BattlePetInstance::IsAlive()
 {
-    return States[BATTLEPET_STATE_Is_Dead] == 0;
+    return States[BATTLEPET_STATE_IsDead] == 0;
 }
 
 bool BattlePetInstance::CanAttack()
 {
-    return !States[BATTLEPET_STATE_turnLock] && !States[BATTLEPET_STATE_Mechanic_IsStunned];
+    return !States[BATTLEPET_STATE_TurnLock] && !States[BATTLEPET_STATE_Mechanic_IsStunned];
 }
 
 int32 BattlePetInstance::GetMaxHealth()
 {
-    return int32(floor((10000.0f + 5.0f * States[BATTLEPET_STATE_Stat_Stamina] + States[BATTLEPET_STATE_maxHealthBonus] * States[BATTLEPET_STATE_Internal_InitialLevel]) / 100.0f + 0.5));
+    return int32(floor((10000.0f + 5.0f * States[BATTLEPET_STATE_Stat_Stamina] + States[BATTLEPET_STATE_MaxHealthBonus] * States[BATTLEPET_STATE_Internal_InitialLevel]) / 100.0f + 0.5));
 }
 
 int32 BattlePetInstance::GetSpeed()
@@ -522,7 +522,7 @@ void PetBattleAura::Apply(PetBattle* petBattle)
                 case BATTLEPET_STATE_Mechanic_IsBlind:
                 case BATTLEPET_STATE_Mechanic_IsChilled:
                 case BATTLEPET_STATE_Mechanic_IsBurning:
-                case BATTLEPET_STATE_swapOutLock:
+                case BATTLEPET_STATE_SwapOutLock:
                     if (v->Value > 0)
                         flags |= PETBATTLE_EVENT_FLAG_IMMUNE;
                     break;
@@ -538,7 +538,7 @@ void PetBattleAura::Apply(PetBattle* petBattle)
         petBattle->SetPetState(CasterPetID, TargetPetID, 0, v->BattlePetStateID, value, false, flags);
     }
 
-    if (AbilityID == 577)   ///< Healthy http://www.wowhead.com/petability=576/perk-up
+    if (AbilityID == 577)   ///< Healthy https://www.wowhead.com/petability=576/perk-up
     {
         auto pet = petBattle->Pets[TargetPetID];
 
@@ -566,7 +566,7 @@ void PetBattleAura::Remove(PetBattle* petBattle)
         if (v->BattlePetAbilityID == AbilityID)
             petBattle->SetPetState(CasterPetID, TargetPetID, 0, v->BattlePetStateID, petBattle->Pets[TargetPetID]->States[v->BattlePetStateID] - v->Value);
 
-    if (AbilityID == 577)   ///< Healthy http://www.wowhead.com/petability=576/perk-up
+    if (AbilityID == 577)   ///< Healthy https://www.wowhead.com/petability=576/perk-up
     {
         auto pet = petBattle->Pets[TargetPetID];
 
@@ -703,7 +703,7 @@ bool PetBattleTeam::Update()
 
         if (availablesPets.size() == 1)
         {
-            PetBattleInstance->SwapPet(thisTeamID, availablesPets[0]);
+            PetBattleInstance->SwapPet(thisTeamID, availablesPets[0], false, true);
 
             if (auto player = ObjectAccessor::GetObjectInWorld(PlayerGuid, static_cast<Player*>(nullptr)))
                 player->GetSession()->SendPetBattleReplacementMade(PetBattleInstance);
@@ -718,7 +718,7 @@ bool PetBattleTeam::Update()
         }
         else if (PetBattleInstance->BattleType == PETBATTLE_TYPE_PVE && thisTeamID == PETBATTLE_PVE_TEAM_ID)
         {
-            PetBattleInstance->SwapPet(thisTeamID, availablesPets[rand() % availablesPets.size()]);
+            PetBattleInstance->SwapPet(thisTeamID, availablesPets[rand() % availablesPets.size()], false, true);
 
             if (auto player = ObjectAccessor::GetObjectInWorld(PlayerGuid, static_cast<Player*>(nullptr)))
                 player->GetSession()->SendPetBattleReplacementMade(PetBattleInstance);
@@ -777,7 +777,7 @@ bool PetBattleTeam::CanCastAny()
     if (HasPendingMultiTurnCast())
         return false;
 
-    if (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_turnLock])
+    if (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_TurnLock])
         return false;
 
     if (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_Mechanic_IsStunned])
@@ -791,7 +791,7 @@ bool PetBattleTeam::CanSwap(int8 replacementPet)
     if (HasPendingMultiTurnCast())
         return false;
 
-    if (PetBattleInstance->Pets[ActivePetID]->IsAlive() && (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_swapOutLock] || PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_Mechanic_IsWebbed]))
+    if (PetBattleInstance->Pets[ActivePetID]->IsAlive() && (PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_SwapOutLock] || PetBattleInstance->Pets[ActivePetID]->States[BATTLEPET_STATE_Mechanic_IsWebbed]))
         return false;
 
     if (replacementPet != PETBATTLE_NULL_ID)
@@ -799,7 +799,7 @@ bool PetBattleTeam::CanSwap(int8 replacementPet)
         if (!PetBattleInstance->Pets[replacementPet]->IsAlive())
             return false;
 
-        if (PetBattleInstance->Pets[replacementPet]->States[BATTLEPET_STATE_swapInLock])
+        if (PetBattleInstance->Pets[replacementPet]->States[BATTLEPET_STATE_SwapInLock])
             return false;
     }
 
@@ -946,7 +946,7 @@ PetBattle::~PetBattle()
 {
     for (size_t i = 0; i < MAX_PETBATTLE_TEAM; ++i)
     {
-        if (BattleType == PETBATTLE_TYPE_PVE && i != PETBATTLE_PVE_TEAM_ID || BattleType != PETBATTLE_TYPE_PVE)
+        if ((BattleType == PETBATTLE_TYPE_PVE && i != PETBATTLE_PVE_TEAM_ID) || BattleType != PETBATTLE_TYPE_PVE)
             for (uint32 petID = 0; petID < MAX_PETBATTLE_SLOTS; petID++)
                 if (Pets[petID])
                     Pets[petID] = std::shared_ptr<BattlePetInstance>();
@@ -1435,7 +1435,7 @@ void PetBattle::Update(uint32 diff)
     }
 }
 
-void PetBattle::SwapPet(uint32 teamID, int32 newFrontPetID, bool initial)
+void PetBattle::SwapPet(uint32 teamID, int32 newFrontPetID, bool initial, bool fainted)
 {
     assert(teamID < MAX_PETBATTLE_TEAM);
 
@@ -1458,7 +1458,7 @@ void PetBattle::SwapPet(uint32 teamID, int32 newFrontPetID, bool initial)
 
     uint32 eventFlags = 0;
 
-    if (!petChanged && BattleStatus != PETBATTLE_STATUS_CREATION)
+    if (!petChanged && BattleStatus != PETBATTLE_STATUS_CREATION && !fainted)
         eventFlags |= PETBATTLE_EVENT_FLAG_SKIP_TURN;
 
     Teams[teamID]->ActivePetID = newFrontPetID;
@@ -1703,7 +1703,7 @@ void PetBattle::Kill(int8 killer, int8 target, uint32 killerAbibilityEffectID, b
 
     // TC_LOG_DEBUG(LOG_FILTER_BATTLEPET, "PetBattle::Kill BATTLEPET_STATE_Special_ConsumedCorpse");
 
-    SetPetState(killer, target, killerAbibilityEffectID, BATTLEPET_STATE_Is_Dead, 1, fromCapture, flags);
+    SetPetState(killer, target, killerAbibilityEffectID, BATTLEPET_STATE_IsDead, 1, fromCapture, flags);
 
     RoundResult = PETBATTLE_ROUND_RESULT_CATCH_OR_KILL;
 }

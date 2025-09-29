@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
 * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
 *
 * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 /* ScriptData
@@ -926,8 +926,10 @@ public:
                     DoCast(SPELL_DISENGAGE);
                     disengageTimer = 7000;
                 }
-                else disengageTimer = 1000;
-            } else disengageTimer -= diff;
+                else
+                    disengageTimer = 1000;
+            } else
+                disengageTimer -= diff;
 
             if (lightningArrowsTimer <= diff && !me->HasAura(SPELL_LIGHTNING_ARROWS))
             {
@@ -935,7 +937,9 @@ public:
                 lightningArrowsTimer = 14000;
                 ligthingArrows = true;
                 return;
-            } else lightningArrowsTimer -= diff;
+            }
+            else
+                lightningArrowsTimer -= diff;
 
             // Trigger the aura after the visual storm
             if(ligthingArrows && !me->HasAura(SPELL_LIGHTNING_ARROWS_VISUAL))
@@ -946,13 +950,19 @@ public:
 
             if (multiShotTimer <= diff)
             {
-                if(Unit* target = SelectTarget(SELECT_TARGET_FARTHEST))
-                    if(target->IsInRange(me, 5.0f, 35.0f))
+                if (Unit* target = SelectTarget(SELECT_TARGET_FARTHEST))
+                {
+                    if (target->IsInRange(me, 5.0f, 35.0f))
                     {
                         DoCast(target, SPELL_MULTI_SHOT);
                         multiShotTimer = 6000;
-                    } else multiShotTimer = 1000;
-            } else multiShotTimer -= diff;
+                    }
+                    else
+                        multiShotTimer = 1000;
+                }
+            }
+            else
+                multiShotTimer -= diff;
 
             // Shoot instead of meele swing
             if (me->isAttackReady())

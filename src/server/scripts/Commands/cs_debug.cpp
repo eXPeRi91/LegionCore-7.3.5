@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -134,8 +134,8 @@ public:
             { "streamingmovies",SEC_ADMINISTRATOR,  false, &HandleDebugStreamingMoviesCommand,  ""},
             { "movementinfo",   SEC_ADMINISTRATOR,  false, &HandleDebugMovementInfo,           ""},
             { "session",        SEC_ADMINISTRATOR,  false, &HandleDebugSession,                ""},
-            { "pvpstatenable",  SEC_ADMINISTRATOR,  false, &HandleDebugPvPStatEnable,          ""},
-            { "pvpstatdisable", SEC_ADMINISTRATOR,  false, &HandleDebugPvPStatDisable,         ""},
+            { "pvpstatenable",  SEC_ADMINISTRATOR,  false, &HandleDebugPvpStatEnable,          ""},
+            { "pvpstatdisable", SEC_ADMINISTRATOR,  false, &HandleDebugPvpStatDisable,         ""},
             { "challengeloot",  SEC_REALM_LEADER,   false, &HandleDebugChallengeLootCommand,   ""},
             { "group",          SEC_REALM_LEADER,   false, &HandleDebugGroupCommand,           ""},
             { "pvpmystic",      SEC_CONFIRMED_GAMEMASTER, false, &HandleDebugPvpMysticCommand, ""},
@@ -929,7 +929,7 @@ public:
         if (!player)
             return false;
 
-        if (OutdoorPvP* pvp = player->GetOutdoorPvP())
+        if (OutdoorPvp* pvp = player->GetOutdoorPvp())
             pvp->HandleBFMGREntryInviteResponse(true, player);
 
         return true;
@@ -1016,7 +1016,7 @@ public:
         uint8 bgQueueTypeId = MS::Battlegrounds::GetBgQueueTypeIdByBgTypeID(bgTypeId, jointype);
         BattlegroundQueue &bgQueue = sBattlegroundMgr->GetBattlegroundQueue(bgQueueTypeId);
 
-        PVPDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
+        PvpDifficultyEntry const* bracketEntry = sDB2Manager.GetBattlegroundBracketByLevel(bg->GetMapId(), player->getLevel());
         if (!bracketEntry)
             return false;
 
@@ -2068,11 +2068,11 @@ public:
         if (!player)
             player = handler->GetSession()->GetPlayer();
 
-        handler->PSendSysMessage("Pvp mystic Count = %u", sWorld->GetPvPMysticCount());
+        handler->PSendSysMessage("Pvp mystic Count = %u", sWorld->GetPvpMysticCount());
         return true;
     }
 
-    static bool HandleDebugPvPStatEnable(ChatHandler* handler, char const* args)
+    static bool HandleDebugPvpStatEnable(ChatHandler* handler, char const* args)
     {
         Player* player = handler->getSelectedPlayer();
         if (!player)
@@ -2083,7 +2083,7 @@ public:
         return true;
     }
 
-    static bool HandleDebugPvPStatDisable(ChatHandler* handler, char const* args)
+    static bool HandleDebugPvpStatDisable(ChatHandler* handler, char const* args)
     {
         Player* player = handler->getSelectedPlayer();
         if (!player)
@@ -2161,7 +2161,10 @@ public:
     static bool HandleDebugCrash(ChatHandler* handler, char const* args)
     {
         handler->PSendSysMessage("Kicking out server!");
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
         *(int*) 0 = 0;
+#pragma GCC diagnostic pop
         return true;
     }
 

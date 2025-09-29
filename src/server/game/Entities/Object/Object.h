@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _OBJECT_H
@@ -446,7 +446,7 @@ class WorldObject : public Object, public WorldLocation
 
         virtual void Update (uint32 /*time_diff*/) { }
 
-        void Clear();
+        void Clear() override;
 
         void Relocate(float x, float y, float z, float orientation) override;
         void Relocate(float x, float y, float z) override;
@@ -456,7 +456,7 @@ class WorldObject : public Object, public WorldLocation
 
         void SetOrientation(float orientation);
 
-        virtual void RemoveFromWorld();
+        virtual void RemoveFromWorld() override;
 
         void GetNearPoint2D(float &x, float &y, float distance, float absAngle, bool allowObjectSize = true) const;
         void GetNearPoint2D(Position &pos, float distance, float angle, bool allowObjectSize = true) const;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ObjectMgr.h"
@@ -673,17 +673,21 @@ class npc_black_hole : public CreatureScript
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_REMOVE_CLIENT_CONTROL);
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
 
-                if (Creature * Algalon = me->ToTempSummon()->GetSummoner()->ToCreature())
-                    if (boss_algalon_the_observer::boss_algalon_the_observerAI * AlgalonAI = CAST_AI(boss_algalon_the_observer::boss_algalon_the_observerAI, Algalon->AI()))
+                if (Creature* Algalon = me->ToTempSummon()->GetSummoner()->ToCreature())
+                {
+                    if (boss_algalon_the_observer::boss_algalon_the_observerAI* AlgalonAI = CAST_AI(boss_algalon_the_observer::boss_algalon_the_observerAI, Algalon->AI()))
+                    {
                         if (!AlgalonAI->GetPhase())
                         {
                             SummonMatter = 0;
                             DoCast(me, 64469);
-                            DoCast(me, SPELL_BLACK_HOLE_TRIGGER); 
+                            DoCast(me, SPELL_BLACK_HOLE_TRIGGER);
                             DoCast(me, SPELL_CONSTELLATION_PHASE_TRIGGER);
                         }
                         else
                             SummonMatter = 3000;
+                    }
+                }
                 
             }
 

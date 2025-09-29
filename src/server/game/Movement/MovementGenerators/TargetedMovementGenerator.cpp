@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "TargetedMovementGenerator.h"
@@ -420,7 +420,7 @@ void FetchMovementGenerator<Creature>::MovementInform(Creature &unit)
         {
             if(Pet* pet = _player->GetPet())
             {
-                _player->GetSession()->LootCorps(i_target.getTarget()->GetGUID(), pet);
+                _player->GetSession()->LootCorpse(i_target.getTarget()->GetGUID(), pet);
                 pet->CastSpell(i_target.getTarget(), 125056, false);
 
                 pet->AttackStop();

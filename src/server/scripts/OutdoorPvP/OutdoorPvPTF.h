@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef OUTDOOR_PVP_TF_
@@ -20,9 +20,9 @@
 
 #include "OutdoorPvP.h"
 
-const uint8 OutdoorPvPTFBuffZonesNum = 5;
+const uint8 OutdoorPvpTFBuffZonesNum = 5;
 
-const uint32 OutdoorPvPTFBuffZones[OutdoorPvPTFBuffZonesNum] =
+const uint32 OutdoorPvpTFBuffZones[OutdoorPvpTFBuffZonesNum] =
 {
     3519,       //Terokkar Forest
     3791,       //Sethekk Halls
@@ -43,7 +43,7 @@ const uint32 TF_LOCK_TIME_UPDATE = 15000;
 const uint32 TF_ALLY_QUEST = 11505;
 const uint32 TF_HORDE_QUEST = 11506;
 
-enum OutdoorPvPTF_TowerType
+enum OutdoorPvpTF_TowerType
 {
     TF_TOWER_NW     = 0,
     TF_TOWER_N,
@@ -103,11 +103,11 @@ enum TFTowerStates
     TF_TOWERSTATE_A                         = 4
 };
 
-class OPvPCapturePointTF : public OPvPCapturePoint
+class OPvpCapturePointTF : public OPvpCapturePoint
 {
     public:
 
-        OPvPCapturePointTF(OutdoorPvP* pvp, OutdoorPvPTF_TowerType type);
+        OPvpCapturePointTF(OutdoorPvp* Pvp, OutdoorPvpTF_TowerType type);
 
         bool Update(uint32 diff) override;
 
@@ -125,18 +125,18 @@ class OPvPCapturePointTF : public OPvPCapturePoint
 
     protected:
 
-        OutdoorPvPTF_TowerType m_TowerType;
+        OutdoorPvpTF_TowerType m_TowerType;
 
         uint32 m_TowerState;
 };
 
-class OutdoorPvPTF : public OutdoorPvP
+class OutdoorPvpTF : public OutdoorPvp
 {
     public:
 
-        OutdoorPvPTF();
+        OutdoorPvpTF();
 
-        bool SetupOutdoorPvP() override;
+        bool SetupOutdoorPvp() override;
         void Initialize(uint32 zone) override;
 
         void HandlePlayerEnterZone(ObjectGuid guid, uint32 zone) override;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -91,7 +91,7 @@ public:
                         FlyBackTimer = 4500;
                         break;
                     case 2:
-                        if (!player->IsRessurectRequested())
+                        if (!player->IsResurrectRequested())
                         {
                             me->HandleEmoteCommand(EMOTE_ONESHOT_CUSTOM_SPELL_01);
                             DoCast(player, SPELL_REVIVE, true);

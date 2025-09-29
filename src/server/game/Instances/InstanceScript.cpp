@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "InstanceScript.h"
@@ -181,7 +181,7 @@ void InstanceScript::UpdateMinionState(Creature* minion, EncounterState state)
 
 void InstanceScript::UpdateDoorState(GameObject* door)
 {
-    if(!this || !door)
+    if(!door)
         return;
 
     auto lower = doors.lower_bound(door->GetEntry());
@@ -376,7 +376,7 @@ std::string InstanceScript::GetBossSaveData()
 
 void InstanceScript::DoUseDoorOrButton(ObjectGuid uiGuid, uint32 uiWithRestoreTime, bool bUseAlternativeState)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     if (uiGuid.IsEmpty())
@@ -398,7 +398,7 @@ void InstanceScript::DoUseDoorOrButton(ObjectGuid uiGuid, uint32 uiWithRestoreTi
 
 void InstanceScript::DoRespawnGameObject(ObjectGuid uiGuid, uint32 uiTimeToDespawn)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     if (GameObject* go = instance->GetGameObject(uiGuid))
@@ -417,7 +417,7 @@ void InstanceScript::DoRespawnGameObject(ObjectGuid uiGuid, uint32 uiTimeToDespa
 
 void InstanceScript::DoUpdateWorldState(WorldStates variableID, uint32 value)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -428,7 +428,7 @@ void InstanceScript::DoUpdateWorldState(WorldStates variableID, uint32 value)
 
 void InstanceScript::DoSendNotifyToInstance(char const* format, ...)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     va_list ap;
@@ -446,7 +446,7 @@ void InstanceScript::DoSendNotifyToInstance(char const* format, ...)
 
 void InstanceScript::DoResetAchievementCriteria(CriteriaTypes type, uint64 miscValue1 /*= 0*/, uint64 miscValue2 /*= 0*/, bool evenIfCriteriaComplete /*= false*/)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -457,7 +457,7 @@ void InstanceScript::DoResetAchievementCriteria(CriteriaTypes type, uint64 miscV
 
 void InstanceScript::DoCompleteAchievement(uint32 achievement)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     auto pAE = sAchievementStore.LookupEntry(achievement);
@@ -472,7 +472,7 @@ void InstanceScript::DoCompleteAchievement(uint32 achievement)
 
 void InstanceScript::DoUpdateAchievementCriteria(CriteriaTypes type, uint32 miscValue1 /*= 0*/, uint32 miscValue2 /*= 0*/, uint32 miscValue3 /*= 0*/, Unit* unit /*= nullptr*/)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -483,7 +483,7 @@ void InstanceScript::DoUpdateAchievementCriteria(CriteriaTypes type, uint32 misc
 
 void InstanceScript::DoStartTimedAchievement(CriteriaTimedTypes type, uint32 entry)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -494,7 +494,7 @@ void InstanceScript::DoStartTimedAchievement(CriteriaTimedTypes type, uint32 ent
 
 void InstanceScript::DoStopTimedAchievement(CriteriaTimedTypes type, uint32 entry)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -505,7 +505,7 @@ void InstanceScript::DoStopTimedAchievement(CriteriaTimedTypes type, uint32 entr
 
 void InstanceScript::DoRemoveAurasDueToSpellOnPlayers(uint32 spell)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -518,7 +518,7 @@ void InstanceScript::DoRemoveAurasDueToSpellOnPlayers(uint32 spell)
 
 void InstanceScript::DoRemoveAuraFromStackOnPlayers(uint32 spell, ObjectGuid const& casterGUID, AuraRemoveMode mode, uint32 num)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -529,7 +529,7 @@ void InstanceScript::DoRemoveAuraFromStackOnPlayers(uint32 spell, ObjectGuid con
 
 void InstanceScript::DoNearTeleportPlayers(const Position pos, bool casting /*=false*/)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -540,7 +540,7 @@ void InstanceScript::DoNearTeleportPlayers(const Position pos, bool casting /*=f
 
 void InstanceScript::DoStartMovie(uint32 movieId)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -551,7 +551,7 @@ void InstanceScript::DoStartMovie(uint32 movieId)
 
 void InstanceScript::DoCastSpellOnPlayers(uint32 spell)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -562,7 +562,7 @@ void InstanceScript::DoCastSpellOnPlayers(uint32 spell)
 
 void InstanceScript::DoRemovePlayeresCooldownAndDebuff(bool wipe)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     if (!instance->IsRaid())
@@ -585,14 +585,14 @@ void InstanceScript::DoRemovePlayeresCooldownAndDebuff(bool wipe)
         auto& Auras = player->GetAppliedAuras();
         for (auto itr = Auras.begin(); itr != Auras.end(); ++itr)
             if (auto aura = itr->second->GetBase()->GetSpellInfo())
-                if (aura->GetMisc()->MiscData.Attributes[0] & (SPELL_ATTR0_UNAFFECTED_BY_INVULNERABILITY | SPELL_ATTR0_DEBUFF) && aura->HasAttribute(SPELL_ATTR5_UNK2) || (wipe && aura->HasAttribute(SPELL_ATTR10_UNK13)))
+                if ((aura->GetMisc()->MiscData.Attributes[0] & (SPELL_ATTR0_UNAFFECTED_BY_INVULNERABILITY | SPELL_ATTR0_DEBUFF) && aura->HasAttribute(SPELL_ATTR5_UNK2)) || (wipe && aura->HasAttribute(SPELL_ATTR10_UNK13)))
                     player->RemoveAura(itr);
     });
 }
 
 void InstanceScript::DoSetAlternatePowerOnPlayers(int32 value)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -603,7 +603,7 @@ void InstanceScript::DoSetAlternatePowerOnPlayers(int32 value)
 
 void InstanceScript::RepopPlayersAtGraveyard()
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -614,7 +614,7 @@ void InstanceScript::RepopPlayersAtGraveyard()
 
 void InstanceScript::DoAddAuraOnPlayers(uint32 spell)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)
@@ -658,7 +658,7 @@ uint32 InstanceScript::GetCompletedEncounterMask() const
 
 void InstanceScript::SendEncounterUnit(uint32 type, Unit* unit /*= nullptr*/, uint8 param1 /*= 0*/, uint8 param2 /*= 0*/)
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     switch (type)
@@ -784,7 +784,7 @@ void InstanceScript::SendEncounterUnit(uint32 type, Unit* unit /*= nullptr*/, ui
 
 bool InstanceScript::IsWipe() const
 {
-    if (!this || !instance)
+    if (!instance)
         return false;
 
     auto const& PlayerList = instance->GetPlayers();
@@ -806,7 +806,7 @@ bool InstanceScript::IsWipe() const
 
 void InstanceScript::UpdatePhasing()
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     int8 step = -1;
@@ -821,11 +821,11 @@ void InstanceScript::UpdatePhasing()
         {
             player->AddDelayedEvent(100, [player, step]() -> void
             {
-                PhaseUpdateData phaseUdateData;
-                phaseUdateData.AddConditionType(CONDITION_INSTANCE_INFO);
+                PhaseUpdateData phaseUpdateData;
+                phaseUpdateData.AddConditionType(CONDITION_INSTANCE_INFO);
                 if (step >= 0)
-                    phaseUdateData.AddScenarioUpdate(step);
-                player->GetPhaseMgr().NotifyConditionChanged(phaseUdateData);
+                    phaseUpdateData.AddScenarioUpdate(step);
+                player->GetPhaseMgr().NotifyConditionChanged(phaseUpdateData);
             });
         }
     });
@@ -840,7 +840,7 @@ void InstanceScript::SetBossNumber(uint32 number)
 
 void InstanceScript::BroadcastPacket(WorldPacket const* data) const
 {
-    if (!this || !instance)
+    if (!instance)
         return;
 
     instance->ApplyOnEveryPlayer([&](Player* player)

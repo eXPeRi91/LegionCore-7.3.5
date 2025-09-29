@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_CONDITIONMGR_H
@@ -73,7 +73,7 @@ enum ConditionTypes
     CONDITION_AREA_EXPLORED         = 39,                   // AreaID
     CONDITION_SCENE_SEEN            = 40,                   // SceneID
     CONDITION_QUEST_OBJECTIVE_DONE  = 41,                   // QuestID          ObjectiveID    Count   
-    CONDITION_SCENE_TRIGER_EVENT    = 42,                   // SceneID
+    CONDITION_SCENE_TRIGGER_EVENT   = 42,                   // SceneID
     CONDITION_GARRRISON_BUILDING    = 43,                   // BuildType        Lvl
     CONDITION_SCENARION_STEP        = 44,                   // ScenarioID       stepID
     CONDITION_REALM_ACHIEVEMENT     = 45,                   // achievement_id   0              0                  true if realm achievement is complete
@@ -275,7 +275,7 @@ class ConditionMgr
         ConditionList GetConditionsForPhaseDefinition(uint32 zone, uint32 entry);
         ConditionList GetConditionsForAreaTriggerAction(uint32 areaTriggerId, uint32 actionId);
         ConditionList GetConditionsForItemLoot(uint32 creatureId, uint32 itemId);
-		bool IsObjectMeetingSmartEventConditions(int64 entryOrGuid, uint32 eventId, uint32 sourceType, Unit* unit, WorldObject* baseObject) const;
+        bool IsObjectMeetingSmartEventConditions(int64 entryOrGuid, uint32 eventId, uint32 sourceType, Unit* unit, WorldObject* baseObject) const;
         
         static bool IsPlayerMeetingCondition(Unit* unit, int32 conditionID, bool send = false);
         static bool IsPlayerMeetingCondition(Unit* unit, PlayerConditionEntry const* condition);

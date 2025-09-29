@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 TrintiyCore <http://www.trinitycore.org/>
+ * Copyright (C) 2011 TrintiyCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DB2Structure.h"
@@ -412,7 +412,7 @@ static std::function<int32(Player const*, int32, int32)> WorldStateExpressionFun
         [](Player const* /*player*/, int32 holidayID, int32 arg2) -> int32
     {
         HolidaysEntry const* entry = sHolidaysStore.LookupEntry(holidayID);
-        if (!entry || arg2 > 0 && !entry->Duration[arg2])
+        if (!entry || (arg2 > 0 && !entry->Duration[arg2]))
             return 0;
 
         int l_ChoosedDuration = entry->Duration[arg2];

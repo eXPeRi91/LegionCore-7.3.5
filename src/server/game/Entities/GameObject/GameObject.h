@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef GAMEOBJECT_H
@@ -49,7 +49,7 @@ enum GoVisualCounter
 typedef std::map<ObjectGuid, uint32/*time*/> lastUserList;
 typedef std::unordered_map<uint32, GameObjectTemplate> GameObjectTemplateContainer;
 
-class OPvPCapturePoint;
+class OPvpCapturePoint;
 struct TransportAnimation;
 
 union GameObjectValue
@@ -69,7 +69,7 @@ union GameObjectValue
     //29 GAMEOBJECT_TYPE_CONTROL_ZONE
     struct
     {
-        OPvPCapturePoint *OPvPObj;
+        OPvpCapturePoint *OPvpObj;
     } ControlZone;
     //33 GAMEOBJECT_TYPE_DESTRUCTIBLE_BUILDING
     struct

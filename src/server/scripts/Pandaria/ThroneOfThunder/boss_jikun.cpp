@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "PlayerDefines.h"
@@ -547,9 +547,9 @@ public:
         EventMap events;
         ObjectGuid feedGuid;
 
-        void Reset(){}
+        void Reset() override {}
 
-        void SetData(uint32 type, uint32 data)
+        void SetData(uint32 type, uint32 data) override
         {
             switch (type)
             {
@@ -579,19 +579,19 @@ public:
             }
         }
 
-        void MovementInform(uint32 type, uint32 pointId)
+        void MovementInform(uint32 type, uint32 pointId) override
         {
             if (type == POINT_MOTION_TYPE)
                 events.RescheduleEvent(EVENT_EAT, 250);
         }
 
-        void JustDied(Unit* killer)
+        void JustDied(Unit* killer) override
         {
             if (Creature* incubate = me->FindNearestCreature(NPC_INCUBATER, 30.0f, true))
                 incubate->CastSpell(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), SPELL_FEATHER_AT, true);
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
 

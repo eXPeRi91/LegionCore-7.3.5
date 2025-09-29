@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,7 @@
 
 #include <cds/os/thread.h>
 
-// Visual leak detector (see http://vld.codeplex.com/)
+// Visual leak detector (see https://vld.codeplex.com/)
 #if defined(CDS_USE_VLD) && CDS_COMPILER == CDS_COMPILER_MSVC
 #   ifdef _DEBUG
 #       include <vld.h>
@@ -68,7 +68,7 @@ static inline void* get_proc_addr( char const* module, char const* func )
 
 static void discover_topology()
 {
-    // From MSDN: http://msdn.microsoft.com/en-us/library/ms683194%28v=VS.85%29.aspx
+    // From MSDN: https://msdn.microsoft.com/en-us/library/ms683194%28v=VS.85%29.aspx
 
     typedef BOOL (WINAPI *LPFN_GLPI)( PSYSTEM_LOGICAL_PROCESSOR_INFORMATION, PDWORD);
 

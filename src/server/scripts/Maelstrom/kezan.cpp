@@ -57,7 +57,7 @@ enum DefiantSay
 class npc_defiant_troll : public CreatureScript
 {
     public:
-    npc_defiant_troll() : CreatureScript("npc_deffiant_troll") { }
+    npc_defiant_troll() : CreatureScript("npc_deffiant_troll") { } // TODO: Fix in database!
 
     CreatureAI* GetAI(Creature* creature) const override
     {
@@ -318,7 +318,7 @@ class npc_hot_rod : public CreatureScript
                             if (player->GetQuestObjectiveData(qInfo, j))
                             {
                                 //player->RemoveAllMinionsByFilter(QuestTemplateData[j][0]);
-                                //TMP. In some cases call crash http://pastebin.com/vcnGS701
+                                //TMP. In some cases call crash https://pastebin.com/vcnGS701
                                 //player->CastSpell(player, QuestTemplateData[j][2], true);
                             }
                         }
@@ -601,10 +601,10 @@ float spawn_coods[8][3] =
     {-8294.61f, 1493.67f, 44.6239f},
 };
 
-class VehicleTriger : public BasicEvent
+class VehicleTrigger : public BasicEvent
 {
     public:
-        explicit VehicleTriger(Unit *owner, uint32 spell) : _owner(owner), _spell(spell) { }
+        explicit VehicleTrigger(Unit *owner, uint32 spell) : _owner(owner), _spell(spell) { }
 
         bool Execute(uint64 /*currTime*/, uint32 /*diff*/) override
         {

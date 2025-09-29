@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 #ifndef TRINITY_SPELLAURADEFINES_H
 #define TRINITY_SPELLAURADEFINES_H
@@ -276,7 +276,7 @@ enum AuraType
     SPELL_AURA_ARENA_PREPARATION                            = 215,
     SPELL_AURA_HASTE_SPELLS                                 = 216,
     SPELL_AURA_MOD_MELEE_HASTE_2                            = 217,
-    SPELL_AURA_MOD_ITEM_STATS_AND_PROCK_BY_PCT_WITH_MASK    = 218,
+    SPELL_AURA_MOD_ITEM_STATS_AND_PROC_BY_PCT_WITH_MASK     = 218,
     SPELL_AURA_219                                          = 219,
     SPELL_AURA_220                                          = 220,
     SPELL_AURA_MOD_DETAUNT                                  = 221,

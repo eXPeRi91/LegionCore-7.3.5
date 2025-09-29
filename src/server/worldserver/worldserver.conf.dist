@@ -15,7 +15,7 @@
 #   Available builds: 26124, 26365, 26654, 26822, 26899, 26972
 #            Default: 26124
 
-Game.Build.Version = 26972
+Game.Build.Version = 26365
 
 #
 #    Game.Patch
@@ -44,18 +44,18 @@ RealmID = 1
 #        Description: Data directory setting.
 #        Important:   DataDir needs to be quoted, as the string might contain space characters.
 #        Example:     "C:/LegionCore/ClientData"
-#        Default:     "./ClientData"
+#        Default:     "../data"
 
-DataDir = "./ClientData"
+DataDir = "../data"
 
 #
 #    LogsDir
 #        Description: Logs directory setting.
 #        Important:   LogsDir needs to be quoted, as the string might contain space characters.
 #                     Logs directory must exists, or log file creation will be disabled.
-#        Default:     "./Data/Logs"
+#        Default:     "../logs"
 
-LogsDir = "./Data/Logs"
+LogsDir = "../logs"
 
 #
 #    LoginDatabaseInfo
@@ -70,15 +70,15 @@ LogsDir = "./Data/Logs"
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
 #
-#        Default:     "127.0.0.1;3306;root;admin;auth"       - (LoginDatabaseInfo)
-#                     "127.0.0.1;3306;root;admin;characters" - (CharacterDatabaseInfo)
-#                     "127.0.0.1;3306;root;admin;hotfixes"   - (HotfixDatabaseInfo)
-#                     "127.0.0.1;3306;root;admin;world"      - (WorldDatabaseInfo)
+#        Default:     "127.0.0.1;3306;root;admin;legioncore_auth"       - (LoginDatabaseInfo)
+#                     "127.0.0.1;3306;root;admin;legioncore_characters" - (CharacterDatabaseInfo)
+#                     "127.0.0.1;3306;root;admin;legioncore_hotfixes"   - (HotfixDatabaseInfo)
+#                     "127.0.0.1;3306;root;admin;legioncore_world"      - (WorldDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;root;admin;auth"
-CharacterDatabaseInfo = "127.0.0.1;3306;root;admin;characters"
-HotfixDatabaseInfo    = "127.0.0.1;3306;root;admin;hotfixes"
-WorldDatabaseInfo     = "127.0.0.1;3306;root;admin;world"
+LoginDatabaseInfo     = "127.0.0.1;3306;root;admin;legioncore_auth"
+CharacterDatabaseInfo = "127.0.0.1;3306;root;admin;legioncore_characters"
+HotfixDatabaseInfo    = "127.0.0.1;3306;root;admin;legioncore_hotfixes"
+WorldDatabaseInfo     = "127.0.0.1;3306;root;admin;legioncore_world"
 
 #
 #    LoginDatabase.WorkerThreads
@@ -202,8 +202,8 @@ Network.OutUBuff = 65536
 #
 #    Network.TcpNoDelay:
 #        Description: TCP Nagle algorithm setting.
-#         Default:    0 - (Enabled, Less traffic, More latency)
-#                     1 - (Disabled, More traffic, Less latency, TCP_NO_DELAY)
+#         Default:    1 - (Disabled, More traffic, Less latency, TCP_NO_DELAY)
+#                     0 - (Enabled, Less traffic, More latency)
 
 Network.TcpNodelay = 1
 
@@ -376,8 +376,8 @@ PlayerSaveInterval = 90000
 #
 #    mmap.enablePathFinding
 #        Description: Enable/Disable pathfinding using mmaps - recommended.
-#        Default:     0 - (Disabled)
-#                     1 - (Enabled)
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
 
 mmap.enablePathFinding = 1
 
@@ -385,8 +385,7 @@ mmap.enablePathFinding = 1
 #    vmap.enableLOS
 #    vmap.enableHeight
 #        Description: VMmap support for line of sight and height calculation.
-#        Default:     1 - (Enabled, vmap.enableLOS)
-#                     1 - (Enabled, vmap.enableHeight)
+#        Default:     1 - (Enabled, vmap.enableLOS/vmap.enableHeight)
 #                     0 - (Disabled)
 
 vmap.enableLOS    = 1
@@ -517,7 +516,7 @@ PersistentCharacterCleanFlags = 0
 #                     4  - (NORMAL)
 #                     6  - (RP)
 #                     8  - (RPPVP)
-#                     16 - (FFA_PVP, Free for all pvp mode like arena PvP in all zones except rest
+#                     16 - (FFA_PVP, Free for all PvP mode like arena PvP in all zones except rest
 #                          activated places and sanctuaries)
 
 GameType = 0
@@ -569,7 +568,7 @@ RealmZone = 1
 #                         placed in clientdir/Fonts.
 #                     3 - (Enabled, Basic Latin characters + server timezone specific)
 
-StrictPlayerNames = 1
+StrictPlayerNames = 0
 
 #
 #    StrictCharterNames
@@ -583,7 +582,7 @@ StrictPlayerNames = 1
 #                         placed in clientdir/Fonts.
 #                     3 - (Enabled, Basic Latin characters + server timezone specific)
 
-StrictCharterNames = 1
+StrictCharterNames = 0
 
 #
 #    StrictPetNames
@@ -597,7 +596,7 @@ StrictCharterNames = 1
 #                         placed in clientdir/Fonts.
 #                     3 - (Enabled, Basic Latin characters + server timezone specific)
 
-StrictPetNames = 1
+StrictPetNames = 0
 
 #
 #    DBC.Locale
@@ -668,12 +667,21 @@ MinPetName = 2
 MaxWhoListReturns = 49
 
 #
+#    PreventAFKLogout
+#        Description: Prevent players AFK from being logged out
+#        Default:     0  - (Disabled)
+#                     1  - (Enabled, prevent players AFK from being logged out in Sanctuary zones)
+#                     2  - (Enabled, prevent players AFK from being logged out in all zones)
+
+PreventAFKLogout = 0
+
+#
 #    CharactersPerAccount
 #        Description: Limit number of characters per account on all realms on this realmlist.
 #        Important:   Number must be >= CharactersPerRealm
-#        Default:     50
+#        Default:     60
 
-CharactersPerAccount = 50
+CharactersPerAccount = 60
 
 #
 #    CharactersPerRealm
@@ -689,7 +697,7 @@ CharactersPerRealm = 12
 #        Range:       1-10
 #        Default:     1
 
-HeroicCharactersPerRealm = 10
+HeroicCharactersPerRealm = 1
 
 #
 #    CharacterCreating.MinLevelForHeroicCharacter
@@ -699,7 +707,7 @@ HeroicCharactersPerRealm = 10
 #                     0  - (Disabled)
 #                     1  - (Enabled, Requires at least another level 1 character)
 
-CharacterCreating.MinLevelForHeroicCharacter = 0
+CharacterCreating.MinLevelForHeroicCharacter = 55
 
 #
 #    DemonHuntersPerRealm
@@ -707,7 +715,7 @@ CharacterCreating.MinLevelForHeroicCharacter = 0
 #        Range:       1-12
 #        Default:     1
 
-DemonHuntersPerRealm = 12
+DemonHuntersPerRealm = 1
 
 #
 #    CharacterCreating.MinLevelForDemonHunter
@@ -717,7 +725,7 @@ DemonHuntersPerRealm = 12
 #                     0  - (Disabled)
 #                     1  - (Enabled, Requires at least another level 1 character)
 
-CharacterCreating.MinLevelForDemonHunter = 0
+CharacterCreating.MinLevelForDemonHunter = 70
 
 #
 #    SkipCinematics
@@ -755,11 +763,27 @@ StartPlayerLevel = 1
 
 #
 #    StartHeroicPlayerLevel
-#        Description: Staring level for heroic class characters after creation.
+#        Description: Starting level for heroic class characters after creation.
 #        Range:       1-MaxPlayerLevel
 #        Default:     55
 
 StartHeroicPlayerLevel = 55
+
+#
+#    MaxPrestigeLevel
+#        Description: Maximum prestige level a player may prestige to.
+#        Range:       1-25
+#        Default:     25
+
+MaxPrestigeLevel = 25
+
+#
+#    ResetHonorTalentsOnPrestige
+#        Description: Choose whether or not honor talents are reset when you prestige.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+ResetHonorTalentsOnPrestige = 0
 
 #
 #    StartPlayerMoney
@@ -779,7 +803,7 @@ StartPlayerMoney = 0
 #                     3  - (Enabled, Admins)
 #                     4  - (Disabled)
 
-InstantLogout = 0
+InstantLogout = 1
 
 #
 #    NoResetTalentsCost
@@ -787,7 +811,7 @@ InstantLogout = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-NoResetTalentsCost = 1
+NoResetTalentsCost = 0
 
 #
 #     PlayerDump.DisallowPaths
@@ -812,7 +836,8 @@ PlayerDump.DisallowOverwrite = 1
 #                     2  - (Enabled, GMs/Admins)
 #                     3  - (Enabled, Admins)
 
-DisableWaterBreath = 1
+# NOTE: Must be on, breath is broken right now.
+DisableWaterBreath = 0
 
 #
 #    FastFishing
@@ -835,18 +860,26 @@ PlayerStart.AllReputation = 0
 #
 #     DungeonFinder.DebugJoin
 #        Description: Allow DungeonFinder usage with 1 player.
-#        Default:     1 - (Enabled)
-#                     0 - (Disabled)
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled, Needed for DungeonBalance solo runs)
 
-DungeonFinder.DebugJoin = 1
+DungeonFinder.DebugJoin = 0
+
+#
+#     DungeonFinder.AllowPreviousDungeons
+#        Description: Allow DungeonFinder usage for dungeons after you have leveled past them.
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
+
+DungeonFinder.AllowPreviousDungeons = 0
 
 #
 #     Bpay.Enabled
 #        Description: Enable BattlePay ingame shop button (need to fill the database)
-#        Default:     0 (disabled)
-#                     1 (enabled)
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
 
-Bpay.Enabled = 1
+Bpay.Enabled = 0
 
 #
 #     Custom.GainHonorOnGuardKill
@@ -856,6 +889,7 @@ Bpay.Enabled = 1
 #        Default:     0  (No honor when you kill a guard)
 #                     1+ (gain honor for kill guards)
 
+# Set this way so you have a way to gain honor.
 Custom.GainHonorOnGuardKill = 1
 
 #
@@ -864,6 +898,7 @@ Custom.GainHonorOnGuardKill = 1
 #        Default:     0  (No honor when you kill an elite mob)
 #                     1+ (gain honor for kill elite mobs)
 
+# Set this way so you have a way to gain honor.
 Custom.GainHonorOnEliteKill = 1
 
 #   Player.ControlGuardianPets
@@ -876,7 +911,7 @@ Player.ControlGuardianPets = 1
 #       If this option is enabled it will override the player legion legendary equip count and make
 #       the player be able to equip an unlimited number of legendaries 
 
-Player.UnlimitedLegionLegendaries = 1
+Player.UnlimitedLegionLegendaries = 0
 
 #   DisableRestart
 #        Description: Disable server auto restart.
@@ -913,16 +948,16 @@ InstantFlightPaths = 0
 #
 #    Instance.IgnoreLevel
 #        Description: Ignore level requirement when entering instances.
-#        Default:     0 - (Disabled)
-#                     1 - (Enabled)
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
 
 Instance.IgnoreLevel = 1
 
 #
 #    Instance.IgnoreRaid
 #        Description: Ignore raid group requirement when entering instances.
-#        Default:     0 - (Disabled)
-#                     1 - (Enabled)
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
 
 Instance.IgnoreRaid = 1
 
@@ -934,6 +969,7 @@ Instance.IgnoreRaid = 1
 #        Default:     4  - (Enabled, Hide quests that have 4 levels less than the character)
 #                     -1 - (Disabled, Show all available quest marks)
 
+# Set this way due to bad quest levels being set and so you may complete quest achievements.
 Quests.LowLevelHideDiff = -1
 
 #
@@ -944,6 +980,7 @@ Quests.LowLevelHideDiff = -1
 #        Default:     7  - (Enabled, Hide quests that have 7 levels more than the character)
 #                     -1 - (Disabled, Show all available quest marks)
 
+# Set this way due to bad quest levels being set and so you may complete quest achievements.
 Quests.HighLevelHideDiff = -1
 
 #
@@ -952,6 +989,7 @@ Quests.HighLevelHideDiff = -1
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
+# Set this way to avoid frustration while in a group.
 Quests.IgnoreRaid = 1
 
 #
@@ -960,7 +998,7 @@ Quests.IgnoreRaid = 1
 #        Default:     0 - (Disabled, DB values determine if quest is marked auto accept or not.)
 #                     1 - (Enabled, clients will not be told to automatically accept any quest.)
 
-Quests.IgnoreAutoAccept = 1
+Quests.IgnoreAutoAccept = 0
 
 #
 #    Quests.IgnoreAutoComplete
@@ -968,7 +1006,7 @@ Quests.IgnoreAutoAccept = 1
 #        Default:     0 - (Disabled, DB values determine if quest is marked auto complete or not.)
 #                     1 - (Enabled, clients will not be told to automatically complete any quest.)
 
-Quests.IgnoreAutoComplete = 1
+Quests.IgnoreAutoComplete = 0
 
 #
 #    MaxPrimaryTradeSkill
@@ -984,6 +1022,7 @@ MaxPrimaryTradeSkill = 2
 #        Range:       0-4
 #        Default:     4
 
+# Set this way so you can create a guild solo.
 MinPetitionSigns = 0
 
 #
@@ -1039,7 +1078,7 @@ PlayerStart.String = ""
 #        Example:     "Welcome to John\'s Server@This server runs on Trinity Core."
 #        Default:     "Welcome to a Trinity Core server."
 
-Motd = "Welcome to LegionCore Server."
+Motd = "Welcome to SoulSeekkor's modified LegionCore Server."
 
 #
 #    Server.LoginInfo
@@ -1078,7 +1117,7 @@ DBC.EnforceItemAttributes = 1
 #        Description: Controls the max amount of different instances player can enter within hour
 #        Default:     5
 
-AccountInstancesPerHour = 255
+AccountInstancesPerHour = 5
 
 #
 #   MaxAccountsOnline
@@ -1087,6 +1126,76 @@ AccountInstancesPerHour = 255
 #        Default:     1000
 
 MaxAccountsOnline = 1000
+
+#
+#   ChatLevelReq.Channel
+#        Description: Level required in order to use chat channels.
+#        Default:     1
+
+ChatLevelReq.Channel = 1
+
+#
+#   ChatLevelReq.Whisper
+#        Description: Level required in order to whisper.
+#        Default:     1
+
+ChatLevelReq.Whisper = 1
+
+#
+#   ChatLevelReq.Say
+#        Description: Level required in order to speak in local chat.
+#        Default:     1
+
+ChatLevelReq.Say = 1
+
+#
+#   LevelReq.Trade
+#        Description: Level required in order to trade.
+#        Default:     1
+
+LevelReq.Trade = 1
+
+#
+#   LevelReq.Ticket
+#        Description: Level required in order to create tickets.
+#        Default:     1
+
+LevelReq.Ticket = 1
+
+#
+#   LevelReq.Auction
+#        Description: Level required in order to use the auction house.
+#        Default:     1
+
+LevelReq.Auction = 1
+
+#
+#   LevelReq.Mail
+#        Description: Level required in order to send mail.
+#        Default:     1
+
+LevelReq.Mail = 1
+
+#
+#   LevelGoldReq.Mail
+#        Description: Level required in order to send gold through mail.
+#        Default:     15
+
+LevelGoldReq.Mail = 15
+
+#
+#   BattlePet.AllowCageAll
+#        Description: Setting this to 1 will allow all pets to be cageable from your journal.
+#        Default:     0
+
+BattlePet.AllowCageAll = 0
+
+#
+#   SellJunkWhenLooted
+#        Description: Setting this to 1 will automatically sell gray items upon looting them.
+#        Default:     0
+
+SellJunkWhenLooted = 0
 
 #
 ###################################################################################################
@@ -1122,7 +1231,7 @@ Guild.UndeletableLevel = 4
 #
 #    Guild.XPModifier
 #        Description: Multiplier for guild experience gained from quests
-#        Default:     0.25
+#        Default:     0.25 (increase to ~2.5 for a small group of around 3)
 #
 
 Guild.XPModifier = 0.25
@@ -1173,8 +1282,8 @@ Currency.ResetHour = 6
 #
 #     Anticheat.Enable
 #        Description: Enables or disables the Anticheat System functionality
-#        Default:     1 - (Enabled)
-#                     0 - (Disabled)
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
 
 Anticheat.Enable = 0
 
@@ -1223,7 +1332,7 @@ Anticheat.Detail.Log = 0
 
 # DB debug log for testing purposes
 Anticheat.LogData        = 0
-AnticheatLogFile = ""
+AnticheatLogFile = "../log/anticheat.log"
 
 #
 ###################################################################################################
@@ -1586,9 +1695,16 @@ Visibility.Distance.BGArenas = 533
 #                     performance impact.
 #        Default:     1000 - (Visibility.Notify.Period.OnContinents)
 #                     1000 - (Visibility.Notify.Period.InInstances)
+#                     1000 - (Visibility.Notify.Period.BGArenas)
 #
 
+Visibility.Notify.Period.OnContinents = 1000
+Visibility.Notify.Period.InInstances = 1000
+Visibility.Notify.Period.InBGArenas = 1000
+
+# Description is missing for these settings.
 Visibility.RelocationLowerLimit = 20
+Visibility.RelocationLowerLimitC = 20
 Visibility.AINotifyDelay  = 1000
 
 #
@@ -1683,10 +1799,10 @@ Rate.Drop.Item.ReferencedAmount = 1
 #                     1 - (Rate.XP.Quest)
 #                     1 - (Rate.XP.Explore)
 
-Rate.XP.Kill      = 3
-Rate.XP.Quest     = 3
-Rate.XP.Explore   = 3
-Rate.XP.Gathering = 3
+Rate.XP.Kill      = 1
+Rate.XP.Quest     = 1
+Rate.XP.Explore   = 1
+Rate.XP.Gathering = 1
 
 #
 #    Rate.RepairCost
@@ -1851,14 +1967,14 @@ DurabilityLoss.InPvP = 0
 #        Description: Durability loss percentage on death.
 #        Default:     10
 
-DurabilityLoss.OnDeath = 0
+DurabilityLoss.OnDeath = 10
 
 #
 #    DurabilityLossChance.Damage
 #        Description: Chance to lose durability on one equipped item from damage.
 #        Default:     0.5 - (100/0.5 = 200, Each 200 damage one equipped item will use durability)
 
-DurabilityLossChance.Damage = 0.0000001
+DurabilityLossChance.Damage = 0.5
 
 #
 #    DurabilityLossChance.Absorb
@@ -1866,7 +1982,7 @@ DurabilityLossChance.Damage = 0.0000001
 #        Default:     0.5 - (100/0.5 = 200, Each 200 absorbed damage one equipped item will lose
 #                           durability)
 
-DurabilityLossChance.Absorb = 0.0000001
+DurabilityLossChance.Absorb = 0.5
 
 #
 #    DurabilityLossChance.Parry
@@ -1874,7 +1990,7 @@ DurabilityLossChance.Absorb = 0.0000001
 #        Default:     0.05 - (100/0.05 = 2000, Each 2000 parried damage the main weapon will lose
 #                            durability)
 
-DurabilityLossChance.Parry = 0.0000001
+DurabilityLossChance.Parry = 0.05
 
 #
 #    DurabilityLossChance.Block
@@ -1882,7 +1998,7 @@ DurabilityLossChance.Parry = 0.0000001
 #        Default:     0.05 - (100/0.05 = 2000, Each 2000 blocked damage the shield will lose
 #                            durability)
 
-DurabilityLossChance.Block = 0.0000001
+DurabilityLossChance.Block = 0.05
 
 #
 #    Death.SicknessLevel
@@ -1900,8 +2016,8 @@ Death.SicknessLevel = 11
 #    Death.CorpseReclaimDelay.PvP
 #    Death.CorpseReclaimDelay.PvE
 #        Description: Increase corpse reclaim delay at PvP/PvE deaths.
-#        Default:     1 - (Enabled)
-#                     0 - (Disabled)
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
 
 Death.CorpseReclaimDelay.PvP = 0
 Death.CorpseReclaimDelay.PvE = 0
@@ -1911,8 +2027,7 @@ Death.CorpseReclaimDelay.PvE = 0
 #    Death.Bones.BattlegroundOrArena
 #        Description: Create bones instead of corpses at resurrection in normal zones, instances,
 #                     battleground or arenas.
-#        Default:     1 - (Enabled, Death.Bones.World)
-#                     1 - (Enabled, Death.Bones.BattlegroundOrArena)
+#        Default:     1 - (Enabled, Death.Bones.World/Death.Bones.BattlegroundOrArena)
 #                     0 - (Disabled)
 
 Death.Bones.World               = 1
@@ -2218,11 +2333,11 @@ Arena.ArenaStartMatchmakerRating = 1500
 ArenaLog.ExtendedInfo = 0
 
 #
-#    PVP.ItemLevelCap
+#    PvP.ItemLevelCap
 #        Description: Limit for bg and arena for item level
 #        Default:     1000 is the max itemlevel of legion.
 
-PVP.ItemLevelCap = 1000
+PvP.ItemLevelCap = 1000
 
 #
 ###################################################################################################
@@ -2266,7 +2381,7 @@ CharDelete.KeepDays = 30
 #                    0 - (Disabled)
 #
 
-BlackMarket.Enabled = 0
+BlackMarket.Enabled = 1
 
 #
 #    BlackMarket.MaxAuctions
@@ -2377,7 +2492,7 @@ AuctionHouseBot.Class.Glyph.Allow.Zero = 0
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-AuctionHouseBot.Items.Vendor = 1
+AuctionHouseBot.Items.Vendor = 0
 
 #
 #    AuctionHouseBot.Items.Loot
@@ -2393,7 +2508,7 @@ AuctionHouseBot.Items.Loot = 1
 #       Default:     0 - (Disabled)
 #                    1 - (Enabled)
 
-AuctionHouseBot.Items.Misc = 1
+AuctionHouseBot.Items.Misc = 0
 
 #
 #    AuctionHouseBot.Bind.*
@@ -2418,7 +2533,7 @@ AuctionHouseBot.Bind.Quest = 0
 #       Default      0 - (Disabled)
 #                    1 - (Enabled)
 
-AuctionHouseBot.LockBox.Enabled = 1
+AuctionHouseBot.LockBox.Enabled = 0
 
 #
 #    AuctionHouseBot.ItemsPerCycle.Boost
@@ -2781,6 +2896,57 @@ AuctionHouseBot.Buyer.Recheck.Interval = 20
 
 ###################################################################################################
 #
+# DUNGEON BALANCE SETTINGS
+#
+#     DungeonBalance.Enable
+#        Enable/Disable the DungeonBalance system (applies to dungeons and raids)
+#        NOTE: Must enable 'DungeonFinder.DebugJoin' for solo dungeons!
+#       Default:     0 - (Disabled)
+#                    1 - (Enabled)
+
+DungeonBalance.Enable = 0
+
+#
+#     DungeonBalance.Announce
+#        Announce the module on login (only if it is enabled)
+#       Default:     1 - (Enabled)
+#                    0 - (Disabled)
+
+DungeonBalance.Announce = 1
+
+#
+#     DungeonBalance.ScaleScenarios
+#        Determines whether or not scenarios are scaled as well (such as class hall instanced quests)
+#       Default:     0 - (Disabled)
+#                    1 - (Enabled)
+
+DungeonBalance.ScaleScenarios = 0
+
+#
+#     DungeonBalance.DungeonScaleDownXP
+#        Decrease individual player's amount of XP gained during a dungeon to match the
+#        amount of XP gained during a full group run. Example: In a 5-man group, you
+#        earn 1/5 of the total XP per kill, but if you solo the dungeon with
+#        DungeonBalance.DungeonScaleDownXP = 0, you will earn 5/5 of the total XP.
+#        With the option enabled, you will earn 1/5.
+#       Default:     1 - (Enabled)
+#                    0 - (Disabled)
+
+DungeonBalance.DungeonScaleDownXP = 1
+
+#
+#     DungeonBalance.PlayerChangeNotify
+#        Set Auto Notifications to all players in Instance that player count has changed.
+#       Default:     1 - (Enabled)
+#                    0 - (Disabled)
+
+DungeonBalance.PlayerChangeNotify = 1
+
+#
+###################################################################################################
+
+###################################################################################################
+#
 #  Logging system options.
 #
 #  Appender config values: Given a appender "name"
@@ -2875,7 +3041,7 @@ Appenders=Console World Pdump Errors DBErrors
 #                        11 - Pool system
 #                        12 - Auction house
 #                        13 - Arena's and battlegrounds
-#                        14 - Outdoor PVP
+#                        14 - Outdoor PvP
 #                        15 - Chat system
 #                        16 - LFG system
 #                        17 - Maps, instances (not scripts),
@@ -2980,14 +3146,15 @@ Logger.CHALLENGE           = 56,0,Console World Errors
 Logger.PATH_GENERATOR      = 58,0,Console World Errors
 Logger.MMAPS               = 59,0,Console World Errors
 Logger.VMAPS               = 60,0,Console World Errors
+Logger.DUNGEONBALANCE      = 61,5,Console World Errors
 
 #
 #    Loggers
 #        Description: List of Loggers to read from config
 #                     (Using spaces as separator).
-#        Default:     "GENERAL UNITS PETS VEHICLES TSCR DATABASE_AI MAPSCRIPTS NETWORKIO SPELLS_AURAS ACHIEVEMENTSYS CONDITIONSYS POOLSYS AUCTIONHOUSE BATTLEGROUND OUTDOORPVP CHATSYS LFG MAPS PLAYER PLAYER_LOADING PLAYER_ITEMS PLAYER_SKILLS PLAYER_CHATLOG LOOT GUILD TRANSPORTS SQL GMCOMMAND REMOTECOMMAND WARDEN WORLDSERVER GAMEEVENTS CALENDAR CHARACTER SQL_DRIVER SQL_DEV PLAYER_DUMP BATTLEFIELD SERVER_LOADING OPCODES PROC DONATE BATTLEPET PROTOBUF AREATRIGGER GOLD WORLD_QUEST CHALLENGE PATH_GENERATOR MMAPS VMAPS"
+#        Default:     "GENERAL UNITS PETS VEHICLES TSCR DATABASE_AI MAPSCRIPTS NETWORKIO SPELLS_AURAS ACHIEVEMENTSYS CONDITIONSYS POOLSYS AUCTIONHOUSE BATTLEGROUND OUTDOORPVP CHATSYS LFG MAPS PLAYER PLAYER_LOADING PLAYER_ITEMS PLAYER_SKILLS PLAYER_CHATLOG LOOT GUILD TRANSPORTS SQL GMCOMMAND REMOTECOMMAND WARDEN WORLDSERVER GAMEEVENTS CALENDAR CHARACTER SQL_DRIVER SQL_DEV PLAYER_DUMP BATTLEFIELD SERVER_LOADING OPCODES PROC DONATE BATTLEPET PROTOBUF AREATRIGGER GOLD WORLD_QUEST CHALLENGE PATH_GENERATOR MMAPS VMAPS DUNGEONBALANCE"
 
-Loggers=GENERAL UNITS PETS VEHICLES TSCR DATABASE_AI MAPSCRIPTS NETWORKIO SPELLS_AURAS ACHIEVEMENTSYS CONDITIONSYS POOLSYS AUCTIONHOUSE BATTLEGROUND OUTDOORPVP CHATSYS LFG MAPS PLAYER PLAYER_LOADING PLAYER_ITEMS PLAYER_SKILLS PLAYER_CHATLOG LOOT GUILD TRANSPORTS SQL GMCOMMAND REMOTECOMMAND WARDEN WORLDSERVER GAMEEVENTS CALENDAR CHARACTER SQL_DRIVER SQL_DEV PLAYER_DUMP BATTLEFIELD SERVER_LOADING OPCODES PROC DONATE BATTLEPET PROTOBUF AREATRIGGER GOLD WORLD_QUEST CHALLENGE PATH_GENERATOR MMAPS VMAPS
+Loggers=GENERAL UNITS PETS VEHICLES TSCR DATABASE_AI MAPSCRIPTS NETWORKIO SPELLS_AURAS ACHIEVEMENTSYS CONDITIONSYS POOLSYS AUCTIONHOUSE BATTLEGROUND OUTDOORPVP CHATSYS LFG MAPS PLAYER PLAYER_LOADING PLAYER_ITEMS PLAYER_SKILLS PLAYER_CHATLOG LOOT GUILD TRANSPORTS SQL GMCOMMAND REMOTECOMMAND WARDEN WORLDSERVER GAMEEVENTS CALENDAR CHARACTER SQL_DRIVER SQL_DEV PLAYER_DUMP BATTLEFIELD SERVER_LOADING OPCODES PROC DONATE BATTLEPET PROTOBUF AREATRIGGER GOLD WORLD_QUEST CHALLENGE PATH_GENERATOR MMAPS VMAPS DUNGEONBALANCE
 
 #
 #    QuestPOI.DisableErrors

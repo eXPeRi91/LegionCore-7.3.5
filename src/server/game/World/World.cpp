@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** \file
@@ -678,12 +678,17 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_AUCTION_LEVEL_REQ] = sConfigMgr->GetIntDefault("LevelReq.Auction", 1);
     m_int_configs[CONFIG_MAIL_LEVEL_REQ] = sConfigMgr->GetIntDefault("LevelReq.Mail", 1);
     m_int_configs[CONFIG_MAIL_GOLD_LEVEL_REQ] = sConfigMgr->GetIntDefault("LevelGoldReq.Mail", 15);
+
     m_bool_configs[CONFIG_ALLOW_PLAYER_COMMANDS] = sConfigMgr->GetBoolDefault("AllowPlayerCommands", false);
     m_bool_configs[CONFIG_PRESERVE_CUSTOM_CHANNELS] = sConfigMgr->GetBoolDefault("PreserveCustomChannels", false);
     m_int_configs[CONFIG_PRESERVE_CUSTOM_CHANNEL_DURATION] = sConfigMgr->GetIntDefault("PreserveCustomChannelDuration", 14);
     m_bool_configs[CONFIG_GRID_UNLOAD] = sConfigMgr->GetBoolDefault("GridUnload", true);
     m_int_configs[CONFIG_INTERVAL_SAVE] = sConfigMgr->GetIntDefault("PlayerSaveInterval", 15 * MINUTE * IN_MILLISECONDS);
     m_int_configs[CONFIG_INTERVAL_DISCONNECT_TOLERANCE] = sConfigMgr->GetIntDefault("DisconnectToleranceInterval", 0);
+
+    m_bool_configs[CONFIG_BATTLEPET_ALLOWCAGEALL] = sConfigMgr->GetBoolDefault("BattlePet.AllowCageAll", false);
+
+    m_bool_configs[CONFIG_SELLJUNKWHENLOOTED] = sConfigMgr->GetBoolDefault("SellJunkWhenLooted", false);
 
     m_int_configs[CONFIG_INTERVAL_GRIDCLEAN] = sConfigMgr->GetIntDefault("GridCleanUpDelay", 5 * MINUTE * IN_MILLISECONDS);
     if (m_int_configs[CONFIG_INTERVAL_GRIDCLEAN] < MIN_GRID_DELAY)
@@ -1205,8 +1210,8 @@ void World::LoadConfigSettings(bool reload)
         m_MaxVisibleDistanceOnContinents = MAX_VISIBILITY_DISTANCE;
     }
 
-    m_visibilityRelocationLowerLimit = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimit", 10.f);
-    m_visibilityRelocationLowerLimitC = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimitC", 10.f);
+    m_visibilityRelocationLowerLimit = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimit", 20.f);
+    m_visibilityRelocationLowerLimitC = sConfigMgr->GetFloatDefault("Visibility.RelocationLowerLimitC", 20.f);
     m_visibilityAINotifyDelay = sConfigMgr->GetIntDefault("Visibility.AINotifyDelay", DEFAULT_VISIBILITY_NOTIFY_PERIOD);
     Relocation_UpdateUnderwateLimit = sConfigMgr->GetFloatDefault("Relocation.UpdateUnderwateLimit", 20.f);
     ZoneUpdateDistanceRangeLimit = sConfigMgr->GetFloatDefault("Zone.UpdateDistanceRage", 5.f);
@@ -1294,6 +1299,7 @@ void World::LoadConfigSettings(bool reload)
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "VMap data directory is: %svmaps", m_dataPath.c_str());
 
     m_int_configs[CONFIG_MAX_WHO] = sConfigMgr->GetIntDefault("MaxWhoListReturns", 49);
+    m_int_configs[CONFIG_AFK_PREVENT_LOGOUT] = sConfigMgr->GetIntDefault("PreventAFKLogout", 0);
     m_bool_configs[CONFIG_LIMIT_WHO_ONLINE] = sConfigMgr->GetBoolDefault("LimitWhoOnline", true);
     m_bool_configs[CONFIG_PET_LOS] = sConfigMgr->GetBoolDefault("vmap.petLOS", true);
 
@@ -1339,6 +1345,7 @@ void World::LoadConfigSettings(bool reload)
     // Dungeon finder
     m_int_configs[CONFIG_LFG_OPTIONSMASK] = sConfigMgr->GetIntDefault("DungeonFinder.OptionsMask", 1);
     m_bool_configs[CONFIG_LFG_DEBUG_JOIN] = sConfigMgr->GetBoolDefault("DungeonFinder.DebugJoin", false);
+    m_bool_configs[CONFIG_LFG_ALL_PREVIOUS_DUNGEONS] = sConfigMgr->GetBoolDefault("DungeonFinder.AllowPreviousDungeons", false);
     m_bool_configs[CONFIG_LFG_FORCE_MINPLAYERS] = sConfigMgr->GetBoolDefault("DungeonFinder.ForceMinplayers", false);
     m_int_configs[CONFIG_LFG_SHORTAGE_CHECK_INTERVAL] = sConfigMgr->GetIntDefault("DungeonFinder.ShortageCheckInterval", 5);
     m_int_configs[CONFIG_LFG_SHORTAGE_PERCENT] = sConfigMgr->GetIntDefault("DungeonFinder.ShortagePercent", 50);
@@ -1440,13 +1447,13 @@ void World::LoadConfigSettings(bool reload)
     m_float_configs[CONFIG_CAP_KILL_CREATURE_POINTS] = sConfigMgr->GetFloatDefault("Cap.KillCreaturePoints", 150.0f);
 
     m_bool_configs[CONFIG_WORLD_QUEST] = sConfigMgr->GetBoolDefault("WorldQuest", true);
-    m_int_configs[CONFIG_WORLD_QUEST_RESET_TIME_HOUR]  = sConfigMgr->GetIntDefault("WorldQuest.ResetTimeHour", 4);
-    m_int_configs[CONFIG_WORLD_QUEST_HOURLY_RESET]  = sConfigMgr->GetIntDefault("WorldQuest.HourlyReset", 6);
-    m_int_configs[CONFIG_WORLD_QUEST_DAILY_RESET]  = sConfigMgr->GetIntDefault("WorldQuest.DailyReset", 1);
-    m_int_configs[CONFIG_INVASION_POINT_RESET]  = sConfigMgr->GetIntDefault("WorldQuest.InvasionPoint", 2);
+    m_int_configs[CONFIG_WORLD_QUEST_RESET_TIME_HOUR] = sConfigMgr->GetIntDefault("WorldQuest.ResetTimeHour", 4);
+    m_int_configs[CONFIG_WORLD_QUEST_HOURLY_RESET] = sConfigMgr->GetIntDefault("WorldQuest.HourlyReset", 6);
+    m_int_configs[CONFIG_WORLD_QUEST_DAILY_RESET] = sConfigMgr->GetIntDefault("WorldQuest.DailyReset", 1);
+    m_int_configs[CONFIG_INVASION_POINT_RESET] = sConfigMgr->GetIntDefault("WorldQuest.InvasionPoint", 2);
 
-    m_int_configs[CONFIG_WORLD_QUEST_MIN_ITEMLEVEL]  = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Min", 805);
-    m_int_configs[CONFIG_WORLD_QUEST_ITEMLEVEL_CAP]  = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Max", 855);
+    m_int_configs[CONFIG_WORLD_QUEST_MIN_ITEMLEVEL] = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Min", 805);
+    m_int_configs[CONFIG_WORLD_QUEST_ITEMLEVEL_CAP] = sConfigMgr->GetIntDefault("WorldQuest.ItemLevel.Max", 855);
 
     // Cross Faction BG
     m_bool_configs[CONFIG_CROSSFACTIONBG] = sConfigMgr->GetBoolDefault("MixedBGs", false);
@@ -1454,12 +1461,18 @@ void World::LoadConfigSettings(bool reload)
     m_bool_configs[CONFIG_RESTRUCT_GUID] = sConfigMgr->GetBoolDefault("Restruct.Guid", false);
 
     //Time Zone
-    m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "Europe/Paris");// == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
-    m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "Europe/Paris"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
+    m_serverTimeTZ = sConfigMgr->GetStringDefault("ServerTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
+    m_gameTimeTZ = sConfigMgr->GetStringDefault("GameTimeTZ", "America/Chicago"); // == number of seconds elapsed since 00:00 hours, Jan 1, 1970 UTC
 
-    m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]  = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 14);
+    m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] = sConfigMgr->GetIntDefault("MaxPrestigeLevel", 25);
+    if (int32(m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]) < 0 || m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] > 25)
+    {
+        TC_LOG_ERROR(LOG_FILTER_SERVER_LOADING, "MaxPrestigeLevel (%i) must be in range 1..25. Set to 25.", m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL]);
+        m_int_configs[CONFIG_MAX_PRESTIGE_LEVEL] = 25;
+    }
+    m_bool_configs[CONFIG_RESET_PVP_TALENTS_ON_PRESTIGE] = sConfigMgr->GetBoolDefault("ResetHonorTalentsOnPrestige", false);
 
-    m_int_configs[CONFIG_SIZE_CELL_FOR_PULL]  = sConfigMgr->GetIntDefault("SizeCellForPull", 8);
+    m_int_configs[CONFIG_SIZE_CELL_FOR_PULL] = sConfigMgr->GetIntDefault("SizeCellForPull", 8);
 
     m_bool_configs[CONFIG_ANTICHEAT_ENABLED] = sConfigMgr->GetBoolDefault("Anticheat.Enable", false);
     m_bool_configs[CONFIG_ANTICHEAT_ANTI_MULTI_JUMP_ENABLED] = sConfigMgr->GetBoolDefault("Anticheat.AntiMultiJump.Enable", false);
@@ -1474,7 +1487,7 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_ANTICHEAT_MAX_ALLOWED_DESYNC] = sConfigMgr->GetIntDefault("Anticheat.MaxAllowedDesync", 0);
     m_int_configs[CONFIG_ANTICHEAT_GM_ANNOUNCE_MASK] = sConfigMgr->GetIntDefault("Anticheat.GMAnnounceMask", 0);
 
-    m_bool_configs[CONFIG_OBLITERUM_LEVEL_ENABLE]  = sConfigMgr->GetBoolDefault("Obliterum.LevelEnable", true);
+    m_bool_configs[CONFIG_OBLITERUM_LEVEL_ENABLE] = sConfigMgr->GetBoolDefault("Obliterum.LevelEnable", true);
 
     m_int_configs[CONFIG_CHALLENGE_LEVEL_LIMIT] = sConfigMgr->GetIntDefault("Challenge.LevelLimit", 30);
     m_int_configs[CONFIG_CHALLENGE_LEVEL_MAX] = sConfigMgr->GetIntDefault("Challenge.LevelMax", 15);
@@ -1482,9 +1495,9 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_CHALLENGE_ADD_ITEM] = sConfigMgr->GetIntDefault("Challenge.AddItem", 1533);
     m_int_configs[CONFIG_CHALLENGE_ADD_ITEM_TYPE] = sConfigMgr->GetIntDefault("Challenge.AddItemType", 1);
     m_int_configs[CONFIG_CHALLENGE_ADD_ITEM_COUNT] = sConfigMgr->GetIntDefault("Challenge.AddItemCount", 120);
-	m_int_configs[CONFIG_CHALLENGE_MANUAL_AFFIX1] = sConfigMgr->GetIntDefault("Challenge.Manual.Affix1", 0);
-	m_int_configs[CONFIG_CHALLENGE_MANUAL_AFFIX2] = sConfigMgr->GetIntDefault("Challenge.Manual.Affix2", 0);
-	m_int_configs[CONFIG_CHALLENGE_MANUAL_AFFIX3] = sConfigMgr->GetIntDefault("Challenge.Manual.Affix3", 0);
+    m_int_configs[CONFIG_CHALLENGE_MANUAL_AFFIX1] = sConfigMgr->GetIntDefault("Challenge.Manual.Affix1", 0);
+    m_int_configs[CONFIG_CHALLENGE_MANUAL_AFFIX2] = sConfigMgr->GetIntDefault("Challenge.Manual.Affix2", 0);
+    m_int_configs[CONFIG_CHALLENGE_MANUAL_AFFIX3] = sConfigMgr->GetIntDefault("Challenge.Manual.Affix3", 0);
 
     m_bool_configs[CONFIG_PVP_LEVEL_ENABLE]  = sConfigMgr->GetBoolDefault("PvP.LevelEnable", true);
     m_int_configs[CONFIG_PVP_ACTIVE_SEASON] = sConfigMgr->GetIntDefault("PvP.ActiveSeason", 0);
@@ -1494,18 +1507,18 @@ void World::LoadConfigSettings(bool reload)
 
     m_bool_configs[CONFIG_ARTIFACT_TIER_ENABLE]  = sConfigMgr->GetBoolDefault("ArtifactTierEnable", true);
 
-	m_int_configs[CONFIG_WEIGHTED_MYTHIC_KEYSTONE] = sConfigMgr->GetIntDefault("Dungeon.WeightedMythicKeystone.Enabled", 1);
-	m_int_configs[CONFIG_PLAYER_AFK_TIMEOUT] = sConfigMgr->GetIntDefault("Player.AFKTimeout", 0);
+    m_int_configs[CONFIG_WEIGHTED_MYTHIC_KEYSTONE] = sConfigMgr->GetIntDefault("Dungeon.WeightedMythicKeystone.Enabled", 1);
+    m_int_configs[CONFIG_PLAYER_AFK_TIMEOUT] = sConfigMgr->GetIntDefault("Player.AFKTimeout", 0);
 
-	m_bool_configs[CONFIG_PLAYER_CONTROL_GUARDIAN_PETS] = sConfigMgr->GetBoolDefault("Player.ControlGuardianPets", true);
+    m_bool_configs[CONFIG_PLAYER_CONTROL_GUARDIAN_PETS] = sConfigMgr->GetBoolDefault("Player.ControlGuardianPets", true);
 
-	m_bool_configs[CONFIG_PLAYER_UNLIMITED_LEGION_LEGENDARIES] = sConfigMgr->GetBoolDefault("Player.UnlimitedLegionLegendaries", true);
-	m_int_configs[CONFIG_PLAYER_LEGION_LEGENDARY_EQUIP_COUNT] = sConfigMgr->GetIntDefault("Player.LegionLegendaryEquipCount", 0);
-	m_bool_configs[CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME] = sConfigMgr->GetBoolDefault("Player.AllowPVPTalentsAllTheTime", false);
+    m_bool_configs[CONFIG_PLAYER_UNLIMITED_LEGION_LEGENDARIES] = sConfigMgr->GetBoolDefault("Player.UnlimitedLegionLegendaries", true);
+    m_int_configs[CONFIG_PLAYER_LEGION_LEGENDARY_EQUIP_COUNT] = sConfigMgr->GetIntDefault("Player.LegionLegendaryEquipCount", 0);
+    m_bool_configs[CONFIG_PLAYER_ALLOW_PVP_TALENTS_ALL_THE_TIME] = sConfigMgr->GetBoolDefault("Player.AllowPvPTalentsAllTheTime", false);
 
-	// Honor for elites and guards
-	m_bool_configs[CONFIG_GAIN_HONOR_GUARD] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnGuardKill", true);
-	m_bool_configs[CONFIG_GAIN_HONOR_ELITE] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnEliteKill", true);
+    // Honor for elites and guards
+    m_bool_configs[CONFIG_GAIN_HONOR_GUARD] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnGuardKill", true);
+    m_bool_configs[CONFIG_GAIN_HONOR_ELITE] = sConfigMgr->GetBoolDefault("Custom.GainHonorOnEliteKill", true);
 
     // Legion patch configuration
     m_int_configs[CONFIG_LEGION_ENABLED_PATCH] = sConfigMgr->GetIntDefault("Game.Patch", 3);
@@ -1620,7 +1633,7 @@ void World::SetInitialWorldSettings()
     //No SQL injection as values are treated as integers
 
     // not send custom type REALM_FFA_PVP to realm list
-    uint32 server_type = IsFFAPvPRealm() ? uint32(REALM_TYPE_PVP) : getIntConfig(CONFIG_GAME_TYPE);
+    uint32 server_type = IsFFAPvpRealm() ? uint32(REALM_TYPE_PVP) : getIntConfig(CONFIG_GAME_TYPE);
     uint32 realm_zone = getIntConfig(CONFIG_REALM_ZONE);
 
     LoginDatabase.PExecute("UPDATE realmlist SET icon = %u, timezone = %u WHERE id = '%d'", server_type, realm_zone, realm.Id.Realm);      // One-time query
@@ -2226,9 +2239,9 @@ void World::SetInitialWorldSettings()
     sBattlegroundMgr->InitializeBrawlData();
     CharacterDatabase.Execute("UPDATE `character_battleground_data` SET `team` = 0"); // Need update if crash server
 
-    ///- Initialize outdoor pvp
+    ///- Initialize outdoor Pvp
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Starting Outdoor PvP System");
-    sOutdoorPvPMgr->InitOutdoorPvP();
+    sOutdoorPvpMgr->InitOutdoorPvp();
 
     ///- Initialize Battlefield
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Starting Battlefield System");
@@ -4133,13 +4146,13 @@ void World::LoadWorldStates()
 
 }
 
-bool World::IsPvPRealm() const
+bool World::IsPvpRealm() const
 {
     return (getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_PVP || getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_RPPVP ||
         getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP);
 }
 
-bool World::IsFFAPvPRealm() const
+bool World::IsFFAPvpRealm() const
 {
     return getIntConfig(CONFIG_GAME_TYPE) == REALM_TYPE_FFA_PVP;
 }
@@ -4340,9 +4353,9 @@ void World::DeleteCharacterNameData(ObjectGuid::LowType guid)
 
 void World::UpdatePhaseDefinitions()
 {
-    for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)	
-        if (itr->second && itr->second->GetPlayer() && itr->second->GetPlayer()->IsInWorld())	
-            itr->second->GetPlayer()->GetPhaseMgr().NotifyStoresReloaded();	
+    for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+        if (itr->second && itr->second->GetPlayer() && itr->second->GetPlayer()->IsInWorld())
+            itr->second->GetPlayer()->GetPhaseMgr().NotifyStoresReloaded();
 }
 
 bool World::CheckCharacterName(std::string name)

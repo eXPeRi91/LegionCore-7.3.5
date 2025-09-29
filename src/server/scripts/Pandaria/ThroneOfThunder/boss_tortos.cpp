@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "throne_of_thunder.h"
@@ -294,7 +294,7 @@ public:
         bool kick;
         bool done;
 
-        void Reset()
+        void Reset() override
         {
             kick = false;
             done = false;
@@ -317,7 +317,7 @@ public:
             }
         }
 
-        void MovementInform(uint32 type, uint32 pointId)
+        void MovementInform(uint32 type, uint32 pointId) override
         {
             if (type == EFFECT_MOTION_TYPE)
             {
@@ -333,7 +333,7 @@ public:
             }
         }
 
-        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType)
+        void DamageTaken(Unit* attacker, uint32 &damage, DamageEffectType dmgType) override
         {
             if (damage >= me->GetHealth())
                 damage = 0;
@@ -350,7 +350,7 @@ public:
             }
         }
 
-        void UpdateAI(uint32 diff)
+        void UpdateAI(uint32 diff) override
         {
             events.Update(diff);
 

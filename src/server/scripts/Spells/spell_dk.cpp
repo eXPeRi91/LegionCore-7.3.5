@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -1569,7 +1569,7 @@ class spell_dk_apocalypse : public SpellScriptLoader
                     if (Aura* aura = target->GetAura(194310, caster->GetGUID()))
                     {
                         int32 count = aura->GetStackAmount();
-                        int8 cap = caster->CanPvPScalar() ? 4 : GetSpellInfo()->Effects[EFFECT_2]->BasePoints;
+                        int8 cap = caster->CanPvpScalar() ? 4 : GetSpellInfo()->Effects[EFFECT_2]->BasePoints;
                         if (count > cap)
                             count = cap;
 

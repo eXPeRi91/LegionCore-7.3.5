@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _SPELLMGR_H
@@ -205,7 +205,7 @@ enum SpellTriggeredType
     SPELL_TRIGGER_PERC_MAX_MANA                 = 10,           // Percent from max mana
     SPELL_TRIGGER_PERC_BASE_MANA                = 11,           // Percent from base mana
     SPELL_TRIGGER_PERC_CUR_MANA                 = 12,           // Percent from curent mana
-    SPELL_TRIGGER_CHECK_PROCK                   = 13,           // Check proc from spell to trigger
+    SPELL_TRIGGER_CHECK_PROC                    = 13,           // Check proc from spell to trigger
     SPELL_TRIGGER_DUMMY                         = 14,           // spell to trigger without option for bp
     SPELL_TRIGGER_CAST_DEST                     = 15,           // spell to trigger without option for bp
     SPELL_TRIGGER_CHECK_DAMAGE                  = 16,           // spell to trigger if damage > amount
@@ -247,7 +247,7 @@ enum DummyTriggerType
     DUMMY_TRIGGER_BP                            = 0,            // set basepoint to spell from amount
     DUMMY_TRIGGER_BP_CUSTOM                     = 1,            // set basepoint to spell custom from BD
     DUMMY_TRIGGER_COOLDOWN                      = 2,            // Set cooldown for trigger spell
-    DUMMY_TRIGGER_CHECK_PROCK                   = 3,            // Check proc from spell to trigger
+    DUMMY_TRIGGER_CHECK_PROC                    = 3,            // Check proc from spell to trigger
     DUMMY_TRIGGER_DUMMY                         = 4,            // spell to trigger without option for bp
     DUMMY_TRIGGER_CAST_DEST                     = 5,            // spell to trigger without option for bp
     DUMMY_TRIGGER_CAST_OR_REMOVE                = 6,            // cast spell without option
@@ -464,13 +464,13 @@ enum ProcFlags
 };
 
 constexpr auto MELEE_BASED_TRIGGER_MASK = (PROC_FLAG_DONE_MELEE_AUTO_ATTACK |
-	PROC_FLAG_TAKEN_MELEE_AUTO_ATTACK |
-	PROC_FLAG_DONE_SPELL_MELEE_DMG_CLASS |
-	PROC_FLAG_TAKEN_SPELL_MELEE_DMG_CLASS |
-	PROC_FLAG_DONE_RANGED_AUTO_ATTACK |
-	PROC_FLAG_TAKEN_RANGED_AUTO_ATTACK |
-	PROC_FLAG_DONE_SPELL_RANGED_DMG_CLASS |
-	PROC_FLAG_TAKEN_SPELL_RANGED_DMG_CLASS);
+    PROC_FLAG_TAKEN_MELEE_AUTO_ATTACK |
+    PROC_FLAG_DONE_SPELL_MELEE_DMG_CLASS |
+    PROC_FLAG_TAKEN_SPELL_MELEE_DMG_CLASS |
+    PROC_FLAG_DONE_RANGED_AUTO_ATTACK |
+    PROC_FLAG_TAKEN_RANGED_AUTO_ATTACK |
+    PROC_FLAG_DONE_SPELL_RANGED_DMG_CLASS |
+    PROC_FLAG_TAKEN_SPELL_RANGED_DMG_CLASS);
 
 enum ProcFlagsExLegacy
 {
@@ -505,10 +505,10 @@ enum ProcFlagsExLegacy
 };
 
 constexpr auto AURA_SPELL_PROC_EX_MASK =
-	(PROC_EX_NORMAL_HIT | PROC_EX_CRITICAL_HIT | PROC_EX_MISS |
-	PROC_EX_RESIST | PROC_EX_DODGE | PROC_EX_PARRY | PROC_EX_BLOCK |
-	PROC_EX_EVADE | PROC_EX_IMMUNE | PROC_EX_DEFLECT |
-	PROC_EX_ABSORB | PROC_EX_REFLECT | PROC_EX_INTERRUPT | PROC_EX_DISPEL);
+    (PROC_EX_NORMAL_HIT | PROC_EX_CRITICAL_HIT | PROC_EX_MISS |
+    PROC_EX_RESIST | PROC_EX_DODGE | PROC_EX_PARRY | PROC_EX_BLOCK |
+    PROC_EX_EVADE | PROC_EX_IMMUNE | PROC_EX_DEFLECT |
+    PROC_EX_ABSORB | PROC_EX_REFLECT | PROC_EX_INTERRUPT | PROC_EX_DISPEL);
 
 enum ProcFlagsSpellType
 {
@@ -858,7 +858,7 @@ struct SpellLinked
 struct SpellTalentLinked
 {
     int32 talent;
-    int32 triger;
+    int32 trigger;
     int32 type;
     int32 caster;
     int32 target;
@@ -1054,7 +1054,7 @@ struct SceneTriggerEvent
 {
     std::string Event;
     int32 MiscValue;
-    uint32 trigerSpell;
+    uint32 triggerSpell;
     uint32 MonsterCredit;
 };
 

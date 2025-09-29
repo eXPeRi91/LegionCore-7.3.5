@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -57,12 +57,12 @@ public:
         uint32 CthunPhase;
 
         uint32 update_worldstate;
-        uint32 CurrectAllianceScore{};
-        uint32 CurrectHordeScore{};
+        uint32 CurrentAllianceScore{};
+        uint32 CurrentHordeScore{};
         uint32 AllianceScore{};
         uint32 HordeScore{};
 
-        void Initialize()
+        void Initialize() override
         {
             IsBossDied[0] = false;
             IsBossDied[1] = false;
@@ -80,10 +80,10 @@ public:
 
             update_worldstate = 2000;
 
-            AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+            AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
             HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
-            CurrectAllianceScore = AllianceScore;
-            CurrectHordeScore = CurrectHordeScore;
+            CurrentAllianceScore = AllianceScore;
+            CurrentHordeScore = HordeScore;
         }
 
         void OnCreatureCreate(Creature* creature) override
@@ -98,7 +98,7 @@ public:
             }
         }
 
-        bool IsEncounterInProgress() const
+        bool IsEncounterInProgress() const override
         {
             //not active in AQ40
             return false;
@@ -120,18 +120,18 @@ public:
                 {
                     instance->ApplyOnEveryPlayer([=](Player* player) -> void
                     {
-                        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLINCE);
+                        AllianceScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_ALLIANCE);
                         HordeScore = sWorld->getWorldState(WS_SCORE_CALL_OF_THE_SCARAB_HORDE);
 
-                        if (AllianceScore > CurrectAllianceScore)
+                        if (AllianceScore > CurrentAllianceScore)
                         {
-                            CurrectAllianceScore = AllianceScore;
+                            CurrentAllianceScore = AllianceScore;
                             player->SendUpdateWorldState(static_cast<WorldStates>(12953), AllianceScore);
                         }
 
-                        if (HordeScore > CurrectHordeScore)
+                        if (HordeScore > CurrentHordeScore)
                         {
-                            CurrectHordeScore = AllianceScore;
+                            CurrentHordeScore = HordeScore;
                             player->SendUpdateWorldState(static_cast<WorldStates>(12952), HordeScore);
                         }
                     });
@@ -169,7 +169,7 @@ public:
             return 0;
         }
 
-        ObjectGuid GetGuidData(uint32 identifier) const
+        ObjectGuid GetGuidData(uint32 identifier) const override
         {
             switch (identifier)
             {

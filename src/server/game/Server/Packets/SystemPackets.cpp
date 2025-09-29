@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "SystemPackets.h"
@@ -72,9 +72,9 @@ WorldPacket const* WorldPackets::System::FeatureSystemStatus::Write()
     _worldPacket << float(QuickJoinConfig.ThrottleDecayTime);
     _worldPacket << float(QuickJoinConfig.ThrottlePrioritySpike);
     _worldPacket << float(QuickJoinConfig.ThrottleMinThreshold);
-    _worldPacket << float(QuickJoinConfig.ThrottlePvPPriorityNormal);
-    _worldPacket << float(QuickJoinConfig.ThrottlePvPPriorityLow);
-    _worldPacket << float(QuickJoinConfig.ThrottlePvPHonorThreshold);
+    _worldPacket << float(QuickJoinConfig.ThrottlePvpPriorityNormal);
+    _worldPacket << float(QuickJoinConfig.ThrottlePvpPriorityLow);
+    _worldPacket << float(QuickJoinConfig.ThrottlePvpHonorThreshold);
     _worldPacket << float(QuickJoinConfig.ThrottleLfgListPriorityDefault);
     _worldPacket << float(QuickJoinConfig.ThrottleLfgListPriorityAbove);
     _worldPacket << float(QuickJoinConfig.ThrottleLfgListPriorityBelow);

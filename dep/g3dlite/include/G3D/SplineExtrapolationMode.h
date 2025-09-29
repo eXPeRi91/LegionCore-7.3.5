@@ -1,7 +1,7 @@
 /** 
   \file G3D/SplineExtrapolationMode.h
  
-  \maintainer Michael Mara, http://graphics.cs.williams.edu
+  \maintainer Michael Mara, https://graphics.cs.williams.edu
  
   \created 2013-01-24
   \edited  2013-01-24
@@ -25,7 +25,7 @@ namespace G3D {
   Refer to these as scoped enums, e.g., <code>SplineExtrapolationMode m = SplineExtrapolationMode::CLAMP;</code>.
 
   Uses the "Intelligent Enum" design pattern 
-  http://www.codeguru.com/cpp/cpp/cpp_mfc/article.php/c4001/
+  https://www.codeguru.com/cpp/cpp/cpp_mfc/article.php/c4001/
  */ 
 class SplineExtrapolationMode {
 public:

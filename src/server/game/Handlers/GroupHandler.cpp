@@ -1,6 +1,6 @@
 /*
-* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
-* Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+* Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "PartyPackets.h"
@@ -71,7 +71,7 @@ void WorldSession::HandlePartyInvite(WorldPackets::Party::PartyInviteClient& pac
     }
 
     // can't group with
-    if (!c_player->isGameMaster() && !sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP) && c_player->GetTeam() != player->GetTeam()  
+    if ((!c_player->isGameMaster() && !sWorld->getBoolConfig(CONFIG_ALLOW_TWO_SIDE_INTERACTION_GROUP) && c_player->GetTeam() != player->GetTeam())  
         || player->GetMapId() == 1101 || c_player->GetMapId() == 1101) // deathmatch
     {
         SendPartyResult(PARTY_OP_INVITE, packet.TargetName, ERR_PLAYER_WRONG_FACTION);

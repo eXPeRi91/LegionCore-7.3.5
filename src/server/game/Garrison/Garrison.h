@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef Garrison_h__
@@ -319,7 +319,7 @@ public:
     bool canStartUpgrade();
     void StartClassHallUpgrade(uint32 tallentID);
     void AddTalentToStore(uint32 talentID, uint32 time, uint32 flags, ObjectDBState DbState = DB_STATE_UNCHANGED);
-    bool hasTallent(uint32 talentID) const;
+    bool hasTalent(uint32 talentID) const;
 
     //Advancement
     bool hasLegionFall() const;

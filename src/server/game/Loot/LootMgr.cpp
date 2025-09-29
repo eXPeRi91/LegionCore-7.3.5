@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "BattlegroundMgr.h"
@@ -507,7 +507,7 @@ Loot::Loot(uint32 _gold): _DifficultyMask(0)
     isBoss = false;
     bonusLoot = false;
     _isEmissaryLoot = false;
-    _IsPvPLoot = false;
+    _IsPvpLoot = false;
     _isTokenLoot = false;
     _isItemLoot = false;
     _specCheck = true;
@@ -578,7 +578,7 @@ bool Loot::IsEmissaryLoot(uint32 lootId, WorldObject const* lootFrom)
     return false;
 }
 
-bool Loot::IsPvPLoot(uint32 lootId, WorldObject const* lootFrom)
+bool Loot::IsPvpLoot(uint32 lootId, WorldObject const* lootFrom)
 {
     if (lootFrom != nullptr) //Item is not worldobject
         return false;
@@ -783,7 +783,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
 
     _DifficultyMask = (1 << (CreatureTemplate::GetDiffFromSpawn(_DifficultyID)));
     _isEmissaryLoot = IsEmissaryLoot(lootId, lootFrom);
-    _IsPvPLoot = IsPvPLoot(lootId, lootFrom);
+    _IsPvpLoot = IsPvpLoot(lootId, lootFrom);
     bool isOploteChest = go && go->GetGOInfo() && go->GetGOInfo()->IsOploteChest();
     rateLegendary = lootOwner->GetRateLegendaryDrop(isBoss, isRareOrGo && !isRareNext, isOploteChest, _isEmissaryLoot || _isTokenLoot, _ExpansionID, _DifficultyID);
 
@@ -797,7 +797,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
     if (go && isRareOrGo && go->InInstance())
         if (uint32 instanceId = go->GetInstanceId())
             if (Scenario* progress = sScenarioMgr->GetScenario(instanceId))
-                if (_challenge = progress->GetChallenge())
+                if ((_challenge = progress->GetChallenge()))
                     if (_challenge->_complete)
                         _itemContext = sChallengeMgr->GetLootTreeMod(_levelBonus, _challengeLevel, _challenge);
 
@@ -839,7 +839,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
 
     if (tab)
     {
-        if (_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvPLoot)
+        if (_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvpLoot)
             tab->ProcessItemLoot(*this);
         else if (isOploteChest)
             tab->ProcessOploteChest(*this);
@@ -898,7 +898,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
         }
     }
     // ... for nonGroup loot
-    else if (isOnlyQuest && (creature && creature->CanShared() || isBoss))
+    else if (isOnlyQuest && ((creature && creature->CanShared()) || isBoss))
     {
         GuidSet* savethreatlist = creature->GetSaveThreatList();
         // TC_LOG_DEBUG(LOG_FILTER_LOOT, "Loot::FillLoot isOnlyQuest && creature && creature->CanShared size %u", savethreatlist->size());
@@ -925,7 +925,7 @@ bool Loot::FillLoot(uint32 lootId, LootStore const& store, Player* lootOwner, bo
         FillNotNormalLootFor(lootOwner, true);
     }
 
-    if (!bonusLoot && (noGroup && personal || _challengeLevel && !isOploteChest) && !(_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvPLoot)) // Add looters to personal loot
+    if (!bonusLoot && ((noGroup && personal) || (_challengeLevel && !isOploteChest)) && !(_isEmissaryLoot || _isTokenLoot || _isItemLoot || _IsPvpLoot)) // Add looters to personal loot
         FillPersonalLootFor(lootOwner);
 
     if(lootId == 90406 || lootId == 90399 || lootId == 90397 || lootId == 90400 ||  lootId == 90398 || lootId == 90395 || lootId == 90401)
@@ -1055,7 +1055,7 @@ void Loot::clear()
     isOnlyQuest = false;
     isRareOrGo = false;
     _isEmissaryLoot = false;
-    _IsPvPLoot = false;
+    _IsPvpLoot = false;
     _isTokenLoot = false;
     _isItemLoot = false;
     _isLegendaryLoot = false;
@@ -1722,7 +1722,7 @@ void Loot::AddLegendaryItemToDrop()
 
     if (uint32 itemID = sObjectMgr->GetRandomLegendaryItem(m_lootOwner))
     {
-        sLog->outWarden("Player %s on map %u with killpoints %f and chance %f looted legendary item %u from source: guid (high: " UI64FMTDX ", low: " UI64FMTDX ")", m_lootOwner->GetSession()->GetPlayerName(false).c_str(), m_lootOwner->GetMapId(), m_lootOwner->m_killPoints, chance, itemID, uint8(LootSourceGuid.GetHigh()), LootSourceGuid.GetLowPart());
+        sLog->outWarden("Player %s on map %u with killpoints %f and chance %f looted legendary item %u from source: guid (high: %u, low: " UI64FMTDX ")", m_lootOwner->GetSession()->GetPlayerName(false).c_str(), m_lootOwner->GetMapId(), m_lootOwner->m_killPoints, chance, itemID, uint8(LootSourceGuid.GetHigh()), LootSourceGuid.GetLowPart());
         LootStoreItem item = LootStoreItem(itemID, LOOT_ITEM_TYPE_ITEM, 0.0f, 0, 0, 1, 1);
         AddItem(item);
         m_lootOwner->m_killPoints = 0.0f;
@@ -1733,7 +1733,7 @@ void Loot::AddLegendaryItem()
 {
     if (uint32 itemID = sObjectMgr->GetRandomLegendaryItem(m_lootOwner))
     {
-        sLog->outWarden("Player %s on map %u with killpoints %f looted legendary item %u from source: guid (high: " UI64FMTDX ", low: " UI64FMTDX ")", m_lootOwner->GetSession()->GetPlayerName(false).c_str(), m_lootOwner->GetMapId(), m_lootOwner->m_killPoints, itemID, uint8(LootSourceGuid.GetHigh()), LootSourceGuid.GetLowPart());
+        sLog->outWarden("Player %s on map %u with killpoints %f looted legendary item %u from source: guid (high: %u, low: " UI64FMTDX ")", m_lootOwner->GetSession()->GetPlayerName(false).c_str(), m_lootOwner->GetMapId(), m_lootOwner->m_killPoints, itemID, uint8(LootSourceGuid.GetHigh()), LootSourceGuid.GetLowPart());
         LootStoreItem item = LootStoreItem(itemID, LOOT_ITEM_TYPE_ITEM, 0.0f, 0, 0, 1, 1);
         AddItem(item);
     }
@@ -2921,15 +2921,15 @@ void LootTemplate::ProcessItemLoot(Loot& loot) const
     // TC_LOG_DEBUG(LOG_FILTER_LOOT, "ProcessItemLoot Entries %u AutoGroups %u PersonalGroups %u", Entries.size(), AutoGroups.size(), PersonalGroups.size());
 
     Player const* lootOwner = loot.GetLootOwner();
-    if (loot._IsPvPLoot)
+    if (loot._IsPvpLoot)
     {
         if (PvpReward* reward = sBattlegroundMgr->GetPvpReward(PvpReward_Arena_2v2))
         {
             uint32 itemID = 0;
             uint32 rating = 0;
             uint32 needLevel = 0;
-            const_cast<Player*>(lootOwner)->GetPvPRatingAndLevel(reward, PvpReward_Arena_2v2, rating, needLevel, false);
-            std::vector<uint32> bonusListIDs = const_cast<Player*>(lootOwner)->GetPvPRewardItem(itemID, PvpReward_Arena_2v2, rating, false, needLevel);
+            const_cast<Player*>(lootOwner)->GetPvpRatingAndLevel(reward, PvpReward_Arena_2v2, rating, needLevel, false);
+            std::vector<uint32> bonusListIDs = const_cast<Player*>(lootOwner)->GetPvpRewardItem(itemID, PvpReward_Arena_2v2, rating, false, needLevel);
             if (itemID)
             {
                 LootStoreItem item = LootStoreItem(itemID, LOOT_ITEM_TYPE_ITEM, 0.0f, 0, 0, 1, 1);
@@ -3184,7 +3184,7 @@ void LootTemplate::ProcessChallengeChest(Loot& loot, uint32 lootId, Challenge* _
         for (auto const& item : ItemPossibleDrops)
         {
             loot.AddItem(item);
-            sLog->outWarden("Player %s on map %u looted item %u from: challenge chest (Level %u, LevelBonus %u, ChallengeFinishTime %u) allItemCount %u ItemPossibleDrops %u",
+            sLog->outWarden("Player %s on map %u looted item %u from: challenge chest (Level %u, LevelBonus %u, ChallengeFinishTime %u) allItemCount %u ItemPossibleDrops " UI64FMTDX,
             lootOwner->GetName(), lootOwner->GetMapId(), item.itemid, _challenge->GetChallengeLevel() - _challenge->GetLevelBonus(), _challenge->GetLevelBonus(), _challenge->GetChallengeTimer(), allItemCount, ItemPossibleDrops.size());
         }
     }

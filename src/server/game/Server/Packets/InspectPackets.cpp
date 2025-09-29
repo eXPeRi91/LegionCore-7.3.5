@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "InspectPackets.h"
@@ -92,7 +92,7 @@ WorldPacket const* WorldPackets::Inspect::InspectResult::Write()
     _worldPacket << static_cast<uint32>(Items.size());
     _worldPacket << static_cast<uint32>(Glyphs.size());
     _worldPacket << static_cast<uint32>(Talents.size());
-    _worldPacket << static_cast<uint32>(PvPTalents.size());
+    _worldPacket << static_cast<uint32>(PvpTalents.size());
 
     _worldPacket << int32(ClassID);
     _worldPacket << int32(SpecializationID);
@@ -104,7 +104,7 @@ WorldPacket const* WorldPackets::Inspect::InspectResult::Write()
     for (uint16 const& talent : Talents)
         _worldPacket << talent;
 
-    for (uint16 const& talent : PvPTalents)
+    for (uint16 const& talent : PvpTalents)
         _worldPacket << talent;
 
     _worldPacket.FlushBits();
@@ -135,13 +135,13 @@ WorldPacket const* WorldPackets::Inspect::InspectHonorStats::Write()
     return &_worldPacket;
 }
 
-void WorldPackets::Inspect::InspectPVPRequest::Read()
+void WorldPackets::Inspect::InspectPvpRequest::Read()
 {
     _worldPacket >> InspectTarget;
     _worldPacket >> InspectRealmAddress;
 }
 
-ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Inspect::PVPBracketData const& bracket)
+ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Inspect::PvpBracketData const& bracket)
 {
     data << int32(bracket.Rating);
     data << int32(bracket.Rank);
@@ -156,7 +156,7 @@ ByteBuffer& operator<<(ByteBuffer& data, WorldPackets::Inspect::PVPBracketData c
     return data;
 }
 
-WorldPacket const* WorldPackets::Inspect::InspectPVPResponse::Write()
+WorldPacket const* WorldPackets::Inspect::InspectPvpResponse::Write()
 {
     _worldPacket << ClientGUID;
 

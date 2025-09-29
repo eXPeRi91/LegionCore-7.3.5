@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2016 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Errors.h"
@@ -87,6 +87,8 @@ void Abort(char const* file, int line, char const* function)
     exit(1);
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Winvalid-noreturn"
 void AbortHandler(int signum)
 {
     if (m_worldCrashChecker) // Prevent double dump if crash already run
@@ -105,7 +107,10 @@ void AbortHandler(int signum)
         exit(1);
     }
 }
+#pragma GCC diagnostic pop
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Winvalid-noreturn"
 void DumpHandler(int signum)
 {
     if (m_worldCrashChecker) // Prevent double dump if crash already run
@@ -124,5 +129,6 @@ void DumpHandler(int signum)
         exit(3);
     }
 }
+#pragma GCC diagnostic pop
 
 } // namespace Trinity

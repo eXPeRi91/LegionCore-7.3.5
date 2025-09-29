@@ -3,9 +3,9 @@
  
   3x3 matrix class
  
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
-  \cite Portions based on Dave Eberly's Magic Software Library at <A HREF="http://www.magic-software.com">http://www.magic-software.com</A>
+  \cite Portions based on Dave Eberly's Magic Software Library at <A HREF="https://www.magic-software.com">https://www.magic-software.com</A>
  
   \created 2001-06-02
   \edited  2011-05-05
@@ -357,7 +357,7 @@ public:
     // ensure that there is only one definition of each wrapping 
     // function, and this means not making the wrapping functions inline",
     // according to Chapter 10 of "Thinking in C++, 2nd ed. Volume 1" by Bruce Eckel, 
-    // http://www.mindview.net/
+    // https://www.mindview.net/
     static const Matrix3& zero();
     static const Matrix3& identity(); 
 

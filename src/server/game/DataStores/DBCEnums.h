@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef DBCENUMS_H
@@ -135,7 +135,7 @@ enum CriteriaAdditionalCondition
     CRITERIA_ADDITIONAL_CONDITION_TARGET_MUST_BE_DEAD         = 6,
     CRITERIA_ADDITIONAL_CONDITION_TARGET_MUST_BE_ENEMY        = 7,
     CRITERIA_ADDITIONAL_CONDITION_SOURCE_HAS_AURA             = 8,
-    CRITERIA_ADDITIONAL_CONDITION_UNK9                        = 9, // NYI current pvp season??
+    CRITERIA_ADDITIONAL_CONDITION_UNK9                        = 9, // NYI current PvP season??
     CRITERIA_ADDITIONAL_CONDITION_TARGET_HAS_AURA             = 10,
     CRITERIA_ADDITIONAL_CONDITION_TARGET_MUST_BE_MOUNTED      = 11,
     CRITERIA_ADDITIONAL_CONDITION_UNK12                       = 12,
@@ -577,7 +577,7 @@ enum AreaFlags
     AREA_FLAG_NEED_FLY              = 0x00001000,                // Respawn alive at the graveyard without corpse
     AREA_FLAG_UNUSED1               = 0x00002000,                // Unused in 3.3.5a
     AREA_FLAG_OUTLAND2              = 0x00004000,                // expansion zones? (only Circle of Blood Arena not have this flag, but have 0x00000400 flag)
-    AREA_FLAG_OUTDOOR_PVP           = 0x00008000,                // pvp objective area? (Death's Door also has this flag although it's no pvp object area)
+    AREA_FLAG_OUTDOOR_PVP           = 0x00008000,                // PvP objective area? (Death's Door also has this flag although it's no PvP object area)
     AREA_FLAG_ARENA_INSTANCE        = 0x00010000,                // used by instanced arenas only
     AREA_FLAG_UNUSED2               = 0x00020000,                // Unused in 3.3.5a
     AREA_FLAG_CONTESTED_AREA        = 0x00040000,                // On PvP servers these areas are considered contested, even though the zone it is contained in is a Horde/Alliance territory.
@@ -701,7 +701,7 @@ enum MapTypes                                               // Lua_IsInInstance
     MAP_COMMON          = 0,                                // none
     MAP_INSTANCE        = 1,                                // party
     MAP_RAID            = 2,                                // raid
-    MAP_BATTLEGROUND    = 3,                                // pvp
+    MAP_BATTLEGROUND    = 3,                                // PvP
     MAP_ARENA           = 4,                                // arena
     MAP_SCENARIO        = 5                                 // scenario
 };
@@ -1243,6 +1243,7 @@ enum BattlePetSpeciesFlags
 
 enum PvpScalingEffectTypes
 {
+    DUMMY_PLACEHOLDER                               = 0,
     ATTACK_POWER_FOR_ATTACKER                       = 1,
     WEAPON_ILEVEL_OFFSET_ADDITIVE_MAX_LEVEL_ONLY    = 2,
     MOD_DAMAGE_DONE_OVERRIDE                        = 3,

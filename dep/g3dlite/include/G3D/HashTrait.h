@@ -1,7 +1,7 @@
 /**
   \file G3D/HashTrait.h
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
   \created 2008-10-01
   \edited  2011-06-09
 
@@ -31,7 +31,7 @@
 #endif
 namespace G3D {
 /** \brief A hash function that is faster than CRC32 for arbitrary long strings
-    \cite From http://www.azillionmonkeys.com/qed/hash.html by Paul Hsieh*/
+    \cite From https://www.azillionmonkeys.com/qed/hash.html by Paul Hsieh*/
 inline uint32_t superFastHash (const void* _data, size_t numBytes) {
     const char* data = (const char*)_data;
     uint32_t hash = (uint32_t)numBytes;
@@ -83,7 +83,7 @@ inline uint32_t superFastHash (const void* _data, size_t numBytes) {
 
 
 /**
- Thomas Wang's 64-to-32-bit mix hash based on Robert Jenkin's hash http://www.concentric.net/~ttwang/tech/inthash.htm  
+ Thomas Wang's 64-to-32-bit mix hash based on Robert Jenkin's hash https://www.concentric.net/~ttwang/tech/inthash.htm  
  
  Found by Morgan to produce the best net performance for building tables from Vector4int16
 */
@@ -164,7 +164,7 @@ template <> struct HashTrait<G3D::uint128> {
         //return HashTrait<G3D::uint64>::hashCode(key.hi) ^ HashTrait<G3D::uint64>::hashCode(key.lo);
 
 #if 0 // Really slow under gcc
-    // Use the FNV-1 hash (http://isthe.com/chongo/tech/comp/fnv/#FNV-1).
+    // Use the FNV-1 hash (https://isthe.com/chongo/tech/comp/fnv/#FNV-1).
         static const G3D::uint128 FNV_PRIME_128(1 << 24, 0x159);
         static const G3D::uint128 FNV_OFFSET_128(0xCF470AAC6CB293D2ULL, 0xF52F88BF32307F8FULL);
 

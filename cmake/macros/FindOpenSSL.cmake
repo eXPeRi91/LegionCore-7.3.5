@@ -23,7 +23,7 @@
 # (To distributed this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-# http://www.slproweb.com/products/Win32OpenSSL.html
+# https://www.slproweb.com/products/Win32OpenSSL.html
 
 set(OPENSSL_EXPECTED_VERSION "1.0")
 set(OPENSSL_MAX_VERSION "1.2")
@@ -70,7 +70,7 @@ if(OPENSSL_USE_STATIC_LIBS)
 endif()
 
 if (WIN32)
-  # http://www.slproweb.com/products/Win32OpenSSL.html
+  # https://www.slproweb.com/products/Win32OpenSSL.html
   set(_OPENSSL_MSI_INSTALL_GUID "")
   if(PLATFORM EQUAL 64)
     set(_OPENSSL_MSI_INSTALL_GUID "117551DB-A110-4BBD-BB05-CFE0BCB3ED31")

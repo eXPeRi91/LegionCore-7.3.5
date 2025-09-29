@@ -1,7 +1,7 @@
 /**
   @file ConvexPolyhedron.cpp
   
-  @author Morgan McGuire, http://graphics.cs.williams.edu
+  @author Morgan McGuire, https://graphics.cs.williams.edu
 
   @created 2001-11-11
   @edited  2009-08-10
@@ -232,7 +232,7 @@ float ConvexPolyhedron::getVolume() const {
     }
 
     // The volume of any pyramid is 1/3 * h * base area.
-    // Discussion at: http://nrich.maths.org/mathsf/journalf/oct01/art1/
+    // Discussion at: https://nrich.maths.org/mathsf/journalf/oct01/art1/
 
     float sum = 0;
 

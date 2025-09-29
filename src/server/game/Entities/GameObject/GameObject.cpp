@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ArtifactPackets.h"
@@ -154,7 +154,7 @@ void GameObject::AddToWorld()
             bg->OnGameObjectCreate(this);
 
         // Crashed in OpenPVP update, need rework
-        // if (auto pvp = sOutdoorPvPMgr->GetOutdoorPvPToZoneId(GetZoneId()))
+        // if (auto pvp = sOutdoorPvpMgr->GetOutdoorPvpToZoneId(GetZoneId()))
             // pvp->OnGameObjectCreate(this);
 
         sObjectAccessor->AddObject(this);
@@ -644,7 +644,7 @@ void GameObject::Update(uint32 diff)
                         int32 targetVis = ok->m_serverSideVisibility.GetValue(SERVERSIDE_VISIBILITY_DUEL);
                         int32 casterVis = caster->m_serverSideVisibility.GetValue(SERVERSIDE_VISIBILITY_DUEL);
 
-                        if (targetVis == 1 || casterVis == 1 || targetVis > 1 && casterVis > 1 && targetVis != casterVis)
+                        if (targetVis == 1 || casterVis == 1 || (targetVis > 1 && casterVis > 1 && targetVis != casterVis))
                         {
                             m_isUpdate = false;
                             return;
@@ -847,9 +847,6 @@ uint32 GameObject::GetUniqueUseCount() const
 
 void GameObject::Delete()
 {
-    if(!this)
-        return;
-
     if (auto mapInfo = GetMap())
         if (mapInfo->IsMapUnload())
             return;
@@ -1288,7 +1285,7 @@ void GameObject::Respawn()
 
 bool GameObject::isSpawned() const
 {
-    return m_respawnDelayTime == 0 || m_respawnTime > 0 && !m_spawnedByDefault || m_respawnTime == 0 && m_spawnedByDefault;
+    return m_respawnDelayTime == 0 || (m_respawnTime > 0 && !m_spawnedByDefault) || (m_respawnTime == 0 && m_spawnedByDefault);
 }
 
 bool GameObject::isSpawnedByDefault() const
@@ -1903,7 +1900,7 @@ void GameObject::Use(Unit* user)
                     return;
 
                 // accept only use by player from same group as owner, excluding owner itself (unique use already added in spell effect)
-                if (player == owner->ToPlayer() || info->ritual.castersGrouped && !player->IsInSameRaidWith(owner->ToPlayer()))
+                if (player == owner->ToPlayer() || (info->ritual.castersGrouped && !player->IsInSameRaidWith(owner->ToPlayer())))
                     return;
 
                 // expect owner to already be channeling, so if not...
@@ -1915,7 +1912,7 @@ void GameObject::Use(Unit* user)
             }
             else
             {
-                if (player != m_ritualOwner && (info->ritual.castersGrouped && !player->IsInSameRaidWith(m_ritualOwner)))
+                if (player != m_ritualOwner && info->ritual.castersGrouped && !player->IsInSameRaidWith(m_ritualOwner))
                     return;
 
                 spellCaster = player;
@@ -2302,7 +2299,7 @@ void GameObject::Use(Unit* user)
     SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spellId);
     if (!spellInfo)
     {
-        if (!user->IsPlayer() || !sOutdoorPvPMgr->HandleCustomSpell(user->ToPlayer(), spellId, this))
+        if (!user->IsPlayer() || !sOutdoorPvpMgr->HandleCustomSpell(user->ToPlayer(), spellId, this))
             TC_LOG_DEBUG(LOG_FILTER_GENERAL, "WORLD: unknown spell id %u at use action for gameobject (Entry: %u GoType: %u)", spellId, GetEntry(), GetGoType());
         else
             TC_LOG_DEBUG(LOG_FILTER_GENERAL, "WORLD: %u non-dbc spell was handled by OutdoorPvP", spellId);
@@ -2692,7 +2689,7 @@ void GameObject::SetLootState(LootState state, Unit* unit)
         bool collision = false;
 
         // Use the current go state
-        if (GetGoState() != GO_STATE_READY && (state == GO_ACTIVATED || state == GO_JUST_DEACTIVATED) || state == GO_READY)
+        if ((GetGoState() != GO_STATE_READY && (state == GO_ACTIVATED || state == GO_JUST_DEACTIVATED)) || state == GO_READY)
             collision = !collision;
 
         EnableCollision(collision);
@@ -2927,7 +2924,7 @@ void GameObject::BuildValuesUpdate(uint8 updateType, ByteBuffer* data, Player* t
 
     for (uint16 index = 0; index < m_valuesCount; ++index)
     {
-        if (_fieldNotifyFlags & flags[index] || (updateType == UPDATETYPE_VALUES ? _changesMask[index] : m_uint32Values[index]) && flags[index] & visibleFlag || index == GAMEOBJECT_FIELD_FLAGS && forcedFlags)
+        if (_fieldNotifyFlags & flags[index] || ((updateType == UPDATETYPE_VALUES ? _changesMask[index] : m_uint32Values[index]) && flags[index] & visibleFlag) || (index == GAMEOBJECT_FIELD_FLAGS && forcedFlags))
         {
             UpdateMask::SetUpdateBit(data->contents() + maskPos, index);
 

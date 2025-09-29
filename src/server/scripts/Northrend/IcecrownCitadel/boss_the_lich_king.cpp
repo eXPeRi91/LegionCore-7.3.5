@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ObjectMgr.h"
@@ -2034,9 +2034,9 @@ class npc_spirit_bomb : public CreatureScript
             {
                 Unit* curVictim;
                 float destX, destY, destZ;
-                if(curVictim = SelectTarget(SELECT_TARGET_RANDOM, 1))
+                if ((curVictim = SelectTarget(SELECT_TARGET_RANDOM, 1)))
                     curVictim->GetPosition(destX, destY, destZ);
-                else if(curVictim = SelectTarget(SELECT_TARGET_RANDOM, 0))
+                else if ((curVictim = SelectTarget(SELECT_TARGET_RANDOM, 0)))
                     curVictim->GetPosition(destX, destY, destZ);
                 else
                     me->GetPosition(destX, destY, destZ);

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_OBJECTACCESSOR_H
@@ -39,6 +39,9 @@ class Transport;
 class EventObject;
 
 static uint32 const INCREMENT_COUNTER = 5000000;
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundefined-var-template"
 
 template <class T>
 class HashMapHolder
@@ -138,7 +141,7 @@ public:
 
 private:
 
-    //Non instanceable only static
+    // Non-instanceable only static
     HashMapHolder() { _checkLock = false; _size = 0; }
 
     static sf::contention_free_shared_mutex< > i_lock;
@@ -314,6 +317,8 @@ private:
     Player2CorpsesMapType i_player2corpse;
     std::recursive_mutex i_corpseLock;
 };
+
+#pragma GCC diagnostic pop
 
 #define sObjectAccessor ObjectAccessor::instance()
 

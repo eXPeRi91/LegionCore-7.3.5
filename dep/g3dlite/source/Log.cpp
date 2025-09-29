@@ -1,7 +1,7 @@
 /**
   @file Log.cpp
 
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
   @created 2001-08-04
   @edited  2010-01-15
  */

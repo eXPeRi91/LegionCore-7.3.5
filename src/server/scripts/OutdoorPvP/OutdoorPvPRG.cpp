@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -26,14 +26,14 @@ Position summon_pos[3]
     {3181.76f, 7257.72f, 34.1580f, 4.67f}
 };
 
-OutdoorPvPRG::OutdoorPvPRG()
+OutdoorPvpRG::OutdoorPvpRG()
 {
     m_TypeId = OUTDOOR_PVP_RG;
     m_summonTimer = 0;
     m_canSummon = true;
 }
 
-bool OutdoorPvPRG::SetupOutdoorPvP()
+bool OutdoorPvpRG::SetupOutdoorPvp()
 {
     RegisterZone(BLACK_ROOK_RUMBLE_AREA);
 
@@ -45,7 +45,7 @@ uint32 ArenaNPCs[4] =
     111256, 111141, 110943, 111136
 };
 
-void OutdoorPvPRG::HandleKill(Player* killer, Unit* killed)
+void OutdoorPvpRG::HandleKill(Player* killer, Unit* killed)
 {
     if (!killer || !killed || !killer->IsPlayer())
         return;
@@ -81,7 +81,7 @@ void OutdoorPvPRG::HandleKill(Player* killer, Unit* killed)
     }
 }
 
-bool OutdoorPvPRG::Update(uint32 diff)
+bool OutdoorPvpRG::Update(uint32 diff)
 {
     if (!m_canSummon)
         return true;
@@ -104,22 +104,22 @@ bool OutdoorPvPRG::Update(uint32 diff)
     return true;
 }
 
-class OutdoorPvP_ravens_glory : public OutdoorPvPScript
+class OutdoorPvp_ravens_glory : public OutdoorPvpScript
 {
     public:
 
-        OutdoorPvP_ravens_glory()
-            : OutdoorPvPScript("outdoorpvp_rg")
+        OutdoorPvp_ravens_glory()
+            : OutdoorPvpScript("outdoorpvp_rg")
         {
         }
 
-        OutdoorPvP* GetOutdoorPvP() const override
+        OutdoorPvp* GetOutdoorPvp() const override
         {
-            return new OutdoorPvPRG();
+            return new OutdoorPvpRG();
         }
 };
 
 void AddSC_outdoorpvp_rg()
 {
-    new OutdoorPvP_ravens_glory();
+    new OutdoorPvp_ravens_glory();
 }

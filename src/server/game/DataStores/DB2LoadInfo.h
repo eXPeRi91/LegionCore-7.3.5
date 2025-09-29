@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2018 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2018 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 // DO NOT EDIT!
@@ -8082,7 +8082,7 @@ struct PvpBracketTypesLoadInfo
             { true, FT_INT, "WeeklyQuestID3" },
             { true, FT_INT, "WeeklyQuestID4" },
         };
-        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, PVPBracketTypesMeta::Instance(), HOTFIX_SEL_PVP_BRACKET_TYPES);
+        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, PvpBracketTypesMeta::Instance(), HOTFIX_SEL_PVP_BRACKET_TYPES);
         return &loadInfo;
     }
 };
@@ -8099,7 +8099,7 @@ struct PvpDifficultyLoadInfo
             { false, FT_BYTE, "MaxLevel" },
             { false, FT_SHORT, "MapID" },
         };
-        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, PVPDifficultyMeta::Instance(), HOTFIX_SEL_PVP_DIFFICULTY);
+        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, PvpDifficultyMeta::Instance(), HOTFIX_SEL_PVP_DIFFICULTY);
         return &loadInfo;
     }
 };
@@ -8114,7 +8114,7 @@ struct PvpItemLoadInfo
             { true, FT_INT, "ItemID" },
             { false, FT_BYTE, "ItemLevelDelta" },
         };
-        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, PVPItemMeta::Instance(), HOTFIX_SEL_PVP_ITEM);
+        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, PvpItemMeta::Instance(), HOTFIX_SEL_PVP_ITEM);
         return &loadInfo;
     }
 };
@@ -12597,7 +12597,7 @@ struct World_Pvp_AreaLoadInfo
             { false, FT_BYTE, "MinLevel" },
             { false, FT_BYTE, "MaxLevel" },
         };
-        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, World_PVP_AreaMeta::Instance(), HOTFIX_SEL_WORLD__PVP__AREA);
+        static DB2LoadInfo const loadInfo(&fields[0], std::extent<decltype(fields)>::value, World_Pvp_AreaMeta::Instance(), HOTFIX_SEL_WORLD__PVP__AREA);
         return &loadInfo;
     }
 };

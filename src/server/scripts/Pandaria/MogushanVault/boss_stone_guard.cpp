@@ -1,4 +1,4 @@
-/* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+/* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "mogu_shan_vault.h"
@@ -426,7 +426,7 @@ class boss_generic_guardian : public CreatureScript
                 me->RemoveAurasDueToSpell(SPELL_ANIM_SIT);
             }
 
-            void JustSummoned(Creature* summon)
+            void JustSummoned(Creature* summon) override
             {
                 summons.Summon(summon);
             }
@@ -564,7 +564,7 @@ class boss_generic_guardian : public CreatureScript
                                         std::list<Player*> tempPlayerList;
                                         GetPlayerListInGrid(playerList, me, 100.0f);
 
-										for (std::list<Player*>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
+                                        for (std::list<Player*>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
                                             if ((*itr)->isAlive() && !(*itr)->HasAura(SPELL_JASPER_CHAINS))
                                                 tempPlayerList.push_back((*itr));
 
@@ -695,9 +695,9 @@ class spell_petrification : public SpellScriptLoader
                 std::list<Player*> playerList;
                 GetPlayerListInGrid(playerList, caster, 200.0f);
 
-				for (std::list<Player*>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
+                for (std::list<Player*>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
                 {
-					Player* target = *itr;
+                    Player* target = *itr;
                     if (target->HasAura(SPELL_TOTALY_PETRIFIED))
                         continue;
 
@@ -745,13 +745,13 @@ class spell_jasper_chains : public SpellScriptLoader
             PrepareAuraScript(spell_jasper_chains_AuraScript);
             ObjectGuid playerLinkedGuid;
 
-            bool Load()
+            bool Load() override
             {
                 playerLinkedGuid.Clear();
                 return true;
             }
 
-            void SetGuid(uint32 type, ObjectGuid const& guid)
+            void SetGuid(uint32 type, ObjectGuid const& guid) override
             {
                 playerLinkedGuid = guid;
             }

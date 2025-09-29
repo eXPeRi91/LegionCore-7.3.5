@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 /* ScriptData
@@ -271,7 +271,7 @@ class cheat_commandscript : public CommandScript
                     ChatHandler(chr).PSendSysMessage(LANG_YOURS_EXPLORE_SET_NOTHING, handler->GetNameLink().c_str());
             }
 
-            for (uint8 i = 0; i < PLAYER_EXPLORED_ZONES_SIZE; ++i)
+            for (uint8 i = 0; i < (uint8)PLAYER_EXPLORED_ZONES_SIZE; ++i)
             {
                 if (flag != 0)
                     handler->GetSession()->GetPlayer()->SetFlag(PLAYER_FIELD_EXPLORED_ZONES+i, 0xFFFFFFFF);

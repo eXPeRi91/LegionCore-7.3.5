@@ -1,7 +1,7 @@
 /**
  @file spline.h
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
  @created 2004-07-25
  @edited  2007-05-05
@@ -101,7 +101,7 @@ template<class YType> YType cyclicCatmullRomSpline(
 
  See also G3D::Spline
 
- @cite http://www.mvps.org/directx/articles/catmull/
+ @cite https://www.mvps.org/directx/articles/catmull/
 */
 template<class YType> YType cyclicCatmullRomSpline(
     double       t,

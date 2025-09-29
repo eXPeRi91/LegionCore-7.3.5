@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2017 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef DatabaseEnvFwd_h__
@@ -43,12 +43,5 @@ typedef std::shared_ptr<Transaction> SQLTransaction;
 class SQLQueryHolder;
 typedef std::future<SQLQueryHolder*> QueryResultHolderFuture;
 typedef std::promise<SQLQueryHolder*> QueryResultHolderPromise;
-
-// mysql
-typedef struct st_mysql MYSQL;
-typedef struct st_mysql_res MYSQL_RES;
-typedef struct st_mysql_field MYSQL_FIELD;
-typedef struct st_mysql_bind MYSQL_BIND;
-typedef struct st_mysql_stmt MYSQL_STMT;
 
 #endif // DatabaseEnvFwd_h__

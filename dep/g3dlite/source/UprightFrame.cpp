@@ -1,7 +1,7 @@
 /**
   \file UprightFrame.cpp
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 */
 
 #include "G3D/UprightFrame.h"

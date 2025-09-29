@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef APPENDER_H
@@ -80,6 +80,7 @@ enum LogFilterType
     LOG_FILTER_PATH_GENERATOR      = 58, //world
     LOG_FILTER_MMAPS               = 59, //world
     LOG_FILTER_VMAPS               = 60, //world
+    LOG_FILTER_DUNGEONBALANCE      = 61, //world
 
     LOG_FILTER_MAX
 };

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ArtifactPackets.h"
@@ -2437,7 +2437,7 @@ uint32 Item::GetSellPrice()
     if (!classEntry)
         return 0;
 
-    uint32 buyCount = proto->VendorStackCount;
+    uint32 buyCount = proto->GetBuyCount();
 
     if (buyCount < 1)
         buyCount = 1;
@@ -2604,7 +2604,7 @@ void Item::SetChildItem(ObjectGuid childItem)
     m_childItem = childItem;
 }
 
-uint32 Item::GetItemLevel(uint8 ownerLevel, bool isPvP) const
+uint32 Item::GetItemLevel(uint8 ownerLevel, bool isPvp) const
 {
     ItemTemplate const* stats = GetTemplate();
     if (!stats)
@@ -2641,7 +2641,7 @@ uint32 Item::GetItemLevel(uint8 ownerLevel, bool isPvP) const
     if (ItemUpgradeEntry const* upgrade = sItemUpgradeStore.LookupEntry(GetModifier(ITEM_MODIFIER_UPGRADE_ID)))
         itemLevel += upgrade->ItemLevelIncrement;
 
-    // if (!isPvP)
+    // if (!isPvp)
         for (auto gemItemLevelBonus : _bonusData.GemItemLevelBonus)
             itemLevel += gemItemLevelBonus;
 
@@ -2705,10 +2705,10 @@ void Item::GetDamage(float& minDamage, float& maxDamage) const
     GetTemplate()->GetDamage(GetItemLevel(GetOwnerLevel()), minDamage, maxDamage);
 }
 
-int32 Item::GetItemStatValue(uint32 index, bool isPvP) const
+int32 Item::GetItemStatValue(uint32 index, bool isPvp) const
 {
     ASSERT(index < MAX_ITEM_PROTO_STATS);
-    uint32 itemLevel = GetItemLevel(GetOwnerLevel(), isPvP);
+    uint32 itemLevel = GetItemLevel(GetOwnerLevel(), isPvp);
 
     if (float randomPropPoints = GetRandomPropertyPoints(itemLevel, GetQuality(), GetTemplate()->GetInventoryType(), GetTemplate()->GetSubClass()))
     {

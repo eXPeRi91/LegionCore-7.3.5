@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+* Copyright (C) 2008-2017 TrinityCore <https://www.trinitycore.org/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #ifndef GameObjectData_h__
@@ -468,7 +468,7 @@ struct GameObjectTemplate
         // 31 GAMEOBJECT_TYPE_DUNGEON_DIFFICULTY
         struct
         {
-            uint32 InstanceType;                            // 0 Instance Type, enum { Not Instanced, Party Dungeon, Raid Dungeon, PVP Battlefield, Arena Battlefield, Scenario, }; Default: Party Dungeon
+            uint32 InstanceType;                            // 0 Instance Type, enum { Not Instanced, Party Dungeon, Raid Dungeon, PvP Battlefield, Arena Battlefield, Scenario, }; Default: Party Dungeon
             uint32 DifficultyNormal;                        // 1 Difficulty Normal, References: animationdata, NoValue = 0
             uint32 DifficultyHeroic;                        // 2 Difficulty Heroic, References: animationdata, NoValue = 0
             uint32 DifficultyEpic;                          // 3 Difficulty Epic, References: animationdata, NoValue = 0
@@ -494,7 +494,7 @@ struct GameObjectTemplate
             uint32 CreditProxyCreature;                     // 1 Credit Proxy Creature, References: Creature, NoValue = 0
             uint32 HealthRec;                               // 2 Health Rec, References: DestructibleHitpoint, NoValue = 0
             uint32 IntactEvent;                             // 3 Intact Event, References: GameEvents, NoValue = 0
-            uint32 PVPEnabling;                             // 4 PVP Enabling, enum { false, true, }; Default: false
+            uint32 PvpEnabling;                             // 4 PvP Enabling, enum { false, true, }; Default: false
             uint32 InteriorVisible;                         // 5 Interior Visible, enum { false, true, }; Default: false
             uint32 InteriorLight;                           // 6 Interior Light, enum { false, true, }; Default: false
             int32 Unused1;                                  // 7 Unused, int, Min value: -2147483648, Max value: 2147483647, Default value: 0

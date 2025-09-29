@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
+# Copyright (C) 2008-2016 TrinityCore <https://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
 # unlimited permission to copy and/or distribute it, with or without
@@ -27,22 +27,20 @@ PrepareScripts(Commands PRIVATE_SOURCES)
 PrepareScripts(BrawlersGuild PRIVATE_SOURCES)
 
 if(SCRIPTS)
-  PrepareScripts(BattlePay PRIVATE_SOURCES)
-  PrepareScripts(Custom PRIVATE_SOURCES)
-  PrepareScripts(Kalimdor PRIVATE_SOURCES)
-  PrepareScripts(Maelstrom PRIVATE_SOURCES)
-  PrepareScripts(Northrend PRIVATE_SOURCES)
-  PrepareScripts(OutdoorPvP PRIVATE_SOURCES)
-  PrepareScripts(Outland PRIVATE_SOURCES)
-  PrepareScripts(PetBattle PRIVATE_SOURCES)
   PrepareScripts(World PRIVATE_SOURCES)
+  PrepareScripts(BattlePay PRIVATE_SOURCES)
   PrepareScripts(Draenor PRIVATE_SOURCES)
   PrepareScripts(EasternKingdoms PRIVATE_SOURCES)
+  PrepareScripts(Kalimdor PRIVATE_SOURCES)
   PrepareScripts(Legion PRIVATE_SOURCES)
+  PrepareScripts(Maelstrom PRIVATE_SOURCES)
+  PrepareScripts(Northrend PRIVATE_SOURCES)
   PrepareScripts(Outland PRIVATE_SOURCES)
   PrepareScripts(Pandaria PRIVATE_SOURCES)
+  PrepareScripts(OutdoorPvP PRIVATE_SOURCES)
+  PrepareScripts(PetBattle PRIVATE_SOURCES)
   PrepareScripts(Scenario PRIVATE_SOURCES)
-  PrepareScripts(Maelstrom PRIVATE_SOURCES)
+  PrepareScripts(Custom PRIVATE_SOURCES)
 endif()
 
 list(APPEND PRIVATE_SOURCES

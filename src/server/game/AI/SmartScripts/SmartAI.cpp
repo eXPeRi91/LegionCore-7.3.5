@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "DatabaseEnv.h"
@@ -927,9 +927,6 @@ void SmartAI::SetFollow(Unit* target, float dist, float angle, uint32 credit, ui
 
 void SmartAI::SetScript9(SmartScriptHolder& e, uint32 entry, Unit* invoker)
 {
-    if (!this) // https://pastebin.com/14JwKqQM
-        return;
-
     if (invoker)
         GetScript()->mLastInvoker = invoker->GetGUID();
     GetScript()->SetScript9(e, entry);

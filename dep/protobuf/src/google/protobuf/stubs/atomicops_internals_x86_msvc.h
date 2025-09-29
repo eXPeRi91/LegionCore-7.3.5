@@ -112,7 +112,7 @@ inline void Release_Store(volatile Atomic64* ptr, Atomic64 value) {
   //  System Programming Guide, Chatper 7: Multiple-processor management,
   //  Section 7.2, Memory Ordering.
   // Last seen at:
-  //   http://developer.intel.com/design/pentium4/manuals/index_new.htm
+  //   https://developer.intel.com/design/pentium4/manuals/index_new.htm
 }
 
 inline Atomic64 NoBarrier_Load(volatile const Atomic64* ptr) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ScriptMgr.h"
@@ -95,7 +95,7 @@ public:
                 victimGUID = guid;
         }
 
-        ObjectGuid GetGUID(int32 id/* = 0 */)
+        ObjectGuid GetGUID(int32 id/* = 0 */) override
         {
             if (id == INNER_DEMON_VICTIM)
                 return victimGUID;
@@ -269,7 +269,7 @@ public:
                     SpellBinderGUID[i] = binder->GetGUID();
             }
         }
-        void MoveInLineOfSight(Unit* who)
+        void MoveInLineOfSight(Unit* who) override
         {
             if (me->HasAura(AURA_BANISH))
                 return;

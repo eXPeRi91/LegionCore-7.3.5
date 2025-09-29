@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "blackrock_depths.h"
@@ -110,7 +110,7 @@ public:
         uint32 TombTimer;
         uint32 TombEventCounter;
 
-        void Initialize()
+        void Initialize() override
         {
             memset(&encounter, 0, sizeof(encounter));
 
@@ -151,7 +151,7 @@ public:
                 TombBossGUIDs[i].Clear();
         }
 
-        void OnCreatureCreate(Creature* creature)
+        void OnCreatureCreate(Creature* creature) override
         {
             switch (creature->GetEntry())
             {
@@ -173,7 +173,7 @@ public:
             }
         }
 
-        void OnGameObjectCreate(GameObject* go)
+        void OnGameObjectCreate(GameObject* go) override
         {
             switch (go->GetEntry())
             {
@@ -207,7 +207,7 @@ public:
             }
         }
 
-        void SetGuidData(uint32 type, ObjectGuid data)
+        void SetGuidData(uint32 type, ObjectGuid data) override
         {
             TC_LOG_DEBUG(LOG_FILTER_TSCR, "Instance Blackrock Depths: SetGuidData update (Type: %u Data " UI64FMTD ")", type, data.GetGUIDLow());
 
@@ -223,7 +223,7 @@ public:
             }
         }
 
-        void SetData(uint32 type, uint32 data)
+        void SetData(uint32 type, uint32 data) override
         {
             TC_LOG_DEBUG(LOG_FILTER_TSCR, "Instance Blackrock Depths: SetData update (Type: %u Data %u)", type, data);
 
@@ -300,7 +300,7 @@ public:
             return 0;
         }
 
-        ObjectGuid GetGuidData(uint32 data) const
+        ObjectGuid GetGuidData(uint32 data) const override
         {
             switch (data)
             {
@@ -342,12 +342,12 @@ public:
             return ObjectGuid::Empty;
         }
 
-        std::string GetSaveData()
+        std::string GetSaveData() override
         {
             return str_data;
         }
 
-        void Load(const char* in)
+        void Load(const char* in) override
         {
             if (!in)
             {
@@ -429,7 +429,7 @@ public:
             TombEventStarterGUID.Clear();
             SetData(TYPE_TOMB_OF_SEVEN, DONE);
         }
-        void Update(uint32 diff)
+        void Update(uint32 diff) override
         {
             if (TombEventStarterGUID && GhostKillCount < 7)
             {

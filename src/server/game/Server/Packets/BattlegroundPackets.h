@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef BattlegroundPackets_h__
@@ -26,10 +26,10 @@ namespace WorldPackets
 {
     namespace Battleground
     {
-        class PVPSeason final : public ServerPacket
+        class PvpSeason final : public ServerPacket
         {
         public:
-            PVPSeason() : ServerPacket(SMSG_PVP_SEASON, 8) { }
+            PvpSeason() : ServerPacket(SMSG_PVP_SEASON, 8) { }
 
             WorldPacket const* Write() override;
 
@@ -123,10 +123,10 @@ namespace WorldPackets
             uint8 Roles = 0;
         };
 
-        class PVPLogData final : public ServerPacket
+        class PvpLogData final : public ServerPacket
         {
         public:
-            PVPLogData() : ServerPacket(SMSG_PVP_LOG_DATA, 8) { }
+            PvpLogData() : ServerPacket(SMSG_PVP_LOG_DATA, 8) { }
 
             WorldPacket const* Write() override;
 
@@ -201,10 +201,10 @@ namespace WorldPackets
             uint32 TimeLeft = 0;
         };
 
-        class ReportPvPPlayerAFKResult final : public ServerPacket
+        class ReportPvpPlayerAFKResult final : public ServerPacket
         {
         public:
-            ReportPvPPlayerAFKResult() : ServerPacket(SMSG_REPORT_PVP_PLAYER_AFK_RESULT, 16 + 1 + 1 + 1) { }
+            ReportPvpPlayerAFKResult() : ServerPacket(SMSG_REPORT_PVP_PLAYER_AFK_RESULT, 16 + 1 + 1 + 1) { }
 
             WorldPacket const* Write() override;
 
@@ -238,10 +238,10 @@ namespace WorldPackets
             bool HasWinToday = false;
         };
 
-        class PVPOptionsEnabled final : public ServerPacket
+        class PvpOptionsEnabled final : public ServerPacket
         {
         public:
-            PVPOptionsEnabled() : ServerPacket(SMSG_PVP_OPTIONS_ENABLED, 6) { }
+            PvpOptionsEnabled() : ServerPacket(SMSG_PVP_OPTIONS_ENABLED, 6) { }
 
             WorldPacket const* Write() override;
 
@@ -253,10 +253,10 @@ namespace WorldPackets
             bool RatedBattlegrounds = false;
         };
 
-        class RequestPVPRewardsResponse final : public ServerPacket
+        class RequestPvpRewardsResponse final : public ServerPacket
         {
         public:
-            RequestPVPRewardsResponse() : ServerPacket(SMSG_REQUEST_PVP_REWARDS_RESPONSE, 40 * 4) { }
+            RequestPvpRewardsResponse() : ServerPacket(SMSG_REQUEST_PVP_REWARDS_RESPONSE, 40 * 4) { }
 
             WorldPacket const* Write() override;
             
@@ -573,20 +573,20 @@ namespace WorldPackets
             uint8 RolesMask = 0;
         };
 
-        class ReportPvPPlayerAFK final : public ClientPacket
+        class ReportPvpPlayerAFK final : public ClientPacket
         {
         public:
-            ReportPvPPlayerAFK(WorldPacket&& packet) : ClientPacket(CMSG_REPORT_PVP_PLAYER_AFK, std::move(packet)) { }
+            ReportPvpPlayerAFK(WorldPacket&& packet) : ClientPacket(CMSG_REPORT_PVP_PLAYER_AFK, std::move(packet)) { }
 
             void Read() override;
 
             ObjectGuid Offender;
         };
 
-        class RequestPVPRewards final : public ClientPacket
+        class RequestPvpRewards final : public ClientPacket
         {
         public:
-            RequestPVPRewards(WorldPacket&& packet) : ClientPacket(CMSG_REQUEST_PVP_REWARDS, std::move(packet)) { }
+            RequestPvpRewards(WorldPacket&& packet) : ClientPacket(CMSG_REQUEST_PVP_REWARDS, std::move(packet)) { }
 
             void Read() override { }
         };

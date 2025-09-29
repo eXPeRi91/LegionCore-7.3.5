@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AccountMgr.h"
@@ -792,17 +792,6 @@ public:
 
                 if (map->Instanceable() && map->GetInstanceId() != map->GetInstanceId())
                     target->UnbindInstance(map->GetInstanceId(), target->GetDungeonDifficultyID(), true);
-
-                // we are in instance, and can summon only player in our group with us as lead
-                if (!handler->GetSession()->GetPlayer()->GetGroup() || !target->GetGroup() ||
-                    (target->GetGroup()->GetLeaderGUID() != handler->GetSession()->GetPlayer()->GetGUID()) ||
-                    (handler->GetSession()->GetPlayer()->GetGroup()->GetLeaderGUID() != handler->GetSession()->GetPlayer()->GetGUID()))
-                    // the last check is a bit excessive, but let it be, just in case
-                {
-                    handler->PSendSysMessage(LANG_CANNOT_SUMMON_TO_INST, nameLink.c_str());
-                    handler->SetSentErrorMessage(true);
-                    return false;
-                }
             }
 
             handler->PSendSysMessage(LANG_SUMMONING, nameLink.c_str(), "");
@@ -871,17 +860,6 @@ public:
 
         Map* gmMap = handler->GetSession()->GetPlayer()->GetMap();
         bool toInstance = gmMap->Instanceable();
-
-        // we are in instance, and can summon only player in our group with us as lead
-        if (toInstance && (
-            !handler->GetSession()->GetPlayer()->GetGroup() || (group->GetLeaderGUID() != handler->GetSession()->GetPlayer()->GetGUID()) ||
-            (handler->GetSession()->GetPlayer()->GetGroup()->GetLeaderGUID() != handler->GetSession()->GetPlayer()->GetGUID())))
-            // the last check is a bit excessive, but let it be, just in case
-        {
-            handler->SendSysMessage(LANG_CANNOT_SUMMON_TO_INST);
-            handler->SetSentErrorMessage(true);
-            return false;
-        }
 
         for (GroupReference* itr = group->GetFirstMember(); itr != NULL; itr = itr->next())
         {
@@ -2656,7 +2634,7 @@ public:
         std::string subject = msgSubject;
         std::string text    = msgText;
 
-        // from console show not existed sender
+        // from console show non-existent sender
         MailSender sender(MAIL_NORMAL, handler->GetSession() ? handler->GetSession()->GetPlayer()->GetGUID().GetGUIDLow() : 0, MAIL_STATIONERY_GM);
 
         //- TODO: Fix poor design
@@ -2754,7 +2732,7 @@ public:
             }
         }
 
-        // from console show not existed sender
+        // from console show non-existent sender
         MailSender sender(MAIL_NORMAL, handler->GetSession() ? handler->GetSession()->GetPlayer()->GetGUID().GetGUIDLow() : 0, MAIL_STATIONERY_GM);
 
         // fill mail
@@ -2814,7 +2792,7 @@ public:
         std::string subject = msgSubject;
         std::string text    = msgText;
 
-        // from console show not existed sender
+        // from console show non-existent sender
         MailSender sender(MAIL_NORMAL, handler->GetSession() ? handler->GetSession()->GetPlayer()->GetGUID().GetGUIDLow() : 0, MAIL_STATIONERY_GM);
 
         SQLTransaction trans = CharacterDatabase.BeginTransaction();

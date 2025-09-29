@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "CombatAI.h"
@@ -36,7 +36,7 @@ int AggressorAI::Permissible(const Creature* creature)
 
 void AggressorAI::InitializeAI()
 {
-	// What is the reason for this code?? It makes mob get stuck in place if they have creature spells with a range and is not blizzlike
+    // What is the reason for this code?? It makes mob get stuck in place if they have creature spells with a range and is not blizzlike
     /*for (auto& spell : *me->CreatureSpells)
     {
         if (SpellInfo const* sInfo = sSpellMgr->GetSpellInfo(spell.second.SpellID))

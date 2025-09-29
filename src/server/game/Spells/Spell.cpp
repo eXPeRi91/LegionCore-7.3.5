@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Battlefield.h"
@@ -3076,9 +3076,9 @@ void Spell::DoAllEffectOnTarget(TargetInfoPtr target)
         // Needs to be called after dealing damage/healing to not remove breaking on damage auras
         DoTriggersOnSpellHit(spellHitTarget, mask);
 
-        // if target is fallged for pvp also flag caster if a player
-        if (unit->IsPvP() && m_caster->IsPlayer())
-            m_caster->ToPlayer()->UpdatePvP(true);
+        // if target is fallged for PvP also flag caster if a player
+        if (unit->IsPvp() && m_caster->IsPlayer())
+            m_caster->ToPlayer()->UpdatePvp(true);
 
         CallScriptAfterHitHandlers();
     }
@@ -3186,29 +3186,29 @@ SpellMissInfo Spell::DoSpellHitOnUnit(Unit* unit, uint32 effectMask, bool scaleA
             // assisting case, healing and resurrection
             if (unit->HasUnitState(UNIT_STATE_ATTACK_PLAYER))
             {
-                m_caster->SetContestedPvP();
+                m_caster->SetContestedPvp();
                 if (m_caster->IsPlayer())
-                    m_caster->ToPlayer()->UpdatePvP(true);
+                    m_caster->ToPlayer()->UpdatePvp(true);
             }
             if (unit->isInCombat() && !m_spellInfo->HasAttribute(SPELL_ATTR3_NO_INITIAL_AGGRO) && !(m_spellInfo->HasAttribute(SPELL_ATTR1_NOT_BREAK_STEALTH) && !m_damage))
             {
-                bool isPvP = false;
+                bool isPvp = false;
 
                 if (map && !map->IsDungeon())
                 {
                     if (Player* plr = unit->ToPlayer())
                     {
                         if (plr->HasPvpRulesEnabled())
-                            isPvP = true;
+                            isPvp = true;
                     }
                     else if (Unit* owner = unit->GetOwner())
                     {
-                        if (plr = owner->ToPlayer())
+                        if ((plr = owner->ToPlayer()))
                             if (plr->HasPvpRulesEnabled())
-                                isPvP = true;
+                                isPvp = true;
                     }
                 }
-                m_caster->SetInCombatState(unit, isPvP);
+                m_caster->SetInCombatState(unit, isPvp);
                 unit->getHostileRefManager().threatAssist(m_caster, 0.0f);
             }
         }
@@ -4139,19 +4139,19 @@ void Spell::cast(bool skipCheck)
         return;
     }
 
-	if (Unit* caster = m_caster)
-		if (caster->getClass() == CLASS_DRUID)
-			if (SpellInfo const* info = this->GetSpellInfo())
-				if (info->Categories.DefenseType != SPELL_DAMAGE_CLASS_NONE)
-					if (info->Id == 155722)
-						if (Player* player = caster->ToPlayer())
-							if (player->GetSpecializationId() == SPEC_DRUID_CAT)
-								if (m_targets.GetTargetMask() & TARGET_FLAG_UNIT)
-									if (m_targets.GetObjectTarget())
-										if (Unit* target = m_targets.GetObjectTarget()->ToUnit())
-											if (Aura* aura = player->GetAura(203224))
-												if (!target->HasAura(155722))
-													aura->SetCustomData(1);
+    if (Unit* caster = m_caster)
+        if (caster->getClass() == CLASS_DRUID)
+            if (SpellInfo const* info = this->GetSpellInfo())
+                if (info->Categories.DefenseType != SPELL_DAMAGE_CLASS_NONE)
+                    if (info->Id == 155722)
+                        if (Player* player = caster->ToPlayer())
+                            if (player->GetSpecializationId() == SPEC_DRUID_CAT)
+                                if (m_targets.GetTargetMask() & TARGET_FLAG_UNIT)
+                                    if (m_targets.GetObjectTarget())
+                                        if (Unit* target = m_targets.GetObjectTarget()->ToUnit())
+                                            if (Aura* aura = player->GetAura(203224))
+                                                if (!target->HasAura(155722))
+                                                    aura->SetCustomData(1);
 
     if (m_replaced && m_caster->getClass() == CLASS_MONK && m_spellInfo->IsDamageSpell())
     {
@@ -4213,112 +4213,112 @@ void Spell::cast(bool skipCheck)
         // As of 3.0.2 pets begin attacking their owner's target immediately
         // Let any pets know we've attacked something. Check Categories.DefenseType for harmful spells only
         // This prevents spells such as Hunter's Mark from triggering pet attack
-		if (this->GetSpellInfo()->Categories.DefenseType != SPELL_DAMAGE_CLASS_NONE)
-		{
-			if (Pet* playerPet = playerCaster->GetPet())
-				if (playerPet->isAlive() && playerPet->isControlled() && (m_targets.GetTargetMask() & TARGET_FLAG_UNIT))
-					if (m_targets.GetObjectTarget())
-						if (Unit* target_ = m_targets.GetObjectTarget()->ToUnit())
-							playerPet->AI()->OwnerAttacked(target_);
+        if (this->GetSpellInfo()->Categories.DefenseType != SPELL_DAMAGE_CLASS_NONE)
+        {
+            if (Pet* playerPet = playerCaster->GetPet())
+                if (playerPet->isAlive() && playerPet->isControlled() && (m_targets.GetTargetMask() & TARGET_FLAG_UNIT))
+                    if (m_targets.GetObjectTarget())
+                        if (Unit* target_ = m_targets.GetObjectTarget()->ToUnit())
+                            playerPet->AI()->OwnerAttacked(target_);
 
-			if (sWorld->getBoolConfig(CONFIG_PLAYER_CONTROL_GUARDIAN_PETS))
-			{
-				if (m_targets.GetTargetMask() & TARGET_FLAG_UNIT)
-				{
-					if (m_targets.GetObjectTarget())
-						if (Unit* target = playerCaster->GetSelectedUnit())
-							for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
-								if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
-									if (creature->IsAIEnabled && (((creature->isPet() || creature->m_isHati) && creature->HasReactState(REACT_HELPER)) ||
-										(creature->isGuardian() && !creature->isPet() && !creature->m_isHati && creature->GetEntry() != 100868)))
-									{
-										creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
-										creature->AI()->AttackStart(target);
+            if (sWorld->getBoolConfig(CONFIG_PLAYER_CONTROL_GUARDIAN_PETS))
+            {
+                if (m_targets.GetTargetMask() & TARGET_FLAG_UNIT)
+                {
+                    if (m_targets.GetObjectTarget())
+                        if (Unit* target = playerCaster->GetSelectedUnit())
+                            for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
+                                if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
+                                    if (creature->IsAIEnabled && (((creature->isPet() || creature->m_isHati) && creature->HasReactState(REACT_HELPER)) ||
+                                        (creature->isGuardian() && !creature->isPet() && !creature->m_isHati && creature->GetEntry() != 100868)))
+                                    {
+                                        creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
+                                        creature->AI()->AttackStart(target);
 
-										if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
-										{
-											if (SpellInfo const* spellInfo = this->GetSpellInfo())
-												if (spellInfo->Id == 100780 ||
-													spellInfo->Id == 107428 ||
-													spellInfo->Id == 100784 ||
-													spellInfo->Id == 113656 ||
-													spellInfo->Id == 117952 ||
-													spellInfo->Id == 115098)
-													creature->CastSpell(target, spellInfo->Id, true);
-										}
-									}
-				}
-				else if(SpellInfo const* spellInfo = this->GetSpellInfo())
-				{
-					if (playerCaster->HasAura(137639) && spellInfo->Id == 123986)
-						if (Unit* target = playerCaster->GetSelectedUnit())
-							for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
-								if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
-									if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
-									{
-										creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
-										creature->AI()->AttackStart(target);
-										creature->CastSpell(target, spellInfo->Id, true);
-									}
-								
-				}
-			}
-			else
-			{
-				if (m_targets.GetTargetMask() & TARGET_FLAG_UNIT)
-				{
-					if (m_targets.GetObjectTarget())
-						if (Unit* target = playerCaster->GetSelectedUnit())
-							for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
-								if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
-									if (creature->IsAIEnabled && ((creature->isPet() || creature->m_isHati) && creature->HasReactState(REACT_HELPER)) || creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
-									{
-										creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
-										creature->AI()->AttackStart(target);
+                                        if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
+                                        {
+                                            if (SpellInfo const* spellInfo = this->GetSpellInfo())
+                                                if (spellInfo->Id == 100780 ||
+                                                    spellInfo->Id == 107428 ||
+                                                    spellInfo->Id == 100784 ||
+                                                    spellInfo->Id == 113656 ||
+                                                    spellInfo->Id == 117952 ||
+                                                    spellInfo->Id == 115098)
+                                                    creature->CastSpell(target, spellInfo->Id, true);
+                                        }
+                                    }
+                }
+                else if(SpellInfo const* spellInfo = this->GetSpellInfo())
+                {
+                    if (playerCaster->HasAura(137639) && spellInfo->Id == 123986)
+                        if (Unit* target = playerCaster->GetSelectedUnit())
+                            for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
+                                if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
+                                    if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
+                                    {
+                                        creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
+                                        creature->AI()->AttackStart(target);
+                                        creature->CastSpell(target, spellInfo->Id, true);
+                                    }
+                                
+                }
+            }
+            else
+            {
+                if (m_targets.GetTargetMask() & TARGET_FLAG_UNIT)
+                {
+                    if (m_targets.GetObjectTarget())
+                        if (Unit* target = playerCaster->GetSelectedUnit())
+                            for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
+                                if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
+                                    if ((creature->IsAIEnabled && ((creature->isPet() || creature->m_isHati) && creature->HasReactState(REACT_HELPER))) || creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
+                                    {
+                                        creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
+                                        creature->AI()->AttackStart(target);
 
-										if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
-										{
-											if (SpellInfo const* spellInfo = this->GetSpellInfo())
-												if (spellInfo->Id == 100780 ||
-													spellInfo->Id == 107428 ||
-													spellInfo->Id == 100784 ||
-													spellInfo->Id == 113656 ||
-													spellInfo->Id == 117952 ||
-													spellInfo->Id == 115098)
-													creature->CastSpell(target, spellInfo->Id, true);
-										}
-									}
-				}
-				else if (SpellInfo const* spellInfo = this->GetSpellInfo())
-				{
-					if (playerCaster->HasAura(137639) && spellInfo->Id == 123986)
-						if (Unit* target = playerCaster->GetSelectedUnit())
-							for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
-								if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
-									if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
-									{
-										creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
-										creature->AI()->AttackStart(target);
-										creature->CastSpell(target, spellInfo->Id, true);
-									}
+                                        if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
+                                        {
+                                            if (SpellInfo const* spellInfo = this->GetSpellInfo())
+                                                if (spellInfo->Id == 100780 ||
+                                                    spellInfo->Id == 107428 ||
+                                                    spellInfo->Id == 100784 ||
+                                                    spellInfo->Id == 113656 ||
+                                                    spellInfo->Id == 117952 ||
+                                                    spellInfo->Id == 115098)
+                                                    creature->CastSpell(target, spellInfo->Id, true);
+                                        }
+                                    }
+                }
+                else if (SpellInfo const* spellInfo = this->GetSpellInfo())
+                {
+                    if (playerCaster->HasAura(137639) && spellInfo->Id == 123986)
+                        if (Unit* target = playerCaster->GetSelectedUnit())
+                            for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
+                                if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
+                                    if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
+                                    {
+                                        creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
+                                        creature->AI()->AttackStart(target);
+                                        creature->CastSpell(target, spellInfo->Id, true);
+                                    }
 
-				}
-			}
-		}
-		else if (SpellInfo const* spellInfo = this->GetSpellInfo())
-		{
-			if (playerCaster->HasAura(137639) && (spellInfo->Id == 116847 || spellInfo->Id == 101546 || spellInfo->Id == 152175 || spellInfo->Id == 123986))
-						if (Unit* target = playerCaster->GetSelectedUnit())
-							for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
-								if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
-									if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
-									{
-										creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
-										creature->AI()->AttackStart(target);
-										creature->CastSpell(target, spellInfo->Id, true);
-									}
+                }
+            }
+        }
+        else if (SpellInfo const* spellInfo = this->GetSpellInfo())
+        {
+            if (playerCaster->HasAura(137639) && (spellInfo->Id == 116847 || spellInfo->Id == 101546 || spellInfo->Id == 152175 || spellInfo->Id == 123986))
+                        if (Unit* target = playerCaster->GetSelectedUnit())
+                            for (Unit::ControlList::iterator itr = playerCaster->m_Controlled.begin(); itr != playerCaster->m_Controlled.end(); ++itr)
+                                if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*playerCaster, *itr))
+                                    if (creature->GetEntry() == 69791 || creature->GetEntry() == 69792)
+                                    {
+                                        creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
+                                        creature->AI()->AttackStart(target);
+                                        creature->CastSpell(target, spellInfo->Id, true);
+                                    }
 
-		}
+        }
            
         if(GetSpellInfo()->HasEffect(SPELL_EFFECT_TALENT_SPEC_SELECT))
             if (Item* pItem = playerCaster->GetArtifactWeapon())
@@ -4802,7 +4802,7 @@ uint64 Spell::handle_delayed(uint64 t_offset)
 
     uint32 _mss = GetMSTimeDiffToNow(_ss);
     if (_mss > 250)
-        sLog->outDiff("Spell::handle_delayed Caster %u entry %u SpellId %u wait %ums GOTargetInfo %u TargetInfo %u",
+        sLog->outDiff("Spell::handle_delayed Caster %u entry %u SpellId %u wait %ums GOTargetInfo " UI64FMTDX " TargetInfo " UI64FMTDX,
             m_caster->GetGUIDLow(), m_caster->GetEntry(), m_spellInfo->Id, _mss, m_UniqueGOTargetInfo.size(), m_UniqueTargetInfo.size());
 
     // All targets passed - need finish phase
@@ -5786,7 +5786,7 @@ void Spell::TakeCastItem()
     if (m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_CURRENCY) || m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_REPUTATION) || m_spellInfo->HasEffect(SPELL_EFFECT_ADD_GARRISON_FOLLOWER) || m_spellInfo->HasEffect(SPELL_EFFECT_LEARN_GARRISON_BUILDING))
         alwaysDestroy = true;
 
-    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example http://pastebin.com/bvcaFJyA
+    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example https://pastebin.com/bvcaFJyA
         return;
 
     uint32 itemId = m_CastItem->GetEntry();
@@ -5864,7 +5864,7 @@ bool Spell::CanDestoyCastItem()
     if (m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_CURRENCY) || m_spellInfo->HasEffect(SPELL_EFFECT_GIVE_REPUTATION) || m_spellInfo->HasEffect(SPELL_EFFECT_ADD_GARRISON_FOLLOWER) || m_spellInfo->HasEffect(SPELL_EFFECT_LEARN_GARRISON_BUILDING))
         alwaysDestroy = true;
 
-    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example http://pastebin.com/bvcaFJyA
+    if (m_spellInfo->HasEffect(SPELL_EFFECT_KILL_CREDIT) && !alwaysDestroy) // If item deleted by quest we have crash example https://pastebin.com/bvcaFJyA
         return false;
 
     uint32 itemId = m_CastItem->GetEntry();
@@ -7543,7 +7543,7 @@ SpellCastResult Spell::CheckCast(bool strict)
                 {
                     case SUMMON_CATEGORY_PET:
                         if (!m_spellInfo->HasAttribute(SPELL_ATTR1_DISMISS_PET) && !m_caster->GetPetGUID().IsEmpty() && 
-							m_spellInfo->Id != 118291 && m_spellInfo->Id != 118323 && m_spellInfo->Id != 157319) // Don't show error for shaman controlled elementals 
+                            m_spellInfo->Id != 118291 && m_spellInfo->Id != 118323 && m_spellInfo->Id != 157319) // Don't show error for shaman controlled elementals 
                             return SPELL_FAILED_ALREADY_HAVE_SUMMON;
                     case SUMMON_CATEGORY_PUPPET:
                         if (m_caster->GetCharmGUID())
@@ -7785,7 +7785,7 @@ SpellCastResult Spell::CheckCast(bool strict)
 
                     if (Unit* uTarget = m_targets.GetUnitTarget())
                         if (Player* target = uTarget->ToPlayer())
-                            if (target->IsRessurectRequested())
+                            if (target->IsResurrectRequested())
                                 return SPELL_FAILED_TARGET_HAS_RESURRECT_PENDING;
                 }
                 break;
@@ -9292,7 +9292,7 @@ bool SpellEvent::Execute(uint64 e_time, uint32 p_time)
 
     uint32 _mss = GetMSTimeDiffToNow(_ss);
     if (_mss > 250)
-        sLog->outDiff("SpellEvent::Execute: Caster %u entry %u SpellId %u wait %ums diff %u TargetCount %u", m_Spell->GetCaster()->GetGUIDLow(), m_Spell->GetCaster()->GetEntry(), m_Spell->m_spellInfo->Id, _mss, p_time, m_Spell->GetTargetCount());
+        sLog->outDiff("SpellEvent::Execute: Caster %u entry %u SpellId %u wait %ums diff %u TargetCount " UI64FMTDX, m_Spell->GetCaster()->GetGUIDLow(), m_Spell->GetCaster()->GetEntry(), m_Spell->m_spellInfo->Id, _mss, p_time, m_Spell->GetTargetCount());
 
     m_Spell->GetCaster()->m_Events.AddEvent(this, e_time + 1, false);
     return false;

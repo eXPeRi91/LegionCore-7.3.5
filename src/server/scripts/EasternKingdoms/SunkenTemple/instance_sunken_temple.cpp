@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -73,7 +73,7 @@ public:
         bool s5;
         bool s6;
 
-        void Initialize()
+        void Initialize() override
         {
             GOAtalaiStatue1.Clear();
             GOAtalaiStatue2.Clear();
@@ -93,7 +93,7 @@ public:
             s6 = false;
         }
 
-        void OnGameObjectCreate(GameObject* go)
+        void OnGameObjectCreate(GameObject* go) override
         {
             switch (go->GetEntry())
             {
@@ -107,7 +107,7 @@ public:
             }
         }
 
-         virtual void Update(uint32 /*diff*/) // correct order goes form 1-6
+         virtual void Update(uint32 /*diff*/) override // correct order goes form 1-6
          {
              switch (State)
              {
@@ -187,7 +187,7 @@ public:
          }
          */
 
-         void SetData(uint32 type, uint32 data)
+         void SetData(uint32 type, uint32 data) override
          {
             if (type == EVENT_STATE)
                 State = data;

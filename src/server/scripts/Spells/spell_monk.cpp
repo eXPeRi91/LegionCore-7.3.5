@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -42,10 +42,10 @@ enum MonkVariables
 
 enum StormEarthAndFireSpells
 {
-	SPELL_MONK_SEF = 137639,
+    SPELL_MONK_SEF = 137639,
 
-	NPC_FIRE_SPIRIT = 69791,
-	NPC_EARTH_SPIRIT = 69792
+    NPC_FIRE_SPIRIT = 69791,
+    NPC_EARTH_SPIRIT = 69792
 };
 
 // 137639
@@ -685,7 +685,7 @@ class spell_monk_purifying_brew: public SpellScript
                 if (Aura* aura = caster->GetAura(215479))
                     aura->SetDuration(aura->GetDuration() + dur);
                 else
-                    caster->AddAura(215479, caster, nullptr, NULL, dur);
+                    caster->AddAura(215479, caster, nullptr, 0, dur);
             }
         }
     }
@@ -2171,11 +2171,11 @@ class spell_monk_rising_sun_kick : public SpellScriptLoader
 
             void HandleOnHit()
             {
-                if (AuraEffect const* trigerEff = GetTriggeredAuraEff())
+                if (AuraEffect const* triggerEff = GetTriggeredAuraEff())
                 {
                     if (Unit* caster = GetCaster())
                     {
-                        SetHitDamage(CalculatePct(GetHitDamage(), trigerEff->GetAmount()));
+                        SetHitDamage(CalculatePct(GetHitDamage(), triggerEff->GetAmount()));
                     }
                 }
             }
@@ -2491,25 +2491,25 @@ class spell_monk_chi_orbit : public SpellScriptLoader
                     if (!caster->HasAura(196744))
                     {
                         caster->CastSpell(caster, 196744, true, NULL, aurEff);
-						caster->RemoveAurasDueToSpell(196744);
+                        caster->RemoveAurasDueToSpell(196744);
                         return;
                     }
                     if (!caster->HasAura(196745))
                     {
                         caster->CastSpell(caster, 196745, true, NULL, aurEff);
-						caster->RemoveAurasDueToSpell(196745);
+                        caster->RemoveAurasDueToSpell(196745);
                         return;
                     }
                     if (!caster->HasAura(196746))
                     {
                         caster->CastSpell(caster, 196746, true, NULL, aurEff);
-						caster->RemoveAurasDueToSpell(196746);
+                        caster->RemoveAurasDueToSpell(196746);
                         return;
                     }
                     if (!caster->HasAura(196747))
                     {
                         caster->CastSpell(caster, 196747, true, NULL, aurEff);
-						caster->RemoveAurasDueToSpell(196747);
+                        caster->RemoveAurasDueToSpell(196747);
                         return;
                     }
                 }
@@ -2984,37 +2984,37 @@ class spell_monk_t20_brew_2p : public AuraScript
 class spell_monk_fixate : public SpellScriptLoader
 {
 public:
-	spell_monk_fixate() : SpellScriptLoader("spell_monk_fixate") { }
+    spell_monk_fixate() : SpellScriptLoader("spell_monk_fixate") { }
 
-	class spell_monk_fixate_SpellScript : public SpellScript
-	{
-		PrepareSpellScript(spell_monk_fixate_SpellScript);
+    class spell_monk_fixate_SpellScript : public SpellScript
+    {
+        PrepareSpellScript(spell_monk_fixate_SpellScript);
 
-		void HandleOnCast()
-		{
-			if (Unit* caster = GetCaster())
-				if (Player* player = caster->ToPlayer())
-					if (player->HasAura(SPELL_MONK_SEF))
-						if (Unit* target = player->GetSelectedUnit())
-							for (Unit::ControlList::iterator itr = player->m_Controlled.begin(); itr != player->m_Controlled.end(); ++itr)
-								if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*player, *itr))
-									if (creature->IsAIEnabled && !creature->IsDespawn() && (creature->GetEntry() == NPC_FIRE_SPIRIT || creature->GetEntry() == NPC_EARTH_SPIRIT))
-									{
-										creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
-										creature->AI()->AttackStart(target);
-									}
-		}
+        void HandleOnCast()
+        {
+            if (Unit* caster = GetCaster())
+                if (Player* player = caster->ToPlayer())
+                    if (player->HasAura(SPELL_MONK_SEF))
+                        if (Unit* target = player->GetSelectedUnit())
+                            for (Unit::ControlList::iterator itr = player->m_Controlled.begin(); itr != player->m_Controlled.end(); ++itr)
+                                if (Creature* creature = ObjectAccessor::GetCreatureOrPetOrVehicle(*player, *itr))
+                                    if (creature->IsAIEnabled && !creature->IsDespawn() && (creature->GetEntry() == NPC_FIRE_SPIRIT || creature->GetEntry() == NPC_EARTH_SPIRIT))
+                                    {
+                                        creature->ClearUnitState(UNIT_STATE_MELEE_ATTACKING);
+                                        creature->AI()->AttackStart(target);
+                                    }
+        }
 
-		void Register() override
-		{
-			OnCast += SpellCastFn(spell_monk_fixate_SpellScript::HandleOnCast);
-		}
-	};
+        void Register() override
+        {
+            OnCast += SpellCastFn(spell_monk_fixate_SpellScript::HandleOnCast);
+        }
+    };
 
-	SpellScript* GetSpellScript() const override
-	{
-		return new spell_monk_fixate_SpellScript();
-	}
+    SpellScript* GetSpellScript() const override
+    {
+        return new spell_monk_fixate_SpellScript();
+    }
 };
 
 void AddSC_monk_spell_scripts()
@@ -3076,5 +3076,5 @@ void AddSC_monk_spell_scripts()
     RegisterAuraScript(spell_monk_tigereye_brew);
     RegisterSpellScript(spell_monk_breath_of_fire);
     RegisterAuraScript(spell_monk_t20_brew_2p);
-	new spell_monk_fixate();
+    new spell_monk_fixate();
 }

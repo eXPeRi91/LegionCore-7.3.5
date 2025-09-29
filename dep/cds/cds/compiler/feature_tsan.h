@@ -3,8 +3,8 @@
 
     (C) Copyright Maxim Khizhinsky (libcds.dev@gmail.com) 2006-2017
 
-    Source code repo: http://github.com/khizmax/libcds/
-    Download: http://sourceforge.net/projects/libcds/files/
+    Source code repo: https://github.com/khizmax/libcds/
+    Download: https://sourceforge.net/projects/libcds/files/
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are met:
@@ -32,7 +32,7 @@
 #define CDSLIB_COMPILER_FEATURE_TSAN_H
 
 // Thread Sanitizer annotations.
-// From http://llvm.org/viewvc/llvm-project/compiler-rt/trunk/test/tsan/annotate_happens_before.cc?view=markup
+// From https://llvm.org/viewvc/llvm-project/compiler-rt/trunk/test/tsan/annotate_happens_before.cc?view=markup
 
 //@cond
 

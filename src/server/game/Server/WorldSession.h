@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /// \addtogroup u2w
@@ -357,8 +357,8 @@ namespace WorldPackets
         class NextCinematicCamera;
         class FarSight;
         class OpeningCinematic;
-        class TogglePvP;
-        class SetPvP;
+        class TogglePvp;
+        class SetPvp;
         class ConfirmRespecWipe;
         class ShowTradeSkill;
         class CompleteMovie;
@@ -547,8 +547,8 @@ namespace WorldPackets
         class JoinSkirmish;
         class HearthAndResurrect;
         class JoinRatedBattleground;
-        class ReportPvPPlayerAFK;
-        class RequestPVPRewards;
+        class ReportPvpPlayerAFK;
+        class RequestPvpRewards;
         class SetCemetryPreferrence;
         class AcceptWargameInvite;
         class StartWargame;
@@ -588,7 +588,7 @@ namespace WorldPackets
     namespace Inspect
     {
         class Inspect;
-        class InspectPVPRequest;
+        class InspectPvpRequest;
         class QueryInspectAchievements;
         class RequestHonorStats;
     }
@@ -803,7 +803,7 @@ namespace WorldPackets
         class SetBattleSlot;
         class SetFlags;
         class RequestWild;
-        class RequestPVP;
+        class RequestPvp;
         class ReplaceFrontPet;
         class QueueProposeMatchResult;
         class LeaveQueue;
@@ -1216,7 +1216,7 @@ class WorldSession
 
         Warden* GetWarden() { return _warden; }
 
-        uint32 getDialogStatus(Player* player, Object* questgiver, uint32 defstatus);
+        uint32 GetDialogStatus(Player* player, Object* questgiver, uint32 defstatus);
 
         std::atomic<int32> m_timeOutTime;
 
@@ -1271,7 +1271,7 @@ class WorldSession
 
         void HandleRequestHonorStats(WorldPackets::Inspect::RequestHonorStats& packet);
 
-        void HandleInspectPVP(WorldPackets::Inspect::InspectPVPRequest& packet);
+        void HandleInspectPvp(WorldPackets::Inspect::InspectPvpRequest& packet);
 
         void HandleMountSpecialAnim(WorldPackets::Misc::MountSpecialAnim& packet);
 
@@ -1303,8 +1303,8 @@ class WorldSession
 
         void HandleGMTicketGetSystemStatus(WorldPackets::Ticket::GMTicketGetSystemStatus& packet);
 
-        void HandleTogglePvP(WorldPackets::Misc::TogglePvP& packet);
-        void HandleSetPvP(WorldPackets::Misc::SetPvP& packet);
+        void HandleTogglePvp(WorldPackets::Misc::TogglePvp& packet);
+        void HandleSetPvp(WorldPackets::Misc::SetPvp& packet);
 
         void HandleSetSelectionOpcode(WorldPackets::Misc::SetSelection& packet);
         void HandleStandStateChangeOpcode(WorldPackets::Misc::StandStateChange& packet);
@@ -1494,7 +1494,7 @@ class WorldSession
         void HandleQueryNPCText(WorldPackets::Query::QueryNPCText& packet);
         void HandleBinderActivate(WorldPackets::NPC::Hello& packet);
         void HandleRequestStabledPets(WorldPackets::NPC::RequestStabledPets& packet);
-        void HanleSetPetSlot(WorldPackets::PetPackets::SetPetSlot& packet);
+        void HandleSetPetSlot(WorldPackets::PetPackets::SetPetSlot& packet);
         void HandleStableChangeSlotCallback(PreparedQueryResult const& result, uint8 new_slot);
         void SendTrainerService(ObjectGuid guid, uint32 spellId, uint32 trainState);
 
@@ -1569,7 +1569,7 @@ class WorldSession
         void HandleLearnPvpTalents(WorldPackets::Talent::LearnPvpTalents& packet);
 
         void HandleQuestGiverStatusQuery(WorldPackets::Quest::QuestGiverStatusQuery& packet);
-        void HandleQuestgiverStatusMultipleQuery(WorldPackets::Quest::QuestGiverStatusMultipleQuery& packet);
+        void HandleQuestGiverStatusMultipleQuery(WorldPackets::Quest::QuestGiverStatusMultipleQuery& packet);
         void HandleRequestAreaPoiUpdate(WorldPackets::Quest::RequestAreaPoiUpdate& packet);
         void HandleQuestGiverHello(WorldPackets::Quest::QuestGiverHello& packet);
         void HandleQuestGiverAcceptQuest(WorldPackets::Quest::QuestGiverAcceptQuest& packet);
@@ -1580,7 +1580,7 @@ class WorldSession
         void HandleQueryTreasurePicker(WorldPackets::Quest::QueryTreasurePicker& packet);
         void HandleQuestLogRemoveQuest(WorldPackets::Quest::QuestLogRemoveQuest& packet);
         void HandleQuestConfirmAccept(WorldPackets::Quest::QuestConfirmAccept& packet);
-        void HandleQuestgiverCompleteQuest(WorldPackets::Quest::QuestGiverCompleteQuest& packet);
+        void HandleQuestGiverCompleteQuest(WorldPackets::Quest::QuestGiverCompleteQuest& packet);
         void HandlePushQuestToParty(WorldPackets::Quest::PushQuestToParty& packet);
         void HandleQuestPushResult(WorldPackets::Quest::QuestPushResult& packet);
         void HandleRequestWorldQuestUpdate(WorldPackets::Quest::RequestWorldQuestUpdate& packet);
@@ -1591,7 +1591,7 @@ class WorldSession
 
         void HandleTransmogrifyItems(WorldPackets::Transmogrification::TransmogrifyItems& transmogrifyItems);
 
-        void SendQuestgiverStatusMultipleQuery();
+        void SendQuestGiverStatusMultipleQuery();
 
         bool processChatmessageFurtherAfterSecurityChecks(std::string&, uint32);
         void HandleChatMessageOpcode(WorldPackets::Chat::ChatMessage& packet);
@@ -1671,7 +1671,7 @@ class WorldSession
 
         void HandleBattlemasterHello(WorldPackets::NPC::Hello& packet);
         void HandleBattlemasterJoin(WorldPackets::Battleground::Join& packet);
-        void HandlePVPLogData(WorldPackets::Battleground::NullCmsg& packet);
+        void HandlePvpLogData(WorldPackets::Battleground::NullCmsg& packet);
         void HandleUpdatePrestigeLevel(WorldPackets::Battleground::NullCmsg& packet);
         void HandleBattleFieldPort(WorldPackets::Battleground::Port& packet);
         void HandleBattlefieldList(WorldPackets::Battleground::ListClient& packet);
@@ -1683,10 +1683,10 @@ class WorldSession
         void HandleBattlemasterJoinBrawl(WorldPackets::Battleground::BattlemasterJoinBrawl& packet);
         void JoinBracket(uint8 slot, uint8 rolesMask = ROLES_DEFAULT, uint16 extraBgTypeId = 0);
 
-        void HandleReportPvPPlayerAFK(WorldPackets::Battleground::ReportPvPPlayerAFK& packet);
+        void HandleReportPvpPlayerAFK(WorldPackets::Battleground::ReportPvpPlayerAFK& packet);
         void HandleRequestRatedInfo(WorldPackets::Battleground::NullCmsg& packet);
         void HandleRequestPvpOptions(WorldPackets::Battleground::NullCmsg& packet);
-        void HandleRequestPvpReward(WorldPackets::Battleground::RequestPVPRewards& packet);
+        void HandleRequestPvpReward(WorldPackets::Battleground::RequestPvpRewards& packet);
 
         void HandleMinimapPing(WorldPackets::Party::MinimapPingClient& packet);
         void HandleRandomRollClient(WorldPackets::Misc::RandomRollClient& packet);
@@ -1826,9 +1826,9 @@ class WorldSession
         void HandleJoinPetBattleQueue(WorldPackets::BattlePet::NullCmsg& packet);
         void HandlePetBattleScriptErrorNotify(WorldPackets::BattlePet::NullCmsg& packet);
         void HandleBattlePetDeletePetCheat(WorldPackets::BattlePet::BattlePetGuidRead& packet);
-        void HandlePetBattleRequestPVP(WorldPackets::BattlePet::RequestPVP& packet);
+        void HandlePetBattleRequestPvp(WorldPackets::BattlePet::RequestPvp& packet);
         void HandleReplaceFrontPet(WorldPackets::BattlePet::ReplaceFrontPet& packet);
-        void HanldeQueueProposeMatchResult(WorldPackets::BattlePet::QueueProposeMatchResult& packet);
+        void HandleQueueProposeMatchResult(WorldPackets::BattlePet::QueueProposeMatchResult& packet);
         void HandleLeaveQueue(WorldPackets::BattlePet::LeaveQueue& packet);
         void SendBattlePetUpdates(BattlePet* pet = nullptr, bool add = false);
         void SendBattlePetTrapLevel();
@@ -1845,7 +1845,7 @@ class WorldSession
 
         void SendPetBattleSlotUpdates(bool newSlotUnlocked = false);
         void SendPetBattleRequestFailed(uint8 p_Reason);
-        void SendPetBattlePvPChallenge(PetBattleRequest* petBattleRequest);
+        void SendPetBattlePvpChallenge(PetBattleRequest* petBattleRequest);
         void SendPetBattleFinalizeLocation(PetBattleRequest* petBattleRequest);
         void SendPetBattleInitialUpdate(PetBattle* petBattle);
         void SendPetBattleFirstRound(PetBattle* petBattle);
@@ -1962,7 +1962,7 @@ class WorldSession
         void HandleUpdateListedAuctionableTokens(WorldPackets::Token::UpdateListedAuctionableTokens& packet);
         void HandleRequestConsumptionConversionInfo(WorldPackets::Misc::RequestConsumptionConversionInfo& packet);
         void HandleCheckVeteranTokenEligibility(WorldPackets::Token::CheckVeteranTokenEligibility& packet);
-        void LootCorps(ObjectGuid corpsGUID, WorldObject* lootedBy = nullptr);
+        void LootCorpse(ObjectGuid corpsGUID, WorldObject* lootedBy = nullptr);
 
         void HandleContributionCollectorContribute(WorldPackets::Misc::ContributionCollectorContribute& packet);
         void HandleContributionGetState(WorldPackets::Misc::ContributionGetState& packet);
@@ -2017,8 +2017,8 @@ class WorldSession
         void SetforceExit(bool force = true) { forceExit = force; }
         bool IsforceExit() { return forceExit; }
         
-		float GetPersonalXPRate() { return PersonalXPRate; }
-		void SetPersonalXPRate(float rate);
+        float GetPersonalXPRate() { return PersonalXPRate; }
+        void SetPersonalXPRate(float rate);
 
         void AddDelayedEvent(uint64 timeOffset, std::function<void()>&& function)
         {

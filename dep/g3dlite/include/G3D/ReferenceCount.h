@@ -3,7 +3,7 @@
 
   Reference Counting Garbage Collector for C++
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2001-10-23
   \edited  2013-01-05

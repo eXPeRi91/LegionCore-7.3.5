@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "PetPackets.h"
@@ -89,7 +89,7 @@ void WorldSession::HandlePetAction(WorldPackets::PetPackets::PetAction& packet)
             Unit* unit = ObjectAccessor::GetUnit(*GetPlayer(), guid);
             if (!unit)
                 continue;
-            if ((unit->GetEntry() == pet->GetEntry() || unit->ToCreature() && unit->ToCreature()->m_isHati) && unit->isAlive())
+            if ((unit->GetEntry() == pet->GetEntry() || (unit->ToCreature() && unit->ToCreature()->m_isHati)) && unit->isAlive())
             {
                 if (unit->ToCreature())
                 {
@@ -469,7 +469,7 @@ void WorldSession::HandlePetCastSpellOpcode(WorldPackets::Spells::PetCastSpell& 
     }
 }
 
-void WorldSession::HanleSetPetSlot(WorldPackets::PetPackets::SetPetSlot& packet)
+void WorldSession::HandleSetPetSlot(WorldPackets::PetPackets::SetPetSlot& packet)
 {
     if (!GetPlayer()->GetNPCIfCanInteractWith(packet.NpcGUID, UNIT_NPC_FLAG_STABLEMASTER))
     {

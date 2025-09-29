@@ -3,7 +3,7 @@
 
  Coordinate frame class
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2001-06-02
  \edited  2012-09-29

@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "ConversationData.h"
@@ -74,7 +74,7 @@ void ConversationDataStoreMgr::LoadConversations()
         bool isCreature = conversationCreature && !conversationCreature->empty();
         bool hasData = conversationData && !conversationData->empty();
 
-        if (!hasData || !isActor && !isCreature)
+        if (!hasData || (!isActor && !isCreature))
         {
             TC_LOG_ERROR(LOG_FILTER_SQL, "ConversationDataStoreMgr::LoadConversations() >> Table `conversation` has conversation (GUID: " UI64FMTD ") with non existing conversation data %u, skipped.", guid, entry);
             continue;

@@ -192,16 +192,16 @@ uint32 Npcs []
 };
 
 
-class OutdoorPVPSentinax : public OutdoorPvP
+class OutdoorPvpSentinax : public OutdoorPvp
 {
 public:
 
-    OutdoorPVPSentinax()
+    OutdoorPvpSentinax()
     {
         m_TypeId = OUTDOOR_PVP_SENTINAX;
     }
 
-    bool SetupOutdoorPvP() override 
+    bool SetupOutdoorPvp() override 
     {
         RegisterZone(7543);
         return true;

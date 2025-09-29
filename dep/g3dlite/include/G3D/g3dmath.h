@@ -3,7 +3,7 @@
  
  Math util class.
  
- @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  @cite highestBit by Jukka Liimatta
  
  @created 2001-06-02
@@ -778,12 +778,12 @@ inline bool isPow2(int num) {
 }
 
 inline bool isPow2(uint64 x) {
-    // See http://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/, method #9
+    // See https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/, method #9
     return ((x != 0) && !(x & (x - 1)));
 }
 
 inline bool isPow2(uint32 x) {
-    // See http://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/, method #9
+    // See https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/, method #9
     return ((x != 0) && !(x & (x - 1)));
 }
 

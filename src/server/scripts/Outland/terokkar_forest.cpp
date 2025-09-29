@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -178,7 +178,7 @@ public:
         void Reset() override {}
         void EnterCombat(Unit* /*who*/) override {}
 
-        void DamageTaken(Unit* done_by, uint32 &damage, DamageEffectType /*dmgType*/)
+        void DamageTaken(Unit* done_by, uint32 &damage, DamageEffectType /*dmgType*/) override
         {
             if (done_by && done_by->IsPlayer())
                 if (me->GetHealth() <= damage)
@@ -266,7 +266,7 @@ public:
         void Reset() override {}
         void EnterCombat(Unit* /*who*/) override {}
 
-        void DamageTaken(Unit* done_by, uint32 &damage, DamageEffectType /*dmgType*/)
+        void DamageTaken(Unit* done_by, uint32 &damage, DamageEffectType /*dmgType*/) override
         {
             if (done_by->IsPlayer())
                 if (me->GetHealth() <= damage)
@@ -381,7 +381,7 @@ public:
         return true;
     }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* creature) const override
     {
         return new npc_floonAI (creature);
     }
@@ -530,7 +530,7 @@ public:
         return true;
     }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* creature) const override
     {
         return new npc_isla_starmaneAI(creature);
     }
@@ -661,7 +661,7 @@ public:
         return true;
     }
 
-    CreatureAI* GetAI(Creature* creature) const
+    CreatureAI* GetAI(Creature* creature) const override
     {
         return new npc_akunoAI(creature);
     }
@@ -689,7 +689,7 @@ public:
             }
         }
 
-        void JustSummoned(Creature* summon)
+        void JustSummoned(Creature* summon) override
         {
             summon->AI()->AttackStart(me);
         }

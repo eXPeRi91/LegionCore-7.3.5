@@ -1,6 +1,6 @@
 /*
-* Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
-* Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+* Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+* Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
 *
 * This program is free software; you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
 * more details.
 *
 * You should have received a copy of the GNU General Public License along
-* with this program. If not, see <http://www.gnu.org/licenses/>.
+* with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "BattlePetPackets.h"
@@ -130,8 +130,10 @@ void WorldSession::HandleCageBattlePet(WorldPackets::BattlePet::BattlePetGuidRea
     if (!battlePet)
         return;
 
-    if (sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_CAGEABLE))
-        return;
+    // Check if cage all has been enabled in the config, if not then continue checking the species flag
+    if (!sWorld->getBoolConfig(CONFIG_BATTLEPET_ALLOWCAGEALL))
+        if (!sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_CAGEABLE))
+            return;
 
     ItemPosCountVec dest;
     if (_player->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, BATTLE_PET_CAGE_ITEM_ID, 1) != EQUIP_ERR_OK)
@@ -599,7 +601,7 @@ void WorldSession::HandleBattlePetDelete(WorldPackets::BattlePet::BattlePetGuidR
     if (!battlePet)
         return;
 
-    if (sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
+    if (!sDB2Manager.HasBattlePetSpeciesFlag(battlePet->Species, BATTLEPET_SPECIES_FLAG_RELEASABLE))
         return;
 
     SendBattlePetDeleted(packet.BattlePetGUID);
@@ -689,7 +691,7 @@ void WorldSession::HandlePetBattleScriptErrorNotify(WorldPackets::BattlePet::Nul
 void WorldSession::HandleBattlePetDeletePetCheat(WorldPackets::BattlePet::BattlePetGuidRead& /*packet*/)
 { }
 
-void WorldSession::HandlePetBattleRequestPVP(WorldPackets::BattlePet::RequestPVP& packet)
+void WorldSession::HandlePetBattleRequestPvp(WorldPackets::BattlePet::RequestPvp& packet)
 {
     if (!sWorld->getBoolConfig(CONFIG_PET_BATTLES))
         return;
@@ -751,11 +753,11 @@ void WorldSession::HandlePetBattleRequestPVP(WorldPackets::BattlePet::RequestPVP
         return;
     }
 
-    battleRequest->IsPvPReady[PETBATTLE_TEAM_1] = true;
-    opposant->GetSession()->SendPetBattlePvPChallenge(battleRequest);
+    battleRequest->IsPvpReady[PETBATTLE_TEAM_1] = true;
+    opposant->GetSession()->SendPetBattlePvpChallenge(battleRequest);
 }
 
-void WorldSession::HanldeQueueProposeMatchResult(WorldPackets::BattlePet::QueueProposeMatchResult& packet)
+void WorldSession::HandleQueueProposeMatchResult(WorldPackets::BattlePet::QueueProposeMatchResult& packet)
 {
     if (!sWorld->getBoolConfig(CONFIG_PET_BATTLES))
         return;
@@ -801,9 +803,9 @@ void WorldSession::SendPetBattleRequestFailed(uint8 reason)
     SendPacket(WorldPackets::BattlePet::RequestFailed(reason).Write());
 }
 
-void WorldSession::SendPetBattlePvPChallenge(PetBattleRequest* petBattleRequest)
+void WorldSession::SendPetBattlePvpChallenge(PetBattleRequest* petBattleRequest)
 {
-    WorldPackets::BattlePet::PVPChallenge challengeUpdate;
+    WorldPackets::BattlePet::PvpChallenge challengeUpdate;
     challengeUpdate.ChallengerGUID = petBattleRequest->RequesterGuid;
     challengeUpdate.Location.BattleOrigin = petBattleRequest->PetBattleCenterPosition;
     challengeUpdate.Location.LocationResult = petBattleRequest->LocationResult;
@@ -830,9 +832,9 @@ void WorldSession::SendPetBattleInitialUpdate(PetBattle* petBattle)
 
     WorldPackets::BattlePet::PetBattleInitialUpdate update;
     uint16 waitingForFrontPetsMaxSecs = 30;
-    uint16 pvpMaxRoundTime = 30;
+    uint16 PvpMaxRoundTime = 30;
     uint8 curPetBattleState = 1;
-    bool isPVP = petBattle->BattleType != PETBATTLE_TYPE_PVE;
+    bool isPvp = petBattle->BattleType != PETBATTLE_TYPE_PVE;
 
     if (petBattle->BattleType == PETBATTLE_TYPE_PVE && petBattle->PveBattleType == PVE_PETBATTLE_TRAINER)
     {
@@ -847,10 +849,10 @@ void WorldSession::SendPetBattleInitialUpdate(PetBattle* petBattle)
     update.MsgData.InitialWildPetGUID = petBattle->InitialWildPetGUID;
     update.MsgData.CurRound = petBattle->Turn;
     update.MsgData.WaitingForFrontPetsMaxSecs = waitingForFrontPetsMaxSecs;
-    update.MsgData.PvpMaxRoundTime = pvpMaxRoundTime;
+    update.MsgData.PvpMaxRoundTime = PvpMaxRoundTime;
     update.MsgData.ForfeitPenalty = petBattle->GetForfeitHealthPenalityPct();
     update.MsgData.CurPetBattleState = curPetBattleState;
-    update.MsgData.IsPVP = isPVP;
+    update.MsgData.IsPvp = isPvp;
     update.MsgData.CanAwardXP = petBattle->BattleType != PETBATTLE_TYPE_PVP_DUEL;
 
     for (uint8 i = 0; i < MAX_PETBATTLE_TEAM; i++)
@@ -863,7 +865,7 @@ void WorldSession::SendPetBattleInitialUpdate(PetBattle* petBattle)
         playerUpdate.CharacterID = ownerGuid;
         playerUpdate.TrapAbilityID = petBattle->Teams[i]->GetCatchAbilityID();
         playerUpdate.TrapStatus = i == PETBATTLE_TEAM_1 ? 5 : 2;
-        playerUpdate.RoundTimeSecs = isPVP ? pvpMaxRoundTime : 0;
+        playerUpdate.RoundTimeSecs = isPvp ? PvpMaxRoundTime : 0;
         playerUpdate.InputFlags = PETBATTLE_TEAM_INPUT_FLAG_LOCK_PET_SWAP | PETBATTLE_TEAM_INPUT_FLAG_LOCK_ABILITIES_2;
 
         if (i == PETBATTLE_TEAM_1 || petBattle->Teams[i]->ActivePetID == PETBATTLE_NULL_ID)
@@ -944,8 +946,8 @@ void WorldSession::SendPetBattleFirstRound(PetBattle* petBattle)
 {
     // TC_LOG_DEBUG(LOG_FILTER_BATTLEPET, "SendPetBattleFirstRound");
 
-    auto isPVP = petBattle->BattleType != PETBATTLE_TYPE_PVE;
-    uint16 pvpMaxRoundTime = isPVP ? 30 : 0;
+    auto isPvp = petBattle->BattleType != PETBATTLE_TYPE_PVE;
+    uint16 PvpMaxRoundTime = isPvp ? 30 : 0;
 
     WorldPackets::BattlePet::BattleRound firstRound(SMSG_PET_BATTLE_FIRST_ROUND);
     firstRound.MsgData.CurRound = petBattle->Turn;
@@ -955,7 +957,7 @@ void WorldSession::SendPetBattleFirstRound(PetBattle* petBattle)
     {
         firstRound.MsgData.NextInputFlags[i] = petBattle->Teams[i]->GetTeamInputFlags();
         firstRound.MsgData.NextTrapStatus[i] = petBattle->Teams[i]->GetTeamTrapStatus();
-        firstRound.MsgData.RoundTimeSecs[i] = pvpMaxRoundTime;
+        firstRound.MsgData.RoundTimeSecs[i] = PvpMaxRoundTime;
     }
 
     firstRound.MsgData.PetXDied = petBattle->PetXDied;
@@ -1024,8 +1026,8 @@ void WorldSession::SendPetBattleRoundResult(PetBattle* petBattle)
 {
     // TC_LOG_DEBUG(LOG_FILTER_BATTLEPET, "SendPetBattleRoundResult");
 
-    auto isPVP = petBattle->BattleType != PETBATTLE_TYPE_PVE;
-    uint16 pvpMaxRoundTime = isPVP ? 30 : 0;
+    auto isPvp = petBattle->BattleType != PETBATTLE_TYPE_PVE;
+    uint16 PvpMaxRoundTime = isPvp ? 30 : 0;
 
     WorldPackets::BattlePet::BattleRound roundResult(SMSG_PET_BATTLE_ROUND_RESULT);
     roundResult.MsgData.CurRound = petBattle->Turn;
@@ -1035,7 +1037,7 @@ void WorldSession::SendPetBattleRoundResult(PetBattle* petBattle)
     {
         roundResult.MsgData.NextInputFlags[i] = petBattle->Teams[i]->GetTeamInputFlags();
         roundResult.MsgData.NextTrapStatus[i] = petBattle->Teams[i]->GetTeamTrapStatus();
-        roundResult.MsgData.RoundTimeSecs[i] = pvpMaxRoundTime;
+        roundResult.MsgData.RoundTimeSecs[i] = PvpMaxRoundTime;
     }
 
     roundResult.MsgData.PetXDied = petBattle->PetXDied;
@@ -1067,7 +1069,7 @@ void WorldSession::SendPetBattleRoundResult(PetBattle* petBattle)
         bool isDead = false;
         for (const auto & update : roundEvent.Updates)
         {
-            isDead = update.State.ID == BATTLEPET_STATE_Is_Dead;
+            isDead = update.State.ID == BATTLEPET_STATE_IsDead;
             WorldPackets::BattlePet::PetBattleEffectTarget effectTargetUpdate;
             effectTargetUpdate.Type = update.UpdateType;
             effectTargetUpdate.Petx = update.TargetPetID;
@@ -1103,8 +1105,8 @@ void WorldSession::SendPetBattleRoundResult(PetBattle* petBattle)
 
 void WorldSession::SendPetBattleReplacementMade(PetBattle* petBattle)
 {
-    auto isPVP = petBattle->BattleType != PETBATTLE_TYPE_PVE;
-    uint16 pvpMaxRoundTime = isPVP ? 30 : 0;
+    auto isPvp = petBattle->BattleType != PETBATTLE_TYPE_PVE;
+    uint16 PvpMaxRoundTime = isPvp ? 30 : 0;
 
     WorldPackets::BattlePet::BattleRound replacementMade(SMSG_PET_BATTLE_REPLACEMENTS_MADE);
     replacementMade.MsgData.CurRound = petBattle->Turn;
@@ -1114,7 +1116,7 @@ void WorldSession::SendPetBattleReplacementMade(PetBattle* petBattle)
     {
         replacementMade.MsgData.NextInputFlags[i] = petBattle->Teams[i]->GetTeamInputFlags();
         replacementMade.MsgData.NextTrapStatus[i] = petBattle->Teams[i]->GetTeamTrapStatus();
-        replacementMade.MsgData.RoundTimeSecs[i] = pvpMaxRoundTime;
+        replacementMade.MsgData.RoundTimeSecs[i] = PvpMaxRoundTime;
     }
 
     replacementMade.MsgData.PetXDied = petBattle->PetXDied;
@@ -1235,7 +1237,7 @@ void WorldSession::SendPetBattleQueueStatus(uint32 ticketTime, uint32 tcketID, u
     WorldPackets::BattlePet::PetBattleQueueStatus statusUpdate;
     statusUpdate.Msg.Ticket.RequesterGuid = GetBattlenetAccountGUID();
     statusUpdate.Msg.Ticket.Id = tcketID;
-    statusUpdate.Msg.Ticket.Type = WorldPackets::LFG::RideType::PvPPetBattle;
+    statusUpdate.Msg.Ticket.Type = WorldPackets::LFG::RideType::PvpPetBattle;
     statusUpdate.Msg.Ticket.Time = ticketTime;
     statusUpdate.Msg.Status = status;
 
@@ -1334,10 +1336,10 @@ void WorldSession::SendBattlePetJournal()
     if (unlockedSlotCount)
         _player->SetFlag(PLAYER_FIELD_PLAYER_FLAGS, PLAYER_FLAGS_PET_BATTLES_UNLOCKED);
 
-    WorldPackets::BattlePet::BattlePetJournal responce;
-    responce.NumMaxPets = BATTLE_PET_MAX_JOURNAL_PETS;
-    responce.TrapLevel = _player->GetBattlePetTrapLevel();
-    responce.HasJournalLock = true;
+    WorldPackets::BattlePet::BattlePetJournal response;
+    response.NumMaxPets = BATTLE_PET_MAX_JOURNAL_PETS;
+    response.TrapLevel = _player->GetBattlePetTrapLevel();
+    response.HasJournalLock = true;
 
     for (uint32 i = 0; i < MAX_PETBATTLE_SLOTS; i++)
     {
@@ -1347,7 +1349,7 @@ void WorldSession::SendBattlePetJournal()
         slot.Locked = !(i + 1 <= unlockedSlotCount);
         if (petSlots[i])
             slot.Pet.BattlePetGUID = petSlots[i]->JournalID;
-        responce.Slots.emplace_back(slot);
+        response.Slots.emplace_back(slot);
     }
 
     for (auto const& pet : *pets)
@@ -1372,10 +1374,10 @@ void WorldSession::SendBattlePetJournal()
         info.CustomName = v->Name;
         //info.OwnerGuid;
         //info.NoRename = false;
-        responce.Pets.emplace_back(info);
+        response.Pets.emplace_back(info);
     }
 
-    SendPacket(responce.Write());
+    SendPacket(response.Write());
 }
 
 void WorldSession::SendBattlePetDeleted(ObjectGuid battlePetGUID)

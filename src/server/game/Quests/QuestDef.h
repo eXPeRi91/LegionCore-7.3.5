@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef QUEST_H
@@ -405,7 +405,8 @@ class Quest
         // table data accessors:
         uint32 GetQuestId() const { return Id; }
         QuestObjectives const& GetObjectives() const { return Objectives; };
-        uint32 MoneyValue(uint8 playerLVL) const;
+        uint32 MoneyValue(uint8 playerLevel) const;
+        uint32 GetScaledQuestLevel(uint8 playerLevel) const;
         uint32 GetRewMoneyMaxLevel() const; // use in XP calculation at client
         bool   IsRepeatable() const { return (SpecialFlags & QUEST_SPECIAL_FLAGS_REPEATABLE) != 0; }
         bool   IsAutoAccept() const;
@@ -445,6 +446,8 @@ class Quest
         uint32 RewardCurrencyCount[QUEST_REWARD_CURRENCY_COUNT] = { };
 
         void BuildQuestRewards(WorldPackets::Quest::QuestRewards& rewards, Player* player) const;
+
+        static uint32 RoundXPValue(uint32 xp);
 
         PrevQuests prevQuests;
         PrevChainQuests prevChainQuests;

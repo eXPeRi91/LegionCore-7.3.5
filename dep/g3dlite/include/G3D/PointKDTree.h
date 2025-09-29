@@ -1,7 +1,7 @@
 /**
   @file PointKDTree.h
   
-  @maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  @maintainer Morgan McGuire, https://graphics.cs.williams.edu
  
   @created 2004-01-11
   @edited  2012-07-30

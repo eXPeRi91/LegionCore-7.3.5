@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2017 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2017 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef LFGPacketsCommon_h__
@@ -30,7 +30,7 @@ namespace WorldPackets
             None = 0,
             Battlegrounds = 1,
             Lfg = 2,
-            PvPPetBattle = 3,
+            PvpPetBattle = 3,
             LfgListApplication = 4, // LFGListParty
             PetBattle = 5,
             LfgListApplicant = 6, // LFGListPlayer

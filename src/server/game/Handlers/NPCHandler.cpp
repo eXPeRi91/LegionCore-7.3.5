@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Common.h"
@@ -574,13 +574,13 @@ void WorldSession::SendListInventory(ObjectGuid const& vendorGuid, uint32 entry)
                     if (!(itemTemplate->AllowableClass & player->getClassMask()) && itemTemplate->GetBonding() == BIND_WHEN_PICKED_UP)
                         continue;
 
-                // Custom MoP Script for Pandarens Mounts (Alliance)
+                // Custom MoP Script for Pandaren Mounts (Alliance)
                 if (itemTemplate->GetClass() == 15 && itemTemplate->GetSubClass() == 5 && player->getRace() != RACE_PANDAREN_ALLIANCE
                     && player->getRace() != RACE_PANDAREN_HORDE && player->getRace() != RACE_PANDAREN_NEUTRAL
                     && vendor->GetEntry() == 65068 && player->GetReputationRank(1353) != REP_EXALTED)
                     continue;
 
-                // Custom MoP Script for Pandarens Mounts (Horde)
+                // Custom MoP Script for Pandaren Mounts (Horde)
                 if (itemTemplate->GetClass() == 15 && itemTemplate->GetSubClass() == 5 && player->getRace() != RACE_PANDAREN_ALLIANCE
                     && player->getRace() != RACE_PANDAREN_HORDE && player->getRace() != RACE_PANDAREN_NEUTRAL
                     && vendor->GetEntry() == 66022 && player->GetReputationRank(1352) != REP_EXALTED)
@@ -643,10 +643,13 @@ void WorldSession::SendListInventory(ObjectGuid const& vendorGuid, uint32 entry)
             if (vendorItem->Money != 0)
                 price = vendorItem->Money;
             else if (vendorItem->IsGoldRequired(itemTemplate))
-                price = uint64(itemTemplate->GetBuyPrice() * discountMod);
+                price = uint64(itemTemplate->GetBuyPrice());
 
-            //if (int32 priceMod = player->GetTotalAuraModifier(SPELL_AURA_MOD_VENDOR_ITEMS_PRICES))
-                 //price -= CalculatePct(price, priceMod);
+            // reputation discount
+            price = uint64(floor(price * discountMod));
+
+            if (int32 priceMod = player->GetTotalAuraModifier(SPELL_AURA_MOD_VENDOR_ITEMS_PRICES))
+                 price -= CalculatePct(price, priceMod);
 
             //Hack for donate
             if (vendorItem->DonateCost != 0)
@@ -662,7 +665,7 @@ void WorldSession::SendListInventory(ObjectGuid const& vendorGuid, uint32 entry)
                 item.PlayerConditionFailed = vendorItem->PlayerConditionID;
             item.Type = vendorItem->Type;
             item.Quantity = leftInStock;
-            item.StackCount = itemTemplate->VendorStackCount;
+            item.StackCount = itemTemplate->GetBuyCount();
             item.Price = price;
             item.Item.Initialize(vendorItem);
         }

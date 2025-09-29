@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public    License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __BATTLEGROUNDQUEUE_H
@@ -70,7 +70,7 @@ public:
     uint16 GenerateRandomMap(uint16 bgTypeId);
     bool TryChooseCommandWithRoles(uint8 bracketID, uint8 teamId, uint8 healers, uint8 tanks, uint8 dd, uint8 teamIdPool);
     bool CheckSkirmishOrLFGBrawl(uint8 bracketID, bool isSkirmish = true);
-    GroupQueueInfo* AddGroup(Player* leader, Group* group, uint16 bgTypeId, PVPDifficultyEntry const* bracketEntry, uint8 ArenaType = 0, bool isRated = false, bool isPremade = false, WorldPackets::Battleground::IgnorMapInfo ignore = WorldPackets::Battleground::IgnorMapInfo(), uint32 mmr = 0, uint32 _Team = 0);
+    GroupQueueInfo* AddGroup(Player* leader, Group* group, uint16 bgTypeId, PvpDifficultyEntry const* bracketEntry, uint8 ArenaType = 0, bool isRated = false, bool isPremade = false, WorldPackets::Battleground::IgnorMapInfo ignore = WorldPackets::Battleground::IgnorMapInfo(), uint32 mmr = 0, uint32 _Team = 0);
     void RemovePlayer(ObjectGuid guid, bool decreaseInvitedCount);
     void RemovePlayerQueue(ObjectGuid guid, bool decreaseInvitedCount);
     bool IsPlayerInvited(ObjectGuid pl_guid, uint32 const bgInstanceGuid, uint32 const removeTime);

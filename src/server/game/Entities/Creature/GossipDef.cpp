@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "QuestDef.h"
@@ -41,7 +41,7 @@ GossipMenu::~GossipMenu()
 
 void GossipMenu::AddMenuItem(int32 menuItemId, uint8 icon, std::string const& message, uint32 sender, uint32 action, std::string const& boxMessage, uint32 boxMoney, uint32 boxCurrency, bool coded /*= false*/)
 {
-    if (!this || _menuItems.size() > GOSSIP_MAX_MENU_ITEMS)
+    if (_menuItems.size() > GOSSIP_MAX_MENU_ITEMS)
         return;
     //ASSERT(_menuItems.size() <= GOSSIP_MAX_MENU_ITEMS);
 
@@ -223,9 +223,6 @@ bool PlayerMenu::IsGossipOptionCoded(uint32 selection) const
 
 void PlayerMenu::SendGossipMenu(uint32 titleTextId, ObjectGuid objectGUID, uint32 friendshipFactionID /*= 0*/) const
 {
-    if (!this)
-        return;
-
     WorldPackets::NPC::GossipMessage packet;
     packet.GossipGUID = objectGUID;
     packet.TextID = titleTextId;
@@ -380,7 +377,7 @@ void PlayerMenu::SendQuestGiverQuestList(uint32 BroadcastTextID, ObjectGuid npcG
             if (QuestTemplateLocale const* ql = sQuestDataStore->GetQuestLocale(questMenuItem.QuestId))
                 ObjectMgr::GetLocaleString(ql->LogTitle, _session->GetSessionDbLocaleIndex(), title);
 
-            questList.GossipTexts.emplace_back(questMenuItem.QuestId, questMenuItem.QuestIcon, quest->Level, quest->MaxScalingLevel, quest->Flags, quest->FlagsEx, quest->IsRepeatable(), title);
+            questList.GossipTexts.emplace_back(questMenuItem.QuestId, questMenuItem.QuestIcon, quest->GetScaledQuestLevel(player->getLevel()), quest->MaxScalingLevel, quest->Flags, quest->FlagsEx, quest->IsRepeatable(), title);
         }
     }
 

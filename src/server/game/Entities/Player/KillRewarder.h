@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2015 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef KillRewarder_h__
@@ -47,14 +47,14 @@ private:
     Unit* _victim;
     Group* _group;
     uint32 _count;
-    uint32 _countForRep;
+    uint32 _aliveSumLevel;
     uint32 _sumLevel;
     uint32 _xp;
     float _groupRate;
     uint8 _maxLevel;
     bool _isBattleGround;
     bool _isFullXP;
-    bool _isPvP;
+    bool _isPvp;
 };
 
 #endif // KillRewarder_h__

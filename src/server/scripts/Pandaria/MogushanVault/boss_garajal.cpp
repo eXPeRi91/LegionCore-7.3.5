@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "mogu_shan_vault.h"
@@ -319,9 +319,9 @@ class mob_spirit_totem : public CreatureScript
                 GetPlayerListInGrid(playerList, me, 5.0f);
 
                 uint8 count = 0;
-				for (std::list<Player*>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
+                for (std::list<Player*>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
                 {
-					Player* player = *itr;
+                    Player* player = *itr;
                     
                     if (player->HasAura(SPELL_FRAIL_SOUL))
                     {
@@ -478,7 +478,7 @@ class mob_soul_cutter : public CreatureScript
                 std::unordered_set<ObjectGuid> playerList;
                 me->GetMustBeVisibleForPlayersList(playerList);
 
-				for (std::unordered_set<ObjectGuid>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
+                for (std::unordered_set<ObjectGuid>::iterator itr = playerList.begin(); itr != playerList.end(); ++itr)
                 {
                     if (Player* player = ObjectAccessor::FindPlayer(*itr))
                     {

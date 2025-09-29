@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2011 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "pit_of_saron.h"
@@ -410,13 +410,13 @@ public:
         ObjectGuid m_uiTyrannusGuid;
         ObjectGuid m_uiMageLeaftGuid;
         ObjectGuid m_uiMageRightGuid;
-        ObjectGuid m_uiSkeletGuid[12];
+        ObjectGuid m_uiSkeletGuid[13];
         ObjectGuid muiCastNpcStart;
         ObjectGuid m_uiDeathGuid;
         uint8 m_uiIntro_Phase;
         bool m_bIsIntro;
         bool m_bIsIntroEnd;
-        ObjectGuid m_uiChampAlianceGuid[12];
+        ObjectGuid m_uiChampAlianceGuid[13];
         uint32 creatureEntry;
 
         void Reset() override
@@ -1334,13 +1334,13 @@ public:
             ObjectGuid m_uiTyrannusGuid;
             ObjectGuid m_uiMageLeaftGuid;
             ObjectGuid m_uiMageRightGuid;
-            ObjectGuid m_uiSkeletGuid[12];
+            ObjectGuid m_uiSkeletGuid[13];
             ObjectGuid muiCastNpcStart;
             ObjectGuid m_uiDeathGuid;
             uint8 m_uiIntro_Phase;
             bool m_bIsIntro;
             bool m_bIsIntroEnd;
-            ObjectGuid m_uiChampHordeGuid[12];
+            ObjectGuid m_uiChampHordeGuid[13];
             uint32 creatureEntry;
     
 

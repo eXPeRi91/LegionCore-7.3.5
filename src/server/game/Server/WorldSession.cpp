@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /** \file
@@ -227,7 +227,7 @@ void WorldSession::SendPacket(WorldPacket const* packet, bool forced /*= false*/
     uint32 start_time = getMSTime();
     const_cast<WorldPacket*>(packet)->FlushBits();
 
-    if (m_Socket[conIdx]) // http://pastebin.com/8ntVgj49
+    if (m_Socket[conIdx]) // https://pastebin.com/8ntVgj49
         m_Socket[conIdx]->SendPacket(*packet);
 
     if ((getMSTime() - start_time) > 50)
@@ -359,8 +359,8 @@ bool WorldSession::Update(uint32 diff, Map* map)
                         break;
                     }
 
-                    // some auth opcodes can be recieved before STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT opcodes
-                    // however when we recieve CMSG_ENUM_CHARACTERS we are surely no longer during the logout process.
+                    // some auth opcodes can be received before STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT opcodes
+                    // however when we receive CMSG_ENUM_CHARACTERS we are surely no longer during the logout process.
                     if (packet->GetOpcode() == CMSG_ENUM_CHARACTERS)
                         m_playerRecentlyLogout = false;
 
@@ -511,8 +511,8 @@ void WorldSession::LogoutPlayer(bool Save)
 
         if (_player->GetMap())
         {
-            sOutdoorPvPMgr->HandlePlayerLeaveZone(_player->GetGUID(), _player->GetCurrentZoneID());
-            sOutdoorPvPMgr->HandlePlayerLeaveArea(_player->GetGUID(), _player->GetCurrentAreaID());
+            sOutdoorPvpMgr->HandlePlayerLeaveZone(_player->GetGUID(), _player->GetCurrentZoneID());
+            sOutdoorPvpMgr->HandlePlayerLeaveArea(_player->GetGUID(), _player->GetCurrentAreaID());
         }
 
         _player->SetDelete();
@@ -565,7 +565,7 @@ void WorldSession::LogoutPlayer(bool Save)
             if (_killer)
             {
                 _player->RemoveAllAurasOnDeath();
-                _player->SetPvPDeath(!aset.empty());
+                _player->SetPvpDeath(!aset.empty());
                 _player->KillPlayer();
                 _player->BuildPlayerRepop();
                 _player->RepopAtGraveyard();
@@ -911,8 +911,8 @@ void WorldSession::SetAccountData(AccountDataType type, time_t tm /*= time_t(0)*
 void WorldSession::SendSetTimeZoneInformation()
 {
     WorldPackets::System::SetTimeZoneInformation packet;
-    packet.ServerTimeTZ = sWorld->m_serverTimeTZ;    //RTL: Europe/Paris
-    packet.GameTimeTZ = sWorld->m_gameTimeTZ;      //RTL: Europe/Paris
+    packet.ServerTimeTZ = sWorld->m_serverTimeTZ;    //RTL: America/Chicago
+    packet.GameTimeTZ = sWorld->m_gameTimeTZ;      //RTL: America/Chicago
     SendPacket(packet.Write());
 }
 

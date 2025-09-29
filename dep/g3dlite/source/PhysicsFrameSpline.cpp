@@ -1,7 +1,7 @@
 /**
   \file PhysicsFrameSpline.cpp
 
-  \author Morgan McGuire, http://graphics.cs.williams.edu
+  \author Morgan McGuire, https://graphics.cs.williams.edu
  */
 #include "G3D/PhysicsFrameSpline.h"
 #include "G3D/Any.h"

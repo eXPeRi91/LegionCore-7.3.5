@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef _LFG_H
@@ -138,7 +138,7 @@ enum LfgLockStatusType
     LFG_LOCKSTATUS_TARGET_LEVEL_TOO_LOW          = 8,      // not used in lockedReason
     LFG_LOCKSTATUS_AREA_NOT_EXPLORED             = 9,
     LFG_LOCKSTATUS_WRONG_FACTION                 = 10,     // LFG_INSTANCE_INVALID_WRONG_FACTION - not used in lockedReason
-    LFG_LOCKSTATUS_NOT_COMLETE_CHALANGE          = 11,     // Not cpmplete chalange(scenario)
+    LFG_LOCKSTATUS_NOT_COMPLETE_CHALLENGE        = 11,     // Not complete challenge (scenario)
     LFG_LOCKSTATUS_NOT_HAVE_ARTIFACT             = 14,     // Not have artifact
     LFG_LOCKSTATUS_ATTUNEMENT_TOO_LOW_LEVEL      = 1001,
     LFG_LOCKSTATUS_ATTUNEMENT_TOO_HIGH_LEVEL     = 1002,

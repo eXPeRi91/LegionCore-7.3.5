@@ -1,7 +1,7 @@
 /**
   \file G3D.lib/source/AABox.cpp
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
   \created 2004-01-10
   \edited  2013-06-11
@@ -35,7 +35,7 @@ AABox::AABox(const Any& a) {
         } else if (a.size() == 2) {
             set(Point3(a[0]), Point3(a[1]));
         } else {
-            a.verify(false, "AABox must recieve exactly 1 or two arguments.");
+            a.verify(false, "AABox must receive exactly 1 or two arguments.");
         }
     }
 }

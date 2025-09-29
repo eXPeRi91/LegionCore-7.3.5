@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2014 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2014 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Challenge.h"
@@ -281,9 +281,11 @@ void Challenge::Update(uint32 diff)
             keyOwner->ChallengeKeyCharded(_item, _challengeLevel);
         else
         {
-            if (keyOwner = ObjectAccessor::FindPlayer(m_ownerGuid))
+            keyOwner = ObjectAccessor::FindPlayer(m_ownerGuid);
+            if (keyOwner)
             {
-                if (_item = keyOwner->GetItemByGuid(m_itemGuid))
+                _item = keyOwner->GetItemByGuid(m_itemGuid);
+                if (_item)
                     keyOwner->ChallengeKeyCharded(_item, _challengeLevel);
                 else
                     CharacterDatabase.PQuery("UPDATE challenge_key SET KeyIsCharded = 0, InstanceID = 0 WHERE guid = %u", m_ownerGuid.GetGUIDLow());
@@ -344,9 +346,6 @@ void Challenge::Start()
 
     m_Functions.AddFunction([this]() -> void
     {
-        if (!this)
-            return;
-
         _challengeTimer = 0;
         SendStartElapsedTimer();
 
@@ -417,9 +416,11 @@ void Challenge::Complete()
     }
     else
     {
-        if (keyOwner = ObjectAccessor::FindPlayer(m_ownerGuid))
+        keyOwner = ObjectAccessor::FindPlayer(m_ownerGuid);
+        if (keyOwner)
         {
-            if (_item = keyOwner->GetItemByGuid(m_itemGuid))
+            _item = keyOwner->GetItemByGuid(m_itemGuid);
+            if (_item)
                 keyOwner->ChallengeKeyCharded(_item, _challengeLevel);
             else
                 CharacterDatabase.PQuery("UPDATE challenge_key SET KeyIsCharded = 0, InstanceID = 0 WHERE guid = %u", m_ownerGuid.GetGUIDLow());

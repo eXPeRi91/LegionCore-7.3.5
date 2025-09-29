@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Opcodes.h"
@@ -539,7 +539,7 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_INITIATE_ROLE_POLL,                                 STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleInitiateRolePoll);
     DEFINE_HANDLER(CMSG_INITIATE_TRADE,                                     STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleInitiateTrade);
     DEFINE_HANDLER(CMSG_INSPECT,                                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleInspect);
-    DEFINE_HANDLER(CMSG_INSPECT_PVP,                                        STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleInspectPVP);
+    DEFINE_HANDLER(CMSG_INSPECT_PVP,                                        STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleInspectPvp);
     DEFINE_HANDLER(CMSG_INSTANCE_LOCK_RESPONSE,                             STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleInstanceLockResponse);
     DEFINE_HANDLER(CMSG_ITEM_PURCHASE_REFUND,                               STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleItemPurchaseRefund);
     DEFINE_HANDLER(CMSG_ITEM_TEXT_QUERY,                                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleItemTextQuery);
@@ -679,10 +679,10 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_PET_ACTION,                                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetAction);
     DEFINE_HANDLER(CMSG_PET_BATTLE_FINAL_NOTIFY,                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleFinalNotify);
     DEFINE_HANDLER(CMSG_PET_BATTLE_INPUT,                                   STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleInput);
-    DEFINE_HANDLER(CMSG_PET_BATTLE_QUEUE_PROPOSE_MATCH_RESULT,              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HanldeQueueProposeMatchResult);
+    DEFINE_HANDLER(CMSG_PET_BATTLE_QUEUE_PROPOSE_MATCH_RESULT,              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQueueProposeMatchResult);
     DEFINE_HANDLER(CMSG_PET_BATTLE_QUIT_NOTIFY,                             STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleQuitNotify);
     DEFINE_HANDLER(CMSG_PET_BATTLE_REPLACE_FRONT_PET,                       STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleReplaceFrontPet);
-    DEFINE_HANDLER(CMSG_PET_BATTLE_REQUEST_PVP,                             STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleRequestPVP);
+    DEFINE_HANDLER(CMSG_PET_BATTLE_REQUEST_PVP,                             STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleRequestPvp);
     DEFINE_HANDLER(CMSG_PET_BATTLE_REQUEST_UPDATE,                          STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleRequestUpdate);
     DEFINE_HANDLER(CMSG_PET_BATTLE_REQUEST_WILD,                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleRequestWild);
     DEFINE_HANDLER(CMSG_PET_BATTLE_SCRIPT_ERROR_NOTIFY,                     STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePetBattleScriptErrorNotify);
@@ -701,7 +701,7 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_PLAYER_LOGIN,                                       STATUS_AUTHED,    PROCESS_THREADUNSAFE, &WorldSession::HandlePlayerLoginOpcode);
     DEFINE_HANDLER(CMSG_PROTOCOL_MISMATCH,                                  STATUS_UNHANDLED, PROCESS_INPLACE,      &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_PUSH_QUEST_TO_PARTY,                                STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandlePushQuestToParty);
-    DEFINE_HANDLER(CMSG_PVP_LOG_DATA,                                       STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandlePVPLogData);
+    DEFINE_HANDLER(CMSG_PVP_LOG_DATA,                                       STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandlePvpLogData);
     DEFINE_HANDLER(CMSG_PVP_PRESTIGE_RANK_UP,                               STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleUpdatePrestigeLevel);
     DEFINE_HANDLER(CMSG_QUERY_ADVENTURE_MAP_POI,                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQueryAdventureMapPOI);
     DEFINE_HANDLER(CMSG_QUERY_BATTLE_PET_NAME,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleBattlePetNameQuery);
@@ -729,11 +729,11 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_QUEST_CONFIRM_ACCEPT,                               STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestConfirmAccept);
     DEFINE_HANDLER(CMSG_QUEST_GIVER_ACCEPT_QUEST,                           STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverAcceptQuest);
     DEFINE_HANDLER(CMSG_QUEST_GIVER_CHOOSE_REWARD,                          STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverChooseReward);
-    DEFINE_HANDLER(CMSG_QUEST_GIVER_COMPLETE_QUEST,                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestgiverCompleteQuest);
+    DEFINE_HANDLER(CMSG_QUEST_GIVER_COMPLETE_QUEST,                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverCompleteQuest);
     DEFINE_HANDLER(CMSG_QUEST_GIVER_HELLO,                                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverHello);
     DEFINE_HANDLER(CMSG_QUEST_GIVER_QUERY_QUEST,                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverQueryQuest);
     DEFINE_HANDLER(CMSG_QUEST_GIVER_REQUEST_REWARD,                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverRequestReward);
-    DEFINE_HANDLER(CMSG_QUEST_GIVER_STATUS_MULTIPLE_QUERY,                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestgiverStatusMultipleQuery);
+    DEFINE_HANDLER(CMSG_QUEST_GIVER_STATUS_MULTIPLE_QUERY,                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestGiverStatusMultipleQuery);
     DEFINE_HANDLER(CMSG_QUEST_GIVER_STATUS_QUERY,                           STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleQuestGiverStatusQuery);
     DEFINE_HANDLER(CMSG_QUEST_LOG_REMOVE_QUEST,                             STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestLogRemoveQuest);
     DEFINE_HANDLER(CMSG_QUEST_POI_QUERY,                                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleQuestPOIQuery);
@@ -759,7 +759,7 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_REPORT_CLIENT_VARIABLES,                            STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleSaveClientVariables);
     DEFINE_HANDLER(CMSG_REPORT_ENABLED_ADDONS,                              STATUS_UNHANDLED, PROCESS_INPLACE,      &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_REPORT_KEYBINDING_EXECUTION_COUNTS,                 STATUS_UNHANDLED, PROCESS_INPLACE,      &WorldSession::Handle_NULL);
-    DEFINE_HANDLER(CMSG_REPORT_PVP_PLAYER_AFK,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleReportPvPPlayerAFK);
+    DEFINE_HANDLER(CMSG_REPORT_PVP_PLAYER_AFK,                              STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleReportPvpPlayerAFK);
     DEFINE_HANDLER(CMSG_REQUEST_ACCOUNT_DATA,                               STATUS_AUTHED,    PROCESS_THREADUNSAFE, &WorldSession::HandleRequestAccountData);
     DEFINE_HANDLER(CMSG_REQUEST_AREA_POI_UPDATE,                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleRequestAreaPoiUpdate);
     DEFINE_HANDLER(CMSG_REQUEST_BATTLEFIELD_STATUS,                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleBattlefieldStatus);
@@ -831,10 +831,10 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_SET_LOOT_SPECIALIZATION,                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetLootSpecialization);
     DEFINE_HANDLER(CMSG_SET_PARTY_ASSIGNMENT,                               STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetPartyAssignment);
     DEFINE_HANDLER(CMSG_SET_PARTY_LEADER,                                   STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetPartyLeader);
-    DEFINE_HANDLER(CMSG_SET_PET_SLOT,                                       STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HanleSetPetSlot);
+    DEFINE_HANDLER(CMSG_SET_PET_SLOT,                                       STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetPetSlot);
     DEFINE_HANDLER(CMSG_SET_PLAYER_DECLINED_NAMES,                          STATUS_AUTHED,    PROCESS_THREADUNSAFE, &WorldSession::HandleSetPlayerDeclinedNames);
     DEFINE_HANDLER(CMSG_SET_PREFERRED_CEMETERY,                             STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleSetCemetryPreferrence);
-    DEFINE_HANDLER(CMSG_SET_PVP,                                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetPvP);
+    DEFINE_HANDLER(CMSG_SET_PVP,                                            STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetPvp);
     DEFINE_HANDLER(CMSG_SET_RAID_DIFFICULTY,                                STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetRaidDifficulty);
     DEFINE_HANDLER(CMSG_SET_ROLE,                                           STATUS_LOGGEDIN,  PROCESS_INPLACE,      &WorldSession::HandleSetRole);
     DEFINE_HANDLER(CMSG_SET_SAVED_INSTANCE_EXTEND,                          STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleSetSavedInstanceExtend);
@@ -883,7 +883,7 @@ void OpcodeTable::Initialize()
     DEFINE_HANDLER(CMSG_TIME_SYNC_RESPONSE_DROPPED,                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleTimeSyncResponseDropped);
     DEFINE_HANDLER(CMSG_TIME_SYNC_RESPONSE_FAILED,                          STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleTimeSyncResponseFailed);
     DEFINE_HANDLER(CMSG_TOGGLE_DIFFICULTY,                                  STATUS_UNHANDLED, PROCESS_INPLACE,      &WorldSession::Handle_NULL);
-    DEFINE_HANDLER(CMSG_TOGGLE_PVP,                                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleTogglePvP);
+    DEFINE_HANDLER(CMSG_TOGGLE_PVP,                                         STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleTogglePvp);
     DEFINE_HANDLER(CMSG_TOTEM_DESTROYED,                                    STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleTotemDestroyed);
     DEFINE_HANDLER(CMSG_TRADE_SKILL_SET_FAVORITE,                           STATUS_UNHANDLED, PROCESS_INPLACE,      &WorldSession::Handle_NULL);
     DEFINE_HANDLER(CMSG_TRAINER_BUY_SPELL,                                  STATUS_LOGGEDIN,  PROCESS_THREADUNSAFE, &WorldSession::HandleTrainerBuySpell);

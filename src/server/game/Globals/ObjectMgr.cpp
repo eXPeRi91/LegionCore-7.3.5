@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "AreaTriggerData.h"
@@ -1831,7 +1831,7 @@ void ObjectMgr::LoadCreatures()
     QueryResult result = WorldDatabase.Query("SELECT creature.guid, id, map, zoneId, areaId, modelid, equipment_id, position_x, position_y, position_z, orientation, spawntimesecs, spawndist, "
     //        12            13         14          15           16        17         18          19             20                21                   22                    23                    24
         "currentwaypoint, curhealth, curmana, MovementType, spawnMask, phaseMask, eventEntry, pool_entry, creature.npcflag, creature.npcflag2, creature.unit_flags, creature.unit_flags3, creature.dynamicflags, "
-    //           25                26          27       28		   29	    30		    31               32
+    //          25                26           27       28        29        30            31             32
         "creature.isActive, creature.PhaseId, AiID, MovementID, MeleeID, skipClone, personal_size, isTeemingSpawn "
         "FROM creature "
         "LEFT OUTER JOIN game_event_creature ON creature.guid = game_event_creature.guid "
@@ -1894,7 +1894,7 @@ void ObjectMgr::LoadCreatures()
         data.npcflag        = fields[index++].GetUInt32();
         data.npcflag2       = fields[index++].GetUInt32();
         data.unit_flags     = fields[index++].GetUInt32();
-        data.unit_flags3	= fields[index++].GetUInt32();
+        data.unit_flags3    = fields[index++].GetUInt32();
         data.dynamicflags   = fields[index++].GetUInt32();
         data.isActive       = fields[index++].GetBool();
 
@@ -3629,8 +3629,8 @@ void ObjectMgr::LoadPlayerInfo()
 
         TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, ">> Loaded %u xp for level definitions in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
     }
-	
-	// Load playercreate quests (for fun?)
+    
+    // Load playercreate quests (for fun?)
     TC_LOG_INFO(LOG_FILTER_SERVER_LOADING, "Loading Player Create Quests Data...");
     {
         oldMSTime = getMSTime();
@@ -4240,7 +4240,7 @@ uint32 ObjectMgr::GetNearestTaxiNode(float x, float y, float z, uint32 mapid, Pl
         if ((sTaxiNodesMask[field] & submask) == 0)
             continue;
 
-        float dist2 = (node->Pos.X - x)*(node->Pos.X - x) + (node->Pos.Y - y)*(node->Pos.Y - y) + (node->Pos.Z - z)*(node->Pos.Z - z);
+        float dist2 = (node->Pos.X - x) * (node->Pos.X - x) + (node->Pos.Y - y) * (node->Pos.Y - y) + (node->Pos.Z - z) * (node->Pos.Z - z);
         if (found)
         {
             if (dist2 < dist)
@@ -4527,7 +4527,7 @@ WorldSafeLocsEntry const* ObjectMgr::GetClosestGraveYard(float x, float y, float
         if (MapId != entry->MapID)
         {
             // if find graveyard at different map from where entrance placed (or no entrance data), use any first
-            if (!mapEntry || !outInstance && (mapEntry->CorpseMapID < 0 || uint32(mapEntry->CorpseMapID) != entry->MapID || (mapEntry->CorpsePos.X == 0.0f && mapEntry->CorpsePos.Y == 0.0f)))
+            if (!mapEntry || (!outInstance && (mapEntry->CorpseMapID < 0 || uint32(mapEntry->CorpseMapID) != entry->MapID || (mapEntry->CorpsePos.X == 0.0f && mapEntry->CorpsePos.Y == 0.0f))))
             {
                 // not have any corrdinates for check distance anyway
                 entryFar = entry;
@@ -4822,13 +4822,13 @@ void ObjectMgr::SetHighestGuids()
         ObjectAccessor::SetGuidSize(HighGuid::Player, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = WorldDatabase.Query("SELECT MAX(guid) FROM creature"))
+    if ((result = WorldDatabase.Query("SELECT MAX(guid) FROM creature")))
     {
         _creatureGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::Creature, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = CharacterDatabase.Query("SELECT MAX(guid) FROM item_instance"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(guid) FROM item_instance")))
         _itemGuidGenerator.Set((*result)[0].GetUInt64() + 1);
 
     // Cleanup other tables from not existed guids ( >= _hiItemGuid)
@@ -4837,64 +4837,64 @@ void ObjectMgr::SetHighestGuids()
     CharacterDatabase.PExecute("DELETE FROM auctionhouse WHERE itemguid >= '%u'", _itemGuidGenerator.GetNextAfterMaxUsed());         // One-time query
     CharacterDatabase.PExecute("DELETE FROM guild_bank_item WHERE item_guid >= '%u'", _itemGuidGenerator.GetNextAfterMaxUsed());     // One-time query
 
-    if (result = WorldDatabase.Query("SELECT MAX(guid) FROM gameobject"))
+    if ((result = WorldDatabase.Query("SELECT MAX(guid) FROM gameobject")))
     {
         _gameObjectGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::GameObject, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = WorldDatabase.Query("SELECT MAX(guid) FROM transports"))
+    if ((result = WorldDatabase.Query("SELECT MAX(guid) FROM transports")))
     {
         _moTransportGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::Transport, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = CharacterDatabase.Query("SELECT MAX(id) FROM auctionhouse"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(id) FROM auctionhouse")))
         _auctionId = (*result)[0].GetUInt32()+1;
 
-    if (result = CharacterDatabase.Query("SELECT MAX(id) FROM mail"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(id) FROM mail")))
         _mailId = (*result)[0].GetUInt32()+1;
 
-    if (result = CharacterDatabase.Query("SELECT MAX(corpseGuid) FROM corpse"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(corpseGuid) FROM corpse")))
     {
         _corpseGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::Corpse, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = WorldDatabase.Query("SELECT MAX(guid) FROM conversation"))
+    if ((result = WorldDatabase.Query("SELECT MAX(guid) FROM conversation")))
     {
         _conversationGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::Conversation, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = CharacterDatabase.Query("SELECT MAX(setguid) FROM character_equipmentsets"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(setguid) FROM character_equipmentsets")))
         _equipmentSetGuid = (*result)[0].GetUInt64()+1;
 
-    if (result = CharacterDatabase.Query("SELECT MAX(ID) FROM report_complaints"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(ID) FROM report_complaints")))
         _reportComplaintID = (*result)[0].GetUInt64()+1;
 
-    if (result = CharacterDatabase.Query("SELECT MAX(ID) FROM report_bugreport"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(ID) FROM report_bugreport")))
         _supportTicketSubmitBugID = (*result)[0].GetUInt64()+1;
 
-    if (result = CharacterDatabase.Query("SELECT MAX(guildId) FROM guild"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(guildId) FROM guild")))
         sGuildMgr->SetNextGuildId((*result)[0].GetUInt64()+1);
 
-    if (result = CharacterDatabase.Query("SELECT MAX(guid) FROM `groups`"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(guid) FROM `groups`")))
         sGroupMgr->SetGroupDbStoreSize((*result)[0].GetUInt32()+1);
 
-    if (result = CharacterDatabase.Query("SELECT MAX(itemId) from character_void_storage"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(itemId) from character_void_storage")))
         _voidItemId = (*result)[0].GetUInt64()+1;
 
-    if (result = CharacterDatabase.Query("SELECT MAX(id) FROM account_battlepet"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(id) FROM account_battlepet")))
         _BattlePetGuidGenerator.Set((*result)[0].GetUInt64() + 1);
 
-    if (result = WorldDatabase.Query("SELECT MAX(guid) FROM eventobject"))
+    if ((result = WorldDatabase.Query("SELECT MAX(guid) FROM eventobject")))
     {
         _EventObjectGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::EventObject, (*result)[0].GetUInt64() + 1);
     }
 
-    if (result = CharacterDatabase.Query("SELECT MAX(ID) FROM challenge"))
+    if ((result = CharacterDatabase.Query("SELECT MAX(ID) FROM challenge")))
     {
         _scenarioGuidGenerator.Set((*result)[0].GetUInt64() + 1);
         ObjectAccessor::SetGuidSize(HighGuid::Scenario, (*result)[0].GetUInt64() + 1);
@@ -6642,7 +6642,7 @@ void ObjectMgr::LoadDonateVendors()
     if (sWorld->getBoolConfig(CONFIG_DISABLE_DONATELOADING))
         return;
 
-    // donate venodrs for Tokens    
+    // donate vendors for Tokens    
     uint32 oldMSTime = getMSTime();
     m_donate_waite = true;
     std::lock_guard<std::recursive_mutex> guard(m_donate_lock);

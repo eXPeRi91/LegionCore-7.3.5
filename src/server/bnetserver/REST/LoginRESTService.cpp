@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2016 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "LoginRESTService.h"
@@ -143,7 +143,7 @@ void LoginRESTService::Run()
         return;
     }
 
-    TC_LOG_INFO(LOG_FILTER_BATTLENET, "REST Login service bound to http://%s:%d", _bindIP.c_str(), _port);
+    TC_LOG_INFO(LOG_FILTER_BATTLENET, "REST Login service bound to https://%s:%d", _bindIP.c_str(), _port);
 
     http_post_handlers handlers[] =
     {

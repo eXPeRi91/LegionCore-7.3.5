@@ -16,7 +16,7 @@ enum eAshranDatas
     AshranPreAreaAlliance       = 7332,
     AshranHordeBase             = 7099,
     AshranAllianceBase          = 7100,
-    AshranPvPAreaID             = 24,
+    AshranPvpAreaID             = 24,
     EmberfallTowerAreaID        = 7080,
     VolrathsAdvanceAreaID       = 7476,
     ArchmageOverwatchAreaID     = 7479,
@@ -31,7 +31,7 @@ enum eAshranDatas
     AncientArtifactMaxTime      = 30 * MINUTE * IN_MILLISECONDS,
 
     /// Generic data
-    BattlefieldWorldPvP         = 0x20000,
+    BattlefieldWorldPvp         = 0x20000,
     AshranHallowedGroundH       = 7782,
     AshranHallowedGroundA       = 7781,
     AshranHallowedGroundID      = 42989,

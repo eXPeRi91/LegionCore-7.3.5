@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -225,7 +225,7 @@ public:
             if (CharTitlesEntry const* tEntry = sCharTitlesStore.LookupEntry(i))
                 titles2 &= ~(uint64(1) << tEntry->MaskID);
 
-        titles &= ~titles2;                                     // remove not existed titles
+        titles &= ~titles2;                                     // remove non-existent titles
 
         target->SetUInt64Value(PLAYER_FIELD_KNOWN_TITLES, titles);
         handler->SendSysMessage(LANG_DONE);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "throne_of_thunder.h"
@@ -93,7 +93,7 @@ class boss_ra_den : public CreatureScript
                 me->RemoveAurasDueToSpell(SPELL_LINGERING_ENERGIES);
                 me->RemoveAurasDueToSpell(SPELL_IMBUED_WITH_VITA);
                 me->RemoveAurasDueToSpell(SPELL_IMBUED_WITH_ANIMA);
-				me->RemoveAurasDueToSpell(SPELL_RUIN);
+                me->RemoveAurasDueToSpell(SPELL_RUIN);
                 me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_REMOVE_CLIENT_CONTROL);
                 if (instance)
                     instance->DoRemoveAurasDueToSpellOnPlayers(SPELL_UNLEASHED_ANIMA);
@@ -338,7 +338,10 @@ class npc_corrupted_sphere : public CreatureScript
 
             void Reset()
             {
-                newx, lastx, newy, lasty = 0;
+                newx = 0;
+                lastx = 0;
+                newy = 0;
+                lasty = 0;
                 events.RescheduleEvent(EVENT_MOVING, 1000);
             }
 

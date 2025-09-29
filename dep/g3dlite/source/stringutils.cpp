@@ -1,7 +1,7 @@
 /**
  \file stringutils.cpp
 
- \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+ \maintainer Morgan McGuire, https://graphics.cs.williams.edu
 
  \created 2000-09-09
  \edited  2011-08-20
@@ -98,7 +98,7 @@ std::string replace(const std::string& s, const std::string& pattern, const std:
     if (pattern.length() == 0) {
         return s;
     }
-	std::string temp = "";
+    std::string temp = "";
     size_t lastindex = 0;
     size_t nextindex = 0;
     do {

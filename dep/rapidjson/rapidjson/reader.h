@@ -5,7 +5,7 @@
 // Licensed under the MIT License (the "License"); you may not use this file except
 // in compliance with the License. You may obtain a copy of the License at
 //
-// http://opensource.org/licenses/MIT
+// https://opensource.org/licenses/MIT
 //
 // Unless required by applicable law or agreed to in writing, software distributed
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
@@ -1080,7 +1080,7 @@ private:
         RAPIDJSON_FORCEINLINE Ch Peek() const { return is.Peek(); }
         RAPIDJSON_FORCEINLINE Ch TakePush() { return is.Take(); }
         RAPIDJSON_FORCEINLINE Ch Take() { return is.Take(); }
-		  RAPIDJSON_FORCEINLINE void Push(char) {}
+        RAPIDJSON_FORCEINLINE void Push(char) {}
 
         size_t Tell() { return is.Tell(); }
         size_t Length() { return 0; }

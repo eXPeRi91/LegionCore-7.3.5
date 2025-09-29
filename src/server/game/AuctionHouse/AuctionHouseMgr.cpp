@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Common.h"
@@ -135,7 +135,7 @@ void AuctionHouseMgr::SendAuctionWonMail(AuctionEntry* auction, SQLTransaction& 
 
             uint32 owner_accid = ObjectMgr::GetPlayerAccountIdByGUID(ownerGuid);
 
-            sLog->outCommand(bidder_accId, "GM %s (Account: %u) won item in auction: %s (Entry: %u Count: %u) and pay money: %u. Original owner %s (Account: %u)",
+            sLog->outCommand(bidder_accId, "GM %s (Account: %u) won item in auction: %s (Entry: %u Count: %u) and pay money: " UI64FMTD ". Original owner %s (Account: %u)",
                 bidder_name.c_str(), bidder_accId, pItem->GetTemplate()->GetName()->Str[bidder ? bidder->GetSession()->GetSessionDbLocaleIndex() : DEFAULT_LOCALE], pItem->GetEntry(), pItem->GetCount(), auction->bid, owner_name.c_str(), owner_accid);
         }
     }
@@ -850,7 +850,7 @@ bool AuctionEntry::LoadFromFieldList(Field* fields)
 
     if (!auctionHouseEntry)
     {
-		TC_LOG_DEBUG(LOG_FILTER_SERVER_LOADING, "AuctionEntry::LoadFromFieldList() - Auction %u has auctioneer Entry: %u with wrong faction %u", Id, auctioneer, factionTemplateId);
+        TC_LOG_DEBUG(LOG_FILTER_SERVER_LOADING, "AuctionEntry::LoadFromFieldList() - Auction %u has auctioneer Entry: %u with wrong faction %u", Id, auctioneer, factionTemplateId);
         return false;
     }
 

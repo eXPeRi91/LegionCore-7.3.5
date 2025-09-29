@@ -184,7 +184,7 @@ struct boss_imonar : BossAI
             berserkTimer = 480 * IN_MILLISECONDS;
     }
 
-    void EnterEvadeMode()
+    void EnterEvadeMode() override
     {
         BossAI::EnterEvadeMode();
         SetFlyMode(false);
@@ -494,10 +494,10 @@ struct boss_imonar : BossAI
         {
             switch (eventId)
             {
-				case EVENT_SHOCK_LANCE:
+                case EVENT_SHOCK_LANCE:
                     DoCastTopAggro(SPELL_SHOCK_LANCE);
                     events.RescheduleEvent(EVENT_SHOCK_LANCE, 5000);
-					break;
+                    break;
                 case EVENT_SLEEP_CANISTER:
                     DoCast(SPELL_SLEEP_CANISTER_FILTER);
                     events.RescheduleEvent(EVENT_SLEEP_CANISTER, 12000);

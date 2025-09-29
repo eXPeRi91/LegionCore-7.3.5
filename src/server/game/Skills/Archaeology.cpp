@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005-2013 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2005-2013 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -619,7 +619,7 @@ bool Player::SolveResearchProject(uint32 spellId, SpellCastTargets& targets)
 
     bool gmCast = isGameMaster();
 
-    if (!entry || !HasResearchProject(entry->ID) && !gmCast)
+    if (!entry || (!HasResearchProject(entry->ID) && !gmCast))
         return false;
 
     ResearchBranchEntry const* branch = nullptr;

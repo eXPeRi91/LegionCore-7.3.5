@@ -1,7 +1,7 @@
 /**
   \file G3D/enumclass.h
 
-  \maintainer Morgan McGuire, http://graphics.cs.williams.edu
+  \maintainer Morgan McGuire, https://graphics.cs.williams.edu
   \created 2007-01-27
   \edited  2013-04-09
 */
@@ -50,7 +50,7 @@ namespace G3D {
   \endcode
 
   Extends the "Intelligent Enum" design pattern 
-  http://www.codeguru.com/cpp/cpp/cpp_mfc/article.php/c4001/
+  https://www.codeguru.com/cpp/cpp/cpp_mfc/article.php/c4001/
 
   Enum classes are initialized to their zero value by default.
 
@@ -271,7 +271,7 @@ public:\
         __VA_ARGS__\
     } value;\
 \
-    /* The static variables here may be duplicated in different shared object binaries (DLLs), but that's ok--we only depend on their values, not their uniqueness.  See also http://stackoverflow.com/questions/11962918/local-static-variable-is-instantiated-multiple-times-why */\
+    /* The static variables here may be duplicated in different shared object binaries (DLLs), but that's ok--we only depend on their values, not their uniqueness.  See also https://stackoverflow.com/questions/11962918/local-static-variable-is-instantiated-multiple-times-why */\
     static const char* toString(int i, Value& v) {\
         static const char** str = G3D::_internal::smartEnumParseNames(#__VA_ARGS__);\
         static const Value val[] = {__VA_ARGS__};\

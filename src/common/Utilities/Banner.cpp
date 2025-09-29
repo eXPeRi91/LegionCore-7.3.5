@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "Banner.h"
@@ -34,7 +34,7 @@ void Trinity::Banner::Show(char const* applicationName, void(*log)(char const* t
     log("                   /$$  \\ $$                                                               ");
     log("                  |  $$$$$$/                                                                ");
     log("                   \\______/                                                                ");
-    log("http://TrinityCore.org \n                                                                   ");
+    log("https://TrinityCore.org \n                                                                   ");
 
     if (logExtraInfo)
         logExtraInfo();

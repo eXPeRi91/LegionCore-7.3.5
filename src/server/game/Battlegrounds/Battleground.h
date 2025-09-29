@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __BATTLEGROUND_H
@@ -41,14 +41,14 @@ class Unit;
 class WorldObject;
 class WorldPacket;
 struct BattlegroundScore;
-struct PVPDifficultyEntry;
+struct PvpDifficultyEntry;
 struct WorldSafeLocsEntry;
 
 namespace WorldPackets
 {
     namespace Battleground
     {
-        class PVPLogData;
+        class PvpLogData;
         struct BattlegroundPlayerPosition;
     }
 
@@ -334,7 +334,7 @@ public:
     void SetQueueID(uint64 newID) { m_QueueID = newID; }
     void SetTypeID(uint16 TypeID) { m_TypeID = TypeID; }
     void SetRandomTypeID(uint16 TypeID) { m_RandomTypeID = TypeID; }
-    void SetBracket(PVPDifficultyEntry const* bracketEntry);
+    void SetBracket(PvpDifficultyEntry const* bracketEntry);
     void SetInstanceID(uint32 InstanceID) { m_InstanceID = InstanceID; }
     void SetStatus(BattlegroundStatus Status) { m_Status = Status; }
     void SetClientInstanceID(uint32 InstanceID) { m_ClientInstanceID = InstanceID; }
@@ -426,7 +426,7 @@ public:
     Group* GetBgRaid(uint32 TeamID) const { return TeamID == ALLIANCE ? m_BgRaids[TEAM_ALLIANCE] : m_BgRaids[TEAM_HORDE]; }
     void SetBgRaid(uint32 TeamID, Group* bg_raid);
 
-    void BuildPvPLogDataPacket(WorldPackets::Battleground::PVPLogData& pvpLogData);
+    void BuildPvpLogDataPacket(WorldPackets::Battleground::PvpLogData& PvpLogData);
     virtual bool UpdatePlayerScore(Player* player, uint32 type, uint32 value, bool doAddHonor = true);
 
     uint32 GetPlayersCountByTeam(uint32 Team) const;

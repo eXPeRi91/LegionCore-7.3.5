@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,7 +12,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 /* ScriptData
@@ -120,7 +120,7 @@ EnumName<UnitFlags> const unitFlags[MAX_UNIT_FLAGS] =
 EnumName<UnitFlags2> const unitFlags2[MAX_UNIT_FLAGS2] =
 {
     CREATE_NAMED_ENUM(UNIT_FLAG2_FEIGN_DEATH),
-    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK1),
+    CREATE_NAMED_ENUM(UNIT_FLAG2_HIDE_BODY),
     CREATE_NAMED_ENUM(UNIT_FLAG2_IGNORE_REPUTATION),
     CREATE_NAMED_ENUM(UNIT_FLAG2_COMPREHEND_LANG),
     CREATE_NAMED_ENUM(UNIT_FLAG2_MIRROR_IMAGE),
@@ -134,19 +134,19 @@ EnumName<UnitFlags2> const unitFlags2[MAX_UNIT_FLAGS2] =
     CREATE_NAMED_ENUM(UNIT_FLAG2_PREVENT_SPELL_CLICK),
     CREATE_NAMED_ENUM(UNIT_FLAG2_ALLOW_ENEMY_INTERACT),
     CREATE_NAMED_ENUM(UNIT_FLAG2_DISABLE_TURN),
-    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK2),
+    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK1),
     CREATE_NAMED_ENUM(UNIT_FLAG2_PLAY_DEATH_ANIM),
     CREATE_NAMED_ENUM(UNIT_FLAG2_ALLOW_CHEAT_SPELLS),
+    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK2),
     CREATE_NAMED_ENUM(UNIT_FLAG2_UNK3),
     CREATE_NAMED_ENUM(UNIT_FLAG2_UNK4),
     CREATE_NAMED_ENUM(UNIT_FLAG2_UNK5),
-    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK6),
     CREATE_NAMED_ENUM(UNIT_FLAG2_NO_ACTIONS),
     CREATE_NAMED_ENUM(UNIT_FLAG2_SWIM_PREVENT),
     CREATE_NAMED_ENUM(UNIT_FLAG2_HIDE_IN_COMBAT_LOG),
     CREATE_NAMED_ENUM(UNIT_FLAG2_PREVENT_SELECT_NPC),
     CREATE_NAMED_ENUM(UNOT_FLAG2_IGNORE_SPELL_MIN_RANGE_RESTRICTIONS),
-    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK7),
+    CREATE_NAMED_ENUM(UNIT_FLAG2_UNK6),
 };
 EnumName<CreatureFlagsExtra> const flagsExtra[FLAGS_EXTRA_COUNT] =
 {
@@ -488,7 +488,7 @@ public:
         return true;
     }
 
-    //change level of creature or pet
+    // change level of creature or pet
     static bool HandleNpcSetLevelCommand(ChatHandler* handler, const char* args)
     {
         if (!*args)
@@ -521,8 +521,8 @@ public:
         }
         else
         {
-            creature->SetMaxHealth(100 + 30*lvl);
-            creature->SetHealth(100 + 30*lvl);
+            creature->SetMaxHealth(100 + 30 * lvl);
+            creature->SetHealth(100 + 30 * lvl);
             creature->SetLevel(lvl);
             creature->SaveToDB();
         }
@@ -964,7 +964,7 @@ public:
                 if (dynamicFlags & UNIT_DYNFLAG_HIDE_MODEL)
                     ss_flags << "HideModel ";
                 if (dynamicFlags & UNIT_DYNFLAG_NOT_SELECTABLE_MODEL)
-                    ss_flags << "NotSlectableModel ";
+                    ss_flags << "NotSelectableModel ";
                 if (dynamicFlags & UNIT_DYNFLAG_LOOTABLE)
                     ss_flags << "Lootable ";
                 if (dynamicFlags & UNIT_DYNFLAG_TRACK_UNIT)
@@ -975,8 +975,8 @@ public:
                     ss_flags << "SpecialInfo ";
                 if (dynamicFlags & UNIT_DYNFLAG_REFER_A_FRIEND)
                     ss_flags << "ReferFriend ";
-                if (dynamicFlags & UNIT_DYNFLAG_DISABLE_SAME_INTARACT)
-                    ss_flags << "DisableSameIntaract";
+                if (dynamicFlags & UNIT_DYNFLAG_DISABLE_SAME_INTERACT)
+                    ss_flags << "DisableSameInteract";
             }
             else
                 ss_flags << "0";
@@ -984,7 +984,8 @@ public:
             handler->PSendSysMessage("DynamicFlags: %s", ss_flags.str().c_str());
         }
 
-        handler->PSendSysMessage(LANG_NPCINFO_LEVEL, target->getLevel());
+        handler->PSendSysMessage("Level: %u, Effective: %u", target->getLevel(), target->GetEffectiveLevel());
+        handler->PSendSysMessage("Scale Min: %u, Scale Max: %u", target->ScaleLevelMin, target->ScaleLevelMax);
         handler->PSendSysMessage(LANG_NPCINFO_HEALTH, target->GetCreateHealth(), target->GetMaxHealth(), target->GetHealth());
         handler->PSendSysMessage(LANG_NPCINFO_FLAGS, target->getFaction());
         handler->PSendSysMessage(LANG_COMMAND_RAWPAWNTIMES, defRespawnDelayStr.c_str(), curRespawnDelayStr.c_str());
@@ -1276,7 +1277,7 @@ public:
             }
         }
 
-        // now lowguid is low guid really existed creature
+        // now lowguid is low guid really existing creature
         // and creature point (maybe) to this creature or NULL
 
         MovementGeneratorType move_type;

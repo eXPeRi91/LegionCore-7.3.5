@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include "thunder_forge.h"
@@ -959,7 +959,7 @@ public:
             {
                 case NPC_SHA_FIEND:
                     point = urand(0, 12);
-                    if (sha = me->SummonCreature(NPC_SHA_FIEND, shaFiendPositions[point], TEMPSUMMON_DEAD_DESPAWN))
+                    if ((sha = me->SummonCreature(NPC_SHA_FIEND, shaFiendPositions[point], TEMPSUMMON_DEAD_DESPAWN)))
                         sha->AddAura(SPELL_SMALL_SHA_FIXATE, target);
                     break;
                 case NPC_SHA_BEAST:

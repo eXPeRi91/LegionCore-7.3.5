@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
- * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
+ * Copyright (C) 2008-2012 TrinityCore <https://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <https://www.getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -13,7 +13,7 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program. If not, see <http://www.gnu.org/licenses/>.
+ * with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef TRINITY_MAP_H
@@ -55,7 +55,7 @@ class InstanceSave;
 class InstanceScript;
 class MapInstanced;
 class Object;
-class OutdoorPvP;
+class OutdoorPvp;
 class Player;
 class TempSummon;
 class Unit;
@@ -312,7 +312,7 @@ class Map
 
         virtual void Update(const uint32);
         virtual void UpdateSessions(uint32 diff);
-        void UpdateOutdoorPvP(uint32 diff);
+        void UpdateOutdoorPvp(uint32 diff);
 
         uint32 GetCurrentDiff() const;
 
@@ -627,7 +627,7 @@ class Map
         uint32 m_sessionTime;
         uint32 m_mapLoopCounter;
 
-        std::set<OutdoorPvP*>* OutdoorPvPList{};
+        std::set<OutdoorPvp*>* OutdoorPvpList{};
         std::set<Battlefield*>* BattlefieldList;
 
         bool CanUnloadMap();
@@ -645,7 +645,7 @@ class Map
 
         std::set<Scenario*> m_scenarios;
 
-        void UpdateOutdoorPvPScript();
+        void UpdateOutdoorPvpScript();
 
     private:
         void LoadMapAndVMap(int gx, int gy);

@@ -348,18 +348,18 @@ void PetBattleSystem::Update(uint32 diff)
                             size_t playerOpposantPetCount = 0;
 
                             auto battle = sPetBattleSystem->CreateBattle();
-                            battle->PvPMatchMakingRequest.LocationResult = 0;
-                            battle->PvPMatchMakingRequest.TeamPosition[PETBATTLE_TEAM_1] = location.Positions[0];
-                            battle->PvPMatchMakingRequest.TeamPosition[PETBATTLE_TEAM_2] = location.Positions[1];
+                            battle->PvpMatchMakingRequest.LocationResult = 0;
+                            battle->PvpMatchMakingRequest.TeamPosition[PETBATTLE_TEAM_1] = location.Positions[0];
+                            battle->PvpMatchMakingRequest.TeamPosition[PETBATTLE_TEAM_2] = location.Positions[1];
 
                             Position battleCenterPosition((location.Positions[0].GetPositionX() + location.Positions[1].GetPositionX()) / 2, (location.Positions[0].GetPositionY() + location.Positions[1].GetPositionY()) / 2, (location.Positions[0].GetPositionZ() + location.Positions[1].GetPositionZ()) / 2);
-                            battle->PvPMatchMakingRequest.PetBattleCenterPosition = battleCenterPosition;
+                            battle->PvpMatchMakingRequest.PetBattleCenterPosition = battleCenterPosition;
 
                             auto const& l_One = location.Positions[PETBATTLE_TEAM_1];
                             auto const& l_Second = location.Positions[PETBATTLE_TEAM_2];
 
                             float angle = atan2(l_Second.GetPositionY() - l_One.GetPositionY(), l_Second.GetPositionX() - l_One.GetPositionX());
-                            battle->PvPMatchMakingRequest.PetBattleCenterPosition.m_orientation = (angle >= 0) ? angle : 2 * M_PI + angle;
+                            battle->PvpMatchMakingRequest.PetBattleCenterPosition.m_orientation = (angle >= 0) ? angle : 2 * M_PI + angle;
 
                             for (size_t i = 0; i < MAX_PETBATTLE_SLOTS; ++i)
                             {
@@ -420,8 +420,8 @@ void PetBattleSystem::Update(uint32 diff)
                             }
 
                             battle->BattleType = PETBATTLE_TYPE_PVP_MATCHMAKING;
-                            battle->PvPMatchMakingRequest.IsPvPReady[PETBATTLE_TEAM_1] = false;
-                            battle->PvPMatchMakingRequest.IsPvPReady[PETBATTLE_TEAM_2] = false;
+                            battle->PvpMatchMakingRequest.IsPvpReady[PETBATTLE_TEAM_1] = false;
+                            battle->PvpMatchMakingRequest.IsPvpReady[PETBATTLE_TEAM_2] = false;
 
                             // Launch battle
                             leftPlayer->_petBattleId = battle->ID;

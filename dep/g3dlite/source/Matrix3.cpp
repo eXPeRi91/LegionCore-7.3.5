@@ -121,7 +121,7 @@ bool Matrix3::isOrthonormal() const {
 //----------------------------------------------------------------------------
 Matrix3::Matrix3(const Quat& _q) {
     // Implementation from Watt and Watt, pg 362
-    // See also http://www.flipcode.com/documents/matrfaq.html#Q54
+    // See also https://www.flipcode.com/documents/matrfaq.html#Q54
     Quat q = _q;
     q.unitize();
     float xx = 2.0f * q.x * q.x;
